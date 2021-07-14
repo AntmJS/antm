@@ -1,0 +1,51 @@
+{
+  "name": "@antmjs/stylelint",
+  "version": "0.0.0",
+  "main": "index.js",
+  "author": "三少 <hi_sanshao@outlook.com>",
+  "description": "样式统一规范工具库",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://registry.npmjs.org"
+  },
+  "keywords": [
+    "stylelint",
+    "standard",
+    "prettier"
+  ],
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/AntmJS/antm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AntmJS/antm/issues/new"
+  },
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6.4",
+    "yarn": ">=1.22"
+  },
+  "browserslist": [
+    "last 3 versions",
+    "Chrome >= 35",
+    "ChromeAndroid >= 35",
+    "iOS >= 8",
+    "Safari >= 8",
+    "Android >= 4.1",
+    "QQAndroid >= 4.1",
+    "UCAndroid >= 4.1"
+  ],
+  "scripts": {
+    "build": "",
+    "test:watch": "",
+    "test": ""
+  },
+  "peerDependencies": {
+    "stylelint": "^13.13.1"
+  },
+  "dependencies": {
+    "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-standard": "^22.0.0"
+  }
+}
