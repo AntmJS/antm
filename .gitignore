@@ -2,7 +2,6 @@
 *.lock
 *.swp
 
-.github
 .cache
 .temp
 .idea
