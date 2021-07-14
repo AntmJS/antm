@@ -5,6 +5,8 @@
       "message": "chore(release): publish %s"
     }
   },
-  "packages": ["packages/*"],
-  "version": "0.0.0"
+  "packages": [
+    "packages/*"
+  ],
+  "version": "0.1.0"
 }
