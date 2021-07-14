@@ -1,0 +1,17 @@
+*.log
+*.lock
+*.swp
+
+.github
+.cache
+.temp
+.idea
+.rn_temp
+.DS_Store
+
+pullRequest.js
+package-lock.json
+
+node_modules
+packages/**/coverage
+packages/**/dist
