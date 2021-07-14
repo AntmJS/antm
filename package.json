@@ -1,5 +1,5 @@
 {
-  "name": "hulk",
+  "name": "antm",
   "private": true,
   "author": "三少 <hi_sanshao@outlook.com>",
   "description": "前端工程应用工具集",
@@ -11,10 +11,10 @@
   ],
   "repository": {
     "type": "https",
-    "url": "https://github.com/HulkJS/hulk.git"
+    "url": "https://github.com/AntmJS/antm.git"
   },
   "bugs": {
-    "url": "https://github.com/HulkJS/hulk/issues/new"
+    "url": "https://github.com/AntmJS/antm/issues/new"
   },
   "engines": {
     "node": ">=12",
@@ -137,6 +137,7 @@
     "rollup-plugin-copy": "^3.4.0",
     "run-s": "^0.0.0",
     "stylelint": "^13.13.1",
+    "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-standard": "^22.0.0",
     "typescript": "^4.3.5"
   }

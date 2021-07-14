@@ -1,11 +1,11 @@
-# @hulkjs/babel-preset
+# @antmjs/babel-preset
 
 > ES6+转译到ES5工具库
 
 ## 安装
 
 ```bash
-yarn add @hulkjs/babel-preset --dev
+yarn add @antmjs/babel-preset --dev
 ```
 
 ## 使用
@@ -16,7 +16,7 @@ babel.config.js
 module.exports = {
   presets: [
     [
-      '@hulkjs/babel-preset',
+      '@antmjs/babel-preset',
       {
         presets: {
           env: {

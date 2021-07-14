@@ -4,7 +4,7 @@
 // 'function-url-no-scheme-relative': null, // --禁止使用相对协议的链接
 
 module.exports = {
-  extends: ['stylelint-config-standard'],
+  extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
   rules: {
     'selector-max-id': 0, // 限制选择器中ID选择器的数量#a{}'
     'selector-max-type': 0, // 限制选择器中的类型数a{}'

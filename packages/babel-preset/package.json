@@ -1,5 +1,5 @@
 {
-  "name": "@hulkjs/babel-preset",
+  "name": "@antmjs/babel-preset",
   "version": "0.0.0",
   "main": "index.js",
   "author": "三少 <hi_sanshao@outlook.com>",
@@ -15,10 +15,10 @@
   ],
   "repository": {
     "type": "https",
-    "url": "https://github.com/HulkJs/hulk.git"
+    "url": "https://github.com/AntmJS/antm.git"
   },
   "bugs": {
-    "url": "https://github.com/HulkJs/hulk/issues/new"
+    "url": "https://github.com/AntmJS/antm/issues/new"
   },
   "engines": {
     "node": ">=12",

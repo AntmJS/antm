@@ -1,5 +1,5 @@
-# Hulk（绿巨人）
+# AntM (蚁人-小而全)
 
 > 前端工程应用工具集
 
-- @hulkjs/preset-env
+- @antmjs/preset-env
