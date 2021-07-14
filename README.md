@@ -4,3 +4,5 @@
 
 - [Taro-React快速开发模版](https://github.com/AntmJS/temptaro)
 - [@antmjs/babel-preset](https://www.npmjs.com/package/@antmjs/babel-preset)
+- [@antmjs/eslint](https://www.npmjs.com/package/@antmjs/eslint)
+- [@antmjs/stylelint](https://www.npmjs.com/package/@antmjs/stylelint)
