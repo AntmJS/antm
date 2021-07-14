@@ -14,16 +14,16 @@ eslint.config.js
 
 ```javascript
 module.exports = {
-  extends: ['@antmjs/eslint'],
+  extends: './node_modules/@antmjs/eslint/index.js',
   parserOptions: {
-    project: 'tsconfig.eslint.json',
+    project: 'tsconfig.json',
     sourceType: 'module',
     ecmaVersion: '2021',
   },
   settings: {
     'import/resolver': {
       typescript: {
-        project: 'tsconfig.eslint.json',
+        project: 'tsconfig.json',
       },
     },
     react: {
