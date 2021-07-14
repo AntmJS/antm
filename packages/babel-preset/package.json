@@ -11,7 +11,9 @@
   },
   "keywords": [
     "babel",
-    "babel-preset"
+    "babel-preset",
+    "react",
+    "typescript"
   ],
   "repository": {
     "type": "https",

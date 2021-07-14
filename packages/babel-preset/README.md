@@ -5,7 +5,11 @@
 ## 安装
 
 ```bash
+yarn add @babel/runtime-corejs3
 yarn add @antmjs/babel-preset --dev
+
+// useBuiltIns 为 entry 或者 usage，追加：
+yarn add core-js
 ```
 
 ## 使用
