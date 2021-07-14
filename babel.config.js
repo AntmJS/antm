@@ -1,7 +1,7 @@
 module.exports = {
   presets: [
     [
-      '@hulkjs/babel-preset',
+      'packages/babel-preset',
       {
         presets: {
           env: {

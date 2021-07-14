@@ -30,6 +30,8 @@
     "isolatedModules": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    // declaration和allowJs不能同时设为true
+    "allowJs": true,
     "jsx": "react-jsx"
     // "skipLibCheck": true, // 解决mongoose 和@types/mongoose冲突问题
     // "paths": {
