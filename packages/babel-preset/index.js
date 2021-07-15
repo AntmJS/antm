@@ -17,6 +17,24 @@ module.exports = (_, options = {}) => {
     ])
   }
 
+  if (options.decorators) {
+    plugins.push([
+      require('@babel/plugin-proposal-decorators'),
+      options.decorators,
+    ])
+  }
+
+  if (options.classProperties) {
+    plugins.push([
+      require('@babel/plugin-proposal-class-properties'),
+      options.classProperties,
+    ])
+  }
+
+  if (options.runtime) {
+    plugins.push([require('@babel/plugin-transform-runtime'), options.runtime])
+  }
+
   if (options.runtime) {
     plugins.push([require('@babel/plugin-transform-runtime'), options.runtime])
   }

@@ -13,6 +13,8 @@ yarn add @antmjs/babel-preset --dev
 babel.config.js
 
 ```javascript
+const path = require('path')
+const apis = require('@tarojs/taro-h5/dist/taroApis')
 module.exports = {
   presets: [
     [
@@ -42,8 +44,17 @@ module.exports = {
             allowNamespaces: true,
           },
         },
+        decorators: {
+          legacy: false,
+        },
+        classProperties: {
+          loose: false,
+        },
         runtime: {
-          absoluteRuntime: false,
+          absoluteRuntime: path.dirname(
+            require.resolve('@babel/runtime-corejs3/package.json'),
+          ),
+          version: require('@babel/runtime-corejs3/package.json').version,
           corejs: false,
           helpers: true, // 使用到@babel/runtime
           regenerator: true, // 使用到@babel/runtime
@@ -55,6 +66,7 @@ module.exports = {
     ],
   ],
   plugins: [
+    [require('babel-plugin-transform-taroapi'), { packageName: '@tarojs/taro', apis }] // taro可以加，tree-shaking用
     [require('babel-plugin-import'), { "libraryName": "antd", "style": true }, 'antd']
   ]
 }
