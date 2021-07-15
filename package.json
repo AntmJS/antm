@@ -85,7 +85,7 @@
   },
   "scripts": {
     "eslint": "npx eslint -c eslint.config.js '**/*.{js,jsx,ts,tsx}' && npx tsc --project tsconfig.json",
-    "stylelint": "npx stylelint --config stylelint.config.js '**/*.{css,less}'",
+    "stylelint": "npx stylelint --aei --config stylelint.config.js '**/*.{css,less}'",
     "clear-all": "rimraf packages/*/node_modules",
     "bootstrap:ci": "npx lerna bootstrap --npm-client=yarn",
     "bootstrap:lerna": "npx lerna bootstrap",
