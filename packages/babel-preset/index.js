@@ -35,10 +35,6 @@ module.exports = (_, options = {}) => {
     plugins.push([require('@babel/plugin-transform-runtime'), options.runtime])
   }
 
-  if (options.runtime) {
-    plugins.push([require('@babel/plugin-transform-runtime'), options.runtime])
-  }
-
   if (options.enableReactRefresh) {
     plugins.push(require.resolve('react-refresh/babel'))
   }
