@@ -1,21 +1,20 @@
 {
-  "name": "@antmjs/eslint",
-  "version": "0.4.1",
+  "name": "@antmjs/iconfont",
+  "version": "0.0.0",
   "main": "index.js",
+  "bin": {
+    "antm-icon": "index.js"
+  },
   "author": "三少 <hi_sanshao@outlook.com>",
-  "description": "代码统一规范工具库",
+  "description": "生成可以在Taro里面使用的Iconfont",
   "license": "MIT",
   "publishConfig": {
     "access": "public",
     "registry": "http://registry.npmjs.org"
   },
   "keywords": [
-    "eslint",
-    "typescript",
-    "prettier",
-    "import",
-    "react",
-    "react-hooks"
+    "iconfont",
+    "taro"
   ],
   "repository": {
     "type": "https",
@@ -42,19 +41,5 @@
     "build": "",
     "test:watch": "",
     "test": ""
-  },
-  "peerDependencies": {
-    "eslint": "^7.30.0",
-    "typescript": "^4.3.5"
-  },
-  "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.28.3",
-    "@typescript-eslint/parser": "^4.28.3",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-import-resolver-typescript": "^2.4.0",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.24.0",
-    "eslint-plugin-react-hooks": "^4.2.0"
   }
 }

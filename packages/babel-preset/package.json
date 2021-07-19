@@ -28,7 +28,6 @@
     "yarn": ">=1.22"
   },
   "browserslist": [
-    "last 3 versions",
     "Chrome >= 35",
     "ChromeAndroid >= 35",
     "iOS >= 8",
