@@ -12,6 +12,7 @@ module.exports = {
     'at-rule-name-newline-after': 'always-multi-line', // 在规则名称后需要换行符
     'at-rule-no-unknown': true, // 禁止使用未知的 at 规则
     'at-rule-semicolon-space-before': 'never', // 在规则的分号之前需要一个空格或不允许使用空格
+    'color-named': 'never',
     'color-hex-case': 'lower', // 指定十六进制颜色大小写
     'color-hex-length': 'long', // 指定十六进制颜色是否使用缩写"short"|"long"
     'color-no-invalid-hex': true, // 禁止使用无效的十六进制颜色
