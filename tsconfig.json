@@ -43,8 +43,9 @@
     "*.js",
     "packages/*/*.js",
     "packages/*/*.d.ts",
-    "packages/*/src",
-    "packages/*/__test__"
+    "packages/**/src",
+    "packages/**/types",
+    "packages/**/__test__"
   ],
   "compileOnSave": false
 }

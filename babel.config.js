@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { resolve } = require('path')
+
 module.exports = {
   presets: [
     [
-      'packages/babel-preset',
+      resolve('../babel-preset'),
       {
         presets: {
           env: {
@@ -33,7 +36,6 @@ module.exports = {
           regenerator: true, // 使用到@babel/runtime
           useESModules: false,
         },
-        exclude: [/@babel[/|\\\\]runtime/, /core-js/],
       },
     ],
   ],

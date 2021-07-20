@@ -6,3 +6,5 @@
 - [@antmjs/babel-preset](https://www.npmjs.com/package/@antmjs/babel-preset)
 - [@antmjs/eslint](https://www.npmjs.com/package/@antmjs/eslint)
 - [@antmjs/stylelint](https://www.npmjs.com/package/@antmjs/stylelint)
+- [@antmjs/iconfont](https://www.npmjs.com/package/@antmjs/iconfont)
+- [@antmjs/cache](https://www.npmjs.com/package/@antmjs/cache)
