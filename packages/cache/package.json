@@ -16,7 +16,8 @@
     "cache",
     "localStorage",
     "ramStorage",
-    "taro"
+    "taro",
+    "h5"
   ],
   "repository": {
     "type": "https",
