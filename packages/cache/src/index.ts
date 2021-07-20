@@ -24,10 +24,10 @@ function isNull(args: any): boolean {
 export default function <
   TRam extends Cache.IAnyObject,
   TLocal extends Cache.IAnyObject,
->(init: { ram: TRam; local: TLocal }): Cache.IMethod<TRam, TLocal> {
+>(init: { ram: TRam; loc: TLocal }): Cache.IMethod<TRam, TLocal> {
   const tempKeys = Object.keys(init.ram) as (keyof TRam)[]
-  const localKeys = Object.keys(init.local) as (keyof TLocal)[]
-  const store = { ...init.ram, ...init.local }
+  const localKeys = Object.keys(init.loc) as (keyof TLocal)[]
+  const store = { ...init.ram, ...init.loc }
 
   function cacheGetSync<T extends Cache.ICacheOptAllKey<TRam, TLocal>>(
     key: T,
@@ -46,7 +46,7 @@ export default function <
       return value
     }
     console.error(
-      `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, local: { ${key}: '${key}' } })`,
+      `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
     )
     return
   }
@@ -75,7 +75,7 @@ export default function <
         }
       } else {
         console.error(
-          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, local: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
         )
         resolve(undefined)
       }
@@ -95,7 +95,7 @@ export default function <
       }
     } else {
       console.error(
-        `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, local: { ${key}: '${key}' } })`,
+        `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
       )
     }
   }
@@ -125,7 +125,7 @@ export default function <
         }
       } else {
         console.error(
-          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, local: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
         )
         resolve()
       }
@@ -143,7 +143,7 @@ export default function <
       minins?.removeStorageSync(key)
     } else {
       console.error(
-        `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, local: { ${key}: '${key}' } })`,
+        `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
       )
     }
   }
@@ -168,7 +168,7 @@ export default function <
         })
       } else {
         console.error(
-          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, local: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
         )
         resolve()
       }

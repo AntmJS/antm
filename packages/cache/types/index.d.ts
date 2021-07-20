@@ -48,6 +48,6 @@ declare namespace Cache {
 declare function Cache<
   TRam extends IAnyObject,
   TLocal extends IAnyObject,
->(init: { ram: TRam; local: TLocal }): Cache.IMethod<TRam, TLocal>
+>(init: { ram: TRam; loc: TLocal }): Cache.IMethod<TRam, TLocal>
 
 export default Cache
