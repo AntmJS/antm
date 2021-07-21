@@ -2,6 +2,10 @@
 
 > 统一的埋点及异常收集工具
 
+## 为什么需要
+
+支持H5-history、原生小程序、以及其他第三方框架生成的小程序的埋点和异常反馈
+
 ## 安装
 
 ```bash
@@ -23,65 +27,48 @@ yarn add @antmjs/trace
 使用要求：
 
 ```js
-import Trace from '@acejs/trace'
+import Trace, { utf8ToBytes, EGcs, EAppType, EAppSubType, EMlf } from '@antmjs/trace'
 // Taro3需要
 import { document } from '@tarojs/runtime'
 
-Trace({
-  appId: '',
-  appType: process.env.TARO_ENV === 'h5' ? EAppType.browser : EAppType.mini,
-  appSubType: process.env.TARO_ENV === 'h5' ? EAppSubType.browser : EAppSubType[process.env.TARO_ENV],
-  // 应用内应用版本号（小程序版本号）
-  appSubTypeVersion: process.env.DEPLOY_VERSION,
-  // Taro3需要
-  getElementById: document.getElementById,
-  getUserId () {
-    return new Promise((resolve) => {
-      resolve('')
-    })
-  },
-  getGenderId () {
-    return new Promise((resolve) => {
-      resolve('')
-    })
-  },
-  getLocation () {
-    return new Promise((resolve) => {
-      resolve({
-        gcs: EGcs.gcj02,
-        latitude: '',
-        longitude: '',
+const { exposure, log, monitor } =  Trace(
+  {
+    appId: '1',
+    appType: process.env.TARO_ENV === 'h5' ? EAppType.browser : EAppType.mini,
+    appSubType:
+      process.env.TARO_ENV === 'h5'
+        ? EAppSubType.browser
+        : EAppSubType[process.env.TARO_ENV],
+    // 应用内应用版本号
+    appSubTypeVersion: '',
+    // Taro3需要
+    getElementById: document.getElementById,
+    getUserId() {
+      return new Promise((resolve) => {
+        resolve('')
       })
-    })
-  },
-  request (type, data) {
-    if (process.env.API_ENV === 'real') {
-      const body = {
-        __topic__: '', // appId
-        __logs__: data,
-      }
-      Taro.request({
-        url: type === 'log' ? 'https://upload_log' : 'https://upload_monitor',
-        method: 'POST',
-        header: {
-          'x-log-apiversion': '0.6.0',
-          'x-log-bodyrawsize': `${utf8ToBytes(JSON.stringify(body)).length}`,
-        },
-        responseType: 'text',
-        dataType: '其他',
-        data: body,
-        timeout: 10000,
-        success () {},
-        fail () {},
+    },
+    getGenderId() {
+      return new Promise((resolve) => {
+        resolve('')
       })
-
-    } else {
+    },
+    getLocation() {
+      return new Promise((resolve) => {
+        resolve({
+          gcs: EGcs.gcj02,
+          latitude: '',
+          longitude: '',
+        })
+      })
+    },
+    request(type /** log｜monitor */, data) {
       console.info(type, data)
-    }
+    },
   },
-}, {
-  interval: 3000 // 0 代表实时触发, 3000代表每隔3秒触发，前提是内部uuid已生成
-})
+  // 默认为0。为0的话request返回的data是对象，非0的话返回数组
+  { interval: 3000 },
+)
 ```
 
 ## Description
