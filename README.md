@@ -8,3 +8,5 @@
 - [@antmjs/stylelint](https://www.npmjs.com/package/@antmjs/stylelint)
 - [@antmjs/iconfont](https://www.npmjs.com/package/@antmjs/iconfont)
 - [@antmjs/cache](https://www.npmjs.com/package/@antmjs/cache)
+- [@antmjs/trace](https://www.npmjs.com/package/@antmjs/trace)
+- [@antmjs/utils](https://www.npmjs.com/package/@antmjs/utils)
