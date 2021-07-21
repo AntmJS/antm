@@ -3,6 +3,8 @@ import Cache from '../types/index.d'
 declare const my: any
 declare const wx: any
 declare const tt: any
+declare const swan: any
+declare const qq: any
 
 const minins =
   typeof wx === 'object'
@@ -11,6 +13,10 @@ const minins =
     ? my
     : typeof tt === 'object'
     ? tt
+    : typeof tt === 'object'
+    ? swan
+    : typeof swan === 'object'
+    ? qq
     : undefined
 
 function isUndefined(args: any): boolean {

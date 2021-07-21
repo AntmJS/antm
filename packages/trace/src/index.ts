@@ -5,6 +5,8 @@ import Trace from '../types/index.d'
 declare const my: any
 declare const wx: any
 declare const tt: any
+declare const swan: any
+declare const qq: any
 declare const getCurrentPages: any
 // eslint-disable-next-line prefer-const
 declare let App: any
@@ -30,6 +32,10 @@ const minins =
     ? my
     : typeof tt === 'object'
     ? tt
+    : typeof tt === 'object'
+    ? swan
+    : typeof swan === 'object'
+    ? qq
     : undefined
 
 minins?.onError?.((res: any) => {

@@ -26,6 +26,10 @@ export enum EAppSubType {
   alipay = '4',
   // 抖音小程序
   tt = '5',
+  // 百度小程序
+  swan = '6',
+  // QQ小程序
+  qq = '7',
 }
 
 export enum ELf {
