@@ -258,11 +258,11 @@ function pushTrackData(
     dr: (Date.now() - cache.appLaunchStartTime).toString(), // 应用停留时间
     t: Date.now().toString(), // 触发该事件的时间戳
 
-    cr: cache.curPageRoute.path, // 当前路由 href.split('?')[0]
+    cr: cache.curPageRoute.path || '', // 当前路由 href.split('?')[0]
     crq: stringify(cache.curPageRoute.options, false), // 当前路由参数 href.split('?')[1]
-    orid: cache.curPageRoute.options.orid || '', // 渠道标识符
+    orid: cache.curPageRoute.options?.orid || '', // 渠道标识符
 
-    pr: cache.prePageRoute.path, // 当前路由 href.split('?')[0]
+    pr: cache.prePageRoute.path || '', // 当前路由 href.split('?')[0]
     prq: stringify(cache.prePageRoute.options, false), // 当前路由参数 href.split('?')[1]
     prt: cache.prePageRoute.prt || '0',
 
@@ -279,9 +279,9 @@ function pushMonitorData(life: EMlf, query: Partial<Trace.IMonitorLog>) {
   const monitor: Trace.IMonitorLog = {
     lf: life,
     t: Date.now().toString(), // 触发该事件的时间戳
-    cr: cache.curPageRoute?.path, // 当前路由 href.split('?')[0]
+    cr: cache.curPageRoute?.path || '', // 当前路由 href.split('?')[0]
     crq: stringify(cache.curPageRoute?.options ?? {}, false), // 当前路由参数 href.split('?')[1]
-    pr: cache.prePageRoute.path, // 当前路由 href.split('?')[0]
+    pr: cache.prePageRoute?.path || '', // 当前路由 href.split('?')[0]
     prq: stringify(cache.prePageRoute.options, false), // 当前路由参数 href.split('?')[1]
     prt: cache.prePageRoute.prt || '0',
     d1: '',
