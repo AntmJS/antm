@@ -396,10 +396,10 @@ const handlePageCycle = function (
  * 处理页面事件
  */
 const handleEvents = function (args: any) {
-  if (args.length) {
+  if (args?.length) {
     const arg1 = args[0]
 
-    if (arg1.type === 'touchstart') {
+    if (arg1?.type === 'touchstart') {
       let ckid = arg1.currentTarget?.dataset?.ckid
       let clickId = arg1.currentTarget?.dataset?.clickId
       let ext = arg1.currentTarget?.dataset?.ext

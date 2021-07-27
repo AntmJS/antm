@@ -1,6 +1,6 @@
 # AntM (蚁人-小而实用)
 
-> 多年积累的经验而总结出的前端实用库。如果你是React或者Taro-React开发者，这些工具或许对你有用
+> 前端工程开发一体化解决方案。如果你是React或者Taro-React开发者，这些工具或许对你有用
 
 - [Taro-React快速开发模版](https://github.com/AntmJS/temptaro)
 - React快速开发模版
