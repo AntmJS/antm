@@ -33,7 +33,7 @@
     // declaration和allowJs不能同时设为true
     "allowJs": true,
     "jsx": "react-jsx",
-    "skipLibCheck": true
+    "skipLibCheck": false
     // "paths": {
     //   // 指定模块的路径，和baseUrl有关联，和webpack中resolve.alias配置一样
     //   "@/*": ["./src/*"]
