@@ -289,7 +289,7 @@ function fetchMonitorData(immediate = false) {
       })
     }
     if (immediate) {
-      list.forEach((item: Trace.TLog) => {
+      list.forEach((item: Trace.TMonitor) => {
         globalConfig!.request('monitor', item)
       })
     } else {
