@@ -17,7 +17,7 @@ yarn add @antmjs/global-state
 ## 使用
 
 ```js
-import GlobalState from '@antmjs/state'
+import GlobalState from '@antmjs/global-state'
 
 const {
   Provider,

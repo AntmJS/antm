@@ -103,30 +103,35 @@ export default function <
 
   function useGlobalState<T extends keyof TData>(key?: T): any {
     return useContextSelector(context, (v) => {
+      if (!v) console.error('Provider未初始化')
       return key ? v![0][key] : v![0]
     })
   }
 
   function useGlobalLoading<T extends keyof TFetch>(key?: T): any {
     return useContextSelector(loadingContext, (v) => {
+      if (!v) console.error('Provider未初始化')
       return key ? v![0][key] : v![0]
     })
   }
 
   function useGlobalError<T extends keyof TFetch>(key?: T): any {
     return useContextSelector(errorContext, (v) => {
+      if (!v) console.error('Provider未初始化')
       return key ? v![0][key] : v![0]
     })
   }
 
   function useClearGlobalError(): any {
     return useContextSelector(errorContext, (v) => {
+      if (!v) console.error('Provider未初始化')
       return v![1]
     })
   }
 
   function useUpdate(): any {
     const { update } = useContextSelector(fetchContext, (v) => {
+      if (!v) console.error('Provider未初始化')
       return v
     })
     return update
@@ -134,6 +139,7 @@ export default function <
 
   function useFetchAndUpdate(): any {
     const { fetchAndUpdate } = useContextSelector(fetchContext, (v) => {
+      if (!v) console.error('Provider未初始化')
       return v
     })
     return fetchAndUpdate

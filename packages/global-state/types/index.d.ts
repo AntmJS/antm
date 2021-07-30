@@ -71,12 +71,12 @@ declare namespace GlobalState {
       >
     >
 
-    useUpdate: <T extends keyof TData>(
+    useUpdate: () => <T extends keyof TData>(
       key: T,
       value: Partial<GlobalState.StateOpt<{ [K in keyof TData]: TData[K] }>>[T],
     ) => void
 
-    useFetchAndUpdate: (key: keyof TFetch, params?: any) => void
+    useFetchAndUpdate: () => (key: keyof TFetch, params?: any) => void
   }
 }
 
