@@ -24,5 +24,7 @@ const {
   useGlobalState,
   useGlobalLoading,
   useGlobalError,
+  useUpdate,
+  useFetchAndUpdate,
 } = GlobalState({ user: {} }, { user: async function () { /** await getUser */ } })
 ```

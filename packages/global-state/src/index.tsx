@@ -12,19 +12,36 @@ export default function <
     | null
     | [
         GlobalState.StateOpt<{ [K in keyof TData]: TData[K] }>,
-        React.Dispatch<React.SetStateAction<TData>>,
+        React.Dispatch<
+          React.SetStateAction<
+            GlobalState.StateOpt<{ [K in keyof TData]: TData[K] }>
+          >
+        >,
       ]
   >
 
   // 远程请求数据状态变更使用的context
   const loadingContext = createContext(null) as React.Context<
-    null | [Partial<{ [K in keyof TFetch]: boolean }>, any]
+    | null
+    | [
+        Partial<{ [K in keyof TFetch]: boolean }>,
+        React.Dispatch<
+          React.SetStateAction<Partial<{ [K in keyof TFetch]: boolean }>>
+        >,
+      ]
   >
 
   // 远程请求数据发生错误使用的context
   const errorContext = createContext(null) as React.Context<
     | null
-    | [Partial<{ [K in keyof TFetch]: { code: string; message: string } }>, any]
+    | [
+        Partial<{ [K in keyof TFetch]: { code: string; message: string } }>,
+        React.Dispatch<
+          React.SetStateAction<
+            Partial<{ [K in keyof TFetch]: { code: string; message: string } }>
+          >
+        >,
+      ]
   >
 
   // 更新全局数据使用的context
@@ -41,17 +58,21 @@ export default function <
   })
 
   const Provider = ({ children }: any) => {
-    const [state, setState] = useState(data)
+    const [state, setState] = useState(data || {})
     const [loading, setLoading] = useState({})
     const [error, setError] = useState({})
     const ins = useRef({
       fetchAndUpdate: async (key: keyof TFetch, params?: any) => {
         if (fetch[key]) {
+          setLoading({ [key]: true })
           const { data, error } = await fetch[key]!(params)
+          setLoading({ [key]: false })
           if (!error) {
             setState((pre) => {
               return { ...pre, [key]: data }
             })
+          } else {
+            setError({ [key]: error })
           }
         }
       },
@@ -61,7 +82,9 @@ export default function <
           GlobalState.StateOpt<{ [K in keyof TData]: TData[K] }>
         >[T],
       ) => {
-        console.error('调用失败，还未初始化', key, value)
+        setState((pre) => {
+          return { ...pre, [key]: value }
+        })
       },
     })
 
@@ -78,48 +101,42 @@ export default function <
     )
   }
 
-  function useGlobalState<T extends keyof TData>(
-    key: T,
-  ): Partial<GlobalState.StateOpt<{ [K in keyof TData]: TData[K] }>>[T] {
-    return useContextSelector(context, (v) => v?.[0][key])
+  function useGlobalState<T extends keyof TData>(key?: T): any {
+    return useContextSelector(context, (v) => {
+      return key ? v![0][key] : v![0]
+    })
   }
 
-  function useGlobalLoading<T extends keyof TData>(
-    key?: T,
-  ): Partial<{ [K in keyof TFetch]: boolean }> {
-    console.log(key)
-    return {}
+  function useGlobalLoading<T extends keyof TFetch>(key?: T): any {
+    return useContextSelector(loadingContext, (v) => {
+      return key ? v![0][key] : v![0]
+    })
   }
 
-  function useGlobalError<T extends keyof TData>(
-    key?: T,
-  ): Partial<{ [K in keyof TFetch]: { code: string; message: string } }> {
-    console.log(key)
-    return {}
+  function useGlobalError<T extends keyof TFetch>(key?: T): any {
+    return useContextSelector(errorContext, (v) => {
+      return key ? v![0][key] : v![0]
+    })
   }
 
-  function useUpdate(): GlobalState.IUpdate<TData, TFetch> {
-    return {
-      fetchAndUpdate: async (key: keyof TFetch, params?: any) => {
-        if (fetch[key]) {
-          const { data, error } = await fetch[key]!(params)
-          console.log(data, error)
-          // if (!error) {
-          //   setState((pre) => {
-          //     return { ...pre, [key]: data }
-          //   })
-          // }
-        }
-      },
-      update: <T extends keyof TData>(
-        key: T,
-        value: Partial<
-          GlobalState.StateOpt<{ [K in keyof TData]: TData[K] }>
-        >[T],
-      ) => {
-        console.error('调用失败，还未初始化', key, value)
-      },
-    }
+  function useClearGlobalError(): any {
+    return useContextSelector(errorContext, (v) => {
+      return v![1]
+    })
+  }
+
+  function useUpdate(): any {
+    const { update } = useContextSelector(fetchContext, (v) => {
+      return v
+    })
+    return update
+  }
+
+  function useFetchAndUpdate(): any {
+    const { fetchAndUpdate } = useContextSelector(fetchContext, (v) => {
+      return v
+    })
+    return fetchAndUpdate
   }
 
   return {
@@ -127,6 +144,8 @@ export default function <
     useGlobalState,
     useGlobalLoading,
     useGlobalError,
+    useClearGlobalError,
     useUpdate,
+    useFetchAndUpdate,
   }
 }

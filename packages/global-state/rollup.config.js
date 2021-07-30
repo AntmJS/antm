@@ -8,7 +8,7 @@ const { nodeResolve } = require('@rollup/plugin-node-resolve')
 const cwd = process.cwd()
 
 const config = {
-  input: join(cwd, 'src/index.ts'),
+  input: join(cwd, 'src/index.tsx'),
   output: [
     {
       file: join(cwd, 'dist/index.js'),
@@ -23,7 +23,7 @@ const config = {
       file: join(cwd, 'dist/index.esm.js'),
     },
   ],
-  external: ['@babel/runtime-corejs3', 'react'],
+  external: ['@babel/runtime-corejs3', 'react', 'react-dom'],
   plugins: [
     commonjs({
       include: /\/node_modules\//,
@@ -35,8 +35,8 @@ const config = {
     }),
     json(),
     typescript({
-      allowSyntheticDefaultImports: true,
-      jsx: true,
+      tsconfig: resolve(__dirname, '../../tsconfig.json'),
+      module: 'esnext',
     }),
     getBabelOutputPlugin({
       configFile: resolve(__dirname, '../../babel.config.js'),
