@@ -15,7 +15,7 @@ type NoneEmptyArray<T> = [T, ...T[]]
  * @param {any} args
  * @returns {boolean}
  */
-function isString(args: any): boolean
+declare function isString(args: any): boolean
 
 /**
  * @description 判断是否是数组类型
@@ -28,7 +28,7 @@ function isString(args: any): boolean
  * @param {any} args
  * @returns {boolean}
  */
-function isArray(args: any): boolean
+declare function isArray(args: any): boolean
 
 /**
  * @description 判断是否是布偶类型
@@ -41,7 +41,7 @@ function isArray(args: any): boolean
  * @param {any} args
  * @returns {boolean}
  */
-function isBoolean(args: any): boolean
+declare function isBoolean(args: any): boolean
 
 /**
  * @description 判断是否是undefined
@@ -54,7 +54,7 @@ function isBoolean(args: any): boolean
  * @param {any} args
  * @returns {boolean}
  */
-function isUndefined(args: any): boolean
+declare function isUndefined(args: any): boolean
 
 /**
  * @description 判断是否是null
@@ -67,7 +67,7 @@ function isUndefined(args: any): boolean
  * @param {any} args
  * @returns {boolean}
  */
-function isNull(args: any): boolean
+declare function isNull(args: any): boolean
 
 /**
  * @description 判断是否是数字类型
@@ -80,7 +80,7 @@ function isNull(args: any): boolean
  * @param {any} args
  * @returns {boolean}
  */
-function isNumber(args: any): boolean
+declare function isNumber(args: any): boolean
 
 /**
  * @description 判断是否是对象
@@ -93,7 +93,7 @@ function isNumber(args: any): boolean
  * @param {any} args
  * @returns {boolean}
  */
-function isObject(args: any): boolean
+declare function isObject(args: any): boolean
 
 /**
  * @description 判断是否是空对象
@@ -106,7 +106,7 @@ function isObject(args: any): boolean
  * @param {any} args
  * @returns {boolean}
  */
-function isEmptyObject(args: any): boolean
+declare function isEmptyObject(args: any): boolean
 
 /**
  * @description 判断是否是方法
@@ -119,7 +119,7 @@ function isEmptyObject(args: any): boolean
  * @param {any} args
  * @returns {boolean}
  */
-function isFunction(args: any): boolean
+declare function isFunction(args: any): boolean
 
 /**
  * @description 判断是否是symbol
@@ -132,7 +132,7 @@ function isFunction(args: any): boolean
  * @param {any} args
  * @returns {boolean}
  */
-function isSymbol(args: any): boolean
+declare function isSymbol(args: any): boolean
 
 /**
  * @description decode对象内的所有属性值
@@ -145,7 +145,7 @@ function isSymbol(args: any): boolean
  * @param {IAnyObject} params
  * @return {*}  {IAnyObject}
  */
-function decodeParams(params: IAnyObject): IAnyObject
+declare function decodeParams(params: IAnyObject): IAnyObject
 
 /**
  * @description encode对象内的所有属性值
@@ -158,7 +158,7 @@ function decodeParams(params: IAnyObject): IAnyObject
  * @param {IAnyObject} params
  * @return {*}  {IAnyObject}
  */
-function encodeParams(params: IAnyObject): IAnyObject
+declare function encodeParams(params: IAnyObject): IAnyObject
 
 /**
  * @description 传入不带问号的search返回对象，解析query成对象
@@ -172,7 +172,7 @@ function encodeParams(params: IAnyObject): IAnyObject
  * @param {boolean} decode
  * @return {*}  {IAnyObject}
  */
-function parse(str: string, decode?: boolean): IAnyObject
+declare function parse(str: string, decode?: boolean): IAnyObject
 
 /**
  * @description 传入一个对象返回&拼接的字符串，对象解析成字符串以&拼接
@@ -186,7 +186,7 @@ function parse(str: string, decode?: boolean): IAnyObject
  * @param {boolean} encode
  * @return {*}  {string}
  */
-function stringify(obj: IAnyObject, encode?: boolean): string
+declare function stringify(obj: IAnyObject, encode?: boolean): string
 
 /**
  * @description 比较版本号大小
@@ -194,7 +194,7 @@ function stringify(obj: IAnyObject, encode?: boolean): string
  * @param {string} ver2
  * @returns {number}
  */
-function version(ver1: string, ver2: string): number
+declare function version(ver1: string, ver2: string): number
 
 export {
   version,

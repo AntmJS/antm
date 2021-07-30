@@ -146,7 +146,10 @@ declare namespace Trace {
     appType: EAppType
     appSubType: EAppSubType
     appSubTypeVersion: string
-    request: <T extends keyof IRequest>(type: T, data: IRequest[T]) => void
+    request: <T extends keyof IRequestList>(
+      type: T,
+      data: IRequestList[T],
+    ) => void
     getElementById?: (id: string) => any
     getUserId: () => Promise<string>
     getGenderId: () => Promise<TGender>
