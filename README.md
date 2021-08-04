@@ -8,6 +8,7 @@
 - [@antmjs/eslint](https://www.npmjs.com/package/@antmjs/eslint)
 - [@antmjs/stylelint](https://www.npmjs.com/package/@antmjs/stylelint)
 - [@antmjs/iconfont](https://www.npmjs.com/package/@antmjs/iconfont)
+- [@antmjs/plugin-icestark](https://www.npmjs.com/package/@antmjs/plugin-icestark)
 - @antmjs/webpack
 - @antmjs/web-deploy(antm.config.js)
 - @antmjs/mini-deploy(antm.config.js)
@@ -17,5 +18,3 @@
 - [@antmjs/cache](https://www.npmjs.com/package/@antmjs/cache)
 - [@antmjs/trace](https://www.npmjs.com/package/@antmjs/trace)
 - [@antmjs/utils](https://www.npmjs.com/package/@antmjs/utils)
-- @antmjs/router
-- @antmjs/request
