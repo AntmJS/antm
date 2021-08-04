@@ -1,0 +1,53 @@
+{
+  "name": "@antmjs/plugin-icestark",
+  "version": "0.9.1",
+  "main": "index.js",
+  "author": "三少 <hi_sanshao@outlook.com>",
+  "description": "TaroH5支持飞冰的微前端框架",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://registry.npmjs.org"
+  },
+  "keywords": [
+    "taro",
+    "icestark",
+    "mico-fed"
+  ],
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/AntmJS/antm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AntmJS/antm/issues/new"
+  },
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6.4",
+    "yarn": ">=1.22"
+  },
+  "browserslist": [
+    "Chrome >= 35",
+    "ChromeAndroid >= 35",
+    "iOS >= 8",
+    "Safari >= 8",
+    "Android >= 4.1",
+    "QQAndroid >= 4.1",
+    "UCAndroid >= 4.1"
+  ],
+  "scripts": {
+    "build": "",
+    "test:watch": "",
+    "test": ""
+  },
+  "devDependencies": {
+    "@babel/generator": "^7.14.9",
+    "@babel/parser": "^7.14.9",
+    "@babel/traverse": "^7.14.9",
+    "@babel/types": "^7.14.9",
+    "loader-utils": "^2.0.0"
+  },
+  "peerDependencies": {
+    "@ice/stark-app": "^1.4.1"
+  }
+}

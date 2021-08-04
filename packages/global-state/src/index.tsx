@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react'
 
 import { createContext, useContextSelector } from 'use-context-selector'
-import GlobalState from '../types/index.d'
+import type GlobalState from '../types/index.d'
 
 export default function <
   TData extends GlobalState.IAnyObject,

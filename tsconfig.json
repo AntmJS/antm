@@ -44,6 +44,7 @@
     "packages/*/*.js",
     "packages/*/*.d.ts",
     "packages/**/src",
+    "packages/**/lib",
     "packages/**/types",
     "packages/**/__test__"
   ],

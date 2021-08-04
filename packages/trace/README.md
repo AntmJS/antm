@@ -18,8 +18,8 @@ yarn add @antmjs/trace
 
 ```json
 {
-  resolve: {
-    mainFields: ['main:h5'],
+  "resolve": {
+    "mainFields": ["main:h5"],
   }
 }
 ```

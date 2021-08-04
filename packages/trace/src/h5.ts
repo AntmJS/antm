@@ -2,7 +2,7 @@
 import { stringify, parse } from '@antmjs/utils'
 import MobileDetect from 'mobile-detect'
 import history from 'history/browser'
-import Trace from '../types/index.d'
+import type Trace from '../types/index.d'
 import {
   EGcs,
   EAppType,

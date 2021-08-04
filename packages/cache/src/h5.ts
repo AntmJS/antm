@@ -1,4 +1,4 @@
-import Cache from '../types/index.d'
+import type Cache from '../types/index.d'
 
 function isUndefined(args: any): boolean {
   return toString.call(args) === '[object Undefined]'

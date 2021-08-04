@@ -1,4 +1,4 @@
-import Cache from '../types/index.d'
+import type Cache from '../types/index.d'
 
 declare const my: any
 declare const wx: any

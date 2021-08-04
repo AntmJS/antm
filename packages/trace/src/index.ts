@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { decodeParams, stringify } from '@antmjs/utils'
-import Trace from '../types/index.d'
+import type Trace from '../types/index.d'
 
 declare const my: any
 declare const wx: any
