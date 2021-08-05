@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { decodeParams, stringify } from '@antmjs/utils'
+import { stringify } from '@antmjs/utils'
 import type Trace from '../types/index.d'
 
 declare const my: any
@@ -70,7 +70,6 @@ let globalOptions: Trace.IOptions = {
   interval: 0,
 }
 let globalConfig: Trace.InitOption
-let firstLoad = false
 let uuid = ''
 let net = ''
 let battery = ''
@@ -317,16 +316,7 @@ const handlePageCycle = function (
           '请在入口文件添加"import Trace from \'@antmjs/trace\'"，然后初始化该应用执行"Trace({})"',
         )
       }
-      firstLoad = true
-      let params = args && JSON.parse(JSON.stringify(args[0]?.query || {}))
-      // 微信和抖音需要decode，支付宝自己decode过了
-      if (
-        globalConfig!.appSubType === EAppSubType.weapp ||
-        globalConfig!.appSubType === EAppSubType.tt
-      ) {
-        params = decodeParams(params)
-      }
-      cache.appOpts = Object.assign({}, args[0], { query: params })
+      cache.appOpts = args[0]
       break
     }
 
@@ -335,32 +325,14 @@ const handlePageCycle = function (
       const pages = getCurrentPages()
       const currentPage = pages[pages.length - 1]
       const route = currentPage.route || currentPage.__route__
-      const options = JSON.parse(JSON.stringify(currentPage.options || {}))
       // 缓存上一个页面的数据以及上一个页面的停留时长
       const now = Date.now()
       const prt = (now - cache.pageShowStartTime).toString()
       cache.prePageRoute = { prt, ...cache.curPageRoute }
       cache.pageShowStartTime = now
-
-      // 微信和抖音需要decode，支付宝自己decode过了
-      // 实测抖音第一次进来的时候不需要decode
-      if (
-        globalConfig!.appSubType === EAppSubType.weapp ||
-        (globalConfig!.appSubType === EAppSubType.tt && !firstLoad)
-      ) {
-        cache.curPageRoute = {
-          path: route,
-          options: decodeParams(options),
-        }
-      } else {
-        cache.curPageRoute = {
-          path: route,
-          options: options,
-        }
-      }
-
-      if (firstLoad) {
-        firstLoad = false
+      cache.curPageRoute = {
+        path: route,
+        options: currentPage.options,
       }
       break
     }

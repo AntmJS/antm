@@ -26,6 +26,8 @@ yarn add @antmjs/trace
 
 使用要求：
 
+小程序环境最好添加[@antmjs/plugin-mini-fix](https://www.npmjs.com/package/@antmjs/plugin-mini-fix)，解决各端返回的query decode情况不一致的问题
+
 ```js
 import Trace, { utf8ToBytes, EGcs, EAppType, EAppSubType, EMlf } from '@antmjs/trace'
 // Taro3需要

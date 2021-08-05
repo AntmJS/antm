@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
 const PLUGIN_NAME = 'IceStarkPlugin'

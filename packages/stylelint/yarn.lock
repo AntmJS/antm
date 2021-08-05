@@ -9,12 +9,12 @@ stylelint-config-prettier@^8.0.2:
 
 stylelint-config-recommended@^5.0.0:
   version "5.0.0"
-  resolved "https://registry.nlark.com/stylelint-config-recommended/download/stylelint-config-recommended-5.0.0.tgz?cache=0&sync_timestamp=1619280587835&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fstylelint-config-recommended%2Fdownload%2Fstylelint-config-recommended-5.0.0.tgz#fb5653f495a60b4938f2ad3e77712d9e1039ae78"
+  resolved "https://registry.nlark.com/stylelint-config-recommended/download/stylelint-config-recommended-5.0.0.tgz?cache=0&sync_timestamp=1619279444457&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fstylelint-config-recommended%2Fdownload%2Fstylelint-config-recommended-5.0.0.tgz#fb5653f495a60b4938f2ad3e77712d9e1039ae78"
   integrity sha1-+1ZT9JWmC0k48q0+d3EtnhA5rng=
 
 stylelint-config-standard@^22.0.0:
   version "22.0.0"
-  resolved "https://registry.nlark.com/stylelint-config-standard/download/stylelint-config-standard-22.0.0.tgz#c860be9a13ebbc1b084456fa10527bf13a44addf"
+  resolved "https://registry.nlark.com/stylelint-config-standard/download/stylelint-config-standard-22.0.0.tgz?cache=0&sync_timestamp=1619279836612&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fstylelint-config-standard%2Fdownload%2Fstylelint-config-standard-22.0.0.tgz#c860be9a13ebbc1b084456fa10527bf13a44addf"
   integrity sha1-yGC+mhPrvBsIRFb6EFJ78TpErd8=
   dependencies:
     stylelint-config-recommended "^5.0.0"
