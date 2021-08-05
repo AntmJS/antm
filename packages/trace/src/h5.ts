@@ -343,7 +343,7 @@ function appLaunch() {
   }
   cache.appOpts = {
     path: window.location.pathname.slice(1),
-    query: window.location.search ? parse(window.location.search) : {},
+    query: window.location.search ? parse(window.location.search.slice(1)) : {},
   }
 }
 
@@ -368,7 +368,9 @@ function appHide() {
 function pageLoad() {
   setCommonTrackData()
   const route = window.location.pathname.slice(1)
-  const options = window.location.search ? parse(window.location.search) : {}
+  const options = window.location.search
+    ? parse(window.location.search.slice(1))
+    : {}
   // 缓存上一个页面的数据以及上一个页面的停留时长
   const now = Date.now()
   const prt = (now - cache.pageShowStartTime).toString()
