@@ -11,8 +11,8 @@ MiniFixPlugin.prototype.apply = function (compiler) {
     compilation.hooks.normalModuleLoader.tap(
       PLUGIN_NAME,
       (loaderContext, module) => {
-        const { name } = path.parse(module.resource)
-        if (name === 'app') {
+        const { base } = path.parse(module.resource)
+        if (/app\.[t|j]?sx?/.test(base)) {
           module.loaders.push({
             loader: path.join(__dirname, 'fixTaroQueryLoader'),
             options: {},
