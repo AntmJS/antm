@@ -39,7 +39,7 @@
     "_clean": "npx rimraf dist",
     "_real": "npx rollup -c ./rollup.config.js",
     "watch": "npx rollup -c ./rollup.config.js -w",
-    "build": "run-s _clean _real",
+    "build": "npx run-s _clean _real",
     "test:watch": "",
     "test": ""
   },

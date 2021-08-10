@@ -13,3 +13,5 @@ package-lock.json
 node_modules
 packages/**/coverage
 packages/**/dist
+packages/weui-demo/weapp
+packages/weui-demo/alipay
