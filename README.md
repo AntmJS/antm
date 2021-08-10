@@ -3,6 +3,7 @@
 > 前端工程开发一体化解决方案。如果你是React或者Taro-React开发者，这些工具或许对你有用
 
 - [Taro-React-Less快速开发模版](https://github.com/AntmJS/temptaro)
+- [Taro&WeUI](https://github.com/AntmJS/antm/tree/main/packages/weui-demo)
 - [@antmjs/babel-preset](https://www.npmjs.com/package/@antmjs/babel-preset)
 - [@antmjs/eslint](https://www.npmjs.com/package/@antmjs/eslint)
 - [@antmjs/stylelint](https://www.npmjs.com/package/@antmjs/stylelint)
