@@ -8,6 +8,9 @@ declare const tt: any
 declare const swan: any
 declare const qq: any
 declare const dd: any
+declare const jd: any
+declare const qywx: any
+declare const iot: any
 declare const getCurrentPages: any
 // eslint-disable-next-line prefer-const
 declare let App: any
@@ -39,6 +42,12 @@ const minins =
     ? qq
     : typeof swan === 'object'
     ? dd
+    : typeof swan === 'object'
+    ? jd
+    : typeof swan === 'object'
+    ? qywx
+    : typeof swan === 'object'
+    ? iot
     : undefined
 
 minins?.onError?.((res: any) => {

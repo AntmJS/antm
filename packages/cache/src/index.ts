@@ -6,6 +6,9 @@ declare const tt: any
 declare const swan: any
 declare const qq: any
 declare const dd: any
+declare const jd: any
+declare const qywx: any
+declare const iot: any
 
 const minins =
   typeof wx === 'object'
@@ -20,6 +23,12 @@ const minins =
     ? qq
     : typeof swan === 'object'
     ? dd
+    : typeof swan === 'object'
+    ? jd
+    : typeof swan === 'object'
+    ? qywx
+    : typeof swan === 'object'
+    ? iot
     : undefined
 
 function isUndefined(args: any): boolean {

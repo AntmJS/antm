@@ -33,6 +33,14 @@ declare enum EAppSubType {
   swan = '6',
   // QQ小程序
   qq = '7',
+  // 钉钉小程序
+  dd = '8',
+  // 京东小程序
+  jd = '9',
+  // 企业微信小程序
+  qywx = '10',
+  // 支付宝IOT小程序
+  iot = '11',
 }
 
 declare enum ELf {
