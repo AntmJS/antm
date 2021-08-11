@@ -7,7 +7,6 @@ const template = require('@babel/template').default
 const t = require('@babel/types')
 
 module.exports = function (source) {
-  console.log(source)
   const options = loaderUtils.getOptions(this)
   const ast = parse(source, {
     sourceType: 'module',

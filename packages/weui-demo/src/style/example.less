@@ -31,7 +31,7 @@ body,
   -webkit-overflow-scrolling: touch;
   box-sizing: border-box;
   opacity: 0;
-  z-index: 1; // fix 滑动几次后可滚动区域会卡住的问题
+  z-index: @weuiZIndex1; // fix 滑动几次后可滚动区域会卡住的问题
   &.js_show {
     opacity: 1;
   }
@@ -473,7 +473,7 @@ body,
   }
   .layers__layer_mask {
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 3;
+    z-index: @weuiZIndex3;
     &.j_transform {
       transform: @layerBaseTransform translateZ(@layerStartPos - @layerSpacing);
 
@@ -485,7 +485,7 @@ body,
   }
   .layers__layer_navigation {
     background-color: rgba(40, 187, 102, 0.5);
-    z-index: 2;
+    z-index: @weuiZIndex2;
     &.j_transform {
       transform: @layerBaseTransform
         translateZ(@layerStartPos - 2 * @layerSpacing);
@@ -502,7 +502,7 @@ body,
   }
   .layers__layer_content {
     background-color: var(--weui-BG-2);
-    z-index: 1;
+    z-index: @weuiZIndex1;
     &.j_transform {
       transform: @layerBaseTransform
         translateZ(@layerStartPos - 3 * @layerSpacing);

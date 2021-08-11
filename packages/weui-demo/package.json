@@ -1,5 +1,5 @@
 {
-  "name": "temptaro",
+  "name": "weui-demo",
   "version": "0.0.0",
   "private": true,
   "description": "Taro应用模版",
@@ -110,6 +110,7 @@
     "@antmjs/global-state": "^1.0.1",
     "@antmjs/mini-fix": "^1.0.1",
     "@antmjs/trace": "^1.0.1",
+    "@antmjs/weui": "^1.0.1",
     "@babel/runtime-corejs3": "^7.14.7",
     "@tarojs/components": "3.3.2",
     "@tarojs/react": "3.3.2",
