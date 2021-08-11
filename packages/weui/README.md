@@ -14,6 +14,12 @@ yarn add @antmjs/weui
 
 ## 使用
 
+src/style/index.less
+
+```css
+@import 'node_modules/@antmjs/weui/dist/style/index';
+```
+
 ```js
 import { Button } from '@antmjs/weui'
 ```
