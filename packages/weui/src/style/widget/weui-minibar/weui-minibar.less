@@ -1,0 +1,43 @@
+.weui-minibar {
+  position: relative;
+  background-color: var(--weui-BG-2);
+  color: var(--weui-FG);
+  width: 100%;
+  box-sizing: border-box;
+  z-index: @weuiZIndexMiniBar;
+
+  &.weui-minibar_fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+
+  &_left {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+
+    &_back,
+    &_home {
+      margin-right: @weuiSpaceXl;
+    }
+  }
+
+  &_center {
+    overflow: hidden;
+    padding: @weuiSpaceSm @weuiSpaceXl 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &_border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    transform: scaleY(0.2);
+  }
+}
