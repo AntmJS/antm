@@ -20,3 +20,4 @@
 - [@antmjs/cache](https://www.npmjs.com/package/@antmjs/cache)
 - [@antmjs/trace](https://www.npmjs.com/package/@antmjs/trace)
 - [@antmjs/utils](https://www.npmjs.com/package/@antmjs/utils)
+- [@antmjs/weui](https://www.npmjs.com/package/@antmjs/weui)
