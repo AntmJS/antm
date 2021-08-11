@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import { MiniBar } from '@antmjs/weui'
 
 export default class Index extends Component {
   state = {
@@ -17,6 +18,7 @@ export default class Index extends Component {
     const isFold = this.state.isFold
     return (
       <body>
+        <MiniBar homeUrl="pages/index/index" />
         <div className="page home js_show">
           <div className="page__hd">
             <h1 className="page__title">

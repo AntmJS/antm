@@ -1,6 +1,8 @@
+import { MiniBar } from '@antmjs/weui'
 export default function Index() {
   return (
     <body>
+      <MiniBar homeUrl="pages/index/index" />
       <div className="page button js_show">
         <div className="page__hd">
           <h1 className="page__title">Button</h1>
@@ -99,7 +101,7 @@ export default function Index() {
             >
               按钮
             </a>
-            <a
+            {/* <a
               href="javascript:"
               className="weui-btn weui-btn_mini weui-btn_default"
             >
@@ -110,7 +112,7 @@ export default function Index() {
               className="weui-btn weui-btn_mini weui-btn_warn"
             >
               按钮
-            </a>
+            </a> */}
           </div>
         </div>
       </div>

@@ -37,12 +37,12 @@ z-index:
   &::before {
     .setTopLine(@weuiCellBorderColor);
 
-    z-index: 2;
+    z-index: @weuiZIndex2;
   }
   &::after {
     .setBottomLine(@weuiCellBorderColor);
 
-    z-index: 2;
+    z-index: @weuiZIndex2;
   }
 }
 
@@ -85,7 +85,7 @@ z-index:
     .setTopLine(@weuiCellBorderColor);
 
     left: @weuiCellGapH;
-    z-index: 2;
+    z-index: @weuiZIndex2;
   }
   &:first-child {
     &::before {
