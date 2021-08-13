@@ -16,37 +16,37 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-article {
-  padding: 24px 16px;
-  padding: 24px calc(16px ~'+ constant(safe-area-inset-right)')
-    calc(24px ~'+ constant(safe-area-inset-bottom)')
-    calc(16px ~'+ constant(safe-area-inset-left)');
-  padding: 24px calc(16px ~'+ env(safe-area-inset-right)')
-    calc(24px ~'+ env(safe-area-inset-bottom)')
-    calc(16px ~'+ env(safe-area-inset-left)');
-  font-size: 17px;
-  color: var(--weui-FG-0);
+  @paddingTop: 24px * @hd;
+  @paddingLeft: 16px * @hd;
+  padding: @paddingTop @paddingLeft;
+  padding: 24px calc(@paddingLeft ~'+ constant(safe-area-inset-right)')
+    calc(@paddingTop ~'+ constant(safe-area-inset-bottom)')
+    calc(@paddingLeft ~'+ constant(safe-area-inset-left)');
+  padding: @paddingTop calc(@paddingLeft ~'+ env(safe-area-inset-right)')
+    calc(@paddingTop ~'+ env(safe-area-inset-bottom)')
+    calc(@paddingLeft ~'+ env(safe-area-inset-left)');
+  font-size: (17px * @hd);
+  color: @weui-FG-0;
   .hyphens;
   section {
     margin-bottom: 1.5em;
   }
   h1 {
-    font-size: 22px;
+    font-size: (22px * @hd);
     font-weight: 700;
     margin-bottom: 0.9em;
     line-height: 1.4;
   }
   h2 {
-    font-size: 17px;
+    font-size: (17px * @hd);
     font-weight: 700;
     margin-bottom: 0.34em;
     line-height: 1.4;
   }
   h3 {
     font-weight: 700;
-    font-size: 15px;
+    font-size: (15px * @hd);
     margin-bottom: 0.34em;
     line-height: 1.4;
   }

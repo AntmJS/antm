@@ -15,6 +15,9 @@ export default function Index() {
             onGetUserInfo={(res) => {
               console.log(res)
             }}
+            onFail={(e) => {
+              console.log(e)
+            }}
           >
             授权用户信息
           </MiniUserButton>
@@ -23,6 +26,9 @@ export default function Index() {
             type="primary"
             onGetPhone={(res) => {
               console.log(res)
+            }}
+            onFail={(e) => {
+              console.log(e)
             }}
           >
             授权用户手机号

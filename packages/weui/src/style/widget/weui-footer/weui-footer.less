@@ -16,11 +16,9 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-footer {
   color: @weuiTextColorTips;
-  font-size: 14px;
+  font-size: (14px * @hd);
   line-height: 1.4;
   text-align: center;
   a,
@@ -32,14 +30,16 @@
   }
 }
 .weui-footer_fixed-bottom {
+  @bottom: 16px * @hd;
+
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  padding-top: 16px;
-  padding-bottom: 16px;
-  padding-bottom: calc(16px ~'+ constant(safe-area-inset-bottom)');
-  padding-bottom: calc(16px ~'+ env(safe-area-inset-bottom)');
+  padding-top: @bottom;
+  padding-bottom: @bottom;
+  padding-bottom: calc(@bottom ~'+ constant(safe-area-inset-bottom)');
+  padding-bottom: calc(@bottom ~'+ env(safe-area-inset-bottom)');
   left: constant(safe-area-inset-left);
   left: env(safe-area-inset-left);
   right: constant(safe-area-inset-right);
@@ -51,13 +51,13 @@
 .weui-footer__link {
   display: inline-block;
   vertical-align: top;
-  margin: 0 8px;
+  margin: 0 (8px * @hd);
   position: relative;
-  font-size: 14px;
+  font-size: (14px * @hd);
   &::before {
     .setLeftLine();
 
-    left: -8px;
+    left: -(8px * @hd);
     top: 0.36em;
     bottom: 0.36em;
   }
@@ -68,6 +68,6 @@
   }
 }
 .weui-footer__text {
-  padding: 0 16px;
-  font-size: 12px;
+  padding: 0 (16px * @hd);
+  font-size: (12px * @hd);
 }

@@ -16,15 +16,13 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-media-box {
-  padding: 16px;
+  padding: (16px * @hd);
   position: relative;
   &::before {
     .setTopLine(@weuiLineColorLight);
 
-    left: 16px;
+    left: (16px * @hd);
   }
   &:first-child {
     &::before {
@@ -42,7 +40,7 @@
 }
 .weui-media-box__title {
   font-weight: 400;
-  font-size: 17px;
+  font-size: (17px * @hd);
   line-height: 1.4;
   color: @weuiTextColorTitle;
   .ellipsis();
@@ -50,16 +48,16 @@
 }
 .weui-media-box__desc {
   color: @weuiTextColorTips;
-  font-size: 14px;
+  font-size: (14px * @hd);
   line-height: 1.4;
-  padding-top: 4px;
+  padding-top: (4px * @hd);
   .ellipsisLn(2);
   .hyphens;
 }
 .weui-media-box__info {
-  margin-top: 16px;
-  padding-bottom: 4px;
-  font-size: 13px;
+  margin-top: (16px * @hd);
+  padding-bottom: (4px * @hd);
+  font-size: (13px * @hd);
   color: @weuiTextColorTips;
   line-height: 1em;
   list-style: none;
@@ -71,16 +69,16 @@
 }
 .weui-media-box__info__meta_extra {
   padding-left: 1em;
-  border-left: 1px solid @weuiTextColorTips;
+  border-left: (1px * @hd) solid @weuiTextColorTips;
 }
 .weui-media-box_appmsg {
   display: flex;
   align-items: center;
   .weui-media-box__hd {
-    margin-right: 16px;
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
+    margin-right: (16px * @hd);
+    width: (60px * @hd);
+    height: (60px * @hd);
+    line-height: (60px * @hd);
     text-align: center;
   }
   .weui-media-box__thumb {

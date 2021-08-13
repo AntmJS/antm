@@ -1,0 +1,32 @@
+/* stylelint-disable selector-max-type */
+* {
+  margin: 0;
+  padding: 0;
+}
+a img {
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+  .setTapColor();
+}
+input,
+textarea {
+  caret-color: @weuiColorPrimary;
+}
+::placeholder {
+  color: var(--weui-FG-2);
+}
+
+.h5-span {
+  display: inline;
+}
+
+.h5-a {
+  display: inline;
+}
+
+.h5-button::after {
+  border: none;
+}

@@ -18,14 +18,12 @@
 
 /* stylelint-disable no-duplicate-selectors */
 
-@import '../base/variable/color';
-
 [class^='weui-icon-'],
 [class*=' weui-icon-'] {
   display: inline-block;
   vertical-align: middle;
-  width: 24px;
-  height: 24px;
+  width: 24px * @hd;
+  height: 24px * @hd;
   mask-position: 50% 50%;
   mask-repeat: no-repeat;
   mask-size: 100%;
@@ -121,13 +119,13 @@
   color: @weuiColorPrimary;
 }
 .weui-icon-waiting {
-  color: var(--weui-BLUE);
+  color: @weui-BLUE;
 }
 .weui-icon-warn {
   color: @weuiColorWarn;
 }
 .weui-icon-info {
-  color: var(--weui-BLUE);
+  color: @weui-BLUE;
 }
 
 .weui-icon-success-circle {
@@ -138,7 +136,7 @@
   color: @weuiColorPrimary;
 }
 .weui-icon-waiting-circle {
-  color: var(--weui-BLUE);
+  color: @weui-BLUE;
 }
 .weui-icon-circle {
   color: @weuiTextColorTips;
@@ -155,7 +153,7 @@
   color: @weuiColorPrimary;
 }
 .weui-icon-safe-warn {
-  color: var(--weui-YELLOW);
+  color: @weui-YELLOW;
 }
 
 .weui-icon-cancel {
@@ -175,14 +173,14 @@
 
 .weui-icon-delete {
   &.weui-icon_gallery-delete {
-    color: var(--weui-WHITE);
+    color: @weui-WHITE;
   }
 }
 .weui-icon-arrow,
 .weui-icon-arrow-bold,
 .weui-icon-back-arrow,
 .weui-icon-back-arrow-thin {
-  width: 12px;
+  width: 12px * @hd;
 }
 .weui-icon-arrow,
 .weui-icon-arrow-bold {
@@ -198,19 +196,19 @@
 }
 
 .weui-icon_msg {
-  width: 64px;
-  height: 64px;
+  width: 64px * @hd;
+  height: 64px * @hd;
   &.weui-icon-warn {
     color: @weuiColorWarn;
   }
   &.weui-icon-info-circle {
-    color: var(--weui-BLUE);
+    color: @weui-BLUE;
   }
 }
 .weui-icon_msg-primary {
-  width: 64px;
-  height: 64px;
+  width: 64px * @hd;
+  height: 64px * @hd;
   &.weui-icon-warn {
-    color: var(--weui-YELLOW);
+    color: @weui-YELLOW;
   }
 }

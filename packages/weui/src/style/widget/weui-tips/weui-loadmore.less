@@ -15,35 +15,33 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-loadmore {
   width: 65%;
-  margin: 20px auto;
+  margin: (20px * @hd) auto;
   text-align: center;
   font-size: 0;
 
   .weui-loading,
   .weui-primary-loading {
-    margin-right: 8px;
+    margin-right: (8px * @hd);
   }
 }
 .weui-loadmore__tips {
   display: inline-block;
   vertical-align: middle;
-  font-size: 14px;
+  font-size: (14px * @hd);
   line-height: 1.6;
   color: @weuiTextColorTitle;
 }
 
 .weui-loadmore_line {
-  border-top: 1px solid @weuiLineColorLight;
-  margin-top: 32px;
+  border-top: (1px * @hd) solid @weuiLineColorLight;
+  margin-top: (32px * @hd);
   .weui-loadmore__tips {
     position: relative;
     top: -0.9em;
     padding: 0 0.55em;
-    background-color: var(--weui-BG-2);
+    background-color: @weui-BG-2;
     color: @weuiTextColorDesc;
   }
 }
@@ -52,8 +50,8 @@
     padding: 0 0.16em;
     &:before {
       content: ' ';
-      width: 4px;
-      height: 4px;
+      width: (4px * @hd);
+      height: (4px * @hd);
       border-radius: 50%;
       background-color: @weuiLineColorLight;
       display: inline-block;

@@ -16,8 +16,6 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-grids {
   position: relative;
   overflow: hidden;
@@ -33,7 +31,7 @@
 .weui-grid {
   position: relative;
   float: left;
-  padding: 20px 10px;
+  padding: (20px * @hd) (10px * @hd);
   width: 100% / @weuiGridColumnCount;
   box-sizing: border-box;
 
@@ -61,7 +59,7 @@
   }
 
   & + .weui-grid__label {
-    margin-top: 4px;
+    margin-top: (4px * @hd);
   }
 }
 

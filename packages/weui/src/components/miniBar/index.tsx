@@ -135,6 +135,13 @@ export default function Index(props: MiniBarProps): JSX.Element {
 
   // 设置按钮位置
   useEffect(function () {
+    if (process.env.NODE_ENV === 'development') {
+      const ins = Taro.getCurrentInstance()
+      if (ins.page?.config?.navigationBarTitleText)
+        console.warn(
+          '使用miniBar组件后不要在配置文件设置navigationBarTitleText',
+        )
+    }
     const setCacheNav = function (cache: boolean): void {
       if (menuData) {
         const calculate = {

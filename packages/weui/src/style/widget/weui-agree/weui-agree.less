@@ -16,12 +16,10 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-agree {
   display: block;
-  padding: 8px 15px 0;
-  font-size: 14px;
+  padding: (8px * @hd) (15px * @hd) 0;
+  font-size: (14px * @hd);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   a,
@@ -34,7 +32,7 @@
 }
 .weui-agree__text {
   color: @weuiTextColorDesc;
-  margin-left: 2px;
+  margin-left: (2px * @hd);
 }
 .weui-agree__checkbox {
   appearance: none;
@@ -50,16 +48,10 @@
   color: @weuiLineColorDark;
   width: 1em;
   height: 1em;
-  font-size: 17px;
+  font-size: (17px * @hd);
   margin-top: -0.2em;
 }
 .weui-agree__checkbox-check {
-  // 兼容小程序
-  position: absolute;
-  left: -9999px;
-}
-.weui-agree__checkbox:checked,
-.weui-agree__checkbox-check[aria-checked='true'] + .weui-agree__checkbox {
   mask-image: url(data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20d%3D%22M12%2022C6.477%2022%202%2017.523%202%2012S6.477%202%2012%202s10%204.477%2010%2010-4.477%2010-10%2010zm-1.177-7.86l-2.765-2.767L7%2012.431l3.119%203.121a1%201%200%20001.414%200l5.952-5.95-1.062-1.062-5.6%205.6z%22%2F%3E%3C%2Fsvg%3E);
   color: @weuiColorPrimary;
 }
@@ -73,11 +65,11 @@
   }
 
   16% {
-    transform: translateX(-8px);
+    transform: translateX(-(8px * @hd));
   }
 
   28% {
-    transform: translateX(-16px);
+    transform: translateX(-(16px * @hd));
   }
 
   44% {
@@ -85,7 +77,7 @@
   }
 
   59% {
-    transform: translateX(-16px);
+    transform: translateX(-(16px * @hd));
   }
 
   73% {
@@ -93,11 +85,11 @@
   }
 
   82% {
-    transform: translateX(16px);
+    transform: translateX((16px * @hd));
   }
 
   94% {
-    transform: translateX(8px);
+    transform: translateX((8px * @hd));
   }
 
   100% {

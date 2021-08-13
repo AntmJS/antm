@@ -1,0 +1,196 @@
+@import './variables';
+// mobile
+.setTapColor(@c:rgba(0,0,0,0)) {
+  -webkit-tap-highlight-color: @c;
+}
+
+// setArrow
+._setArrow(@arrowsize, @borderColor, @borderWidth) {
+  display: inline-block;
+  height: @arrowsize;
+  width: @arrowsize;
+  border-width: @borderWidth @borderWidth 0 0;
+  border-color: @borderColor;
+  border-style: solid;
+}
+
+.setArrow(@direction, @arrowsize, @borderColor, @borderWidth)
+  when
+  (@direction = top) {
+  ._setArrow(@arrowsize, @borderColor, @borderWidth);
+
+  transform: matrix(0.71, -0.71, 0.71, 0.71, 0, 0); // rotate(-45deg)
+}
+
+.setArrow(@direction, @arrowsize, @borderColor,@borderWidth)
+  when
+  (@direction = right) {
+  ._setArrow(@arrowsize, @borderColor, @borderWidth);
+
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0); // rotate(45deg);
+  position: relative;
+  top: -(2px * @hd);
+}
+
+.setArrow(@direction, @arrowsize, @borderColor,@borderWidth)
+  when
+  (@direction = down) {
+  ._setArrow(@arrowsize, @borderColor, @borderWidth);
+
+  transform: matrix(-0.71, 0.71, -0.71, -0.71, 0, 0); // rotate(135deg);
+  position: relative;
+  top: -(3px * @hd);
+}
+
+.setArrow(@direction, @arrowsize, @borderColor,@borderWidth)
+  when
+  (@direction = left) {
+  ._setArrow(@arrowsize, @borderColor, @borderWidth);
+
+  transform: matrix(-0.71, -0.71, 0.71, -0.71, 0, 0); // rotate(-135deg);
+  position: relative;
+  top: -(2px * @hd);
+}
+
+// setLoading
+.setCircleLoading(@color:currentColor,@size: (80px * @hd),@wide: (14px * @hd)) {
+  display: inline-flex;
+  position: relative;
+  width: @size;
+  height: @size;
+  vertical-align: middle;
+  color: @color;
+  animation: circleLoading 1s steps(60, end) infinite;
+
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    width: (@size / 2);
+    height: @size;
+    box-sizing: border-box;
+    border: @wide solid;
+    border-color: currentColor;
+  }
+
+  &::before {
+    border-right-width: 0;
+    border-top-left-radius: @size;
+    border-bottom-left-radius: @size;
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 1) 8%,
+      rgba(0, 0, 0, 0.3) 95%
+    );
+  }
+  &::after {
+    border-left-width: 0;
+    border-top-right-radius: @size;
+    border-bottom-right-radius: @size;
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 8%,
+      rgba(0, 0, 0, 0.3) 95%
+    );
+  }
+  &__dot {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: (-@wide / 2);
+    width: @wide;
+    height: @wide;
+    border-top-right-radius: @wide;
+    border-bottom-right-radius: @wide;
+    background: currentColor;
+  }
+
+  @keyframes circleLoading {
+    0% {
+      transform: rotate3d(0, 0, 1, 0deg);
+    }
+
+    100% {
+      transform: rotate3d(0, 0, 1, 360deg);
+    }
+  }
+}
+
+// setOnepx
+.setTopLine(@c: @weuiLineColorLight) {
+  content: ' ';
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: (1px * @hd);
+  border-top: (1px * @hd) solid @c;
+  color: @c;
+  transform-origin: 0 0;
+  transform: scaleY(0.5);
+}
+
+.setBottomLine(@c: @weuiLineColorLight) {
+  content: ' ';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: (1px * @hd);
+  border-bottom: (1px * @hd) solid @c;
+  color: @c;
+  transform-origin: 0 100%;
+  transform: scaleY(0.5);
+}
+
+.setLeftLine(@c: @weuiLineColorLight) {
+  content: ' ';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: (1px * @hd);
+  bottom: 0;
+  border-left: (1px * @hd) solid @c;
+  color: @c;
+  transform-origin: 0 0;
+  transform: scaleX(0.5);
+}
+
+.setRightLine(@c: @weuiLineColorLight) {
+  content: ' ';
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: (1px * @hd);
+  bottom: 0;
+  border-right: (1px * @hd) solid @c;
+  color: @c;
+  transform-origin: 100% 0;
+  transform: scaleX(0.5);
+}
+
+// text
+.ellipsis(@w:auto) {
+  width: @w;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+
+.ellipsisLn(@line) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: @line;
+}
+.text_wrap() {
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.hyphens() {
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}

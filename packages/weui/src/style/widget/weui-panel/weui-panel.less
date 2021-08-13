@@ -16,11 +16,9 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-panel {
-  background-color: var(--weui-BG-2);
-  margin-top: 10px;
+  background-color: @weui-BG-2;
+  margin-top: (10px * @hd);
   &:first-child {
     margin-top: 0;
   }
@@ -36,14 +34,14 @@
 }
 
 .weui-panel__hd {
-  padding: 16px 16px 13px;
+  padding: (16px * @hd) (16px * @hd) (13px * @hd);
   color: @weuiTextColorTitle;
-  font-size: 15px;
+  font-size: (15px * @hd);
   font-weight: 700;
   position: relative;
   &:after {
     .setBottomLine(@weuiLineColorLight);
 
-    left: 15px;
+    left: (15px * @hd);
   }
 }

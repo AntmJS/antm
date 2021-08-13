@@ -14,8 +14,6 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-btn_cell {
   position: relative;
   display: block;
@@ -31,7 +29,7 @@
   .setTapColor();
 
   overflow: hidden;
-  background-color: var(--weui-BG-5);
+  background-color: @weui-BG-5;
   & + & {
     margin-top: @weuiBtnDefaultGap;
   }
@@ -45,12 +43,12 @@
 .weui-btn_cell__icon {
   display: inline-block;
   vertical-align: middle;
-  width: 24px;
-  height: 24px;
+  width: (24px * @hd);
+  height: (24px * @hd);
   margin: -0.2em 0.34em 0 0;
 }
 .weui-btn_cell-default {
-  color: var(--weui-FG-0);
+  color: @weui-FG-0;
 }
 .weui-btn_cell-primary {
   color: @weuiLinkColorDefault;

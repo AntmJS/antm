@@ -1,10 +1,10 @@
 .weui-minibar {
   position: relative;
-  background-color: var(--weui-BG-2);
-  color: var(--weui-FG);
+  background-color: @weui-BG-2;
+  color: @weui-FG;
   width: 100%;
   box-sizing: border-box;
-  z-index: @weuiZIndexMiniBar;
+  z-index: @weuiZIndexNav;
 
   &.weui-minibar_fixed {
     position: fixed;
@@ -37,7 +37,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 2px;
+    height: (2px * @hd);
     transform: scaleY(0.2);
   }
 }

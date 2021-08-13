@@ -2,6 +2,7 @@ import { CSSProperties } from 'react'
 
 declare namespace NodeJS {
   interface ProcessEnv {
+    NODE_ENV: 'development' | 'production'
     TARO_ENV:
       | 'weapp'
       | 'swan'
@@ -23,6 +24,7 @@ declare namespace WEUI {
     id?: string
     style?: CSSProperties
   }
+  type IAnyObject = Record<string, any>
 }
 
 export default WEUI

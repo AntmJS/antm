@@ -16,11 +16,9 @@
 * limitations under the License.
 */
 
-@import '../../../base/fn';
-
 .weui-form-preview {
   position: relative;
-  background-color: var(--weui-BG-2);
+  background-color: @weui-BG-2;
   &::before {
     .setTopLine(@weuiCellBorderColor);
   }
@@ -52,7 +50,7 @@
 }
 .weui-form-preview__ft {
   position: relative;
-  line-height: 50px;
+  line-height: (50px * @hd);
   display: flex;
   &::before {
     .setTopLine(@weuiDialogLineColor);
@@ -74,7 +72,7 @@
   overflow: hidden;
   word-break: normal;
   word-wrap: break-word;
-  color: var(--weui-FG-0);
+  color: @weui-FG-0;
 }
 .weui-form-preview__btn {
   position: relative;
@@ -103,7 +101,7 @@
   }
 }
 .weui-form-preview__btn_default {
-  color: var(--weui-FG-HALF);
+  color: @weui-FG-HALF;
 }
 .weui-form-preview__btn_primary {
   color: @weuiLinkColorDefault;
@@ -111,14 +109,14 @@
 
 // 列表块，一般放msg组件的自定义区域
 .weui-form-preview__list {
-  padding-top: 24px;
-  padding-bottom: 24px;
+  padding-top: (24px * @hd);
+  padding-bottom: (24px * @hd);
   line-height: 1.4;
-  font-size: 14px;
+  font-size: (14px * @hd);
   position: relative;
   &::before {
     content: '';
-    .setTopLine(var(--weui-FG-3));
+    .setTopLine(@weui-FG-3);
   }
   &:last-child {
     padding-bottom: 0;
@@ -132,7 +130,7 @@
     hyphens: auto;
   }
   .weui-form-preview__item {
-    margin-top: 12px;
+    margin-top: (12px * @hd);
     &:first-child {
       margin-top: 0;
     }

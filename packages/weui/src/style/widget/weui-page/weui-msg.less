@@ -15,7 +15,6 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
 @import '../weui-button/weui-button';
 
 a {
@@ -41,29 +40,29 @@ a {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  background-color: var(--weui-BG-2);
+  background-color: @weui-BG-2;
 }
 .weui-msg__icon-area {
-  margin-bottom: 32px;
+  margin-bottom: (32px * @hd);
 }
 .weui-msg__text-area {
-  margin-bottom: 32px;
-  padding: 0 32px;
+  margin-bottom: (32px * @hd);
+  padding: 0 (32px * @hd);
   flex: 1;
   line-height: 1.6;
   .hyphens;
   &:first-child {
-    padding-top: 96px;
+    padding-top: (96px * @hd);
   }
 }
 .weui-msg__title {
   margin-bottom: @weuiMsgTitleGap;
   font-weight: 400;
-  font-size: 22px;
+  font-size: (22px * @hd);
   color: #191919;
-  .dark({
-      color: #D1D1D1;
-    });
+  // .dark({
+  //     color: #D1D1D1;
+  //   });
 
   -webkit-text-stroke: 0.02em;
 }
@@ -74,27 +73,27 @@ a {
   }
 }
 .weui-msg__desc {
-  font-size: 17px;
+  font-size: (17px * @hd);
   font-weight: 400;
   color: @weuiTextColorTitle;
-  margin-bottom: 16px;
+  margin-bottom: (16px * @hd);
 }
 .weui-msg__desc-primary {
-  font-size: 14px;
+  font-size: (14px * @hd);
   color: @weuiTextColorDesc;
-  margin-bottom: 16px;
+  margin-bottom: (16px * @hd);
 }
 .weui-msg__custom-area {
   text-align: left;
   word-wrap: break-word;
   hyphens: auto;
-  margin-bottom: 16px;
+  margin-bottom: (16px * @hd);
   .weui-msg__title + & {
-    margin-top: 48px;
+    margin-top: (48px * @hd);
   }
   .weui-msg__desc + &,
   .weui-msg__desc-primary + & {
-    margin-top: 40px;
+    margin-top: (40px * @hd);
   }
   .weui-cells__group_form {
     .weui-cells {
@@ -115,38 +114,38 @@ a {
   }
 }
 .weui-msg__opr-area {
-  margin-bottom: 16px;
+  margin-bottom: (16px * @hd);
   .weui-btn-area {
     margin: 0;
   }
   .weui-btn + .weui-btn {
-    margin-bottom: 16px;
+    margin-bottom: (16px * @hd);
   }
   &:last-child {
-    margin-bottom: 96px;
+    margin-bottom: (96px * @hd);
   }
   & + .weui-msg__extra-area {
-    margin-top: 48px;
+    margin-top: (48px * @hd);
   }
 }
 .weui-msg__tips-area {
-  margin-bottom: 16px;
-  padding: 0 40px;
+  margin-bottom: (16px * @hd);
+  padding: 0 (40px * @hd);
   .hyphens;
   .weui-msg__opr-area + & {
-    margin-bottom: 48px;
+    margin-bottom: (48px * @hd);
   }
   &:last-child {
-    margin-bottom: 64px;
+    margin-bottom: (64px * @hd);
   }
 }
 .weui-msg__tips {
-  font-size: 12px;
+  font-size: (12px * @hd);
   color: @weuiTextColorDesc;
 }
 .weui-msg__extra-area {
-  margin-bottom: 24px;
-  font-size: 12px;
+  margin-bottom: (24px * @hd);
+  font-size: (12px * @hd);
   color: @weuiTextColorDesc;
   a,
   navigator {

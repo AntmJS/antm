@@ -50,9 +50,9 @@ let config = {
     webpackChain(chain) {
       miniChain(chain)
     },
-    lessLoaderOption: {
-      additionalData: "@import '~/src/style/index.less';",
-    },
+    // lessLoaderOption: {
+    //   additionalData: "@import '~/src/style/index.less';",
+    // },
     postcss: {
       autoprefixer: {
         enable: true,
@@ -63,6 +63,12 @@ let config = {
       pxtransform: {
         enable: true,
         config: {},
+      },
+      url: {
+        enable: true,
+        config: {
+          limit: 1024, // 设定转换尺寸上限
+        },
       },
       cssModules: {
         enable: false, // 默认为 false，如需使用 css modules 功能，则设为 true
@@ -118,9 +124,9 @@ let config = {
       },
     },
     proxy: {},
-    lessLoaderOption: {
-      additionalData: "@import '~/src/style/index.less';",
-    },
+    // lessLoaderOption: {
+    //   additionalData: "@import '~/src/style/index.less';",
+    // },
     postcss: {
       autoprefixer: {
         enable: true,
@@ -151,7 +157,7 @@ let config = {
     [
       '@tarojs/plugin-html',
       {
-        pxtransformBlackList: [/page|h5|weui/],
+        // pxtransformBlackList: [/page|h5|weui/],
       },
     ],
   ],

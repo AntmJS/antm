@@ -16,8 +16,6 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-cell_access {
   .setTapColor();
 
@@ -26,12 +24,12 @@
     background-color: @weuiBgColorActive;
   }
   .weui-cell__ft {
-    padding-right: 22px;
+    padding-right: (22px * @hd);
     position: relative;
     &::after {
       content: ' ';
-      width: 12px;
-      height: 24px;
+      width: (12px * @hd);
+      height: (24px * @hd);
       mask-position: 0 0;
       mask-repeat: no-repeat;
       mask-size: 100%;
@@ -41,13 +39,13 @@
       position: absolute;
       top: 50%;
       right: 0;
-      margin-top: -12px;
+      margin-top: -(12px * @hd);
     }
   }
 }
 .weui-cell_link {
   color: @weuiLinkColorDefault;
-  font-size: 17px;
+  font-size: (17px * @hd);
 
   // 由于weui-cell:first-child的:before为隐藏，所以这里要重新显示出来
   &:first-child {

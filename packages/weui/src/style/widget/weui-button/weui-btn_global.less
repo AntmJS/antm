@@ -16,15 +16,13 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-btn {
   position: relative;
   display: block;
   width: @weuiBtnWidth;
   margin-left: auto;
   margin-right: auto;
-  padding: 8px 24px;
+  padding: (8px * @hd) (24px * @hd);
   box-sizing: border-box;
   font-weight: 700;
   font-size: @weuiBtnFontSize;
@@ -32,7 +30,7 @@
   text-decoration: none;
   color: @weuiBtnFontColor;
   // line-height: unit((@weuiBtnHeight - 16) / @weuiBtnFontSize);
-  line-height: ((40 - 16) / 17);
+  line-height: 1.9;
   border-radius: @weuiBtnBorderRadius;
   overflow: hidden;
 

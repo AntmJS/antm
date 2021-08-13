@@ -1,32 +1,8 @@
-import { useCallback, useRef, useState } from 'react'
-import { useFadeIn, useFadeOut } from '../../utils'
+import { useRef } from 'react'
+import { ActionSheet, IActionSheetRef } from '@antmjs/weui'
 
 export default function Index() {
-  const [isShowIOS, setIsShowIOS] = useState(false)
-  const iosMaskRef = useRef<HTMLDivElement>()
-  const androidRef = useRef<HTMLDivElement>()
-
-  const iosMaskfadeOut = useFadeOut(iosMaskRef)
-  const iosMaskfadeIn = useFadeIn(iosMaskRef)
-
-  const hideActionSheet = useCallback(
-    function () {
-      setIsShowIOS(false)
-      iosMaskfadeOut()
-    },
-    [iosMaskfadeOut],
-  )
-
-  const showIOSActionSheet = useCallback(
-    function () {
-      setIsShowIOS(true)
-      iosMaskfadeIn()
-    },
-    [iosMaskfadeIn],
-  )
-
-  const hideAndroidActionSheet = useFadeOut(androidRef)
-  const showAndroidActionSheet = useFadeIn(androidRef)
+  const showRef = useRef<IActionSheetRef>()
 
   return (
     <body>
@@ -39,73 +15,25 @@ export default function Index() {
           <a
             href="javascript:"
             className="weui-btn weui-btn_default"
-            id="showIOSActionSheet"
-            onClick={showIOSActionSheet}
+            onClick={() => {
+              showRef.current!.showActionSheet()
+            }}
           >
             iOS ActionSheet
           </a>
-          <a
-            href="javascript:"
-            className="weui-btn weui-btn_default"
-            id="showAndroidActionSheet"
-            onClick={showAndroidActionSheet}
-          >
-            Android ActionSheet
-          </a>
         </div>
-        <div>
-          <div
-            className="weui-mask"
-            id="iosMask"
-            style={{ display: 'none' }}
-            ref={iosMaskRef as React.LegacyRef<HTMLDivElement> | undefined}
-            onClick={hideActionSheet}
-          ></div>
-          <div
-            className={`weui-actionsheet ${
-              isShowIOS ? 'weui-actionsheet_toggle' : ''
-            }`}
-            id="iosActionsheet"
-          >
-            <div className="weui-actionsheet__title">
-              <p className="weui-actionsheet__title-text">
-                这是一个标题，可以为一行或者两行。
-              </p>
-            </div>
-            <div className="weui-actionsheet__menu">
-              <div className="weui-actionsheet__cell">示例菜单</div>
-              <div className="weui-actionsheet__cell">示例菜单</div>
-              <div className="weui-actionsheet__cell weui-actionsheet__cell_warn">
-                负向菜单
-              </div>
-            </div>
-            <div className="weui-actionsheet__action">
-              <div
-                className="weui-actionsheet__cell"
-                id="iosActionsheetCancel"
-                onClick={hideActionSheet}
-              >
-                取消
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div
-          className="weui-skin_android"
-          id="androidActionsheet"
-          style={{ display: 'none' }}
-          ref={androidRef as React.LegacyRef<HTMLDivElement> | undefined}
-        >
-          <div className="weui-mask" onClick={hideAndroidActionSheet}></div>
-          <div className="weui-actionsheet">
-            <div className="weui-actionsheet__menu">
-              <div className="weui-actionsheet__cell">示例菜单</div>
-              <div className="weui-actionsheet__cell">示例菜单</div>
-              <div className="weui-actionsheet__cell">示例菜单</div>
-            </div>
-          </div>
-        </div>
+        <ActionSheet
+          cref={showRef}
+          title="dddddj哈哈哈"
+          subTitle="dddddj哈哈哈"
+          list={[
+            { name: '哈哈哈', value: 'ddd' },
+            { name: '哈哈哈11', value: 'ddd11' },
+          ]}
+          onSelect={(item) => {
+            console.log(item)
+          }}
+        />
       </div>
     </body>
   )

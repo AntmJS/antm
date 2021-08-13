@@ -15,18 +15,16 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-badge {
   display: inline-block;
   padding: 0.15em 0.4em;
-  min-width: 8px;
-  border-radius: 18px;
+  min-width: (8px * @hd);
+  border-radius: (18px * @hd);
   background-color: @weuiColorWarn;
   color: #fff; // 固定色值
   line-height: 1.2;
   text-align: center;
-  font-size: 12px;
+  font-size: (12px * @hd);
   vertical-align: middle;
 }
 .weui-badge_dot {

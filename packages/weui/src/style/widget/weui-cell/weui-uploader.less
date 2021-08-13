@@ -16,10 +16,8 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-cell_uploader {
-  padding-bottom: 24px;
+  padding-bottom: (24px * @hd);
 }
 .weui-uploader {
   flex: 1;
@@ -74,7 +72,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--weui-WHITE);
+  color: @weui-WHITE;
   .weui-icon-warn {
     display: inline-block;
   }
@@ -88,9 +86,9 @@
   height: @weuiUploaderSize;
   box-sizing: border-box;
   background-color: #ededed;
-  .dark({
-        background-color: #2e2e2e;
-    });
+  // .dark({
+  //       background-color: #2e2e2e;
+  //   });
   &::before,
   &::after {
     content: ' ';
@@ -99,9 +97,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #a3a3a3;
-    .dark({
-            background-color: #6d6d6d;
-        });
+    // .dark({
+    //         background-color: #6d6d6d;
+    //     });
   }
   &::before {
     width: @weuiUploaderBorderWidth + 1;
@@ -120,7 +118,7 @@
 }
 .weui-uploader__input {
   position: absolute;
-  z-index: @weuiZIndex1;
+  z-index: @weuiZIndex;
   top: 0;
   left: 0;
   width: 100%;

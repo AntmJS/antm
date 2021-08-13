@@ -14,12 +14,11 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
 @import './weui-primary-loading';
 
 .weui-loading {
-  width: 20px;
-  height: 20px;
+  width: (20px * @hd);
+  height: (20px * @hd);
   display: inline-block;
   vertical-align: middle;
   animation: weuiLoading 1s steps(12, end) infinite;

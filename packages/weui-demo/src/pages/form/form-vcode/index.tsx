@@ -1,11 +1,12 @@
-import { CheckboxGroup } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { useCallback, useRef, useState } from 'react'
+import { HalfScreen, IHalfScreenRef } from '@antmjs/weui'
 import { useFadeIn, useFadeOut } from '../../../utils'
 
 export default function Index() {
   const tooltips = useRef<HTMLDivElement>(null)
   const toast = useRef<HTMLDivElement>(null)
-  const halfScreenDialog = useRef<HTMLDivElement>(null)
+  const halfScreenDialog = useRef<IHalfScreenRef>()
   const iosDialog1 = useRef<HTMLDivElement>(null)
   const input = useRef<HTMLInputElement>(null)
   const showTooltips = useRef<HTMLAnchorElement>(null)
@@ -15,10 +16,9 @@ export default function Index() {
   const [inputText, setInputText] = useState('')
   const [isAgree, setIsAgree] = useState(false)
   const [isShowTooltips, setIsShowTooltips] = useState(false)
-  const [isShowDialog, setIsShowDialog] = useState(false)
 
   const iosDialog1FadeIn = useFadeIn(iosDialog1)
-  const iosDialog1FadeOut = useFadeOut(iosDialog1)
+  // const iosDialog1FadeOut = useFadeOut(iosDialog1)
   const toastFadeIn = useFadeIn(toast)
   const toastFadeOut = useFadeOut(toast)
 
@@ -45,19 +45,19 @@ export default function Index() {
     }
   }, [isAgree, toastFadeIn, toastFadeOut])
 
-  const onMaskClick = useCallback(() => {
-    setIsShowDialog(false)
-    iosDialog1FadeOut()
-  }, [iosDialog1FadeOut])
+  // const onMaskClick = useCallback(() => {
+  //   halfScreenDialog.current?.hideHalfScreen()
+  //   iosDialog1FadeOut()
+  // }, [iosDialog1FadeOut])
 
-  const onDialogsClose = useCallback(() => {
-    setIsShowDialog(false)
-    iosDialog1FadeOut()
-  }, [iosDialog1FadeOut])
+  // const onDialogsClose = useCallback(() => {
+  //   halfScreenDialog.current?.hideHalfScreen()
+  //   iosDialog1FadeOut()
+  // }, [iosDialog1FadeOut])
 
   const onShowIOSDialog1 = useCallback(() => {
     iosDialog1FadeIn()
-    setIsShowDialog(true)
+    halfScreenDialog.current?.showHalfScreen()
   }, [iosDialog1FadeIn])
 
   return (
@@ -133,9 +133,9 @@ export default function Index() {
               </div>
             </div>
           </div>
-          <CheckboxGroup
+          <View
             className="weui-form__tips-area"
-            onChange={() => setIsAgree(!isAgree)}
+            onClick={() => setIsAgree(!isAgree)}
           >
             <label
               id="weuiAgree"
@@ -143,19 +143,19 @@ export default function Index() {
               className="weui-agree"
               ref={weuiAgree}
             >
-              <input
+              <div
                 id="weuiAgreeCheckbox"
-                type="checkbox"
-                className="weui-agree__checkbox"
+                className={`weui-agree__checkbox ${
+                  isAgree ? 'weui-agree__checkbox-check' : ''
+                }`}
                 ref={agreeCheckbox}
-                checked={isAgree}
               />
               <span className="weui-agree__text">
                 阅读并同意
                 <a href="javascript:">《相关条款》</a>
               </span>
             </label>
-          </CheckboxGroup>
+          </View>
           <div className="weui-form__opr-area">
             <a
               className={`weui-btn weui-btn_primary ${
@@ -178,48 +178,7 @@ export default function Index() {
           </div>
         </div>
         <div id="dialogs">
-          <div
-            className="js_dialog"
-            id="iosDialog1"
-            style={{ display: 'none' }}
-            ref={iosDialog1}
-          >
-            <div className="weui-mask" onClick={onMaskClick}></div>
-            <div
-              id="js_half_screen_dialog"
-              className={`weui-half-screen-dialog ${
-                isShowDialog ? 'weui-half-screen-dialog_show' : ''
-              }`}
-              ref={halfScreenDialog}
-            >
-              <div className="weui-half-screen-dialog__hd">
-                <div className="weui-half-screen-dialog__hd__side">
-                  <div
-                    id="dialogClose"
-                    className="weui-icon-btn"
-                    onClick={onDialogsClose}
-                  >
-                    关闭
-                    <i className="weui-icon-close-thin"></i>
-                  </div>
-                </div>
-                <div className="weui-half-screen-dialog__hd__main">
-                  <strong className="weui-half-screen-dialog__title">
-                    标题
-                  </strong>
-                </div>
-              </div>
-              <div className="weui-half-screen-dialog__bd">
-                <br />
-                <br />
-                可放自定义内容
-                <br />
-                <br />
-                <br />
-                <br />
-              </div>
-            </div>
-          </div>
+          <HalfScreen cref={halfScreenDialog}>ddd</HalfScreen>
         </div>
       </div>
     </body>

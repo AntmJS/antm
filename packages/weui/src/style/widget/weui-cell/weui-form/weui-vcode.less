@@ -16,15 +16,13 @@
 * limitations under the License.
 */
 
-@import '../../../base/fn';
-
 .weui-cell_vcode {
   padding-top: 0;
   padding-right: 0;
   padding-bottom: 0;
 }
 .weui-vcode-img {
-  margin-left: 5px;
+  margin-left: (5px * @hd);
   height: @weuiCellHeight;
   vertical-align: middle;
 }
@@ -32,7 +30,7 @@
 .weui-vcode-btn {
   display: inline-block;
   height: @weuiCellHeight;
-  margin-left: 5px;
+  margin-left: (5px * @hd);
   padding: 0 0.6em 0 0.7em;
   line-height: @weuiCellHeight;
   vertical-align: middle;
@@ -48,6 +46,6 @@
     outline: 0;
   }
   &:active {
-    color: var(--weui-LINK-ACTIVE);
+    color: @weui-LINK-ACTIVE;
   }
 }

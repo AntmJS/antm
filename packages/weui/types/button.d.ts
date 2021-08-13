@@ -1,17 +1,8 @@
 import { ComponentClass } from 'react'
+import Taro from '@tarojs/taro'
 import { ButtonProps as TaroButtonProps } from '@tarojs/components'
+import { BaseEventOrig } from '@tarojs/components/types/common.d'
 import WEUI from './normal'
-
-interface IWeappUserMessage {
-  code: string
-  userInfo: Taro.UserInfo
-}
-
-interface IWeappPhoneMessage {
-  code: string
-  iv: string
-  encryptedData: string
-}
 
 export interface ButtonProps
   extends Omit<TaroButtonProps, 'style' | 'size'>,
@@ -20,48 +11,47 @@ export interface ButtonProps
   children: JSX.Element | string
 }
 
+export interface MiniLoginButtonProps extends WEUI.IBaseComponent {
+  onFail: (error: Taro.General.CallbackResult) => void
+  onGetLoginCode: (loginInfo: Taro.login.SuccessCallbackResult) => void
+  children: JSX.Element | string
+  size?: 'small' | 'normal' | 'around' | 'full'
+  type?: 'primary' | 'default' | 'warn'
+  loading?: boolean
+  disabled?: boolean
+}
+
 export interface MiniUserButtonProps extends WEUI.IBaseComponent {
-  /**
-   * @memberof ACEMiniUserAuthProps
-   * @description 用户信息授权登录
-   */
-  onGetUserInfo: (res: IWeappUserMessage) => void
+  onGetUserInfo: (
+    userInfo:
+      | Taro.UserInfo
+      | Taro.getUserProfile.SuccessCallbackResult
+      | TaroButtonProps.onGetUserInfoEventDetail,
+  ) => void
+  onFail: (
+    error:
+      | Taro.General.CallbackResult
+      | BaseEventOrig<TaroButtonProps.onGetUserInfoEventDetail>,
+  ) => void
   children: JSX.Element | string
   size?: 'small' | 'normal' | 'around' | 'full'
   type?: 'primary' | 'default' | 'warn'
   desc?: string
   loading?: boolean
   disabled?: boolean
-}
-
-export interface MiniUserButtonRef {
-  /**
-   * @memberof MiniUserButtonRef
-   * @description 调用login重新更新code
-   */
-  onUpdateCode: () => void
 }
 
 export interface MiniPhoneButtonProps extends WEUI.IBaseComponent {
-  /**
-   * @memberof MiniPhoneButtonProps
-   * @description 手机号授权登录
-   */
-  onGetPhone: (res: IWeappPhoneMessage) => void
+  onFail: (
+    error: BaseEventOrig<TaroButtonProps.onGetPhoneNumberEventDetail>,
+  ) => void
+  onGetPhone: (phoneInfo: TaroButtonProps.onGetPhoneNumberEventDetail) => void
   children: JSX.Element | string
   size?: 'small' | 'normal' | 'around' | 'full'
   type?: 'primary' | 'default' | 'warn'
   desc?: string
   loading?: boolean
   disabled?: boolean
-}
-
-export interface MiniPhoneButtonRef {
-  /**
-   * @memberof MiniUserButtonRef
-   * @description 调用login重新更新code
-   */
-  onUpdateCode: () => void
 }
 
 declare const Button: ComponentClass<ButtonProps>

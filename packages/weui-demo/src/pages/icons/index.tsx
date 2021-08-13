@@ -49,6 +49,156 @@ export default function Index() {
             </div>
           </div>
         </div>
+        <div>
+          weui-icon-circle
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-circle"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-download
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-download"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-info
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-info"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-safe-success
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-safe-success"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-safe-warn
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-safe-warn"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-success
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-success"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-success-circle
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-success-circle"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-success-no-circle
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-success-no-circle"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-waiting
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-waiting"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-waiting-circle
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-waiting-circle"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-warn
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-warn"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-info-circle
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-info-circle"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-cancel
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-cancel"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-search
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-search"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-clear
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-clear"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-back
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-back"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-delete
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-delete"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-success-no-circle-thin
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-success-no-circle-thin"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-arrow
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-arrow"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-arrow-bold
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-arrow-bold"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-back-arrow
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-back-arrow"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-back-arrow-thin
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-back-arrow-thin"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-close
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-close"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-close-thin
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-close-thin"></i>
+          </div>
+        </div>
+        <div>
+          weui-icon-back-circle
+          <div className={`weui-icon-btn`}>
+            <i className="weui-icon-back-circle"></i>
+          </div>
+        </div>
       </div>
     </body>
   )

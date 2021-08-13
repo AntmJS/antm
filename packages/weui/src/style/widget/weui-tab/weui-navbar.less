@@ -16,13 +16,11 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-navbar {
   display: flex;
   position: relative;
-  z-index: @weuiZIndexMiniBar;
-  background-color: var(--weui-BG-2);
+  z-index: @weuiZIndexNav;
+  background-color: @weui-BG-2;
   padding-top: constant(safe-area-inset-top);
   padding-top: env(safe-area-inset-top);
 
@@ -37,14 +35,15 @@
 }
 
 .weui-navbar__item {
+  @padding: 16px * @hd;
   position: relative;
   display: block;
   flex: 1;
-  padding: 16px 0;
-  padding-top: calc(16px ~'+ constant(safe-area-inset-top)');
-  padding-top: calc(16px ~'+ env(safe-area-inset-top)');
+  padding: @padding 0;
+  padding-top: calc(@padding ~'+ constant(safe-area-inset-top)');
+  padding-top: calc(@padding ~'+ env(safe-area-inset-top)');
   text-align: center;
-  font-size: 17px;
+  font-size: (17px * @hd);
   //   line-height: unit((@weuiNavBarHeight - 32) / 17);
   line-height: (56 - 32) / 17;
   .setTapColor();

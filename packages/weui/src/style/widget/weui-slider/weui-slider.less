@@ -15,21 +15,19 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-slider {
-  padding: 15px 18px;
+  padding: (15px * @hd) (18px * @hd);
   user-select: none;
 }
 
 .weui-slider__inner {
   position: relative;
-  height: 2px;
+  height: (2px * @hd);
   background-color: @weuiLineColorLight;
 }
 
 .weui-slider__track {
-  height: 2px;
+  height: (2px * @hd);
   background-color: @weuiColorPrimary;
   width: 0;
 }
@@ -38,13 +36,13 @@
   position: absolute;
   left: 0;
   top: 50%;
-  width: 28px;
-  height: 28px;
-  margin-left: -14px;
-  margin-top: -14px;
+  width: (28px * @hd);
+  height: (28px * @hd);
+  margin-left: -(14px * @hd);
+  margin-top: -(14px * @hd);
   border-radius: 50%;
   background-color: #fff; // 固定色值
-  box-shadow: 0 0 4px var(--weui-FG-3);
+  box-shadow: 0 0 (4px * @hd) @weui-FG-3;
 }
 
 .weui-slider-box {
@@ -56,8 +54,8 @@
 }
 .weui-slider-box__value {
   margin-left: 0.5em;
-  min-width: 24px;
+  min-width: (24px * @hd);
   color: @weuiTextColorDesc;
   text-align: center;
-  font-size: 14px;
+  font-size: (14px * @hd);
 }

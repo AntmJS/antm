@@ -16,8 +16,6 @@
 * limitations under the License.
 */
 
-@import '../../../base/fn';
-
 // method2 accessbility
 .weui-cells_radio {
   .weui-cell__ft {
@@ -29,7 +27,7 @@
   // radio
   .weui-cells_radio & {
     & + .weui-icon-checked {
-      min-width: 16px;
+      min-width: (16px * @hd);
       color: transparent;
     }
     &:checked,

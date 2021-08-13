@@ -16,7 +16,6 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
 @import 'weui-btn_global';
 @import 'weui-btn_default';
 @import 'weui-btn_primary';
@@ -53,8 +52,8 @@ input {
 
 .weui-btn_around {
   width: auto;
-  margin-left: 12px;
-  margin-right: 12px;
+  margin-left: (12px * @hd);
+  margin-right: (12px * @hd);
 }
 
 /* gap between btn */
@@ -68,7 +67,7 @@ input {
 }
 
 .weui-btn-area {
-  margin: 48px @weuiBtnDefaultGap 8px;
+  margin: (48px * @hd) @weuiBtnDefaultGap (8px * @hd);
 }
 .weui-btn-area_inline {
   display: flex;
@@ -93,7 +92,7 @@ input {
   font-size: 0;
   &:active {
     [class*='weui-icon-'] {
-      color: var(--weui-FG-1);
+      color: @weui-FG-1;
     }
   }
 }

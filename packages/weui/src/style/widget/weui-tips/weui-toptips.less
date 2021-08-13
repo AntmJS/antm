@@ -14,18 +14,16 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-toptips {
   display: none;
   position: fixed;
   transform: translateZ(0);
-  top: 8px;
-  left: 8px;
-  right: 8px;
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 14px;
+  top: (8px * @hd);
+  left: (8px * @hd);
+  right: (8px * @hd);
+  padding: (10px * @hd);
+  border-radius: (8px * @hd);
+  font-size: (14px * @hd);
   text-align: center;
   color: #ffffff; // 固定色值
   z-index: @weuiZIndexToast;

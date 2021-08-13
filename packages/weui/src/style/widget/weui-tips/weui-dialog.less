@@ -15,18 +15,16 @@
 * limitations under the License.
 */
 
-@import '../../base/fn';
-
 .weui-dialog {
   position: fixed;
-  z-index: @weuiZIndexToast;
+  z-index: @weuiZIndexDialog;
   top: 50%;
-  left: 16px;
-  right: 16px;
+  left: (16px * @hd);
+  right: (16px * @hd);
   transform: translate(0, -50%);
   background-color: @weuiDialogBackgroundColor;
   text-align: center;
-  border-radius: 12px;
+  border-radius: (12px * @hd);
   overflow: hidden;
   display: -webkit-box;
   display: -webkit-flex;
@@ -35,27 +33,37 @@
   flex-direction: column;
   max-height: 90%;
 }
+.weui-dialog-min-height {
+  min-height: (100px * @hd);
+}
+
+.weui-dialog-close-top-right {
+  position: absolute;
+  right: (5px * @hd);
+  top: (5px * @hd);
+}
+
 .weui-dialog__hd {
-  padding: 32px @weuiDialogGapWidth 16px;
+  padding: (32px * @hd) @weuiDialogGapWidth (16px * @hd);
 }
 .weui-dialog__title {
   font-weight: 700;
-  font-size: 17px;
+  font-size: (17px * @hd);
   line-height: 1.4;
 }
 .weui-dialog__bd {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   padding: 0 @weuiDialogGapWidth;
-  margin-bottom: 32px;
-  font-size: 17px;
+  margin-bottom: (32px * @hd);
+  font-size: (17px * @hd);
   line-height: 1.4;
   .hyphens;
 
   color: @weuiTextColorDesc;
   &:first-child {
-    min-height: 40px;
-    padding: 32px @weuiDialogGapWidth 0;
+    min-height: (40px * @hd);
+    padding: (32px * @hd) @weuiDialogGapWidth 0;
     font-weight: 700;
     color: @weuiTextColorTitle;
     display: -webkit-box;
@@ -70,9 +78,9 @@
 }
 .weui-dialog__ft {
   position: relative;
-  line-height: 56px;
-  min-height: 56px;
-  font-size: 17px;
+  line-height: (56px * @hd);
+  min-height: (56px * @hd);
+  font-size: (17px * @hd);
   display: flex;
   &:after {
     content: ' ';
@@ -102,16 +110,16 @@
   }
 }
 .weui-dialog__btn_default {
-  color: var(--weui-FG-HALF);
+  color: @weui-FG-HALF;
 }
 
 .weui-skin_android {
   .weui-dialog {
     text-align: left;
-    box-shadow: 0 6px 30px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 (6px * @hd) 30px 0 rgba(0, 0, 0, 0.1);
   }
   .weui-dialog__title {
-    font-size: 22px;
+    font-size: (22px * @hd);
     line-height: 1.4;
   }
   .weui-dialog__hd {
@@ -127,9 +135,9 @@
   .weui-dialog__ft {
     display: block;
     text-align: right;
-    line-height: 40px;
-    min-height: 40px;
-    padding: 0 @weuiDialogGapWidth 16px;
+    line-height: (40px * @hd);
+    min-height: (40px * @hd);
+    padding: 0 @weuiDialogGapWidth (16px * @hd);
     &:after {
       display: none;
     }
@@ -146,13 +154,13 @@
     }
   }
   .weui-dialog__btn_default {
-    color: var(--weui-FG-HALF);
+    color: @weui-FG-HALF;
   }
 }
 
-@media screen and (min-width: 352px) {
-  .weui-dialog {
-    width: 320px;
-    margin: 0 auto;
-  }
-}
+// @media screen and (min-width: (352px * @hd)) {
+//   .weui-dialog {
+//     width: (320px * @hd);
+//     margin: 0 auto;
+//   }
+// }
