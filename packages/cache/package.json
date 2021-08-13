@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/cache",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "main:h5": "dist/h5.esm.js",
