@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 /* eslint-disable @typescript-eslint/no-var-requires */
 const npath = require('path')
 const https = require('https')
