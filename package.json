@@ -133,7 +133,7 @@
     "typescript": "^4.3.5"
   },
   "devDependencies": {
-    "@antmjs/eslint": "^0.3.1",
-    "@antmjs/stylelint": "^0.3.1"
+    "@antmjs/eslint": "^1.5.0",
+    "@antmjs/stylelint": "^1.5.0"
   }
 }
