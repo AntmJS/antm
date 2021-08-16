@@ -4,6 +4,10 @@ const npath = require('path')
 const https = require('https')
 const fs = require('fs')
 
+let fontFamily = 'iconfont'
+let input = ''
+let output = ''
+
 function accMul(arg1, arg2) {
   let m = 0
   const s1 = arg1.toString()
@@ -91,8 +95,7 @@ function transform(url, output) {
             })
             res.on('end', () => {
               const base64 = Buffer.concat(chunks).toString('base64')
-              let font =
-                "{font-family: 'iconfont';src: url(data:font/truetype;charset=utf-8;base64,#BASE64) format('truetype');font-weight: normal;font-style: normal;}"
+              let font = `{font-family: '${fontFamily}';src: url(data:font/truetype;charset=utf-8;base64,#BASE64) format('truetype');font-weight: normal;font-style: normal;}`
               font = font.replace('#BASE64', base64)
               content = content.replace(replaceContent, font)
               content = content.replace(/(\d+(\.{0,1}\d+){0,1})px/, (a, b) => {
@@ -117,14 +120,15 @@ async function start(inputPath, outputPath) {
   }
 }
 
-let input = ''
-let output = ''
 process.argv.forEach((val, index) => {
   if (val === '--input-path') {
     input = process.argv[index + 1]
   }
   if (val === '--output-path') {
     output = process.argv[index + 1]
+  }
+  if (val === '--font-family') {
+    fontFamily = process.argv[index + 1]
   }
 })
 
@@ -133,6 +137,6 @@ if (input && output) {
 } else {
   console.error(
     '参数错误',
-    'npx antm-icon --input-path https://at.alicdn.com/t/xxxxxxx.css --output-path src/iconfont.less',
+    'npx antm-icon --font-family iconfont --input-path https://at.alicdn.com/t/xxxxxxx.css --output-path src/iconfont.less',
   )
 }

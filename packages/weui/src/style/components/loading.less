@@ -1,0 +1,37 @@
+@import '../variables.less';
+
+// 默认色
+.weui-primary-loading {
+  font-size: (16px * @hd);
+  .setCircleLoading(@weuiLoadingColor,18px * @hd, 2px * @hd);
+}
+
+// 跟随系统切换的品牌色
+.weui-primary-loading_primary {
+  color: @weuiLoadingPrimaryColor;
+}
+
+// 固定白色半透明
+.weui-primary-loading_similar {
+  color: @weuiLoadingSimilarColor;
+}
+
+@-webkit-keyframes weuiLoading {
+  0% {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+
+  100% {
+    transform: rotate3d(0, 0, 1, 360deg);
+  }
+}
+
+@keyframes weuiLoading {
+  0% {
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+
+  100% {
+    transform: rotate3d(0, 0, 1, 360deg);
+  }
+}

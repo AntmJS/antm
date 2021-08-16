@@ -1,90 +1,73 @@
-import { useCallback, useRef, useState } from 'react'
+import { View, Text } from '@tarojs/components'
 import type { HalfScreenProps } from '../../../types/halfScreen'
-import { useFadeIn, useFadeOut } from '../../utils'
-
-function useDialog(): [
-  boolean,
-  React.RefObject<HTMLDivElement>,
-  () => void,
-  () => void,
-] {
-  const [isShowDialog, setIsShowDialog] = useState(false)
-  const dialog = useRef<HTMLDivElement>(null)
-
-  const dialogFadeIn = useFadeIn(dialog)
-  const dialogFadeOut = useFadeOut(dialog)
-
-  const showIOSDialog = useCallback(() => {
-    dialogFadeIn()
-    setIsShowDialog(true)
-  }, [dialogFadeIn])
-
-  const hideIOSDialog = useCallback(() => {
-    dialogFadeOut()
-    setIsShowDialog(false)
-  }, [dialogFadeOut])
-  return [isShowDialog, dialog, showIOSDialog, hideIOSDialog]
-}
+import { useMask } from '../../utils'
+import Icon from '../icon'
 
 export default function Index(props: HalfScreenProps) {
-  const { children, title, subTitle, className, onClose, cref, ...others } =
-    props
-  const [isShowDialog, dialog, showIOSDialog, hideIOSDialog] = useDialog()
-  const actionRef = useRef({
-    showHalfScreen: showIOSDialog,
-    hideHalfScreen: hideIOSDialog,
-  })
-  cref.current = actionRef.current
+  const {
+    children,
+    title,
+    subTitle,
+    className,
+    onClose,
+    onConfirm,
+    cref,
+    ...others
+  } = props
+  const { maskRef, isShowMask } = useMask(cref)
   return (
-    <div className="js_dialog" style={{ display: 'none' }} ref={dialog}>
-      <div
+    <View>
+      <View
         className="weui-mask"
+        style={{ display: 'none' }}
+        ref={maskRef}
         onClick={() => {
-          hideIOSDialog()
+          cref.current!.hide()
           onClose?.()
         }}
-      ></div>
-      <div
-        className={`weui-half-screen-dialog ${
-          isShowDialog ? 'weui-half-screen-dialog_show' : ''
+      ></View>
+      <View
+        className={`weui-half-screen-dialog weui-slideup-default ${
+          isShowMask ? 'weui-slideup-show' : ''
         } ${className || ''}`}
         {...others}
       >
-        <div className="weui-half-screen-dialog__hd">
-          <div className="weui-half-screen-dialog__hd__side">
-            <div
+        <View className="weui-half-screen-dialog__hd">
+          <View className="weui-half-screen-dialog__hd__side">
+            <Icon
+              name="weui-close"
               className="weui-icon-btn"
               onClick={() => {
-                hideIOSDialog()
+                cref.current!.hide()
                 onClose?.()
               }}
-            >
-              <i className="weui-icon-close-thin"></i>
-            </div>
-          </div>
-          <div className="weui-half-screen-dialog__hd__main">
+            />
+          </View>
+          <View className="weui-half-screen-dialog__hd__main">
             {!title && !subTitle && (
-              <strong className="weui-half-screen-dialog__title">面板</strong>
+              <Text className="weui-half-screen-dialog__title">面板</Text>
             )}
             {title && (
-              <strong className="weui-half-screen-dialog__title">
-                {title}
-              </strong>
+              <Text className="weui-half-screen-dialog__title">{title}</Text>
             )}
             {subTitle && (
-              <span className="weui-half-screen-dialog__subtitle">
+              <Text className="weui-half-screen-dialog__subtitle">
                 {subTitle}
-              </span>
+              </Text>
             )}
-          </div>
-          {/* <div className="weui-half-screen-dialog__hd__side">
-            <div className="weui-icon-btn">
-              <i className="weui-icon-success-no-circle-thin"></i>
-            </div>
-          </div> */}
-        </div>
-        <div className="weui-half-screen-dialog__bd">{children}</div>
-      </div>
-    </div>
+          </View>
+          <View className="weui-half-screen-dialog__hd__side">
+            {onConfirm && (
+              <Icon
+                name="weui-check"
+                className="weui-icon-btn"
+                onClick={onConfirm}
+              />
+            )}
+          </View>
+        </View>
+        <View className="weui-half-screen-dialog__bd">{children}</View>
+      </View>
+    </View>
   )
 }

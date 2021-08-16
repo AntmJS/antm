@@ -1,50 +1,30 @@
-import { useRef } from 'react'
+import { View } from '@tarojs/components'
 import type { DialogProps } from '../../../types/dialog'
-import { useFadeIn, useFadeOut } from '../../utils'
-
-function useDialog(): [
-  React.MutableRefObject<HTMLDivElement | null>,
-  () => void,
-  () => void,
-] {
-  const ref = useRef<HTMLDivElement>(null)
-  const fadeIn = useFadeIn(ref)
-  const fadeOut = useFadeOut(ref)
-
-  return [ref, fadeIn, fadeOut]
-}
+import Icon from '../icon'
+import { useMask } from '../../utils'
 
 export default function Index(props: DialogProps) {
   const { onClose, cref, className, children, ...others } = props
-  const [iosDialog, iosDialogIn, iosDialogOut] = useDialog()
-
-  const actionRef = useRef({
-    showDialog: iosDialogIn,
-    hideDialog: iosDialogOut,
-  })
-
-  cref.current = actionRef.current
+  const { maskRef } = useMask(cref)
 
   return (
-    <div className="js_dialog" style={{ display: 'none' }} ref={iosDialog}>
-      <div className="weui-mask"></div>
-      <div
+    <View className="weui-mask" style={{ display: 'none' }} ref={maskRef}>
+      <View
         className={`weui-dialog weui-dialog-min-height ${className || ''}`}
         {...others}
       >
         {onClose && (
-          <div
-            className={`weui-icon-btn weui-dialog-close-top-right`}
+          <Icon
+            name="weui-round-close-fill"
+            className="weui-icon-btn weui-dialog-close-top-right weui-icon-clear"
             onClick={() => {
-              iosDialogOut()
+              cref.current!.hide()
               onClose()
             }}
-          >
-            <i className="weui-icon-clear"></i>
-          </div>
+          />
         )}
         {children}
-      </div>
-    </div>
+      </View>
+    </View>
   )
 }

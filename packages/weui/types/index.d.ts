@@ -17,15 +17,19 @@ declare global {
   }
 }
 
+export { Icon } from './icon.d'
+export { Loading } from './loading.d'
+
 export { MiniBar } from './miniBar.d'
 export {
   Button,
+  MiniLoginButton,
   MiniUserButton,
   MiniPhoneButton,
   MiniLoginButtonProps,
 } from './button.d'
 export { SearchBar } from './searchBar.d'
-export { ActionSheet, IActionSheetRef } from './actionSheet.d'
+export { ActionSheet, ActionSheetItem, IActionSheetRef } from './actionSheet.d'
 export { HalfScreen, IHalfScreenRef } from './halfScreen.d'
 export { Modal, IModalRef } from './modal.d'
 export { Dialog, IDialogRef } from './dialog.d'

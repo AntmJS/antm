@@ -1,31 +1,152 @@
-@import './theme/light';
+@import './mixins.less';
+@weui-BRAND: #07c160;
+@weui-RED: #fa5151;
+@weui-BLUE: #10aeff;
+@weui-LINK: #576b95;
+@weui-LIGHT-0: #ffffff;
+@weui-LIGHT-2: #f2f2f2;
+@weui-LIGHT-7: #f7f7f7;
+@weui-LIGHT-5: #ededed;
+@weui-DARK-0: #000000;
+@weui-DARK-0-1: rgba(0, 0, 0, 0.1);
+@weui-DARK-0-2: rgba(0, 0, 0, 0.2);
+@weui-DARK-0-3: rgba(0, 0, 0, 0.3);
+@weui-DARK-1-3: rgba(19, 6, 6, 0.3);
+@weui-DARK-0-5: rgba(0, 0, 0, 0.5);
+@weui-DARK-0-9: rgba(0, 0, 0, 0.9);
+@weui-GREY-8: #606060;
+
+// @weui-BTN-DISABLED-FONT-COLOR: rgba(0, 0, 0, 0.2);
+
+// @weui-BG-0: #ededed;
+// @weui-BG-1: #f7f7f7;
+// @weui-BG-2: #ffffff;
+// @weui-BG-4: #4c4c4c;
+// @weui-FG-0: rgba(0, 0, 0, 0.9);
+// @weui-FG-HALF: rgba(0, 0, 0, 0.9);
+// @weui-FG-1: rgba(0, 0, 0, 0.5);
+// @weui-FG-2: rgba(0, 0, 0, 0.3);
+// @weui-FG-3: rgba(0, 0, 0, 0.1);
+// @weui-FG-4: #606060; // add
+// @weui-FG-5: #f7f7f7; // add
+// @weui-FG-6: #ededed; // add
+// @weui-FG-7: #ffffff; // add
+
+// @weui-ORANGE: #fa9d3b;
+// @weui-YELLOW: #ffc300;
+// @weui-GREEN: #91d300;
+// @weui-LIGHTGREEN: #95ec69;
+
+// @weui-BLUE: #10aeff;
+// @weui-INDIGO: #1485ee;
+// @weui-PURPLE: #6467f0;
+// @weui-WHITE: #ffffff;
+// @weui-LINK: #576b95;
+// @weui-LINK-ACTIVE: fade(#576b95, 50%);
+// @weui-TEXTGREEN: #06ae56;
+// @weui-FG: #000000;
+// @weui-BG: #ffffff;
+// @weui-TAG-TEXT-ORANGE: #fa9d3b;
+// @weui-TAG-BACKGROUND-ORANGE: rgba(250, 157, 59, 0.1);
+// @weui-TAG-TEXT-GREEN: #06ae56;
+// @weui-TAG-BACKGROUND-GREEN: rgba(6, 174, 86, 0.1);
+// @weui-TAG-TEXT-BLUE: #10aeff;
+// @weui-TAG-BACKGROUND-BLUE: rgba(16, 174, 255, 0.1);
+// @weui-TAG-TEXT-BLACK: rgba(0, 0, 0, 0.5);
+// @weui-TAG-BACKGROUND-BLACK: rgba(0, 0, 0, 0.05);
+// @weui-BG-COLOR-ACTIVE: #ececec;
+
+// @weui-BTN-DEFAULT-BG: #f2f2f2;
+// @weui-BTN-DEFAULT-COLOR: #06ae56;
+// @weui-BTN-DEFAULT-ACTIVE-BG: overlay(rgba(0, 0, 0, 0.06), #f2f2f2);
+// @weui-DIALOG-LINE-COLOR: rgba(0, 0, 0, 0.1);
 
 @hd: 2; // 基本单位
 
-// color
-@weuiColorPrimary: @weui-BRAND;
-@weuiColorWarn: @weui-RED;
+// minibar
+@weuiMiniBarColor: @weui-DARK-0-9;
+@weuiMiniBarBgColor: @weui-LIGHT-5;
+@weuiMiniBarBorderLine: @weui-DARK-0-1;
 
-// active mask
+// loading
+@weuiLoadingColor: @weui-GREY-8;
+@weuiLoadingSimilarColor: @weui-LIGHT-5;
+@weuiLoadingPrimaryColor: @weui-BRAND;
+
+// default button
+@weuiBtnDefaultColor: overlay(rgba(0, 0, 0, 0.06), @weui-BRAND);
+@weuiBtnDefaultBgColor: @weui-LIGHT-2;
+
+// primary button
+@weuiBtnPrimaryColor: @weui-LIGHT-7;
+@weuiBtnPrimaryBgColor: @weui-BRAND;
+
+// warn button
+@weuiBtnWarnColor: @weui-RED;
+@weuiBtnWarnBgColor: @weui-LIGHT-2;
+
+// cell default button
+@weuiBtnCellDefaultColor: @weui-DARK-0-9;
+@weuiBtnCellDefaultBgColor: @weui-LIGHT-0;
+
+// cell primary button
+@weuiBtnCellPrimaryColor: @weui-LINK;
+@weuiBtnCellPrimaryBgColor: @weui-LIGHT-0;
+
+// cell warn button
+@weuiBtnCellWarnColor: @weui-RED;
+@weuiBtnCellWarnBgColor: @weui-LIGHT-0;
+
+// disable button
+@weuiBtnDisabledColor: @weui-DARK-0-2;
+@weuiBtnDisabledBgColor: @weui-LIGHT-2;
+
+// icon
+@weuiIconPrimaryColor: @weui-BRAND;
+@weuiIconTipColor: @weui-DARK-1-3;
+@weuiIconWarnColor: @weui-RED;
+@weuiIconInfoColor: @weui-BLUE;
+
+// mask
+@weuiMask: rgba(0, 0, 0, 0.6);
 @weuiActiveMaskBlack: rgba(0, 0, 0, 0.15);
 
-// link
-@weuiLinkColorDefault: @weui-LINK;
+// actionsheet
+@weuiActionSheetBgColor: @weui-LIGHT-7;
+@weuiActionSheetTitleColor: @weui-DARK-0-5;
+@weuiActionSheetTitleFgColor: @weui-LIGHT-0;
+@weuiActionSheetTitleBorderLine: @weui-DARK-0-1;
+@weuiActionSheetMenuColor: @weui-DARK-0-9;
+@weuiActionSheetItemFgColor: @weui-LIGHT-0;
+@weuiActionSheetItemBorderLine: @weui-DARK-0-1;
+@weuiActionSheetItemActiveFgColor: @weui-LIGHT-2;
 
-// background
-@weuiBgColorDefault: @weui-BG-0;
-@weuiBgColorPrimary: @weui-BG-1;
-@weuiBgColorActive: @weui-BG-COLOR-ACTIVE;
+// searchbar
+@weuiSearchBarBgColor: @weui-LIGHT-5;
+@weuiSearchBarInputFgColor: @weui-LIGHT-0;
+@weuiSearchBarCaretColor: @weui-BRAND;
+@weuiSearchBarColor: @weui-DARK-0-9;
+@weuiSearchBarLabelColor: @weui-DARK-0-3;
+@weuiSearchBarLabelFgColor: @weui-LIGHT-7;
+@weuiSearchBarCancelColor: @weui-LINK;
 
-// line
-@weuiLineColorLight: @weui-FG-3;
-@weuiLineColorDark: @weui-FG-2;
+// modal
+@weuiModalBgColor: @weui-LIGHT-0;
+@weuiModalTitleColor: @weui-DARK-0-9;
+@weuiModalSubTitleColor: @weui-DARK-0-5;
+@weuiModalBtnColor: @weui-DARK-0-5;
+@weuiModalBorderLine: @weui-DARK-0-1;
+@weuiModalBtnColor: @weui-LINK;
+@weuiModalBtnCancelColor: @weui-DARK-0-9;
+@weuiModalBtnFgActiveColor: @weui-LIGHT-2;
 
-// text
-@weuiTextColorTitle: @weui-FG-0;
-@weuiTextColorDesc: @weui-FG-1;
-@weuiTextColorTips: @weui-FG-2;
-@weuiTextColorWarn: @weuiColorWarn;
+// halfScreen
+@weuiHalfScreenBgColor: @weui-LIGHT-0;
+@weuiHalfScreenTitleColor: @weui-DARK-0-9;
+@weuiHalfScreenSubTitleColor: @weui-DARK-0-5;
+@weuiHalfScreenTipsColor: @weui-DARK-0-3;
+@weuiHalfScreenBtnColor: @weui-BRAND;
+@weuiHalfScreenBtnCancelColor: @weui-DARK-0-9;
 
 // font
 @weuiFontEN: -apple-system-font, 'Helvetica Neue';
@@ -44,7 +165,6 @@
 @weuiZIndexDivider: 400;
 @weuiZIndexSteps: 500;
 @weuiZIndexTab: 600;
-@weuiZIndexSearchBar: 800;
 @weuiZIndexNav: 805;
 @weuiZIndexMask: 810;
 @weuiZIndexDrawer: 900;
@@ -66,47 +186,16 @@
 
 // weui-button
 @weuiBtnWidth: (184px * @hd);
-@weuiBtnHeight: (40px * @hd);
 @weuiBtnFontSize: (17px * @hd);
 @weuiBtnBorderRadius: (4px * @hd);
-@weuiBtnDefaultGap: (16px * @hd);
+@weuiBtnDefaultGap: (16px * @hd); // margin
+@weuiBtnLineHeight: @weuiBtnFontSize * 2;
+@weuiBtnGap: (8px * @hd); //padding
 
 @weuiBtnMiniFontSize: (16px * @hd);
-@weuiBtnMiniHeight: (32px * @hd);
-
-@weuiBtnCellHeight: (56px * @hd);
-@weuiBtnCellGap: (16px * @hd);
-// (@weuiBtnCellHeight - 2 * @weuiBtnCellGap) / @weuiBtnFontSize
-@weuiBtnCellLineHeight: ((56 - 2 * 16) / 17);
-
-@weuiBtnFontColor: #fff;
-@weuiBtnDisabledFontColor: @weui-BTN-DISABLED-FONT-COLOR;
-@weuiBtnDisabledBg: @weui-BTN-DEFAULT-BG;
-
-// default
-@weuiBtnDefaultFontColor: @weui-BTN-DEFAULT-COLOR;
-@weuiBtnDefaultDisabledFontColor: @weuiBtnDisabledFontColor;
-@weuiBtnDefaultBg: @weui-BTN-DEFAULT-BG;
-@weuiBtnDefaultActiveBg: @weui-BTN-DEFAULT-ACTIVE-BG;
-@weuiBtnDefaultDisabledBg: @weuiBtnDisabledBg;
-
-// primary
-@weuiBtnPrimaryFontColor: @weuiBtnFontColor;
-@weuiBtnPrimaryDisabledFontColor: @weuiBtnDisabledFontColor;
-@weuiBtnPrimaryBg: @weui-BRAND;
-@weuiBtnPrimaryActiveBg: @weui-TAG-TEXT-GREEN;
-@weuiBtnPrimaryDisabledBg: @weuiBtnDisabledBg;
-
-// warn
-@weuiBtnWarnFontColor: @weuiColorWarn;
-@weuiBtnWarnDisabledFontColor: @weuiBtnDisabledFontColor;
-@weuiBtnWarnBg: @weuiBtnDefaultBg;
-@weuiBtnWarnActiveBg: @weuiBtnDefaultActiveBg;
-@weuiBtnwarnDisabledBg: @weuiBtnDefaultDisabledBg;
+@weuiBtnMiniLineHeight: @weuiBtnMiniFontSize * 1.2;
 
 // weui-cell
-@weuiCellBg: @weui-BG-2;
-@weuiCellBorderColor: @weuiLineColorLight;
 @weuiCellGapV: (16px * @hd);
 @weuiCellGapH: (16px * @hd);
 @weuiCellInnerGapH: (16px * @hd);
@@ -114,8 +203,6 @@
 @weuiCellFontSize: (17px * @hd);
 @weuiCellTipsFontSize: (14px * @hd);
 @weuiCellLabelWidth: (105px * @hd);
-@weuiCellActiveBg: @weuiBgColorActive;
-// @weuiCellLineHeight: unit((@weuiCellHeight - 2 * @weuiCellGapV) / @weuiCellFontSize); // 高度减去上下padding的行高
 @weuiCellLineHeight: ((56 - 2 * 16) / 17); // 高度减去上下padding的行高
 @weuiCellsMarginTop: (8px * @hd);
 
@@ -128,14 +215,9 @@
 @weuiUploaderBorderWidth: (1px * @hd);
 
 // weui-dialog
-@weuiDialogBackgroundColor: @weui-BG-2;
-@weuiDialogLineColor: @weui-DIALOG-LINE-COLOR;
-@weuiDialogLinkColor: @weuiLinkColorDefault;
-@weuiDialogLinkActiveBc: @weuiBgColorActive;
 @weuiDialogGapWidth: (24px * @hd);
 
 // weui-grid
-@weuiGridBorderColor: @weui-FG-3;
 @weuiGridFontSize: (14px * @hd);
 @weuiGridIconSize: (28px * @hd);
 @weuiGridColumnCount: 3 * @hd;
@@ -145,10 +227,39 @@
 @weuiMsgTitleGap: (16px * @hd);
 
 // weui-progress
-@weuiProgressBg: @weuiBgColorDefault;
-@weuiProgressColor: @weuiColorPrimary;
 @weuiProgressHeight: (3px * @hd);
 
 // weui-tab
 @weuiNavBarHeight: (56px * @hd);
 @weuiTabBarHeight: (60px * @hd);
+
+.weui-shadow {
+  box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.05);
+}
+
+.weui-mask {
+  position: fixed;
+  z-index: @weuiZIndexMask;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: @weuiMask;
+}
+.weui-slideup-default {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  box-sizing: border-box;
+  max-height: 75%;
+  overflow-x: hidden;
+  transform: translate(0, 100%);
+  backface-visibility: hidden;
+  transition: transform 0.3s;
+  border-top-left-radius: (12px * @hd);
+  border-top-right-radius: (12px * @hd);
+}
+.weui-slideup-show {
+  transform: translate(0, 0);
+}

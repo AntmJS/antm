@@ -2,8 +2,8 @@ import { ComponentClass } from 'react'
 import WEUI from './normal'
 
 export interface IModalRef {
-  showModal: () => void
-  hideModal: () => void
+  show: () => void
+  hide: () => void
 }
 
 export interface ModalProps extends WEUI.IBaseComponent {

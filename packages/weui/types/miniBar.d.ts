@@ -6,10 +6,7 @@ export interface MiniBarProps extends WEUI.IBaseComponent {
   fixed?: boolean
   fixedPlaceholder?: boolean
   border?: boolean
-  color?: string
   buttonColor?: 'white' | 'black'
-  backgroundColor?: string
-  borderBottomColor?: string
   homeUrl: string
 }
 

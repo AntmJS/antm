@@ -8,6 +8,7 @@ import {
 } from '@tarojs/components'
 import type { InputProps } from '@tarojs/components/types/Input'
 import type { SearchBarProps } from '../../../types/searchBar.d'
+import Icon from '../icon'
 
 export default function Index(props: SearchBarProps) {
   const {
@@ -82,7 +83,7 @@ export default function Index(props: SearchBarProps) {
     >
       <Form className="weui-search-bar__form">
         <View className="weui-search-bar__box">
-          <Text className="weui-icon-search"></Text>
+          <Icon name="weui-search" className="weui-icon-search"></Icon>
           <Input
             type={type || 'text'}
             confirmType={confirmType || 'search'}
@@ -94,7 +95,11 @@ export default function Index(props: SearchBarProps) {
             {...others}
           />
           {isShowClear && (
-            <View className="weui-icon-clear" onClick={_onClear}></View>
+            <Icon
+              name="weui-round-clear-fill"
+              className="weui-icon-clear"
+              onClick={_onClear}
+            ></Icon>
           )}
         </View>
         {isShowLabel && (
@@ -103,7 +108,7 @@ export default function Index(props: SearchBarProps) {
             id="searchText"
             onClick={handleLabelClick}
           >
-            <Text className="weui-icon-search"></Text>
+            <Icon name="weui-search" className="weui-icon-search"></Icon>
             <Text className="span">搜索</Text>
           </View>
         )}

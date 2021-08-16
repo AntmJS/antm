@@ -1,6 +1,6 @@
 {
   "name": "weui-demo",
-  "version": "1.2.0",
+  "version": "0.0.0",
   "private": true,
   "description": "Taro应用模版",
   "templateInfo": {
@@ -103,14 +103,14 @@
     "real:alipay": "cross-env NODE_ENV=production API_ENV=real npx taro build --type alipay",
     "real:tt": "cross-env NODE_ENV=production API_ENV=real npx taro build --type tt",
     "real:h5": "cross-env NODE_ENV=production API_ENV=real npx taro build --type h5",
-    "build": ""
+    "build": "node ./updateVersion && cross-env BUILD_ENV=jenkins NODE_ENV=production npx taro build"
   },
   "dependencies": {
-    "@antmjs/cache": "1.2.0",
-    "@antmjs/global-state": "1.2.0",
-    "@antmjs/mini-fix": "1.2.0",
-    "@antmjs/trace": "1.2.0",
-    "@antmjs/weui": "1.2.0",
+    "@antmjs/cache": "^1.0.1",
+    "@antmjs/global-state": "^1.0.1",
+    "@antmjs/mini-fix": "^1.0.1",
+    "@antmjs/trace": "^1.0.1",
+    "@antmjs/weui": "^1.2.0",
     "@babel/runtime-corejs3": "^7.14.7",
     "@tarojs/components": "3.3.2",
     "@tarojs/react": "3.3.2",
@@ -121,17 +121,16 @@
     "react-dom": "^17.0.0"
   },
   "devDependencies": {
-    "@antmjs/babel-preset": "1.2.0",
-    "@antmjs/eslint": "1.2.0",
-    "@antmjs/iconfont": "1.2.0",
-    "@antmjs/plugin-mini-fix": "1.2.0",
-    "@antmjs/stylelint": "1.2.0",
+    "@antmjs/babel-preset": "^1.0.1",
+    "@antmjs/eslint": "^1.0.1",
+    "@antmjs/iconfont": "^1.0.1",
+    "@antmjs/plugin-mini-fix": "^1.0.1",
+    "@antmjs/stylelint": "^1.0.1",
     "@babel/core": "^7.8.0",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@tarojs/cli": "^3.3.2",
     "@tarojs/mini-runner": "3.3.2",
-    "@tarojs/plugin-html": "^3.3.2",
     "@tarojs/webpack-runner": "3.3.2",
     "@types/react": "^17.0.2",
     "@types/webpack-env": "^1.13.6",

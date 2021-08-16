@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import Taro from '@tarojs/taro'
+import { View, Image } from '@tarojs/components'
 import type { MiniBarProps } from '../../../types/miniBar.d'
 
 declare const getCurrentPages: any
@@ -63,14 +64,14 @@ function WeappComponent(props: IWeapp): JSX.Element {
 
   return (
     <>
-      <div
+      <View
         className="weui-minibar_left"
         style={{ top: `${paddingTop}px`, left: `${paddingLeft}px` }}
       >
         {backButton && (
-          <div className="weui-minibar_left_back" onClick={handleGoBack}>
+          <View className="weui-minibar_left_back" onClick={handleGoBack}>
             {buttonColor === 'black' ? (
-              <img
+              <Image
                 className="weui-minibar_left_back_bicon"
                 style={{ width: '32px', height: '32px' }}
                 src={
@@ -86,12 +87,12 @@ function WeappComponent(props: IWeapp): JSX.Element {
                 }
               />
             )}
-          </div>
+          </View>
         )}
         {homeButton && (
-          <div className="weui-minibar_left_home" onClick={handleGoHome}>
+          <View className="weui-minibar_left_home" onClick={handleGoHome}>
             {buttonColor === 'black' ? (
-              <img
+              <Image
                 className="weui-minibar_left_home_icon"
                 style={{ width: '32px', height: '32px' }}
                 src={
@@ -99,7 +100,7 @@ function WeappComponent(props: IWeapp): JSX.Element {
                 }
               />
             ) : (
-              <img
+              <Image
                 className="weui-minibar_left_home_icon"
                 style={{ width: '32px', height: '32px' }}
                 src={
@@ -107,9 +108,9 @@ function WeappComponent(props: IWeapp): JSX.Element {
                 }
               />
             )}
-          </div>
+          </View>
         )}
-      </div>
+      </View>
     </>
   )
 }
@@ -118,13 +119,10 @@ export default function Index(props: MiniBarProps): JSX.Element {
   const {
     homeUrl,
     buttonColor = 'black',
-    backgroundColor = 'white',
-    color = 'black',
     border = true,
     title = '',
     fixed = true,
     fixedPlaceholder = true,
-    borderBottomColor = 'black',
     style = {},
     className = '',
     ...others
@@ -235,12 +233,10 @@ export default function Index(props: MiniBarProps): JSX.Element {
     <>
       {nav && (
         <>
-          <div
+          <View
             {...others}
             className={cls}
             style={{
-              backgroundColor: `${backgroundColor}`,
-              color: `${color}`,
               height: `${nav.navHeight}px`,
               ...style,
             }}
@@ -254,21 +250,16 @@ export default function Index(props: MiniBarProps): JSX.Element {
                 buttonColor={buttonColor}
               />
             )}
-            <div
+            <View
               className="weui-minibar_center"
               style={{ paddingTop: `${nav.statusBarHeight as number}px` }}
             >
               {title}
-            </div>
-            {border && (
-              <div
-                className="weui-minibar_border"
-                style={{ backgroundColor: `${borderBottomColor}` }}
-              />
-            )}
-          </div>
+            </View>
+            {border && <View className="weui-minibar_border" />}
+          </View>
           {fixed && fixedPlaceholder && (
-            <div style={{ height: `${nav.navHeight}px`, width: '100%' }} />
+            <View style={{ height: `${nav.navHeight}px`, width: '100%' }} />
           )}
         </>
       )}

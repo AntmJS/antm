@@ -37,6 +37,7 @@
     "UCAndroid >= 4.1"
   ],
   "scripts": {
+    "iconfont": "npx antm-icon --font-family weuifont --input-path https://at.alicdn.com/t/font_2744513_8dadt51frnp.css --output-path src/style/components/iconfont.less",
     "_clean": "npx rimraf dist",
     "_real": "npx rollup -c ./rollup.config.js",
     "watch": "npx rollup -c ./rollup.watch.config.js -w",
@@ -55,6 +56,7 @@
     "@babel/runtime-corejs3": "^7.14.7"
   },
   "devDependencies": {
+    "@antmjs/iconfont": "^1.2.0",
     "@tarojs/components": "^3.3.2",
     "@tarojs/taro": "^3.3.2",
     "@types/react": "^17.0.17",

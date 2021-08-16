@@ -1,0 +1,107 @@
+/* stylelint-disable no-descending-specificity, selector-max-type */
+@import './icon.less';
+
+@weuiSearchInputHeight: (32px * @hd);
+
+.weui-search-bar {
+  position: relative;
+  padding: (8px * @hd);
+  display: flex;
+  box-sizing: border-box;
+  background-color: @weuiSearchBarBgColor;
+  -webkit-text-size-adjust: 100%;
+  align-items: center;
+  &.weui-search-bar_focusing {
+    .weui-search-bar__cancel-btn {
+      display: block;
+    }
+    .weui-search-bar__label {
+      display: none;
+    }
+  }
+
+  .weui-icon-search {
+    width: (16px * @hd);
+    height: (16px * @hd);
+    font-size: (17px * @hd);
+  }
+}
+.weui-search-bar__form {
+  position: relative;
+  flex: auto;
+  background-color: @weuiSearchBarInputFgColor;
+  border-radius: (4px * @hd);
+}
+.weui-search-bar__box {
+  position: relative;
+  padding-left: (28px * @hd);
+  padding-right: (32px * @hd);
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: @weuiZIndex;
+  .weui-search-bar__input {
+    padding: (8px * @hd) 0;
+    width: 100%;
+    height: unit(@weuiSearchInputHeight - (16px * @hd)) / 14em;
+    border: 0;
+    font-size: (14px * @hd);
+    line-height: unit(@weuiSearchInputHeight - (16px * @hd)) / 14em;
+    box-sizing: content-box;
+    background: transparent;
+    caret-color: @weuiSearchBarCaretColor;
+    color: @weuiSearchBarColor;
+    &:focus {
+      outline: none;
+    }
+  }
+  .weui-icon-search {
+    position: absolute;
+    top: 50%;
+    left: (8px * @hd);
+    margin-top: -(8px * @hd);
+  }
+  .weui-icon-clear {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -(16px * @hd);
+    padding: (8px * @hd);
+    width: (16px * @hd);
+    height: (16px * @hd);
+    mask-size: (16px * @hd);
+    font-size: (17px * @hd);
+  }
+}
+.weui-search-bar__label {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: @weuiZIndex;
+  font-size: 0;
+  border-radius: (4px * @hd);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: @weuiSearchBarLabelColor;
+  background: @weuiSearchBarLabelFgColor;
+  .span {
+    display: inline-block;
+    font-size: (14px * @hd);
+    vertical-align: middle;
+    color: @weuiSearchBarLabelColor;
+  }
+  .weui-icon-search {
+    margin-right: (4px * @hd);
+    color: @weuiSearchBarLabelColor;
+  }
+}
+.weui-search-bar__cancel-btn {
+  display: none;
+  margin-left: (8px * @hd);
+  line-height: (28px * @hd);
+  color: @weuiSearchBarCancelColor;
+  white-space: nowrap;
+}

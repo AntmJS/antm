@@ -7,21 +7,24 @@ export interface Item {
 }
 
 export interface IActionSheetRef {
-  showActionSheet: () => void
-  hideActionSheet: () => void
+  show: () => void
+  hide: () => void
 }
 
 export interface ActionSheetProps extends WEUI.IBaseComponent {
   cref: React.MutableRefObject<IActionSheetRef | undefined>
   title?: string
   subTitle?: string
-  list?: Item[]
-  onSelect?: (value: any) => void
-  children?: JSX.Element
+  children: JSX.Element | JSX.Element[]
   onClose?: () => void
   onCancel?: () => void
 }
 
-declare const ActionSheet: ComponentClass<ActionSheetProps>
+export interface ActionSheetItemProps extends WEUI.IBaseComponent {
+  children: JSX.Element | string | JSX.Element[]
+}
 
-export { ActionSheet }
+declare const ActionSheet: ComponentClass<ActionSheetProps>
+declare const ActionSheetItem: ComponentClass<ActionSheetItemProps>
+
+export { ActionSheet, ActionSheetItem }

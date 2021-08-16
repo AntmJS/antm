@@ -1,0 +1,209 @@
+/* stylelint-disable selector-max-type, selector-max-attribute */
+@import './loading.less';
+
+button {
+  &.weui-btn {
+    border-width: 0;
+    outline: 0;
+    -webkit-appearance: none;
+    &:focus {
+      outline: 0;
+    }
+  }
+  &.weui-btn_inline,
+  &.weui-btn_mini {
+    width: auto;
+  }
+  &::after {
+    border: none;
+  }
+}
+
+.weui-btn {
+  outline: 0;
+  border-width: 0;
+  appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  position: relative;
+  width: @weuiBtnWidth;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  font-weight: bold;
+  font-size: @weuiBtnFontSize;
+  line-height: @weuiBtnLineHeight;
+  padding: @weuiBtnGap;
+  text-align: center;
+  text-decoration: none;
+  border-radius: @weuiBtnBorderRadius;
+  overflow: hidden;
+  .setCenter();
+}
+.weui-btn_block {
+  width: auto;
+}
+.weui-btn_inline {
+  display: inline-block;
+}
+
+.weui-btn_default {
+  color: @weuiBtnDefaultColor;
+  background-color: @weuiBtnDefaultBgColor;
+  &:not(.weui-btn_disabled):visited {
+    color: @weuiBtnDefaultColor;
+  }
+  &:not(.weui-btn_disabled):active {
+    background-color: overlay(rgba(0, 0, 0, 0.06), @weuiBtnDefaultBgColor);
+  }
+}
+
+.weui-btn_primary {
+  color: @weuiBtnPrimaryColor;
+  background-color: @weuiBtnPrimaryBgColor;
+  &:not(.weui-btn_disabled):visited {
+    color: @weuiBtnPrimaryColor;
+  }
+  &:not(.weui-btn_disabled):active {
+    background-color: overlay(rgba(0, 0, 0, 0.06), @weuiBtnPrimaryBgColor);
+  }
+}
+
+.weui-btn_warn {
+  color: @weuiBtnWarnColor;
+  background-color: @weuiBtnWarnBgColor;
+  &:not(.weui-btn_disabled):visited {
+    color: @weuiBtnWarnColor;
+  }
+  &:not(.weui-btn_disabled):active {
+    background-color: overlay(rgba(0, 0, 0, 0.06), @weuiBtnWarnBgColor);
+  }
+}
+
+.weui-btn_cell {
+  outline: 0;
+  border-width: 0;
+  appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  text-align: center;
+  text-decoration: none;
+  font-size: @weuiBtnFontSize;
+  line-height: @weuiBtnLineHeight;
+  padding: @weuiBtnGap;
+  .setCenter();
+  &::after {
+    border: none;
+  }
+
+  overflow: hidden;
+  & + & {
+    margin-top: @weuiBtnDefaultGap;
+  }
+}
+.weui-btn_cell__icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: (24px * @hd);
+  height: (24px * @hd);
+  margin: -(3px * @hd) (8px * @hd) 0 0;
+}
+
+.weui-btn_cell-default {
+  color: @weuiBtnCellDefaultColor;
+  background-color: @weuiBtnCellDefaultBgColor;
+  &:not(.weui-btn_disabled):visited {
+    color: @weuiBtnCellDefaultColor;
+  }
+  &:not(.weui-btn_disabled):active {
+    background-color: overlay(rgba(0, 0, 0, 0.06), @weuiBtnCellDefaultBgColor);
+  }
+}
+.weui-btn_cell-primary {
+  color: @weuiBtnCellPrimaryColor;
+  background-color: @weuiBtnCellDefaultBgColor;
+  &:not(.weui-btn_disabled):visited {
+    color: @weuiBtnCellPrimaryColor;
+  }
+  &:not(.weui-btn_disabled):active {
+    background-color: overlay(rgba(0, 0, 0, 0.06), @weuiBtnCellPrimaryBgColor);
+  }
+}
+.weui-btn_cell-warn {
+  color: @weuiBtnCellWarnColor;
+  background-color: @weuiBtnCellDefaultBgColor;
+  &:not(.weui-btn_disabled):visited {
+    color: @weuiBtnCellWarnColor;
+  }
+  &:not(.weui-btn_disabled):active {
+    background-color: overlay(rgba(0, 0, 0, 0.06), @weuiBtnCellWarnBgColor);
+  }
+}
+
+.weui-btn_disabled {
+  color: @weuiBtnDisabledColor;
+  background-color: @weuiBtnDisabledBgColor;
+}
+
+.weui-btn_loading {
+  .weui-primary-loading {
+    margin: -(3px * @hd) (8px * @hd) 0 0;
+    vertical-align: middle;
+  }
+  &.weui-btn_primary {
+    background-color: overlay(rgba(0, 0, 0, 0.06), @weuiBtnPrimaryBgColor);
+  }
+  &.weui-btn_default {
+    background-color: overlay(rgba(0, 0, 0, 0.06), @weuiBtnDefaultBgColor);
+  }
+  &.weui-btn_warn {
+    background-color: overlay(rgba(0, 0, 0, 0.06), @weuiBtnWarnBgColor);
+  }
+  &.weui-btn_cell-primary {
+    background-color: overlay(rgba(0, 0, 0, 0.06), @weuiBtnCellPrimaryBgColor);
+  }
+  &.weui-btn_cell-default {
+    background-color: overlay(rgba(0, 0, 0, 0.06), @weuiBtnCellPrimaryBgColor);
+  }
+  &.weui-btn_cell-warn {
+    background-color: overlay(rgba(0, 0, 0, 0.06), @weuiBtnCellPrimaryBgColor);
+  }
+}
+
+.weui-btn_mini {
+  display: inline-block;
+  width: auto;
+  font-size: @weuiBtnMiniFontSize;
+  line-height: @weuiBtnMiniLineHeight;
+  padding: @weuiBtnGap;
+}
+
+.weui-btn_around {
+  width: auto;
+  margin-left: (12px * @hd);
+  margin-right: (12px * @hd);
+}
+
+/* gap between btn */
+.weui-btn:not(.weui-btn_mini) + .weui-btn:not(.weui-btn_mini) {
+  margin-top: @weuiBtnDefaultGap;
+}
+
+.weui-btn.weui-btn_inline + .weui-btn.weui-btn_inline {
+  margin-top: auto;
+  margin-left: @weuiBtnDefaultGap;
+}
+
+.weui-btn-area {
+  margin: (48px * @hd) @weuiBtnDefaultGap (8px * @hd);
+}
+
+.weui-btn_reset {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  outline: 0;
+}

@@ -1,18 +1,6 @@
-import { useRef } from 'react'
+import { View, Text } from '@tarojs/components'
 import type { ModalProps } from '../../../types/modal'
-import { useFadeIn, useFadeOut } from '../../utils'
-
-function useDialog(): [
-  React.MutableRefObject<HTMLDivElement | null>,
-  () => void,
-  () => void,
-] {
-  const ref = useRef<HTMLDivElement>(null)
-  const fadeIn = useFadeIn(ref)
-  const fadeOut = useFadeOut(ref)
-
-  return [ref, fadeIn, fadeOut]
-}
+import { useMask } from '../../utils'
 
 export default function Index(props: ModalProps) {
   const {
@@ -26,48 +14,38 @@ export default function Index(props: ModalProps) {
     className,
     ...others
   } = props
-  const [iosDialog, iosDialogIn, iosDialogOut] = useDialog()
-
-  const actionRef = useRef({
-    showModal: iosDialogIn,
-    hideModal: iosDialogOut,
-  })
-
-  cref.current = actionRef.current
+  const { maskRef } = useMask(cref)
 
   return (
-    <div className="js_dialog" style={{ display: 'none' }} ref={iosDialog}>
-      <div className="weui-mask"></div>
-      <div className={`weui-dialog ${className || ''}`} {...others}>
-        <div className="weui-dialog__hd">
-          <strong className="weui-dialog__title">{title}</strong>
-        </div>
-        <div className="weui-dialog__bd">{content}</div>
-        <div className="weui-dialog__ft">
+    <View className="weui-mask" style={{ display: 'none' }} ref={maskRef}>
+      <View className={`weui-dialog ${className || ''}`} {...others}>
+        <View className="weui-dialog__hd">
+          <Text className="weui-dialog__title">{title}</Text>
+        </View>
+        <View className="weui-dialog__bd">{content}</View>
+        <View className="weui-dialog__ft">
           {onCancel && cancelText && (
-            <a
-              href="javascript:"
+            <View
               className="weui-dialog__btn weui-dialog__btn_default"
               onClick={() => {
-                iosDialogOut()
+                cref.current!.hide()
                 onCancel()
               }}
             >
               {cancelText}
-            </a>
+            </View>
           )}
-          <a
-            href="javascript:"
+          <View
             className="weui-dialog__btn weui-dialog__btn_primary"
             onClick={() => {
-              iosDialogOut()
+              cref.current!.hide()
               onConfirm()
             }}
           >
             {confirmText}
-          </a>
-        </div>
-      </div>
-    </div>
+          </View>
+        </View>
+      </View>
+    </View>
   )
 }

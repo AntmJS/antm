@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react'
+import { ViewProps } from '@tarojs/components/types/View'
 
 declare namespace NodeJS {
   interface ProcessEnv {
@@ -18,10 +19,7 @@ declare namespace NodeJS {
 }
 
 declare namespace WEUI {
-  interface IBaseComponent {
-    className?: string
-    key?: string | number
-    id?: string
+  interface IBaseComponent extends ViewProps {
     style?: CSSProperties
   }
   type IAnyObject = Record<string, any>

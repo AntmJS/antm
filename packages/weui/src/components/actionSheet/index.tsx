@@ -1,13 +1,11 @@
-import { useRef, useState } from 'react'
+import { View, Text } from '@tarojs/components'
 import type { ActionSheetProps } from '../../../types/actionSheet'
-import { useFadeIn, useFadeOut } from '../../utils'
+import { useMask } from '../../utils'
 
 export default function Index(props: ActionSheetProps) {
   const {
     title,
     subTitle,
-    list,
-    onSelect,
     onClose,
     onCancel,
     cref,
@@ -15,83 +13,49 @@ export default function Index(props: ActionSheetProps) {
     children,
     ...others
   } = props
-  const [isShowIOS, setIsShowIOS] = useState(false)
-  const iosMaskRef = useRef<HTMLDivElement>()
-  const actionRef = useRef({
-    showActionSheet: function () {
-      setIsShowIOS(true)
-      iosMaskfadeIn()
-    },
-    hideActionSheet: function () {
-      setIsShowIOS(false)
-      iosMaskfadeOut()
-    },
-  })
-
-  const iosMaskfadeOut = useFadeOut(iosMaskRef)
-  const iosMaskfadeIn = useFadeIn(iosMaskRef)
-
-  cref.current = actionRef.current
+  const { maskRef, isShowMask } = useMask(cref)
 
   return (
-    <div>
-      <div
+    <View>
+      <View
         className="weui-mask"
         style={{ display: 'none' }}
-        ref={iosMaskRef as React.LegacyRef<HTMLDivElement> | undefined}
+        ref={maskRef}
         onClick={() => {
-          actionRef.current.hideActionSheet()
+          cref.current!.hide()
           onClose?.()
         }}
-      ></div>
-      <div
-        className={`weui-actionsheet ${
-          isShowIOS ? 'weui-actionsheet_toggle' : ''
+      ></View>
+      <View
+        className={`weui-actionsheet weui-slideup-default ${
+          isShowMask ? 'weui-slideup-show' : ''
         } ${className || ''}`}
         {...others}
       >
-        <div className="weui-actionsheet__title">
+        <View className="weui-actionsheet__title">
           {!title && !subTitle && (
-            <p className="weui-actionsheet__title-text">菜单</p>
+            <Text className="weui-actionsheet__title-text">菜单</Text>
           )}
-          {title && <p className="weui-actionsheet__title-text">{title}</p>}
+          {title && (
+            <Text className="weui-actionsheet__title-text">{title}</Text>
+          )}
           {subTitle && (
-            <p className="weui-actionsheet__subtitle-text">{subTitle}</p>
+            <Text className="weui-actionsheet__subtitle-text">{subTitle}</Text>
           )}
-        </div>
-        <div className="weui-actionsheet__menu">
-          {list
-            ? list.map((item, index) => {
-                return (
-                  <div
-                    key={index}
-                    className="weui-actionsheet__cell"
-                    onClick={() => {
-                      actionRef.current.hideActionSheet()
-                      onSelect?.(item.value)
-                    }}
-                  >
-                    {item.name}
-                  </div>
-                )
-              })
-            : children}
-          {/* <div className="weui-actionsheet__cell weui-actionsheet__cell_warn">
-            负向菜单
-          </div> */}
-        </div>
-        <div className="weui-actionsheet__action">
-          <div
+        </View>
+        <View className="weui-actionsheet__menu">{children}</View>
+        <View className="weui-actionsheet__action">
+          <View
             className="weui-actionsheet__cell"
             onClick={() => {
-              actionRef.current.hideActionSheet()
+              cref.current!.hide()
               onCancel?.()
             }}
           >
             取消
-          </div>
-        </div>
-      </div>
-    </div>
+          </View>
+        </View>
+      </View>
+    </View>
   )
 }

@@ -1,7 +1,41 @@
-@import './variables';
+// 10px字体设置
+.setMinFontSize() {
+  font-size: 24px;
+  transform: scale(0.84);
+}
+
+// 水平垂直居中
+.setCenter(@direction: row) {
+  display: flex;
+  flex-direction: @direction;
+  justify-content: center;
+  align-items: center;
+}
+
+.setBackgroundImageCenter() {
+  background-size: cover;
+  background-position: center;
+}
+
 // mobile
-.setTapColor(@c:rgba(0,0,0,0)) {
-  -webkit-tap-highlight-color: @c;
+.setTapColor(@color, @c:rgba(0,0,0,0.09)) {
+  outline: 0;
+  border-width: 0;
+  appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  &:active {
+    color: overlay(@c, @color);
+  }
+}
+
+.setTapBgColor(@color, @c:rgba(0,0,0,0.06)) {
+  outline: 0;
+  border-width: 0;
+  appearance: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  &:active {
+    background-color: overlay(@c, @color);
+  }
 }
 
 // setArrow

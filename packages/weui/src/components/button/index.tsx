@@ -1,5 +1,6 @@
 import { Button } from '@tarojs/components'
 import type { ButtonProps } from '../../../types/button.d'
+import Loading from '../loading'
 
 export default function Index(props: ButtonProps = { children: '' }) {
   const { size, type, className, loading, disabled, ...others } = props
@@ -40,15 +41,7 @@ export default function Index(props: ButtonProps = { children: '' }) {
     <Button className={`${cls} ${className || ''}`} {...others}>
       <>
         {loading && (
-          <span
-            className={`weui-primary-loading ${
-              !type || type === 'primary'
-                ? 'weui-primary-loading_transparent'
-                : ''
-            }`}
-          >
-            <i className="weui-primary-loading__dot"></i>
-          </span>
+          <Loading type={!type || type === 'primary' ? 'similar' : undefined} />
         )}
         {props.children}
       </>

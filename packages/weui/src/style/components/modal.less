@@ -1,0 +1,96 @@
+/* stylelint-disable declaration-block-no-duplicate-properties */
+@import '../variables.less';
+
+.weui-dialog {
+  position: fixed;
+  z-index: @weuiZIndexDialog;
+  top: 50%;
+  left: (16px * @hd);
+  right: (16px * @hd);
+  transform: translate(0, -50%);
+  background-color: @weuiModalBgColor;
+  text-align: center;
+  border-radius: (12px * @hd);
+  overflow: hidden;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  max-height: 90%;
+}
+.weui-dialog-min-height {
+  min-height: (100px * @hd);
+}
+
+.weui-dialog-close-top-right {
+  position: absolute;
+  right: (5px * @hd);
+  top: (5px * @hd);
+}
+
+.weui-dialog__hd {
+  padding: (32px * @hd) @weuiDialogGapWidth (16px * @hd);
+}
+.weui-dialog__title {
+  font-weight: bold;
+  font-size: (17px * @hd);
+  line-height: 1.4;
+}
+.weui-dialog__bd {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 @weuiDialogGapWidth;
+  margin-bottom: (32px * @hd);
+  font-size: (17px * @hd);
+  line-height: 1.4;
+  .hyphens;
+
+  color: @weuiModalSubTitleColor;
+  &:first-child {
+    min-height: (40px * @hd);
+    padding: (32px * @hd) @weuiDialogGapWidth 0;
+    font-weight: bold;
+    color: @weuiModalTitleColor;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+}
+.weui-dialog__ft {
+  position: relative;
+  line-height: (56px * @hd);
+  min-height: (56px * @hd);
+  font-size: (17px * @hd);
+  display: flex;
+  &::after {
+    content: ' ';
+    .setTopLine(@weuiModalBorderLine);
+  }
+}
+.weui-dialog__btn {
+  display: block;
+  flex: 1;
+  color: @weuiModalBtnColor;
+  font-weight: bold;
+  text-decoration: none;
+  .setTapBgColor(@weuiModalBtnFgActiveColor);
+
+  position: relative;
+  &::after {
+    content: ' ';
+    .setLeftLine(@weuiModalBorderLine);
+  }
+  &:first-child {
+    &::after {
+      display: none;
+    }
+  }
+}
+.weui-dialog__btn_default {
+  color: @weuiModalBtnCancelColor;
+}

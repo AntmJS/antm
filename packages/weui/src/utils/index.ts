@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useRef, useState } from 'react'
 import { nextTick } from '@tarojs/taro'
 
 export function useFadeIn(ref: any) {
@@ -33,4 +33,23 @@ export function useFadeOut(ref: any) {
     },
     [ref],
   )
+}
+
+export function useMask(ref: any) {
+  const [isShowMask, setIsShowMask] = useState(false)
+  const maskRef = useRef<HTMLDivElement>()
+  const maskfadeOut = useFadeOut(maskRef)
+  const maskfadeIn = useFadeIn(maskRef)
+  const actionRef = useRef({
+    show: function () {
+      setIsShowMask(true)
+      maskfadeIn()
+    },
+    hide: function () {
+      setIsShowMask(false)
+      maskfadeOut()
+    },
+  })
+  ref.current = actionRef.current
+  return { maskRef, isShowMask }
 }

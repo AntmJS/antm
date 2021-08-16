@@ -2,13 +2,13 @@ import { ComponentClass } from 'react'
 import WEUI from './normal'
 
 export interface IDialogRef {
-  showDialog: () => void
-  hideDialog: () => void
+  show: () => void
+  hide: () => void
 }
 
 export interface DialogProps extends WEUI.IBaseComponent {
   cref: React.MutableRefObject<IDialogRef | undefined>
-  children: JSX.Element | string
+  children: JSX.Element | string | JSX.Element[]
   onClose?: () => void
 }
 
