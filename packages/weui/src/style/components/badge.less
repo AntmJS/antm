@@ -1,0 +1,46 @@
+@import '../variables.less';
+@badgeBorderRadius: 10px * @hd * 0.7;
+@badgeBoxShadow: 0 (2px * @hd) (4px * @hd) 0
+  rgba(
+    red(@antmuiBadgeBgColor),
+    green(@antmuiBadgeBgColor),
+    blue(@antmuiBadgeBgColor),
+    0.2
+  );
+
+.antmui-badge {
+  position: relative;
+  display: inline-block;
+  font-size: 0;
+  vertical-align: middle;
+
+  /* elements */
+  &__dot {
+    position: absolute;
+    right: -3px * @hd;
+    top: -3px * @hd;
+    width: 10px * @hd;
+    height: 10px * @hd;
+    border-radius: 50%;
+    overflow: hidden;
+    background: @antmuiBadgeBgColor;
+    box-shadow: @badgeBoxShadow;
+  }
+
+  &__num {
+    position: absolute;
+    padding: 0 @antmuiSpaceSm;
+    top: -@badgeBorderRadius;
+    right: -2px * @hd;
+    color: @antmuiBadgeColor;
+    .setMinFontSize();
+
+    line-height: 1.4;
+    border-radius: @badgeBorderRadius @badgeBorderRadius @badgeBorderRadius 0;
+    background: @antmuiBadgeBgColor;
+    box-shadow: @badgeBoxShadow;
+    transform: translate(50%, 0);
+    overflow: hidden;
+    z-index: 1;
+  }
+}

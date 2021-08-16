@@ -1,9 +1,9 @@
 /* stylelint-disable */
 @import '../variables.less';
 
-.weui-half-screen-dialog {
-  z-index: @weuiZIndexDialog;
-  background-color: @weuiHalfScreenBgColor;
+.antmui-half-screen-dialog {
+  z-index: @antmuiZIndexDialog;
+  background-color: @antmuiHalfScreenBgColor;
   @screenDialogPadding: 24px * @hd;
   line-height: 1.4;
   padding: 0 @screenDialogPadding;
@@ -14,78 +14,78 @@
     env(safe-area-inset-bottom)
     calc(@screenDialogPadding ~'+ env(safe-area-inset-left)');
 }
-.weui-half-screen-dialog__hd {
+.antmui-half-screen-dialog__hd {
   font-size: (8px * @hd);
   height: 8em;
   display: flex;
   align-items: center;
 
-  .weui-icon-btn {
+  .antmui-icon-btn {
     position: absolute;
     top: 50%;
     -webkit-transform: translateY(-50%);
     transform: translateY(-50%);
-    .weui-check {
-      color: @weuiHalfScreenBtnColor;
+    .antmui-check {
+      color: @antmuiHalfScreenBtnColor;
     }
   }
 }
-.weui-half-screen-dialog__hd__side {
+.antmui-half-screen-dialog__hd__side {
   position: relative;
   left: -(8px * @hd);
 }
-.weui-half-screen-dialog__hd__main {
+.antmui-half-screen-dialog__hd__main {
   flex: 1;
-  .weui-half-screen-dialog__hd__side + & {
+  .antmui-half-screen-dialog__hd__side + & {
     text-align: center;
     padding: 0 (40px * @hd);
   }
-  & + .weui-half-screen-dialog__hd__side {
+  & + .antmui-half-screen-dialog__hd__side {
     right: -(8px * @hd);
     left: auto;
-    .weui-icon-btn {
+    .antmui-icon-btn {
       right: 0;
     }
   }
 }
-.weui-half-screen-dialog__title {
+.antmui-half-screen-dialog__title {
   display: block;
-  color: @weuiHalfScreenTitleColor;
+  color: @antmuiHalfScreenTitleColor;
   font-weight: bold;
   font-size: (15px * @hd);
 }
-.weui-half-screen-dialog__subtitle {
+.antmui-half-screen-dialog__subtitle {
   display: block;
-  color: @weuiHalfScreenSubTitleColor;
+  color: @antmuiHalfScreenSubTitleColor;
   font-size: (10px * @hd);
 }
 
-.weui-half-screen-dialog__bd {
+.antmui-half-screen-dialog__bd {
   .hyphens();
 
   overflow-y: auto;
   padding-top: (4px * @hd);
   padding-bottom: (56px * @hd);
   font-size: (14px * @hd);
-  color: @weuiHalfScreenTitleColor;
+  color: @antmuiHalfScreenTitleColor;
 }
-.weui-half-screen-dialog__desc {
+.antmui-half-screen-dialog__desc {
   font-size: (17px * @hd);
   font-weight: bold;
-  color: @weuiHalfScreenTitleColor;
+  color: @antmuiHalfScreenTitleColor;
   line-height: 1.4;
 }
-.weui-half-screen-dialog__tips {
+.antmui-half-screen-dialog__tips {
   padding-top: (16px * @hd);
   font-size: (14px * @hd);
-  color: @weuiHalfScreenTipsColor;
+  color: @antmuiHalfScreenTipsColor;
   line-height: 1.4;
 }
-.weui-half-screen-dialog__ft {
+.antmui-half-screen-dialog__ft {
   padding: 0 0 (64px * @hd);
   text-align: center;
-  .weui-btn:nth-last-child(n + 2),
-  .weui-btn:nth-last-child(n + 2) + .weui-btn {
+  .antmui-btn:nth-last-child(n + 2),
+  .antmui-btn:nth-last-child(n + 2) + .antmui-btn {
     display: inline-block;
     vertical-align: top;
     margin: 0 (8px * @hd);
@@ -98,18 +98,18 @@
     }
   }
 }
-.weui-half-screen-dialog__btn-area {
-  & + .weui-half-screen-dialog__attachment-area {
+.antmui-half-screen-dialog__btn-area {
+  & + .antmui-half-screen-dialog__attachment-area {
     margin-top: (24px * @hd);
     margin-bottom: -(44px * @hd);
   }
 }
-// .weui-icon-btn {
-//   color: @weuiHalfScreenBtnColor;
+// .antmui-icon-btn {
+//   color: @antmuiHalfScreenBtnColor;
 //   font-size: 0;
 // }
-// .weui-icon-btn_close {
-//   color: @weuiHalfScreenBtnCancelColor;
+// .antmui-icon-btn_close {
+//   color: @antmuiHalfScreenBtnCancelColor;
 //   display: inline-block;
 //   vertical-align: middle;
 //   width: (14px * @hd);

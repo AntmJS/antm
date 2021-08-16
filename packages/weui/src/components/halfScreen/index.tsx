@@ -18,7 +18,7 @@ export default function Index(props: HalfScreenProps) {
   return (
     <View>
       <View
-        className="weui-mask"
+        className="antmui-mask"
         style={{ display: 'none' }}
         ref={maskRef}
         onClick={() => {
@@ -27,46 +27,46 @@ export default function Index(props: HalfScreenProps) {
         }}
       ></View>
       <View
-        className={`weui-half-screen-dialog weui-slideup-default ${
-          isShowMask ? 'weui-slideup-show' : ''
+        className={`antmui-half-screen-dialog antmui-slideup-default ${
+          isShowMask ? 'antmui-slideup-show' : ''
         } ${className || ''}`}
         {...others}
       >
-        <View className="weui-half-screen-dialog__hd">
-          <View className="weui-half-screen-dialog__hd__side">
+        <View className="antmui-half-screen-dialog__hd">
+          <View className="antmui-half-screen-dialog__hd__side">
             <Icon
-              name="weui-close"
-              className="weui-icon-btn"
+              name="antmui-close"
+              className="antmui-icon-btn"
               onClick={() => {
                 cref.current!.hide()
                 onClose?.()
               }}
             />
           </View>
-          <View className="weui-half-screen-dialog__hd__main">
+          <View className="antmui-half-screen-dialog__hd__main">
             {!title && !subTitle && (
-              <Text className="weui-half-screen-dialog__title">面板</Text>
+              <Text className="antmui-half-screen-dialog__title">面板</Text>
             )}
             {title && (
-              <Text className="weui-half-screen-dialog__title">{title}</Text>
+              <Text className="antmui-half-screen-dialog__title">{title}</Text>
             )}
             {subTitle && (
-              <Text className="weui-half-screen-dialog__subtitle">
+              <Text className="antmui-half-screen-dialog__subtitle">
                 {subTitle}
               </Text>
             )}
           </View>
-          <View className="weui-half-screen-dialog__hd__side">
+          <View className="antmui-half-screen-dialog__hd__side">
             {onConfirm && (
               <Icon
-                name="weui-check"
-                className="weui-icon-btn"
+                name="antmui-check"
+                className="antmui-icon-btn"
                 onClick={onConfirm}
               />
             )}
           </View>
         </View>
-        <View className="weui-half-screen-dialog__bd">{children}</View>
+        <View className="antmui-half-screen-dialog__bd">{children}</View>
       </View>
     </View>
   )

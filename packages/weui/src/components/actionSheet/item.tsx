@@ -4,7 +4,7 @@ import { ActionSheetItemProps } from '../../../types/actionSheet'
 export default function Index(props: ActionSheetItemProps) {
   const { children, className, ...others } = props
   return (
-    <View className={`weui-actionsheet__cell ${className || ''}`} {...others}>
+    <View className={`antmui-actionsheet__cell ${className || ''}`} {...others}>
       {children}
     </View>
   )

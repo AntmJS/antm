@@ -4,19 +4,29 @@ import Icon from '../icon'
 import { useMask } from '../../utils'
 
 export default function Index(props: DialogProps) {
-  const { onClose, cref, className, children, ...others } = props
+  const {
+    closeIconPrefixClass = 'antmuifont',
+    closeIconName = 'antmui-round-close-fill',
+    closeIconPosition = 'top-right',
+    onClose,
+    cref,
+    className,
+    children,
+    ...others
+  } = props
   const { maskRef } = useMask(cref)
 
   return (
-    <View className="weui-mask" style={{ display: 'none' }} ref={maskRef}>
+    <View className="antmui-mask" style={{ display: 'none' }} ref={maskRef}>
       <View
-        className={`weui-dialog weui-dialog-min-height ${className || ''}`}
+        className={`antmui-dialog antmui-dialog-min-height ${className || ''}`}
         {...others}
       >
         {onClose && (
           <Icon
-            name="weui-round-close-fill"
-            className="weui-icon-btn weui-dialog-close-top-right weui-icon-clear"
+            name={closeIconName}
+            prefixClass={closeIconPrefixClass}
+            className={`antmui-dialog-close-${closeIconPosition}`}
             onClick={() => {
               cref.current!.hide()
               onClose()

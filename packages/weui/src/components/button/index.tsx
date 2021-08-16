@@ -7,34 +7,34 @@ export default function Index(props: ButtonProps = { children: '' }) {
   let cls = ''
   if (size === 'full') {
     if (!type || type === 'primary') {
-      cls = 'weui-btn_cell weui-btn_cell-primary'
+      cls = 'antmui-btn_cell antmui-btn_cell-primary'
     } else if (type === 'default') {
-      cls = 'weui-btn_cell weui-btn_cell-default'
+      cls = 'antmui-btn_cell antmui-btn_cell-default'
     } else if (type === 'warn') {
-      cls = 'weui-btn_cell weui-btn_cell-warn'
+      cls = 'antmui-btn_cell antmui-btn_cell-warn'
     }
   } else {
     if (!type || type === 'primary') {
-      cls = 'weui-btn weui-btn_primary'
+      cls = 'antmui-btn antmui-btn_primary'
     } else if (type === 'default') {
-      cls = 'weui-btn weui-btn_default'
+      cls = 'antmui-btn antmui-btn_default'
     } else if (type === 'warn') {
-      cls = 'weui-btn weui-btn_warn'
+      cls = 'antmui-btn antmui-btn_warn'
     }
 
     if (size === 'small') {
-      cls = cls + ' weui-btn_mini'
+      cls = cls + ' antmui-btn_mini'
     } else if (size === 'around') {
-      cls = cls + ' weui-btn_around'
+      cls = cls + ' antmui-btn_around'
     }
   }
 
   if (loading) {
-    cls = cls + ' weui-btn_loading'
+    cls = cls + ' antmui-btn_loading'
   }
 
   if (disabled) {
-    cls = cls + ' weui-btn_disabled'
+    cls = cls + ' antmui-btn_disabled'
   }
 
   return (

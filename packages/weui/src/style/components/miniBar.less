@@ -1,14 +1,14 @@
 @import '../variables.less';
 
-.weui-minibar {
+.antmui-minibar {
   position: relative;
-  background-color: @weuiMiniBarBgColor;
-  color: @weuiMiniBarColor;
+  background-color: @antmuiMiniBarBgColor;
+  color: @antmuiMiniBarColor;
   width: 100%;
   box-sizing: border-box;
-  z-index: @weuiZIndexNav;
+  z-index: @antmuiZIndexNav;
 
-  &.weui-minibar_fixed {
+  &.antmui-minibar_fixed {
     position: fixed;
     left: 0;
     right: 0;
@@ -22,13 +22,13 @@
 
     &_back,
     &_home {
-      margin-right: @weuiSpaceXl;
+      margin-right: @antmuiSpaceXl;
     }
   }
 
   &_center {
     overflow: hidden;
-    padding: @weuiSpaceSm @weuiSpaceXl 0;
+    padding: @antmuiSpaceSm @antmuiSpaceXl 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,6 +41,6 @@
     width: 100%;
     height: (2px * @hd);
     transform: scaleY(0.2);
-    background-color: @weuiMiniBarBorderLine;
+    background-color: @antmuiMiniBarBorderLine;
   }
 }

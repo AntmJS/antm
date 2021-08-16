@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
-import { nextTick } from '@tarojs/taro'
+import { nextTick, createSelectorQuery, SelectorQuery } from '@tarojs/taro'
 
 export function useFadeIn(ref: any) {
   return useCallback(
@@ -52,4 +52,29 @@ export function useMask(ref: any) {
   })
   ref.current = actionRef.current
   return { maskRef, isShowMask }
+}
+
+export function delay(delayTime = 25): Promise<void> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve()
+    }, delayTime)
+  })
+}
+
+export function delayQuerySelector(
+  selectorStr: string,
+  delayTime = 500,
+): Promise<any[]> {
+  return new Promise((resolve) => {
+    const selector: SelectorQuery = createSelectorQuery()
+    delay(delayTime).then(() => {
+      selector
+        .select(selectorStr)
+        .boundingClientRect()
+        .exec((res: any[]) => {
+          resolve(res)
+        })
+    })
+  })
 }

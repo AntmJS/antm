@@ -1,6 +1,6 @@
-# @antmjs/weui
+# @antmjs/antmui
 
-> 一套适用于Taro3.3的weui组件库
+> 一套适用于Taro3.3的antmui组件库
 
 ## 为什么需要
 
@@ -9,7 +9,7 @@
 ## 安装
 
 ```bash
-yarn add @antmjs/weui
+yarn add @antmjs/antmui
 ```
 
 ## 使用
@@ -17,9 +17,9 @@ yarn add @antmjs/weui
 src/style/index.less
 
 ```css
-@import 'node_modules/@antmjs/weui/dist/style/index';
+@import 'node_modules/@antmjs/antmui/dist/style/index';
 ```
 
 ```js
-import { Button } from '@antmjs/weui'
+import { Button } from '@antmjs/antmui'
 ```

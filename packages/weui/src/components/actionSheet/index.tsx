@@ -18,7 +18,7 @@ export default function Index(props: ActionSheetProps) {
   return (
     <View>
       <View
-        className="weui-mask"
+        className="antmui-mask"
         style={{ display: 'none' }}
         ref={maskRef}
         onClick={() => {
@@ -27,26 +27,28 @@ export default function Index(props: ActionSheetProps) {
         }}
       ></View>
       <View
-        className={`weui-actionsheet weui-slideup-default ${
-          isShowMask ? 'weui-slideup-show' : ''
+        className={`antmui-actionsheet antmui-slideup-default ${
+          isShowMask ? 'antmui-slideup-show' : ''
         } ${className || ''}`}
         {...others}
       >
-        <View className="weui-actionsheet__title">
+        <View className="antmui-actionsheet__title">
           {!title && !subTitle && (
-            <Text className="weui-actionsheet__title-text">菜单</Text>
+            <Text className="antmui-actionsheet__title-text">菜单</Text>
           )}
           {title && (
-            <Text className="weui-actionsheet__title-text">{title}</Text>
+            <Text className="antmui-actionsheet__title-text">{title}</Text>
           )}
           {subTitle && (
-            <Text className="weui-actionsheet__subtitle-text">{subTitle}</Text>
+            <Text className="antmui-actionsheet__subtitle-text">
+              {subTitle}
+            </Text>
           )}
         </View>
-        <View className="weui-actionsheet__menu">{children}</View>
-        <View className="weui-actionsheet__action">
+        <View className="antmui-actionsheet__menu">{children}</View>
+        <View className="antmui-actionsheet__action">
           <View
-            className="weui-actionsheet__cell"
+            className="antmui-actionsheet__cell"
             onClick={() => {
               cref.current!.hide()
               onCancel?.()

@@ -1,14 +1,14 @@
 /* stylelint-disable declaration-block-no-duplicate-properties */
 @import '../variables.less';
 
-.weui-dialog {
+.antmui-dialog {
   position: fixed;
-  z-index: @weuiZIndexDialog;
+  z-index: @antmuiZIndexDialog;
   top: 50%;
   left: (16px * @hd);
   right: (16px * @hd);
   transform: translate(0, -50%);
-  background-color: @weuiModalBgColor;
+  background-color: @antmuiModalBgColor;
   text-align: center;
   border-radius: (12px * @hd);
   overflow: hidden;
@@ -18,39 +18,52 @@
   flex-direction: column;
   max-height: 90%;
 }
-.weui-dialog-min-height {
+.antmui-dialog-min-height {
   min-height: (100px * @hd);
 }
 
-.weui-dialog-close-top-right {
+.antmui-dialog-close-top-right {
   position: absolute;
   right: (5px * @hd);
   top: (5px * @hd);
 }
 
-.weui-dialog__hd {
-  padding: (32px * @hd) @weuiDialogGapWidth (16px * @hd);
+.antmui-dialog-close-top-left {
+  position: absolute;
+  left: (5px * @hd);
+  top: (5px * @hd);
 }
-.weui-dialog__title {
+
+.antmui-dialog-close-bottom-center {
+  position: absolute;
+  bottom: (5px * @hd);
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.antmui-dialog__hd {
+  padding: (32px * @hd) @antmuiDialogGapWidth (16px * @hd);
+}
+.antmui-dialog__title {
   font-weight: bold;
   font-size: (17px * @hd);
   line-height: 1.4;
 }
-.weui-dialog__bd {
+.antmui-dialog__bd {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 0 @weuiDialogGapWidth;
+  padding: 0 @antmuiDialogGapWidth;
   margin-bottom: (32px * @hd);
   font-size: (17px * @hd);
   line-height: 1.4;
   .hyphens;
 
-  color: @weuiModalSubTitleColor;
+  color: @antmuiModalSubTitleColor;
   &:first-child {
     min-height: (40px * @hd);
-    padding: (32px * @hd) @weuiDialogGapWidth 0;
+    padding: (32px * @hd) @antmuiDialogGapWidth 0;
     font-weight: bold;
-    color: @weuiModalTitleColor;
+    color: @antmuiModalTitleColor;
     display: -webkit-box;
     display: -webkit-flex;
     display: flex;
@@ -61,7 +74,7 @@
     justify-content: center;
   }
 }
-.weui-dialog__ft {
+.antmui-dialog__ft {
   position: relative;
   line-height: (56px * @hd);
   min-height: (56px * @hd);
@@ -69,21 +82,21 @@
   display: flex;
   &::after {
     content: ' ';
-    .setTopLine(@weuiModalBorderLine);
+    .setTopLine(@antmuiModalBorderLine);
   }
 }
-.weui-dialog__btn {
+.antmui-dialog__btn {
   display: block;
   flex: 1;
-  color: @weuiModalBtnColor;
+  color: @antmuiModalBtnColor;
   font-weight: bold;
   text-decoration: none;
-  .setTapBgColor(@weuiModalBtnFgActiveColor);
+  .setTapBgColor(@antmuiModalBtnFgActiveColor);
 
   position: relative;
   &::after {
     content: ' ';
-    .setLeftLine(@weuiModalBorderLine);
+    .setLeftLine(@antmuiModalBorderLine);
   }
   &:first-child {
     &::after {
@@ -91,6 +104,6 @@
     }
   }
 }
-.weui-dialog__btn_default {
-  color: @weuiModalBtnCancelColor;
+.antmui-dialog__btn_default {
+  color: @antmuiModalBtnCancelColor;
 }

@@ -1,13 +1,13 @@
 /* stylelint-disable declaration-block-no-duplicate-properties */
 @import '../variables.less';
 
-@weuiActionSheetAndroidBorderRadius: (2px * @hd);
+@antmuiActionSheetAndroidBorderRadius: (2px * @hd);
 
-.weui-actionsheet {
-  z-index: @weuiZIndexActionSheet;
-  background-color: @weuiActionSheetBgColor;
+.antmui-actionsheet {
+  z-index: @antmuiZIndexActionSheet;
+  background-color: @antmuiActionSheetBgColor;
 }
-.weui-actionsheet__title {
+.antmui-actionsheet__title {
   position: relative;
   height: (56px * @hd);
   padding: 0 (24px * @hd);
@@ -16,42 +16,42 @@
   flex-direction: column;
   text-align: center;
   font-size: (12px * @hd);
-  color: @weuiActionSheetTitleColor;
+  color: @antmuiActionSheetTitleColor;
   line-height: 1.4;
-  background: @weuiActionSheetTitleFgColor;
+  background: @antmuiActionSheetTitleFgColor;
   &::before {
-    .setBottomLine(@weuiActionSheetTitleBorderLine);
+    .setBottomLine(@antmuiActionSheetTitleBorderLine);
   }
-  .weui-actionsheet__title-text {
+  .antmui-actionsheet__title-text {
     font-size: (15px * @hd);
     .ellipsisLn(2);
   }
-  .weui-actionsheet__subtitle-text {
+  .antmui-actionsheet__subtitle-text {
     .ellipsisLn(2);
   }
 }
-.weui-actionsheet__menu {
-  color: @weuiActionSheetMenuColor;
-  background-color: @weuiActionSheetItemFgColor;
+.antmui-actionsheet__menu {
+  color: @antmuiActionSheetMenuColor;
+  background-color: @antmuiActionSheetItemFgColor;
 }
-.weui-actionsheet__action {
+.antmui-actionsheet__action {
   margin-top: (8px * @hd);
-  color: @weuiActionSheetMenuColor;
-  background-color: @weuiActionSheetItemFgColor;
+  color: @antmuiActionSheetMenuColor;
+  background-color: @antmuiActionSheetItemFgColor;
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
-.weui-actionsheet__cell {
+.antmui-actionsheet__cell {
   position: relative;
-  padding: @weuiCellGapV;
+  padding: @antmuiCellGapV;
   text-align: center;
   font-size: (17px * @hd);
-  line-height: @weuiCellLineHeight;
+  line-height: @antmuiCellLineHeight;
   &::before {
-    .setTopLine(@weuiActionSheetItemBorderLine);
+    .setTopLine(@antmuiActionSheetItemBorderLine);
   }
   &:active {
-    background-color: @weuiActionSheetItemActiveFgColor;
+    background-color: @antmuiActionSheetItemActiveFgColor;
   }
   &:first-child {
     &::before {

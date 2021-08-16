@@ -1,107 +1,104 @@
 /* stylelint-disable no-descending-specificity, selector-max-type */
 @import './icon.less';
 
-@weuiSearchInputHeight: (32px * @hd);
+@antmuiSearchInputHeight: (32px * @hd);
 
-.weui-search-bar {
+.antmui-search-bar {
   position: relative;
   padding: (8px * @hd);
   display: flex;
   box-sizing: border-box;
-  background-color: @weuiSearchBarBgColor;
+  background-color: @antmuiSearchBarBgColor;
   -webkit-text-size-adjust: 100%;
   align-items: center;
-  &.weui-search-bar_focusing {
-    .weui-search-bar__cancel-btn {
+  &.antmui-search-bar_focusing {
+    .antmui-search-bar__cancel-btn {
       display: block;
     }
-    .weui-search-bar__label {
+    .antmui-search-bar__label {
       display: none;
     }
   }
 
-  .weui-icon-search {
-    width: (16px * @hd);
-    height: (16px * @hd);
+  .antmui-icon-search {
     font-size: (17px * @hd);
   }
 }
-.weui-search-bar__form {
+.antmui-search-bar__form {
   position: relative;
   flex: auto;
-  background-color: @weuiSearchBarInputFgColor;
+  background-color: @antmuiSearchBarInputFgColor;
   border-radius: (4px * @hd);
 }
-.weui-search-bar__box {
+.antmui-search-bar__box {
   position: relative;
   padding-left: (28px * @hd);
   padding-right: (32px * @hd);
   height: 100%;
   width: 100%;
   box-sizing: border-box;
-  z-index: @weuiZIndex;
-  .weui-search-bar__input {
+  z-index: @antmuiZIndex;
+  .antmui-search-bar__input {
     padding: (8px * @hd) 0;
     width: 100%;
-    height: unit(@weuiSearchInputHeight - (16px * @hd)) / 14em;
+    height: @antmuiSearchInputHeight;
     border: 0;
     font-size: (14px * @hd);
-    line-height: unit(@weuiSearchInputHeight - (16px * @hd)) / 14em;
+    line-height: @antmuiSearchInputHeight;
     box-sizing: content-box;
     background: transparent;
-    caret-color: @weuiSearchBarCaretColor;
-    color: @weuiSearchBarColor;
+    caret-color: @antmuiSearchBarCaretColor;
+    color: @antmuiSearchBarColor;
+    display: flex;
+    align-items: center;
     &:focus {
       outline: none;
     }
   }
-  .weui-icon-search {
+  .antmui-icon-search {
     position: absolute;
     top: 50%;
+    transform: translateY(-50%);
     left: (8px * @hd);
-    margin-top: -(8px * @hd);
   }
-  .weui-icon-clear {
+  .antmui-icon-clear {
     position: absolute;
     top: 50%;
     right: 0;
-    margin-top: -(16px * @hd);
+    transform: translateY(-50%);
     padding: (8px * @hd);
-    width: (16px * @hd);
-    height: (16px * @hd);
-    mask-size: (16px * @hd);
     font-size: (17px * @hd);
   }
 }
-.weui-search-bar__label {
+.antmui-search-bar__label {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  z-index: @weuiZIndex;
+  z-index: @antmuiZIndex;
   font-size: 0;
   border-radius: (4px * @hd);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: @weuiSearchBarLabelColor;
-  background: @weuiSearchBarLabelFgColor;
+  color: @antmuiSearchBarLabelColor;
+  background: @antmuiSearchBarLabelFgColor;
+  .setCenter();
   .span {
     display: inline-block;
     font-size: (14px * @hd);
     vertical-align: middle;
-    color: @weuiSearchBarLabelColor;
+    color: @antmuiSearchBarLabelColor;
   }
-  .weui-icon-search {
+  .antmui-icon-search {
+    display: block;
     margin-right: (4px * @hd);
-    color: @weuiSearchBarLabelColor;
+    color: @antmuiSearchBarLabelColor;
   }
 }
-.weui-search-bar__cancel-btn {
+.antmui-search-bar__cancel-btn {
   display: none;
   margin-left: (8px * @hd);
   line-height: (28px * @hd);
-  color: @weuiSearchBarCancelColor;
+  color: @antmuiSearchBarCancelColor;
   white-space: nowrap;
+  font-size: @antmuiFontSizeLg;
 }

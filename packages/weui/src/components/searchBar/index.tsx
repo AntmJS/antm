@@ -78,16 +78,18 @@ export default function Index(props: SearchBarProps) {
 
   return (
     <View
-      className={`weui-search-bar ${focus ? 'weui-search-bar_focusing' : ''}`}
+      className={`antmui-search-bar ${
+        focus ? 'antmui-search-bar_focusing' : ''
+      }`}
       id="searchBar"
     >
-      <Form className="weui-search-bar__form">
-        <View className="weui-search-bar__box">
-          <Icon name="weui-search" className="weui-icon-search"></Icon>
+      <Form className="antmui-search-bar__form">
+        <View className="antmui-search-bar__box">
+          <Icon name="antmui-search" className="antmui-icon-search"></Icon>
           <Input
             type={type || 'text'}
             confirmType={confirmType || 'search'}
-            className={className || 'weui-search-bar__input'}
+            className={className || 'antmui-search-bar__input'}
             placeholder={placeholder || '搜索'}
             ref={cref as React.LegacyRef<HTMLInputElement> | undefined}
             onBlur={handleBlur}
@@ -96,25 +98,25 @@ export default function Index(props: SearchBarProps) {
           />
           {isShowClear && (
             <Icon
-              name="weui-round-clear-fill"
-              className="weui-icon-clear"
+              name="antmui-round-close-fill"
+              className="antmui-icon-clear"
               onClick={_onClear}
             ></Icon>
           )}
         </View>
         {isShowLabel && (
           <View
-            className="weui-search-bar__label"
+            className="antmui-search-bar__label"
             id="searchText"
             onClick={handleLabelClick}
           >
-            <Icon name="weui-search" className="weui-icon-search"></Icon>
+            <Icon name="antmui-search" className="antmui-icon-search"></Icon>
             <Text className="span">搜索</Text>
           </View>
         )}
       </Form>
       <View
-        className="weui-search-bar__cancel-btn"
+        className="antmui-search-bar__cancel-btn"
         id="searchCancel"
         onClick={_onCancel}
       >

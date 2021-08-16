@@ -17,16 +17,16 @@ export default function Index(props: ModalProps) {
   const { maskRef } = useMask(cref)
 
   return (
-    <View className="weui-mask" style={{ display: 'none' }} ref={maskRef}>
-      <View className={`weui-dialog ${className || ''}`} {...others}>
-        <View className="weui-dialog__hd">
-          <Text className="weui-dialog__title">{title}</Text>
+    <View className="antmui-mask" style={{ display: 'none' }} ref={maskRef}>
+      <View className={`antmui-dialog ${className || ''}`} {...others}>
+        <View className="antmui-dialog__hd">
+          <Text className="antmui-dialog__title">{title}</Text>
         </View>
-        <View className="weui-dialog__bd">{content}</View>
-        <View className="weui-dialog__ft">
+        <View className="antmui-dialog__bd">{content}</View>
+        <View className="antmui-dialog__ft">
           {onCancel && cancelText && (
             <View
-              className="weui-dialog__btn weui-dialog__btn_default"
+              className="antmui-dialog__btn antmui-dialog__btn_default"
               onClick={() => {
                 cref.current!.hide()
                 onCancel()
@@ -36,7 +36,7 @@ export default function Index(props: ModalProps) {
             </View>
           )}
           <View
-            className="weui-dialog__btn weui-dialog__btn_primary"
+            className="antmui-dialog__btn antmui-dialog__btn_primary"
             onClick={() => {
               cref.current!.hide()
               onConfirm()

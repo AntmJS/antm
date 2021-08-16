@@ -1,5 +1,5 @@
 {
-  "name": "@antmjs/weui",
+  "name": "@antmjs/antmui",
   "version": "1.3.0",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -37,7 +37,7 @@
     "UCAndroid >= 4.1"
   ],
   "scripts": {
-    "iconfont": "npx antm-icon --font-family weuifont --input-path https://at.alicdn.com/t/font_2744513_8dadt51frnp.css --output-path src/style/components/iconfont.less",
+    "iconfont": "npx antm-icon --font-family antmuifont --input-path https://at.alicdn.com/t/font_2744513_5c67fibspr5.css --output-path src/style/components/iconfont.less",
     "_clean": "npx rimraf dist",
     "_real": "npx rollup -c ./rollup.config.js",
     "watch": "npx rollup -c ./rollup.watch.config.js -w",
@@ -53,12 +53,16 @@
     "react-dom": ">=17.0.0"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.14.7"
+    "@babel/runtime-corejs3": "^7.14.7",
+    "classnames": "^2.3.1",
+    "dayjs": "^1.10.6",
+    "lodash.flow": "^3.5.0"
   },
   "devDependencies": {
     "@antmjs/iconfont": "^1.2.0",
     "@tarojs/components": "^3.3.2",
     "@tarojs/taro": "^3.3.2",
+    "@types/lodash.flow": "^3.5.6",
     "@types/react": "^17.0.17",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"

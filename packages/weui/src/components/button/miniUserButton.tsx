@@ -9,7 +9,13 @@ export default function Index(props: MiniUserButtonProps): JSX.Element {
   const [userProfile, setUserProfile] = useState(true)
 
   useEffect(function () {
-    setUserProfile(Taro.canIUse('getUserProfile'))
+    let canIUse = false
+    if (process.env.TARO_ENV !== 'h5') {
+      try {
+        canIUse = Taro.canIUse('getUserProfile')
+      } catch {}
+    }
+    setUserProfile(canIUse)
   }, [])
 
   const getUserProfile = function () {

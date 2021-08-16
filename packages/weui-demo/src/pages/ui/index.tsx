@@ -19,16 +19,11 @@ import {
   IDialogRef,
   HalfScreen,
   IHalfScreenRef,
-} from '@antmjs/weui'
-import '@antmjs/weui/dist/style/components/miniBar.less'
-import '@antmjs/weui/dist/style/components/loading.less'
-import '@antmjs/weui/dist/style/components/button.less'
-import '@antmjs/weui/dist/style/components/icon.less'
-import '@antmjs/weui/dist/style/components/actionSheet.less'
-import '@antmjs/weui/dist/style/components/searchBar.less'
-import '@antmjs/weui/dist/style/components/modal.less'
-import '@antmjs/weui/dist/style/components/dialog.less'
-import '@antmjs/weui/dist/style/components/halfScreen.less'
+  Badge,
+  Progress,
+  Calendar,
+} from '@antmjs/antmui'
+import '@antmjs/antmui/dist/style/index.less'
 
 export default function Index() {
   const showRef = useRef<IActionSheetRef>()
@@ -51,7 +46,9 @@ export default function Index() {
 
   return (
     <View className="pages-index-index">
-      <MiniBar homeUrl="pages/ui/index" title="首页" />
+      {process.env.TARO_ENV !== 'h5' && (
+        <MiniBar homeUrl="pages/ui/index" title="首页" />
+      )}
       <SearchBar
         cref={searchRef}
         onInput={() => {
@@ -64,6 +61,12 @@ export default function Index() {
           console.log(',,,,,', searchRef.current?.value)
         }}
       />
+      <Calendar
+        marks={[{ value: '2021/11/10' }]}
+        isMultiSelect
+        currentDate={{ start: '2021/11/1', end: '2021/11/11' }}
+      />
+      <Progress percent={70} status="progress" />
       <Button
         size="around"
         type="primary"
@@ -186,7 +189,7 @@ export default function Index() {
       <Button size="full" type="primary">
         <>
           <Image
-            className="weui-btn_cell__icon"
+            className="antmui-btn_cell__icon"
             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAAVFBMVEXx8fHMzMzr6+vn5+fv7+/t7e3d3d2+vr7W1tbHx8eysrKdnZ3p6enk5OTR0dG7u7u3t7ejo6PY2Njh4eHf39/T09PExMSvr6+goKCqqqqnp6e4uLgcLY/OAAAAnklEQVRIx+3RSRLDIAxE0QYhAbGZPNu5/z0zrXHiqiz5W72FqhqtVuuXAl3iOV7iPV/iSsAqZa9BS7YOmMXnNNX4TWGxRMn3R6SxRNgy0bzXOW8EBO8SAClsPdB3psqlvG+Lw7ONXg/pTld52BjgSSkA3PV2OOemjIDcZQWgVvONw60q7sIpR38EnHPSMDQ4MjDjLPozhAkGrVbr/z0ANjAF4AcbXmYAAAAASUVORK5CYII="
           />
           强调行按钮
@@ -204,97 +207,102 @@ export default function Index() {
       <Button type="warn" size="small">
         按钮
       </Button>
+      <Badge value="NEW">
+        <Button size="normal" type="primary" loading>
+          页面主操作
+        </Button>
+      </Badge>
       <View>
-        weui-round-minus
-        <Icon name="weui-round-minus" />
+        antmui-round-minus
+        <Icon name="antmui-round-minus" />
       </View>
       <View>
-        weui-round-minus-fill
-        <Icon name="weui-round-minus-fill" />
+        antmui-round-minus-fill
+        <Icon name="antmui-round-minus-fill" />
       </View>
       <View>
-        weui-close
-        <Icon name="weui-close" />
+        antmui-close
+        <Icon name="antmui-close" />
       </View>
       <View>
-        weui-round-check-fill
+        antmui-round-check-fill
         <Icon name="" />
       </View>
       <View>
-        weui-round-check
-        <Icon name="weui-round-check" />
+        antmui-round-check
+        <Icon name="antmui-round-check" />
       </View>
       <View>
-        weui-round-close-fill
-        <Icon name="weui-round-close-fill" />
+        antmui-round-close-fill
+        <Icon name="antmui-round-close-fill" />
       </View>
       <View>
-        weui-round-close
-        <Icon name="weui-round-close" />
+        antmui-round-close
+        <Icon name="antmui-round-close" />
       </View>
       <View>
-        weui-round-arrow-fill
-        <Icon name="weui-round-arrow-fill" />
+        antmui-round-arrow-fill
+        <Icon name="antmui-round-arrow-fill" />
       </View>
       <View>
-        weui-round-arrow
-        <Icon name="weui-round-arrow" />
+        antmui-round-arrow
+        <Icon name="antmui-round-arrow" />
       </View>
       <View>
-        weui-search
-        <Icon name="weui-search" />
+        antmui-search
+        <Icon name="antmui-search" />
       </View>
       <View>
-        weui-round-time-fill
-        <Icon name="weui-round-time-fill" />
+        antmui-round-time-fill
+        <Icon name="antmui-round-time-fill" />
       </View>
       <View>
-        weui-round-time
-        <Icon name="weui-round-time" />
+        antmui-round-time
+        <Icon name="antmui-round-time" />
       </View>
       <View>
-        weui-arrow
-        <Icon name="weui-arrow" />
+        antmui-arrow
+        <Icon name="antmui-arrow" />
       </View>
       <View>
-        weui-round-question-fill
-        <Icon name="weui-round-question-fill" />
+        antmui-round-question-fill
+        <Icon name="antmui-round-question-fill" />
       </View>
       <View>
-        weui-round-question
-        <Icon name="weui-round-question" />
+        antmui-round-question
+        <Icon name="antmui-round-question" />
       </View>
       <View>
-        weui-top
-        <Icon name="weui-top" />
+        antmui-top
+        <Icon name="antmui-top" />
       </View>
       <View>
-        weui-refresh
-        <Icon name="weui-refresh" />
+        antmui-refresh
+        <Icon name="antmui-refresh" />
       </View>
       <View>
-        weui-delete-fill
-        <Icon name="weui-delete-fill" />
+        antmui-delete-fill
+        <Icon name="antmui-delete-fill" />
       </View>
       <View>
-        weui-delete
-        <Icon name="weui-delete" />
+        antmui-delete
+        <Icon name="antmui-delete" />
       </View>
       <View>
-        weui-round
-        <Icon name="weui-round" />
+        antmui-round
+        <Icon name="antmui-round" />
       </View>
       <View>
-        weui-round-info-fill
-        <Icon name="weui-round-info-fill" />
+        antmui-round-info-fill
+        <Icon name="antmui-round-info-fill" />
       </View>
       <View>
-        weui-round-info
-        <Icon name="weui-round-info" />
+        antmui-round-info
+        <Icon name="antmui-round-info" />
       </View>
       <View>
-        weui-check
-        <Icon name="weui-check" />
+        antmui-check
+        <Icon name="antmui-check" />
       </View>
       <ActionSheet cref={showRef} title="dddddj哈哈哈" subTitle="dddddj哈哈哈">
         <ActionSheetItem
@@ -328,6 +336,7 @@ export default function Index() {
       />
       <Dialog
         cref={dialogRef}
+        closeIconPosition="bottom-center"
         onClose={() => {
           console.log('取消了')
         }}
@@ -340,19 +349,19 @@ export default function Index() {
           console.log('确定了')
         }}
       >
-        <View className="weui-half-screen-dialog__bd">
-          <View className="weui-half-screen-dialog__desc">
+        <View className="antmui-half-screen-dialog__bd">
+          <View className="antmui-half-screen-dialog__desc">
             辅助描述内容，可根据实际需要安排
           </View>
-          <View className="weui-half-screen-dialog__tips">
+          <View className="antmui-half-screen-dialog__tips">
             辅助提示内容，可根据实际需要安排
           </View>
         </View>
-        <View className="weui-half-screen-dialog__ft">
+        <View className="antmui-half-screen-dialog__ft">
           <Button type="default">辅助操作</Button>
           <Button
             type="primary"
-            className="weui-btn weui-btn_primary"
+            className="antmui-btn antmui-btn_primary"
             onClick={() => {
               halfScreenRef.current!.hide()
             }}

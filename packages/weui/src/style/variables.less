@@ -1,252 +1,270 @@
+/* stylelint-disable selector-max-type */
 @import './mixins.less';
-@weui-BRAND: #07c160;
-@weui-RED: #fa5151;
-@weui-BLUE: #10aeff;
-@weui-LINK: #576b95;
-@weui-LIGHT-0: #ffffff;
-@weui-LIGHT-2: #f2f2f2;
-@weui-LIGHT-7: #f7f7f7;
-@weui-LIGHT-5: #ededed;
-@weui-DARK-0: #000000;
-@weui-DARK-0-1: rgba(0, 0, 0, 0.1);
-@weui-DARK-0-2: rgba(0, 0, 0, 0.2);
-@weui-DARK-0-3: rgba(0, 0, 0, 0.3);
-@weui-DARK-1-3: rgba(19, 6, 6, 0.3);
-@weui-DARK-0-5: rgba(0, 0, 0, 0.5);
-@weui-DARK-0-9: rgba(0, 0, 0, 0.9);
-@weui-GREY-8: #606060;
+@antmui-BRAND: #07c160;
+@antmui-RED: #fa5151;
+@antmui-BLUE: #10aeff;
+@antmui-LINK: #576b95;
+@antmui-LIGHT-0: #ffffff;
+@antmui-LIGHT-2: #f2f2f2;
+@antmui-LIGHT-7: #f7f7f7;
+@antmui-LIGHT-5: #ededed;
+@antmui-DARK-0: #000000;
+@antmui-DARK-0-1: rgba(0, 0, 0, 0.1);
+@antmui-DARK-0-2: rgba(0, 0, 0, 0.2);
+@antmui-DARK-0-3: rgba(0, 0, 0, 0.3);
+@antmui-DARK-1-3: rgba(19, 6, 6, 0.3);
+@antmui-DARK-0-5: rgba(0, 0, 0, 0.5);
+@antmui-DARK-0-9: rgba(0, 0, 0, 0.9);
+@antmui-GREY-8: #606060;
 
-// @weui-BTN-DISABLED-FONT-COLOR: rgba(0, 0, 0, 0.2);
+// @antmui-BTN-DISABLED-FONT-COLOR: rgba(0, 0, 0, 0.2);
 
-// @weui-BG-0: #ededed;
-// @weui-BG-1: #f7f7f7;
-// @weui-BG-2: #ffffff;
-// @weui-BG-4: #4c4c4c;
-// @weui-FG-0: rgba(0, 0, 0, 0.9);
-// @weui-FG-HALF: rgba(0, 0, 0, 0.9);
-// @weui-FG-1: rgba(0, 0, 0, 0.5);
-// @weui-FG-2: rgba(0, 0, 0, 0.3);
-// @weui-FG-3: rgba(0, 0, 0, 0.1);
-// @weui-FG-4: #606060; // add
-// @weui-FG-5: #f7f7f7; // add
-// @weui-FG-6: #ededed; // add
-// @weui-FG-7: #ffffff; // add
+// @antmui-BG-0: #ededed;
+// @antmui-BG-1: #f7f7f7;
+// @antmui-BG-2: #ffffff;
+// @antmui-BG-4: #4c4c4c;
+// @antmui-FG-0: rgba(0, 0, 0, 0.9);
+// @antmui-FG-HALF: rgba(0, 0, 0, 0.9);
+// @antmui-FG-1: rgba(0, 0, 0, 0.5);
+// @antmui-FG-2: rgba(0, 0, 0, 0.3);
+// @antmui-FG-3: rgba(0, 0, 0, 0.1);
+// @antmui-FG-4: #606060; // add
+// @antmui-FG-5: #f7f7f7; // add
+// @antmui-FG-6: #ededed; // add
+// @antmui-FG-7: #ffffff; // add
 
-// @weui-ORANGE: #fa9d3b;
-// @weui-YELLOW: #ffc300;
-// @weui-GREEN: #91d300;
-// @weui-LIGHTGREEN: #95ec69;
+// @antmui-ORANGE: #fa9d3b;
+// @antmui-YELLOW: #ffc300;
+// @antmui-GREEN: #91d300;
+// @antmui-LIGHTGREEN: #95ec69;
 
-// @weui-BLUE: #10aeff;
-// @weui-INDIGO: #1485ee;
-// @weui-PURPLE: #6467f0;
-// @weui-WHITE: #ffffff;
-// @weui-LINK: #576b95;
-// @weui-LINK-ACTIVE: fade(#576b95, 50%);
-// @weui-TEXTGREEN: #06ae56;
-// @weui-FG: #000000;
-// @weui-BG: #ffffff;
-// @weui-TAG-TEXT-ORANGE: #fa9d3b;
-// @weui-TAG-BACKGROUND-ORANGE: rgba(250, 157, 59, 0.1);
-// @weui-TAG-TEXT-GREEN: #06ae56;
-// @weui-TAG-BACKGROUND-GREEN: rgba(6, 174, 86, 0.1);
-// @weui-TAG-TEXT-BLUE: #10aeff;
-// @weui-TAG-BACKGROUND-BLUE: rgba(16, 174, 255, 0.1);
-// @weui-TAG-TEXT-BLACK: rgba(0, 0, 0, 0.5);
-// @weui-TAG-BACKGROUND-BLACK: rgba(0, 0, 0, 0.05);
-// @weui-BG-COLOR-ACTIVE: #ececec;
+// @antmui-BLUE: #10aeff;
+// @antmui-INDIGO: #1485ee;
+// @antmui-PURPLE: #6467f0;
+// @antmui-WHITE: #ffffff;
+// @antmui-LINK: #576b95;
+// @antmui-LINK-ACTIVE: fade(#576b95, 50%);
+// @antmui-TEXTGREEN: #06ae56;
+// @antmui-FG: #000000;
+// @antmui-BG: #ffffff;
+// @antmui-TAG-TEXT-ORANGE: #fa9d3b;
+// @antmui-TAG-BACKGROUND-ORANGE: rgba(250, 157, 59, 0.1);
+// @antmui-TAG-TEXT-GREEN: #06ae56;
+// @antmui-TAG-BACKGROUND-GREEN: rgba(6, 174, 86, 0.1);
+// @antmui-TAG-TEXT-BLUE: #10aeff;
+// @antmui-TAG-BACKGROUND-BLUE: rgba(16, 174, 255, 0.1);
+// @antmui-TAG-TEXT-BLACK: rgba(0, 0, 0, 0.5);
+// @antmui-TAG-BACKGROUND-BLACK: rgba(0, 0, 0, 0.05);
+// @antmui-BG-COLOR-ACTIVE: #ececec;
 
-// @weui-BTN-DEFAULT-BG: #f2f2f2;
-// @weui-BTN-DEFAULT-COLOR: #06ae56;
-// @weui-BTN-DEFAULT-ACTIVE-BG: overlay(rgba(0, 0, 0, 0.06), #f2f2f2);
-// @weui-DIALOG-LINE-COLOR: rgba(0, 0, 0, 0.1);
+// @antmui-BTN-DEFAULT-BG: #f2f2f2;
+// @antmui-BTN-DEFAULT-COLOR: #06ae56;
+// @antmui-BTN-DEFAULT-ACTIVE-BG: overlay(rgba(0, 0, 0, 0.06), #f2f2f2);
+// @antmui-DIALOG-LINE-COLOR: rgba(0, 0, 0, 0.1);
 
 @hd: 2; // 基本单位
 
 // minibar
-@weuiMiniBarColor: @weui-DARK-0-9;
-@weuiMiniBarBgColor: @weui-LIGHT-5;
-@weuiMiniBarBorderLine: @weui-DARK-0-1;
+@antmuiMiniBarColor: @antmui-DARK-0-9;
+@antmuiMiniBarBgColor: @antmui-LIGHT-5;
+@antmuiMiniBarBorderLine: @antmui-DARK-0-1;
 
 // loading
-@weuiLoadingColor: @weui-GREY-8;
-@weuiLoadingSimilarColor: @weui-LIGHT-5;
-@weuiLoadingPrimaryColor: @weui-BRAND;
+@antmuiLoadingColor: @antmui-GREY-8;
+@antmuiLoadingSimilarColor: @antmui-LIGHT-5;
+@antmuiLoadingPrimaryColor: @antmui-BRAND;
 
 // default button
-@weuiBtnDefaultColor: overlay(rgba(0, 0, 0, 0.06), @weui-BRAND);
-@weuiBtnDefaultBgColor: @weui-LIGHT-2;
+@antmuiBtnDefaultColor: overlay(rgba(0, 0, 0, 0.06), @antmui-BRAND);
+@antmuiBtnDefaultBgColor: @antmui-LIGHT-2;
 
 // primary button
-@weuiBtnPrimaryColor: @weui-LIGHT-7;
-@weuiBtnPrimaryBgColor: @weui-BRAND;
+@antmuiBtnPrimaryColor: @antmui-LIGHT-7;
+@antmuiBtnPrimaryBgColor: @antmui-BRAND;
 
 // warn button
-@weuiBtnWarnColor: @weui-RED;
-@weuiBtnWarnBgColor: @weui-LIGHT-2;
+@antmuiBtnWarnColor: @antmui-RED;
+@antmuiBtnWarnBgColor: @antmui-LIGHT-2;
 
 // cell default button
-@weuiBtnCellDefaultColor: @weui-DARK-0-9;
-@weuiBtnCellDefaultBgColor: @weui-LIGHT-0;
+@antmuiBtnCellDefaultColor: @antmui-DARK-0-9;
+@antmuiBtnCellDefaultBgColor: @antmui-LIGHT-0;
 
 // cell primary button
-@weuiBtnCellPrimaryColor: @weui-LINK;
-@weuiBtnCellPrimaryBgColor: @weui-LIGHT-0;
+@antmuiBtnCellPrimaryColor: @antmui-LINK;
+@antmuiBtnCellPrimaryBgColor: @antmui-LIGHT-0;
 
 // cell warn button
-@weuiBtnCellWarnColor: @weui-RED;
-@weuiBtnCellWarnBgColor: @weui-LIGHT-0;
+@antmuiBtnCellWarnColor: @antmui-RED;
+@antmuiBtnCellWarnBgColor: @antmui-LIGHT-0;
 
 // disable button
-@weuiBtnDisabledColor: @weui-DARK-0-2;
-@weuiBtnDisabledBgColor: @weui-LIGHT-2;
+@antmuiBtnDisabledColor: @antmui-DARK-0-2;
+@antmuiBtnDisabledBgColor: @antmui-LIGHT-2;
 
 // icon
-@weuiIconPrimaryColor: @weui-BRAND;
-@weuiIconTipColor: @weui-DARK-1-3;
-@weuiIconWarnColor: @weui-RED;
-@weuiIconInfoColor: @weui-BLUE;
+@antmuiIconPrimaryColor: @antmui-BRAND;
+@antmuiIconTipColor: @antmui-DARK-1-3;
+@antmuiIconWarnColor: @antmui-RED;
+@antmuiIconInfoColor: @antmui-BLUE;
 
 // mask
-@weuiMask: rgba(0, 0, 0, 0.6);
-@weuiActiveMaskBlack: rgba(0, 0, 0, 0.15);
+@antmuiMask: rgba(0, 0, 0, 0.6);
+@antmuiActiveMaskBlack: rgba(0, 0, 0, 0.15);
 
 // actionsheet
-@weuiActionSheetBgColor: @weui-LIGHT-7;
-@weuiActionSheetTitleColor: @weui-DARK-0-5;
-@weuiActionSheetTitleFgColor: @weui-LIGHT-0;
-@weuiActionSheetTitleBorderLine: @weui-DARK-0-1;
-@weuiActionSheetMenuColor: @weui-DARK-0-9;
-@weuiActionSheetItemFgColor: @weui-LIGHT-0;
-@weuiActionSheetItemBorderLine: @weui-DARK-0-1;
-@weuiActionSheetItemActiveFgColor: @weui-LIGHT-2;
+@antmuiActionSheetBgColor: @antmui-LIGHT-7;
+@antmuiActionSheetTitleColor: @antmui-DARK-0-5;
+@antmuiActionSheetTitleFgColor: @antmui-LIGHT-0;
+@antmuiActionSheetTitleBorderLine: @antmui-DARK-0-1;
+@antmuiActionSheetMenuColor: @antmui-DARK-0-9;
+@antmuiActionSheetItemFgColor: @antmui-LIGHT-0;
+@antmuiActionSheetItemBorderLine: @antmui-DARK-0-1;
+@antmuiActionSheetItemActiveFgColor: @antmui-LIGHT-2;
 
 // searchbar
-@weuiSearchBarBgColor: @weui-LIGHT-5;
-@weuiSearchBarInputFgColor: @weui-LIGHT-0;
-@weuiSearchBarCaretColor: @weui-BRAND;
-@weuiSearchBarColor: @weui-DARK-0-9;
-@weuiSearchBarLabelColor: @weui-DARK-0-3;
-@weuiSearchBarLabelFgColor: @weui-LIGHT-7;
-@weuiSearchBarCancelColor: @weui-LINK;
+@antmuiSearchBarBgColor: @antmui-LIGHT-5;
+@antmuiSearchBarInputFgColor: @antmui-LIGHT-7;
+@antmuiSearchBarCaretColor: @antmui-BRAND;
+@antmuiSearchBarColor: @antmui-DARK-0-9;
+@antmuiSearchBarLabelColor: @antmui-DARK-0-3;
+@antmuiSearchBarLabelFgColor: @antmui-LIGHT-7;
+@antmuiSearchBarCancelColor: @antmui-LINK;
 
 // modal
-@weuiModalBgColor: @weui-LIGHT-0;
-@weuiModalTitleColor: @weui-DARK-0-9;
-@weuiModalSubTitleColor: @weui-DARK-0-5;
-@weuiModalBtnColor: @weui-DARK-0-5;
-@weuiModalBorderLine: @weui-DARK-0-1;
-@weuiModalBtnColor: @weui-LINK;
-@weuiModalBtnCancelColor: @weui-DARK-0-9;
-@weuiModalBtnFgActiveColor: @weui-LIGHT-2;
+@antmuiModalBgColor: @antmui-LIGHT-7;
+@antmuiModalTitleColor: @antmui-DARK-0-9;
+@antmuiModalSubTitleColor: @antmui-DARK-0-5;
+@antmuiModalBtnColor: @antmui-DARK-0-5;
+@antmuiModalBorderLine: @antmui-DARK-0-1;
+@antmuiModalBtnColor: @antmui-LINK;
+@antmuiModalBtnCancelColor: @antmui-DARK-0-9;
+@antmuiModalBtnFgActiveColor: @antmui-LIGHT-2;
 
 // halfScreen
-@weuiHalfScreenBgColor: @weui-LIGHT-0;
-@weuiHalfScreenTitleColor: @weui-DARK-0-9;
-@weuiHalfScreenSubTitleColor: @weui-DARK-0-5;
-@weuiHalfScreenTipsColor: @weui-DARK-0-3;
-@weuiHalfScreenBtnColor: @weui-BRAND;
-@weuiHalfScreenBtnCancelColor: @weui-DARK-0-9;
+@antmuiHalfScreenBgColor: @antmui-LIGHT-7;
+@antmuiHalfScreenTitleColor: @antmui-DARK-0-9;
+@antmuiHalfScreenSubTitleColor: @antmui-DARK-0-5;
+@antmuiHalfScreenTipsColor: @antmui-DARK-0-3;
+@antmuiHalfScreenBtnColor: @antmui-BRAND;
+@antmuiHalfScreenBtnCancelColor: @antmui-DARK-0-9;
+
+// badge
+@antmuiBadgeColor: @antmui-LIGHT-7;
+@antmuiBadgeBgColor: @antmui-RED;
+
+// progress
+@antmuiProgressColor: @antmui-DARK-0-9;
+@antmuiProgressBgColor: @antmui-LIGHT-7;
+@antmuiProgressFgColor: @antmui-BRAND;
+
+// calendar
+@antmuiCalendarSelectColor: @antmui-LINK;
 
 // font
-@weuiFontEN: -apple-system-font, 'Helvetica Neue';
-@weuiFontCN: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei';
-@weuiFontSans: sans-serif;
-@weuiFontDefault: @weuiFontEN, @weuiFontSans;
-@weuiFontSizeXs: (10px * @hd); // 非常用字号，用于标签
-@weuiFontSizeSm: (12px * @hd); // 用于辅助信息
-@weuiFontSizeBase: (14px * @hd); // 常用字号
-@weuiFontSizeLg: (16px * @hd); // 常规标题
-@weuiFontSizeXl: (18px * @hd); // 大标题
-@weuiFontSizeXxl: (20px * @hd); // 用于大号的数字
+@antmuiFontEN: -apple-system-font, 'Helvetica Neue';
+@antmuiFontCN: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei';
+@antmuiFontSans: sans-serif;
+@antmuiFontDefault: @antmuiFontEN, @antmuiFontSans;
+@antmuiFontSizeSm: (12px * @hd); // 用于辅助信息
+@antmuiFontSizeBase: (14px * @hd); // 常用字号
+@antmuiFontSizeLg: (16px * @hd); // 常规标题
+@antmuiFontSizeXl: (18px * @hd); // 大标题
+@antmuiFontSizeXxl: (20px * @hd); // 用于大号的数字
 
 // z-index
-@weuiZIndex: 1;
-@weuiZIndexDivider: 400;
-@weuiZIndexSteps: 500;
-@weuiZIndexTab: 600;
-@weuiZIndexNav: 805;
-@weuiZIndexMask: 810;
-@weuiZIndexDrawer: 900;
-@weuiZIndexModal: 1010;
-@weuiZIndexDialog: 1010;
-@weuiZIndexActionSheet: 1010;
-@weuiZIndexPicker: 1010;
-@weuiZIndexCurtain: 1080;
-@weuiZIndexMessage: 1090;
-@weuiZIndexToast: 1090;
+@antmuiZIndex: 1;
+@antmuiZIndexDivider: 400;
+@antmuiZIndexSteps: 500;
+@antmuiZIndexTab: 600;
+@antmuiZIndexNav: 805;
+@antmuiZIndexMask: 810;
+@antmuiZIndexDrawer: 900;
+@antmuiZIndexModal: 1010;
+@antmuiZIndexDialog: 1010;
+@antmuiZIndexActionSheet: 1010;
+@antmuiZIndexPicker: 1010;
+@antmuiZIndexCurtain: 1080;
+@antmuiZIndexMessage: 1090;
+@antmuiZIndexToast: 1090;
 
 // 间距
-@weuiSpaceXs: (2px * @hd);
-@weuiSpaceSm: (4px * @hd);
-@weuiSpaceMd: (6px * @hd);
-@weuiSpaceLg: (8px * @hd);
-@weuiSpaceXl: (10px * @hd);
-@weuiSpaceXxl: (12px * @hd);
+@antmuiSpaceXs: (2px * @hd);
+@antmuiSpaceSm: (4px * @hd);
+@antmuiSpaceMd: (6px * @hd);
+@antmuiSpaceLg: (8px * @hd);
+@antmuiSpaceXl: (10px * @hd);
+@antmuiSpaceXxl: (12px * @hd);
 
-// weui-button
-@weuiBtnWidth: (184px * @hd);
-@weuiBtnFontSize: (17px * @hd);
-@weuiBtnBorderRadius: (4px * @hd);
-@weuiBtnDefaultGap: (16px * @hd); // margin
-@weuiBtnLineHeight: @weuiBtnFontSize * 2;
-@weuiBtnGap: (8px * @hd); //padding
+// antmui-button
+@antmuiBtnWidth: (184px * @hd);
+@antmuiBtnFontSize: (17px * @hd);
+@antmuiBtnBorderRadius: (4px * @hd);
+@antmuiBtnDefaultGap: (16px * @hd); // margin
+@antmuiBtnLineHeight: @antmuiBtnFontSize * 2;
+@antmuiBtnGap: (8px * @hd); //padding
 
-@weuiBtnMiniFontSize: (16px * @hd);
-@weuiBtnMiniLineHeight: @weuiBtnMiniFontSize * 1.2;
+@antmuiBtnMiniFontSize: (16px * @hd);
+@antmuiBtnMiniLineHeight: @antmuiBtnMiniFontSize * 1.2;
 
-// weui-cell
-@weuiCellGapV: (16px * @hd);
-@weuiCellGapH: (16px * @hd);
-@weuiCellInnerGapH: (16px * @hd);
-@weuiCellHeight: (56px * @hd);
-@weuiCellFontSize: (17px * @hd);
-@weuiCellTipsFontSize: (14px * @hd);
-@weuiCellLabelWidth: (105px * @hd);
-@weuiCellLineHeight: ((56 - 2 * 16) / 17); // 高度减去上下padding的行高
-@weuiCellsMarginTop: (8px * @hd);
+// antmui-cell
+@antmuiCellGapV: (16px * @hd);
+@antmuiCellGapH: (16px * @hd);
+@antmuiCellInnerGapH: (16px * @hd);
+@antmuiCellHeight: (56px * @hd);
+@antmuiCellFontSize: (17px * @hd);
+@antmuiCellTipsFontSize: (14px * @hd);
+@antmuiCellLabelWidth: (105px * @hd);
+@antmuiCellLineHeight: ((56 - 2 * 16) / 17); // 高度减去上下padding的行高
+@antmuiCellsMarginTop: (8px * @hd);
 
-// weui switch
-@weuiSwitchHeight: (32px * @hd);
+// antmui switch
+@antmuiSwitchHeight: (32px * @hd);
 
-// weui uploader
-@weuiUploaderFileSpacing: (8px * @hd);
-@weuiUploaderSize: (96px * @hd);
-@weuiUploaderBorderWidth: (1px * @hd);
+// antmui uploader
+@antmuiUploaderFileSpacing: (8px * @hd);
+@antmuiUploaderSize: (96px * @hd);
+@antmuiUploaderBorderWidth: (1px * @hd);
 
-// weui-dialog
-@weuiDialogGapWidth: (24px * @hd);
+// antmui-dialog
+@antmuiDialogGapWidth: (24px * @hd);
 
-// weui-grid
-@weuiGridFontSize: (14px * @hd);
-@weuiGridIconSize: (28px * @hd);
-@weuiGridColumnCount: 3 * @hd;
+// antmui-grid
+@antmuiGridFontSize: (14px * @hd);
+@antmuiGridIconSize: (28px * @hd);
+@antmuiGridColumnCount: 3 * @hd;
 
-// weui-msg
-@weuiMsgPaddingTop: (48px * @hd);
-@weuiMsgTitleGap: (16px * @hd);
+// antmui-msg
+@antmuiMsgPaddingTop: (48px * @hd);
+@antmuiMsgTitleGap: (16px * @hd);
 
-// weui-progress
-@weuiProgressHeight: (3px * @hd);
+// antmui-progress
+@antmuiProgressHeight: (3px * @hd);
 
-// weui-tab
-@weuiNavBarHeight: (56px * @hd);
-@weuiTabBarHeight: (60px * @hd);
+// antmui-tab
+@antmuiNavBarHeight: (56px * @hd);
+@antmuiTabBarHeight: (60px * @hd);
 
-.weui-shadow {
+html,
+body {
+  font-size: 14px * @hd;
+  background-color: @antmui-LIGHT-7;
+}
+
+.antmui-shadow {
   box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.05);
 }
 
-.weui-mask {
+.antmui-mask {
   position: fixed;
-  z-index: @weuiZIndexMask;
+  z-index: @antmuiZIndexMask;
   top: 0;
   right: 0;
   left: 0;
   bottom: 0;
-  background: @weuiMask;
+  background: @antmuiMask;
 }
-.weui-slideup-default {
+.antmui-slideup-default {
   position: fixed;
   left: 0;
   bottom: 0;
@@ -260,6 +278,6 @@
   border-top-left-radius: (12px * @hd);
   border-top-right-radius: (12px * @hd);
 }
-.weui-slideup-show {
+.antmui-slideup-show {
   transform: translate(0, 0);
 }
