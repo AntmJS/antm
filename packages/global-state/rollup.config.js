@@ -13,13 +13,11 @@ const config = {
     {
       file: join(cwd, 'dist/index.js'),
       format: 'cjs',
-      exports: 'default',
       sourcemap: true,
     },
     {
       sourcemap: true,
       format: 'esm',
-      exports: 'default',
       file: join(cwd, 'dist/index.esm.js'),
     },
   ],
@@ -37,6 +35,7 @@ const config = {
     typescript({
       tsconfig: resolve(__dirname, '../../tsconfig.json'),
       module: 'esnext',
+      skipLibCheck: true,
     }),
     getBabelOutputPlugin({
       configFile: resolve(__dirname, '../../babel.config.js'),

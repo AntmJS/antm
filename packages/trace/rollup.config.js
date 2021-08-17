@@ -33,7 +33,9 @@ const config = {
     }),
     json(),
     typescript({
-      allowSyntheticDefaultImports: true,
+      tsconfig: resolve(__dirname, '../../tsconfig.json'),
+      module: 'esnext',
+      skipLibCheck: true,
     }),
     getBabelOutputPlugin({
       configFile: resolve(__dirname, '../../babel.config.js'),

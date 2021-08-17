@@ -21,7 +21,7 @@ const config = {
       file: join(cwd, 'dist/index.esm.js'),
     },
   ],
-  external: ['@babel/runtime-corejs3'],
+  external: ['@babel/runtime-corejs3', 'react', 'react-dom', '@tarojs/taro'],
   plugins: [
     commonjs({
       include: /\/node_modules\//,
