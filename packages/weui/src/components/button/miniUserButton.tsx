@@ -4,6 +4,8 @@ import { ButtonProps, CommonEventFunction } from '@tarojs/components'
 import type { MiniUserButtonProps } from '../../../types/button.d'
 import Button from './index'
 
+declare const my: any
+
 export default function Index(props: MiniUserButtonProps): JSX.Element {
   const { onGetUserInfo, onFail, desc, children, ...others } = props
   const [userProfile, setUserProfile] = useState(true)
@@ -43,12 +45,48 @@ export default function Index(props: MiniUserButtonProps): JSX.Element {
 
   const getUserInfo: CommonEventFunction<ButtonProps.onGetUserInfoEventDetail> =
     function (e) {
-      if (e.detail) {
-        onGetUserInfo(e.detail)
+      if (process.env.TARO_ENV === 'alipay') {
+        my.getOpenUserInfo({
+          fail: (e: any) => {
+            onFail({
+              errMsg: e.errorMessage || JSON.stringify(e),
+            })
+          },
+          success: (res: any) => {
+            const userInfo = JSON.parse(res.response).response // 以下方的报文格式解析两层 response
+            onGetUserInfo(userInfo)
+          },
+        })
       } else {
-        onFail(e)
+        if (e.detail) {
+          onGetUserInfo(e.detail)
+        } else {
+          onFail(e)
+        }
       }
     }
+
+  const getError = function (e: any) {
+    onFail({
+      errMsg: /取消/.test(e.detail?.errorMessage ?? '')
+        ? 'getUserInfo:fail auth deny'
+        : e.detail?.errorMessage,
+    })
+  }
+
+  if (process.env.TARO_ENV === 'alipay') {
+    return (
+      <Button
+        {...others}
+        openType="getAuthorize"
+        scope="userInfo"
+        onError={getError}
+        onGetAuthorize={getUserInfo}
+      >
+        {children}
+      </Button>
+    )
+  }
 
   return (
     <>

@@ -43,7 +43,9 @@ export interface MiniUserButtonProps extends WEUI.IBaseComponent {
 
 export interface MiniPhoneButtonProps extends WEUI.IBaseComponent {
   onFail: (
-    error: BaseEventOrig<TaroButtonProps.onGetPhoneNumberEventDetail>,
+    error:
+      | Taro.General.CallbackResult
+      | BaseEventOrig<TaroButtonProps.onGetPhoneNumberEventDetail>,
   ) => void
   onGetPhone: (phoneInfo: TaroButtonProps.onGetPhoneNumberEventDetail) => void
   children: JSX.Element | string | JSX.Element[]
