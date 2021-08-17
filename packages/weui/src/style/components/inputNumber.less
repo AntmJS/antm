@@ -1,0 +1,76 @@
+/* stylelint-disable selector-max-type */
+@import './icon.less';
+
+@antmui-input-number-btn-padding: 6px * @hd;
+@antmui-input-number-btn-padding-lg: 10px * @hd;
+
+.antmui-input-number {
+  display: inline-flex;
+  border: 2px solid @antmui-DARK-0-1;
+  font-size: @antmuiFontSizeBase;
+  border-radius: 4px * @hd;
+  background-color: #ffffff;
+  overflow: hidden;
+
+  /* elements */
+  &__btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: @antmui-input-number-btn-padding;
+    color: @weuiInputNumberBtnColor;
+    font-size: 0;
+    text-align: center;
+    line-height: 1;
+    overflow: hidden;
+
+    &-subtract,
+    &-add {
+      font-size: 15px * @hd;
+      line-height: 15px * @hd;
+    }
+  }
+
+  &__input,
+  input {
+    display: inline-block;
+    width: 40px * @hd;
+    height: auto;
+    border-radius: 0;
+    color: @antmui-DARK-0-9;
+    font-size: @antmuiFontSizeBase;
+    text-align: center;
+    line-height: 1.5;
+    border-left: 2px solid @antmui-DARK-0-1;
+    border-right: 2px solid @antmui-DARK-0-1;
+  }
+
+  /* modifiers */
+  &--disabled {
+    color: @antmui-DARK-0-2;
+
+    &:active {
+      background-color: inherit;
+    }
+  }
+
+  &--lg {
+    .antmui-input-number__btn {
+      padding: @antmui-input-number-btn-padding-lg;
+      font-size: @antmuiFontSizeXl;
+
+      &-subtract,
+      &-add {
+        font-size: 18px * @hd;
+      }
+    }
+
+    input,
+    .antmui-input-number__input {
+      padding: @antmuiSpaceMd;
+      font-size: @antmuiFontSizeXl;
+      width: 60px * @hd;
+    }
+  }
+}

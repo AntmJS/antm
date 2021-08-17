@@ -37,7 +37,7 @@
     "UCAndroid >= 4.1"
   ],
   "scripts": {
-    "iconfont": "npx antm-icon --font-family antmuifont --input-path https://at.alicdn.com/t/font_2744513_5c67fibspr5.css --output-path src/style/components/iconfont.less",
+    "iconfont": "npx antm-icon --font-family antmuifont --input-path https://at.alicdn.com/t/font_2744513_7eeet2akdo.css --output-path src/style/components/iconfont.less",
     "_clean": "npx rimraf dist",
     "_real": "npx rollup -c ./rollup.config.js",
     "watch": "npx rollup -c ./rollup.watch.config.js -w",
@@ -56,7 +56,8 @@
     "@babel/runtime-corejs3": "^7.14.7",
     "classnames": "^2.3.1",
     "dayjs": "^1.10.6",
-    "lodash.flow": "^3.5.0"
+    "lodash.flow": "^3.5.0",
+    "prop-types": "^15.7.2"
   },
   "devDependencies": {
     "@antmjs/iconfont": "1.5.1",

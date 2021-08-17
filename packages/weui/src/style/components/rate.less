@@ -1,0 +1,46 @@
+@import './icon.less';
+
+.antmui-rate {
+  font-size: 0;
+  line-height: 0;
+
+  /* elements */
+  &__left {
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 50%;
+    height: 100%;
+    color: transparent;
+    overflow: hidden;
+    z-index: 10;
+  }
+
+  &__icon {
+    position: relative;
+    display: inline-block;
+    color: @weuiRateFgColor;
+    font-size: 0;
+    line-height: 1;
+    transition: all 0.2s;
+
+    .antmui-icon {
+      font-size: 20px * @hd;
+    }
+
+    &--on {
+      color: @weuiRateFgActiveColor;
+    }
+
+    &--off {
+      color: @weuiRateFgColor;
+    }
+
+    &--half {
+      .antmui-rate__left {
+        color: @weuiRateFgActiveColor;
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import { View, Image } from '@tarojs/components'
 import { useDidHide, useDidShow } from '@tarojs/taro'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   MiniBar,
   MiniLoginButton,
@@ -22,10 +22,14 @@ import {
   Badge,
   Progress,
   Calendar,
+  InputNumber,
+  Rate,
 } from '@antmjs/antmui'
 import '@antmjs/antmui/dist/style/index.less'
 
 export default function Index() {
+  const [value, setValue] = useState(1)
+  const [rateValue, setRateValue] = useState(3.5)
   const showRef = useRef<IActionSheetRef>()
   const searchRef = useRef<HTMLInputElement>()
   const modalRef = useRef<IModalRef>()
@@ -47,8 +51,18 @@ export default function Index() {
   return (
     <View className="pages-index-index">
       {process.env.TARO_ENV !== 'h5' && (
-        <MiniBar homeUrl="pages/ui/index" title="首页" />
+        <MiniBar fixed homeUrl="pages/ui/index" title="首页" />
       )}
+      <Rate value={rateValue} onChange={setRateValue} />
+      <InputNumber
+        type="number"
+        min={0}
+        max={10}
+        step={1}
+        width={200}
+        value={value}
+        onChange={setValue}
+      />
       <SearchBar
         cref={searchRef}
         onInput={() => {
