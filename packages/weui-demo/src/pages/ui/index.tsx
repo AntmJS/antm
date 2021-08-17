@@ -318,6 +318,30 @@ export default function Index() {
         antmui-check
         <Icon name="antmui-check" />
       </View>
+      <View>
+        antmui-add
+        <Icon name="antmui-add" />
+      </View>
+      <View>
+        antmui-move
+        <Icon name="antmui-move" />
+      </View>
+      <View>
+        antmui-favor
+        <Icon name="antmui-favor" />
+      </View>
+      <View>
+        antmui-favorfill
+        <Icon name="antmui-favorfill" />
+      </View>
+      <View>
+        antmui-like
+        <Icon name="antmui-like" />
+      </View>
+      <View>
+        antmui-likefill
+        <Icon name="antmui-likefill" />
+      </View>
       <ActionSheet cref={showRef} title="dddddj哈哈哈" subTitle="dddddj哈哈哈">
         <ActionSheetItem
           onClick={() => {
