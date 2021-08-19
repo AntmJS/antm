@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/global-state",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "typings": "types/index.d.ts",
