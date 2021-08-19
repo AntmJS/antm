@@ -1,12 +1,12 @@
 /* stylelint-disable selector-max-type */
 @import './icon.less';
 
-@antmui-input-number-btn-padding: 6px * @hd;
+@antmui-input-number-btn-padding: 9px * @hd;
 @antmui-input-number-btn-padding-lg: 10px * @hd;
 
 .antmui-input-number {
   display: inline-flex;
-  border: 2px solid @antmui-DARK-0-1;
+  border: 2px solid @antmuiInputNumberBorderColor;
   font-size: @antmuiFontSizeBase;
   border-radius: 4px * @hd;
   background-color: #ffffff;
@@ -19,7 +19,7 @@
     align-items: center;
     justify-content: center;
     padding: @antmui-input-number-btn-padding;
-    color: @weuiInputNumberBtnColor;
+    color: @antmuiInputNumberBtnColor;
     font-size: 0;
     text-align: center;
     line-height: 1;
@@ -38,17 +38,17 @@
     width: 40px * @hd;
     height: auto;
     border-radius: 0;
-    color: @antmui-DARK-0-9;
-    font-size: @antmuiFontSizeBase;
+    color: @antmuiInputNumberInputColor;
+    font-size: @antmuiFontSizeXl;
     text-align: center;
     line-height: 1.5;
-    border-left: 2px solid @antmui-DARK-0-1;
-    border-right: 2px solid @antmui-DARK-0-1;
+    border-left: 2px solid @antmuiInputNumberBorderColor;
+    border-right: 2px solid @antmuiInputNumberBorderColor;
   }
 
   /* modifiers */
   &--disabled {
-    color: @antmui-DARK-0-2;
+    color: @antmuiInputNumberDisableColor;
 
     &:active {
       background-color: inherit;

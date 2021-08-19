@@ -87,7 +87,7 @@
 }
 
 // setLoading
-.setCircleLoading(@color:currentColor,@size: (80px * @hd),@wide: (14px * @hd)) {
+.setCircleLoading(@color: currentColor,@size: (80px * @hd),@wide: (14px * @hd)) {
   display: inline-flex;
   position: relative;
   width: @size;
@@ -151,56 +151,52 @@
 }
 
 // setOnepx
-.setTopLine(@c: @antmuiLineColorLight) {
+.setTopLine(@c: rgba(0, 0, 0, 0.1)) {
   content: ' ';
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
-  height: (1px * @hd);
-  border-top: (1px * @hd) solid @c;
-  color: @c;
+  height: (2px * @hd);
+  background-color: @c;
   transform-origin: 0 0;
-  transform: scaleY(0.5);
+  transform: scaleY(0.2);
 }
 
-.setBottomLine(@c: @antmuiLineColorLight) {
+.setBottomLine(@c: rgba(0, 0, 0, 0.1)) {
   content: ' ';
   position: absolute;
   left: 0;
   bottom: 0;
   right: 0;
-  height: (1px * @hd);
-  border-bottom: (1px * @hd) solid @c;
-  color: @c;
+  height: (2px * @hd);
+  background-color: @c;
   transform-origin: 0 100%;
-  transform: scaleY(0.5);
+  transform: scaleY(0.2);
 }
 
-.setLeftLine(@c: @antmuiLineColorLight) {
+.setLeftLine(@c: rgba(0, 0, 0, 0.1)) {
   content: ' ';
   position: absolute;
   left: 0;
   top: 0;
-  width: (1px * @hd);
   bottom: 0;
-  border-left: (1px * @hd) solid @c;
-  color: @c;
+  width: (2px * @hd);
+  background-color: @c;
   transform-origin: 0 0;
-  transform: scaleX(0.5);
+  transform: scaleX(0.2);
 }
 
-.setRightLine(@c: @antmuiLineColorLight) {
+.setRightLine(@c: rgba(0, 0, 0, 0.1)) {
   content: ' ';
   position: absolute;
   right: 0;
   top: 0;
-  width: (1px * @hd);
   bottom: 0;
-  border-right: (1px * @hd) solid @c;
-  color: @c;
+  width: (2px * @hd);
+  background-color: @c;
   transform-origin: 100% 0;
-  transform: scaleX(0.5);
+  transform: scaleX(0.2);
 }
 
 // text
@@ -216,7 +212,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+
+  /* autoprefixer: ignore next */
   -webkit-box-orient: vertical;
+
+  /* autoprefixer: ignore next */
   -webkit-line-clamp: @line;
 }
 .text_wrap() {

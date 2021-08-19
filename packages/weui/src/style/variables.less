@@ -5,169 +5,175 @@
 @antmui-BLUE: #10aeff;
 @antmui-LINK: #576b95;
 @antmui-STAR: #ffca3e;
-@antmui-LIGHT-0: #ffffff;
-@antmui-LIGHT-2: #f2f2f2;
-@antmui-LIGHT-7: #f7f7f7;
-@antmui-LIGHT-5: #ededed;
-@antmui-DARK-0: #000000;
-@antmui-DARK-0-1: rgba(0, 0, 0, 0.1);
-@antmui-DARK-0-2: rgba(0, 0, 0, 0.2);
-@antmui-DARK-0-3: rgba(0, 0, 0, 0.3);
-@antmui-DARK-1-3: rgba(19, 6, 6, 0.3);
-@antmui-DARK-0-5: rgba(0, 0, 0, 0.5);
-@antmui-DARK-0-9: rgba(0, 0, 0, 0.9);
+// 前景色
+@antmui-WHITE-FG: #ffffff;
+// 背景色
+@antmui-WHITE-BG: #f7f7f7;
+// 默认按钮颜色
+@antmui-WHITE-FG-COLOR: #f1f1f1;
+// navbar、tabbar等
+@antmui-BAR: #ededed;
+
+@antmui-DARK-TITLE: rgba(0, 0, 0, 0.9);
+@antmui-DARK-SUBTITLE: rgba(0, 0, 0, 0.5);
+@antmui-DARK-DESC: rgba(0, 0, 0, 0.3);
+@antmui-DARK-LINE: rgba(0, 0, 0, 0.1);
+@antmui-DARK-DISABLE: rgba(0, 0, 0, 0.2);
+// loading
 @antmui-GREY-8: #606060;
-
-// @antmui-BTN-DISABLED-FONT-COLOR: rgba(0, 0, 0, 0.2);
-
-// @antmui-BG-0: #ededed;
-// @antmui-BG-1: #f7f7f7;
-// @antmui-BG-2: #ffffff;
-// @antmui-BG-4: #4c4c4c;
-// @antmui-FG-0: rgba(0, 0, 0, 0.9);
-// @antmui-FG-HALF: rgba(0, 0, 0, 0.9);
-// @antmui-FG-1: rgba(0, 0, 0, 0.5);
-// @antmui-FG-2: rgba(0, 0, 0, 0.3);
-// @antmui-FG-3: rgba(0, 0, 0, 0.1);
-// @antmui-FG-4: #606060; // add
-// @antmui-FG-5: #f7f7f7; // add
-// @antmui-FG-6: #ededed; // add
-// @antmui-FG-7: #ffffff; // add
-
-// @antmui-ORANGE: #fa9d3b;
-// @antmui-YELLOW: #ffc300;
-// @antmui-GREEN: #91d300;
-// @antmui-LIGHTGREEN: #95ec69;
-
-// @antmui-BLUE: #10aeff;
-// @antmui-INDIGO: #1485ee;
-// @antmui-PURPLE: #6467f0;
-// @antmui-WHITE: #ffffff;
-// @antmui-LINK: #576b95;
-// @antmui-LINK-ACTIVE: fade(#576b95, 50%);
-// @antmui-TEXTGREEN: #06ae56;
-// @antmui-FG: #000000;
-// @antmui-BG: #ffffff;
-// @antmui-TAG-TEXT-ORANGE: #fa9d3b;
-// @antmui-TAG-BACKGROUND-ORANGE: rgba(250, 157, 59, 0.1);
-// @antmui-TAG-TEXT-GREEN: #06ae56;
-// @antmui-TAG-BACKGROUND-GREEN: rgba(6, 174, 86, 0.1);
-// @antmui-TAG-TEXT-BLUE: #10aeff;
-// @antmui-TAG-BACKGROUND-BLUE: rgba(16, 174, 255, 0.1);
-// @antmui-TAG-TEXT-BLACK: rgba(0, 0, 0, 0.5);
-// @antmui-TAG-BACKGROUND-BLACK: rgba(0, 0, 0, 0.05);
-// @antmui-BG-COLOR-ACTIVE: #ececec;
-
-// @antmui-BTN-DEFAULT-BG: #f2f2f2;
-// @antmui-BTN-DEFAULT-COLOR: #06ae56;
-// @antmui-BTN-DEFAULT-ACTIVE-BG: overlay(rgba(0, 0, 0, 0.06), #f2f2f2);
-// @antmui-DIALOG-LINE-COLOR: rgba(0, 0, 0, 0.1);
 
 @hd: 2; // 基本单位
 
 // minibar
-@antmuiMiniBarColor: @antmui-DARK-0-9;
-@antmuiMiniBarBgColor: @antmui-LIGHT-5;
-@antmuiMiniBarBorderLine: @antmui-DARK-0-1;
+@antmuiMiniBarColor: @antmui-DARK-TITLE;
+@antmuiMiniBarBgColor: @antmui-BAR;
+@antmuiMiniBarBorderLine: @antmui-DARK-LINE;
 
 // loading
 @antmuiLoadingColor: @antmui-GREY-8;
-@antmuiLoadingSimilarColor: @antmui-LIGHT-5;
+@antmuiLoadingSimilarColor: @antmui-BAR;
 @antmuiLoadingPrimaryColor: @antmui-BRAND;
 
 // default button
 @antmuiBtnDefaultColor: overlay(rgba(0, 0, 0, 0.06), @antmui-BRAND);
-@antmuiBtnDefaultBgColor: @antmui-LIGHT-2;
+@antmuiBtnDefaultBgColor: @antmui-WHITE-FG-COLOR;
 
 // primary button
-@antmuiBtnPrimaryColor: @antmui-LIGHT-7;
+@antmuiBtnPrimaryColor: @antmui-WHITE-BG;
 @antmuiBtnPrimaryBgColor: @antmui-BRAND;
 
 // warn button
 @antmuiBtnWarnColor: @antmui-RED;
-@antmuiBtnWarnBgColor: @antmui-LIGHT-2;
+@antmuiBtnWarnBgColor: @antmui-WHITE-FG-COLOR;
 
 // cell default button
-@antmuiBtnCellDefaultColor: @antmui-DARK-0-9;
-@antmuiBtnCellDefaultBgColor: @antmui-LIGHT-0;
+@antmuiBtnCellDefaultColor: @antmui-DARK-TITLE;
+@antmuiBtnCellDefaultBgColor: @antmui-WHITE-FG;
 
 // cell primary button
 @antmuiBtnCellPrimaryColor: @antmui-LINK;
-@antmuiBtnCellPrimaryBgColor: @antmui-LIGHT-0;
+@antmuiBtnCellPrimaryBgColor: @antmui-WHITE-FG;
 
 // cell warn button
 @antmuiBtnCellWarnColor: @antmui-RED;
-@antmuiBtnCellWarnBgColor: @antmui-LIGHT-0;
+@antmuiBtnCellWarnBgColor: @antmui-WHITE-FG;
 
 // disable button
-@antmuiBtnDisabledColor: @antmui-DARK-0-2;
-@antmuiBtnDisabledBgColor: @antmui-LIGHT-2;
+@antmuiBtnDisabledColor: @antmui-DARK-DISABLE;
+@antmuiBtnDisabledBgColor: @antmui-WHITE-FG-COLOR;
 
 // icon
 @antmuiIconPrimaryColor: @antmui-BRAND;
-@antmuiIconTipColor: @antmui-DARK-1-3;
-@antmuiIconWarnColor: @antmui-RED;
+@antmuiIconTipColor: @antmui-DARK-DESC;
 @antmuiIconInfoColor: @antmui-BLUE;
+
+// radio
+@antmuiRadioColor: @antmui-DARK-TITLE;
+@antmuiRadioSubColor: @antmui-DARK-SUBTITLE;
+@antmuiRadioFgColor: @antmui-WHITE-FG;
+@antmuiRadioSelectColor: @antmui-BRAND;
+@antmuiRadioBorderColor: @antmui-DARK-LINE;
+
+// checkbox
+@antmuiCheckboxColor: @antmui-DARK-TITLE;
+@antmuiCheckboxFgColor: @antmui-WHITE-FG;
+@antmuiCheckboxSubColor: @antmui-DARK-SUBTITLE;
+@antmuiCheckboxIconSelectColor: @antmui-WHITE-FG;
+@antmuiCheckboxIconSelectBgColor: @antmui-BRAND;
+@antmuiCheckboxBorderColor: @antmui-DARK-LINE;
 
 // mask
 @antmuiMask: rgba(0, 0, 0, 0.6);
-@antmuiActiveMaskBlack: rgba(0, 0, 0, 0.15);
 
 // actionsheet
-@antmuiActionSheetBgColor: @antmui-LIGHT-7;
-@antmuiActionSheetTitleColor: @antmui-DARK-0-5;
-@antmuiActionSheetTitleFgColor: @antmui-LIGHT-0;
-@antmuiActionSheetTitleBorderLine: @antmui-DARK-0-1;
-@antmuiActionSheetMenuColor: @antmui-DARK-0-9;
-@antmuiActionSheetItemFgColor: @antmui-LIGHT-0;
-@antmuiActionSheetItemBorderLine: @antmui-DARK-0-1;
-@antmuiActionSheetItemActiveFgColor: @antmui-LIGHT-2;
+@antmuiActionSheetBgColor: @antmui-WHITE-BG;
+@antmuiActionSheetTitleColor: @antmui-DARK-SUBTITLE;
+@antmuiActionSheetTitleFgColor: @antmui-WHITE-FG;
+@antmuiActionSheetTitleBorderLine: @antmui-DARK-LINE;
+@antmuiActionSheetMenuColor: @antmui-DARK-TITLE;
+@antmuiActionSheetItemFgColor: @antmui-WHITE-FG;
+@antmuiActionSheetItemBorderLine: @antmui-DARK-LINE;
+@antmuiActionSheetItemActiveFgColor: @antmui-WHITE-FG-COLOR;
 
 // searchbar
-@antmuiSearchBarBgColor: @antmui-LIGHT-5;
-@antmuiSearchBarInputFgColor: @antmui-LIGHT-7;
+@antmuiSearchBarBgColor: @antmui-WHITE-BG;
+@antmuiSearchBarInputFgColor: @antmui-WHITE-FG;
 @antmuiSearchBarCaretColor: @antmui-BRAND;
-@antmuiSearchBarColor: @antmui-DARK-0-9;
-@antmuiSearchBarLabelColor: @antmui-DARK-0-3;
-@antmuiSearchBarLabelFgColor: @antmui-LIGHT-7;
+@antmuiSearchBarColor: @antmui-DARK-TITLE;
+@antmuiSearchBarLabelColor: @antmui-DARK-DESC;
+@antmuiSearchBarLabelFgColor: @antmui-WHITE-FG;
 @antmuiSearchBarCancelColor: @antmui-LINK;
 
 // modal
-@antmuiModalBgColor: @antmui-LIGHT-7;
-@antmuiModalTitleColor: @antmui-DARK-0-9;
-@antmuiModalSubTitleColor: @antmui-DARK-0-5;
-@antmuiModalBtnColor: @antmui-DARK-0-5;
-@antmuiModalBorderLine: @antmui-DARK-0-1;
+@antmuiModalBgColor: @antmui-WHITE-BG;
+@antmuiModalTitleColor: @antmui-DARK-TITLE;
+@antmuiModalSubTitleColor: @antmui-DARK-SUBTITLE;
+@antmuiModalBtnColor: @antmui-DARK-SUBTITLE;
+@antmuiModalBorderLine: @antmui-DARK-LINE;
 @antmuiModalBtnColor: @antmui-LINK;
-@antmuiModalBtnCancelColor: @antmui-DARK-0-9;
-@antmuiModalBtnFgActiveColor: @antmui-LIGHT-2;
+@antmuiModalBtnCancelColor: @antmui-DARK-TITLE;
+@antmuiModalBtnFgActiveColor: @antmui-WHITE-FG-COLOR;
 
 // halfScreen
-@antmuiHalfScreenBgColor: @antmui-LIGHT-7;
-@antmuiHalfScreenTitleColor: @antmui-DARK-0-9;
-@antmuiHalfScreenSubTitleColor: @antmui-DARK-0-5;
-@antmuiHalfScreenTipsColor: @antmui-DARK-0-3;
+@antmuiHalfScreenBgColor: @antmui-WHITE-BG;
+@antmuiHalfScreenTitleColor: @antmui-DARK-TITLE;
+@antmuiHalfScreenSubTitleColor: @antmui-DARK-SUBTITLE;
+@antmuiHalfScreenTipsColor: @antmui-DARK-DESC;
 @antmuiHalfScreenBtnColor: @antmui-BRAND;
-@antmuiHalfScreenBtnCancelColor: @antmui-DARK-0-9;
+@antmuiHalfScreenBtnCancelColor: @antmui-DARK-TITLE;
 
 // badge
-@antmuiBadgeColor: @antmui-LIGHT-7;
+@antmuiBadgeColor: @antmui-WHITE-BG;
 @antmuiBadgeBgColor: @antmui-RED;
 
 // progress
-@antmuiProgressColor: @antmui-DARK-0-9;
-@antmuiProgressBgColor: @antmui-LIGHT-7;
+@antmuiProgressColor: @antmui-DARK-TITLE;
+@antmuiProgressBgColor: @antmui-WHITE-BG;
 @antmuiProgressFgColor: @antmui-BRAND;
 
 // calendar
 @antmuiCalendarSelectColor: @antmui-LINK;
 
 // InputNumber
-@weuiInputNumberBtnColor: @antmui-LINK;
+@antmuiInputNumberBtnColor: @antmui-LINK;
+@antmuiInputNumberBorderColor: @antmui-DARK-LINE;
+@antmuiInputNumberInputColor: @antmui-DARK-TITLE;
+@antmuiInputNumberDisableColor: @antmui-DARK-DISABLE;
 
 // Rate
-@weuiRateFgColor: @antmui-LIGHT-5;
-@weuiRateFgActiveColor: @antmui-STAR;
+@antmuiRateFgColor: @antmui-BAR;
+@antmuiRateFgActiveColor: @antmui-STAR;
+
+// tabbar
+@antmuiTabbarBgColor: @antmui-BAR;
+@antmuiTabBarBorderLine: @antmui-DARK-LINE;
+@antmuiTabBarColor: @antmui-DARK-DESC;
+@antmuiTabBarActiveColor: @antmui-BRAND;
+
+// indexes
+@antmuiIndexesItemColor: @antmui-LINK;
+@antmuiIndexesListTitleColor: @antmui-DARK-TITLE;
+@antmuiIndexesListTitleFgColor: @antmui-WHITE-FG-COLOR;
+
+// list
+@antmuiListBgColor: @antmui-WHITE-FG;
+@antmuiListBorderColor: @antmui-DARK-LINE;
+@antmuiListTitleColor: @antmui-DARK-SUBTITLE;
+
+// listItem
+@antmuiListItemColor: @antmui-DARK-TITLE;
+@antmuiListItemActionColor: @antmui-DARK-DESC;
+@antmuiListItemIconColor: @antmui-WHITE-FG-COLOR;
+
+// message
+@antmuiMessageColor: @antmui-WHITE-FG;
+@antmuiMessageBgColor: @antmui-RED;
+@antmuiMessageCloseColor: @antmui-WHITE-FG-COLOR;
+
+// imagePicker
+@antmuiImagePickerFgColor: @antmui-WHITE-FG;
+@antmuiImagePickerBorderColor: @antmui-DARK-LINE;
+@antmuiImagePickerColor: @antmui-DARK-DESC;
 
 // font
 @antmuiFontEN: -apple-system-font, 'Helvetica Neue';
@@ -176,9 +182,9 @@
 @antmuiFontDefault: @antmuiFontEN, @antmuiFontSans;
 @antmuiFontSizeSm: (12px * @hd); // 用于辅助信息
 @antmuiFontSizeBase: (14px * @hd); // 常用字号
-@antmuiFontSizeLg: (16px * @hd); // 常规标题
-@antmuiFontSizeXl: (18px * @hd); // 大标题
-@antmuiFontSizeXxl: (20px * @hd); // 用于大号的数字
+@antmuiFontSizeLg: (15px * @hd); // 分组标题，用得不多
+@antmuiFontSizeXl: (17px * @hd); // 常规标题
+@antmuiFontSizeXxl: (22px * @hd); // 用于大页面标题
 
 // z-index
 @antmuiZIndex: 1;
@@ -186,8 +192,10 @@
 @antmuiZIndexSteps: 500;
 @antmuiZIndexTab: 600;
 @antmuiZIndexNav: 805;
+@antmuiZIndexIndexes: 805;
 @antmuiZIndexMask: 810;
 @antmuiZIndexDrawer: 900;
+@antmuiZIndexToast: 1010;
 @antmuiZIndexModal: 1010;
 @antmuiZIndexDialog: 1010;
 @antmuiZIndexActionSheet: 1010;
@@ -256,7 +264,7 @@
 html,
 body {
   font-size: 14px * @hd;
-  background-color: @antmui-LIGHT-7;
+  background-color: @antmui-WHITE-BG;
 }
 
 .antmui-shadow {

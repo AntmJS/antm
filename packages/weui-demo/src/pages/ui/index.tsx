@@ -1,4 +1,11 @@
-import { View, Image } from '@tarojs/components'
+import {
+  View,
+  Image,
+  Input,
+  Textarea,
+  Slider,
+  Switch,
+} from '@tarojs/components'
 import { useDidHide, useDidShow } from '@tarojs/taro'
 import { useEffect, useRef, useState } from 'react'
 import {
@@ -24,16 +31,39 @@ import {
   Calendar,
   InputNumber,
   Rate,
+  TabBar,
+  List,
+  ListItem,
+  Radio,
+  Checkbox,
+  Message,
+  IMessageRef,
+  ImagePicker,
 } from '@antmjs/antmui'
 import '@antmjs/antmui/dist/style/index.less'
 
 export default function Index() {
   const [value, setValue] = useState(1)
   const [rateValue, setRateValue] = useState(3.5)
+  const [radioValue, setRadioValue] = useState('')
+  const [imageFiles, setImageFiles] = useState([
+    {
+      url: 'https://storage.360buyimg.com/mtd/home/111543234387022.jpg',
+    },
+    {
+      url: 'https://storage.360buyimg.com/mtd/home/221543234387016.jpg',
+    },
+    {
+      url: 'https://storage.360buyimg.com/mtd/home/331543234387025.jpg',
+    },
+  ])
+  const [checkboxValue, setCheckboxValue]: any = useState([])
+  const [tabValue, setTabValue] = useState(0)
   const showRef = useRef<IActionSheetRef>()
   const searchRef = useRef<HTMLInputElement>()
   const modalRef = useRef<IModalRef>()
   const dialogRef = useRef<IDialogRef>()
+  const messageRef = useRef<IMessageRef>()
   const halfScreenRef = useRef<IHalfScreenRef>()
   useEffect(function () {
     console.info('index page load')
@@ -53,6 +83,101 @@ export default function Index() {
       {process.env.TARO_ENV !== 'h5' && (
         <MiniBar fixed homeUrl="pages/ui/index" title="首页" />
       )}
+      <ImagePicker
+        multiple
+        files={imageFiles}
+        onChange={setImageFiles}
+        onFail={(e) => {
+          console.log('imagePicker', e)
+        }}
+        onImageClick={(index, file) => {
+          console.log('imagePicker', index, file)
+        }}
+      />
+      <Radio
+        options={[
+          { label: '单选项一', value: 'option1', desc: '单选项描述' },
+          { label: '单选项二', value: 'option2' },
+          {
+            label: '单选项三禁用',
+            value: 'option3',
+            desc: '单选项描述',
+            disabled: true,
+          },
+        ]}
+        value={radioValue}
+        onClick={setRadioValue}
+      />
+      <Checkbox
+        options={[
+          {
+            value: 'list1',
+            label: 'iPhone X',
+            desc: '部分地区提供电子普通发票，用户可自行打印，效力等同纸质普通发票，具体以实际出具的发票类型为准。',
+          },
+          {
+            value: 'list2',
+            label: 'HUAWEI P20',
+          },
+          {
+            value: 'list3',
+            label: 'OPPO Find X',
+            desc: '部分地区提供电子普通发票，用户可自行打印，效力等同纸质普通发票，具体以实际出具的发票类型为准。',
+            disabled: true,
+          },
+          {
+            value: 'list4',
+            label: 'vivo NEX',
+            desc: '部分地区提供电子普通发票，用户可自行打印，效力等同纸质普通发票，具体以实际出具的发票类型为准。',
+            disabled: true,
+          },
+        ]}
+        selectedList={checkboxValue}
+        onChange={setCheckboxValue}
+      />
+      <List title="这个是展示的案例">
+        <ListItem contentRender="标题文字" actionRender="说明文字" />
+        <ListItem contentRender="标题文字" actionRender="说明文字" />
+      </List>
+      <List title="这个是点击的案例">
+        <ListItem
+          access
+          contentRender="标题文字"
+          actionRender={<Icon name="antmui-round-arrow" />}
+        />
+        <ListItem
+          access
+          contentRender="标题文字"
+          actionRender={<Icon name="antmui-round-arrow" />}
+        />
+        <ListItem access contentRender="标题文字" actionRender={<Switch />} />
+      </List>
+      <List title="这个是表单的案例" type="form">
+        <ListItem
+          access
+          labelRender="姓名"
+          // contentRender={<Switch />}
+          actionRender={<Switch />}
+        />
+        <ListItem
+          access
+          labelRender="姓名"
+          contentRender={<Slider />}
+          actionRender={<Icon name="antmui-round-question" />}
+        />
+        <ListItem
+          access
+          labelRender="姓名"
+          contentRender={<Input />}
+          actionRender={<Icon name="antmui-round-question" />}
+        />
+        <ListItem
+          access
+          labelRender="姓别"
+          contentRender={<Textarea style={{ width: 'auto' }} />}
+          actionRender={<Icon name="antmui-round-question" />}
+        />
+      </List>
       <Rate value={rateValue} onChange={setRateValue} />
       <InputNumber
         type="number"
@@ -81,6 +206,15 @@ export default function Index() {
         currentDate={{ start: '2021/11/1', end: '2021/11/11' }}
       />
       <Progress percent={70} status="progress" />
+      <Button
+        size="around"
+        type="primary"
+        onClick={() => {
+          messageRef.current!.show('错误的提示')
+        }}
+      >
+        message
+      </Button>
       <Button
         size="around"
         type="primary"
@@ -408,6 +542,17 @@ export default function Index() {
           </Button>
         </View>
       </HalfScreen>
+      <Message cref={messageRef} />
+      <TabBar
+        fixed
+        tabList={[
+          { title: '待办事项', iconName: 'antmui-favor', text: 'new' },
+          { title: '拍照', iconName: 'antmui-like' },
+          { title: '文件夹', iconName: 'antmui-search', text: '100', max: 99 },
+        ]}
+        onClick={setTabValue}
+        current={tabValue}
+      />
     </View>
   )
 }

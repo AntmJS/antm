@@ -20,7 +20,7 @@
   &__icon {
     position: relative;
     display: inline-block;
-    color: @weuiRateFgColor;
+    color: @antmuiRateFgColor;
     font-size: 0;
     line-height: 1;
     transition: all 0.2s;
@@ -30,16 +30,25 @@
     }
 
     &--on {
-      color: @weuiRateFgActiveColor;
+      .antmui-icon {
+        color: @antmuiRateFgActiveColor;
+      }
     }
 
     &--off {
-      color: @weuiRateFgColor;
+      .antmui-icon {
+        color: @antmuiRateFgColor;
+      }
     }
 
     &--half {
+      .antmui-icon {
+        color: @antmuiRateFgColor;
+      }
       .antmui-rate__left {
-        color: @weuiRateFgActiveColor;
+        .antmui-icon {
+          color: @antmuiRateFgActiveColor;
+        }
       }
     }
   }

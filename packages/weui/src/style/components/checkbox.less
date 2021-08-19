@@ -1,0 +1,118 @@
+@import './icon.less';
+
+.antmui-checkbox {
+  position: relative;
+  background-color: @antmuiCheckboxFgColor;
+  &::before {
+    content: '';
+    position: absolute;
+    transform-origin: center;
+    box-sizing: border-box;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    transform: scaleY(0.5);
+    border-top: 2px solid @antmuiCheckboxBorderColor;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    transform-origin: center;
+    box-sizing: border-box;
+    pointer-events: none;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    transform: scaleY(0.5);
+    border-top: 2px solid @antmuiCheckboxBorderColor;
+  }
+
+  /* elements */
+  &__option-wrap {
+    padding: @antmuiSpaceLg @antmuiSpaceXl @antmuiSpaceLg 0;
+  }
+
+  &__option-cnt {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    display: inline-flex;
+    color: @antmuiCheckboxColor;
+    font-size: @antmuiFontSizeLg;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  &__icon-cnt {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: @antmuiSpaceLg;
+    width: 20px * @hd;
+    min-width: 20px * @hd;
+    height: 20px * @hd;
+    color: transparent;
+    font-size: @antmuiFontSizeSm;
+    line-height: 1;
+    border: 2px solid @antmuiCheckboxBorderColor;
+    border-radius: 50%;
+    background-color: @antmuiCheckboxFgColor;
+    box-sizing: border-box;
+    transition: all 0.2s;
+    .antmui-icon {
+      color: @antmuiCheckboxFgColor;
+      font-size: @antmuiFontSizeXl;
+    }
+  }
+
+  &__desc {
+    display: block;
+    padding-left: 20px * @hd + @antmuiSpaceLg;
+    color: @antmuiCheckboxSubColor;
+    font-size: @antmuiFontSizeSm;
+    text-align: left;
+    line-height: 1.5;
+    letter-spacing: 0;
+  }
+
+  &__option {
+    padding-left: @antmuiSpaceXl;
+    .setTapBgColor(@antmuiCheckboxFgColor);
+
+    &--disabled {
+      .antmui-checkbox__option-cnt,
+      .antmui-checkbox__desc {
+        opacity: 0.3;
+      }
+
+      &:active {
+        background-color: @antmuiCheckboxFgColor;
+      }
+    }
+
+    &--selected {
+      .antmui-checkbox__icon-cnt {
+        .antmui-icon {
+          color: @antmuiCheckboxIconSelectColor;
+        }
+
+        border: none;
+        background-color: @antmuiCheckboxIconSelectBgColor;
+      }
+    }
+  }
+
+  &__option + &__option {
+    .antmui-checkbox__option-wrap {
+      position: relative;
+      &::before {
+        .setTopLine(@antmuiRadioBorderColor);
+      }
+    }
+  }
+}

@@ -9,7 +9,7 @@ export interface IDialogRef {
 export interface DialogProps extends WEUI.IBaseComponent {
   cref: React.MutableRefObject<IDialogRef | undefined>
   children: JSX.Element | string | JSX.Element[]
-  closeIconPrefixClass?: string
+  closeIconFontFamily?: string
   closeIconName?: string
   closeIconPosition?: 'top-left' | 'top-right' | 'bottom-center'
   onClose?: () => void

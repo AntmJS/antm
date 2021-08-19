@@ -1,0 +1,103 @@
+@import './icon.less';
+
+.antmui-radio {
+  position: relative;
+  background-color: @antmuiRadioFgColor;
+
+  &::before {
+    content: '';
+    position: absolute;
+    transform-origin: center;
+    box-sizing: border-box;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    transform: scaleY(0.5);
+    border-top: 2px solid @antmuiCheckboxBorderColor;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    transform-origin: center;
+    box-sizing: border-box;
+    pointer-events: none;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: auto;
+    transform: scaleY(0.5);
+    border-top: 2px solid @antmuiCheckboxBorderColor;
+  }
+
+  /* elements */
+  &__option-wrap {
+    padding: @antmuiSpaceLg @antmuiSpaceXl @antmuiSpaceLg 0;
+  }
+
+  &__option-container {
+    display: flex;
+    align-items: center;
+  }
+
+  &__title {
+    flex: 6;
+    color: @antmuiRadioColor;
+    font-size: @antmuiFontSizeLg;
+    text-align: left;
+    line-height: 1.5;
+    word-break: break-all;
+  }
+
+  &__icon {
+    flex: 1;
+    font-size: @antmuiFontSizeLg;
+    text-align: right;
+    overflow: hidden;
+    visibility: hidden;
+
+    &--checked {
+      visibility: visible;
+      .antmui-icon {
+        color: @antmuiRadioSelectColor;
+      }
+    }
+  }
+
+  &__desc {
+    display: block;
+    width: 86%;
+    color: @antmuiRadioSubColor;
+    font-size: @antmuiFontSizeSm;
+    text-align: left;
+    line-height: 1.5;
+    letter-spacing: 0;
+    word-break: break-all;
+  }
+
+  &__option {
+    padding-left: @antmuiSpaceXl;
+    .setTapBgColor(@antmuiCheckboxFgColor);
+
+    &--disabled {
+      .antmui-radio__option-container,
+      .antmui-radio__desc {
+        opacity: 0.3;
+      }
+
+      &:active {
+        background-color: inherit;
+      }
+    }
+  }
+
+  &__option + &__option {
+    .antmui-radio__option-wrap {
+      position: relative;
+      &::before {
+        .setTopLine(@antmuiRadioBorderColor);
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@ import { useMask } from '../../utils'
 
 export default function Index(props: DialogProps) {
   const {
-    closeIconPrefixClass = 'antmuifont',
+    closeIconFontFamily = 'antmuifont',
     closeIconName = 'antmui-round-close-fill',
     closeIconPosition = 'top-right',
     onClose,
@@ -25,7 +25,7 @@ export default function Index(props: DialogProps) {
         {onClose && (
           <Icon
             name={closeIconName}
-            prefixClass={closeIconPrefixClass}
+            fontFamily={closeIconFontFamily}
             className={`antmui-dialog-close-${closeIconPosition}`}
             onClick={() => {
               cref.current!.hide()

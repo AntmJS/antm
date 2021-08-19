@@ -4,7 +4,7 @@
 
 ## 为什么需要
 
-组件库，避免每次都要重新造一遍轮子
+基于TaroUI+WeUI整合的基于less的Taro组件库，避免每次都要重新造一遍轮子。变更主题只要重写@antmjs/antmui/dist/style/index.less内的变量即可
 
 ## 安装
 

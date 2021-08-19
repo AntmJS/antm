@@ -1,0 +1,85 @@
+/* stylelint-disable no-descending-specificity */
+@import '../variables.less';
+.antmui-cells {
+  margin-top: @antmuiCellsMarginTop;
+  background-color: @antmuiListBgColor;
+  line-height: @antmuiCellLineHeight;
+  font-size: @antmuiCellFontSize; //cell中间有效高度23px，跟客户端默认图标尺寸一致
+  overflow: hidden; //因为每个cell的border使用before元素left搞的，ie下伪元素的containing block估计跟标准不同，在cell上用oh不生效
+
+  // onepx
+  position: relative;
+  &::before {
+    .setTopLine(@antmuiListBorderColor);
+
+    z-index: @antmuiZIndex;
+  }
+  &::after {
+    .setBottomLine(@antmuiListBorderColor);
+
+    z-index: @antmuiZIndex;
+  }
+}
+
+.antmui-cells__title {
+  margin-top: (16px * @hd);
+  margin-bottom: (3px * @hd);
+  padding-left: @antmuiCellGapH;
+  padding-right: @antmuiCellGapH;
+  color: @antmuiListTitleColor;
+  font-size: @antmuiCellTipsFontSize;
+  line-height: 1.4;
+
+  & + .antmui-cells {
+    margin-top: 0;
+  }
+}
+
+.antmui-cells__tips {
+  margin-top: (8px * @hd);
+  color: @antmuiListTitleColor;
+  padding-left: @antmuiCellGapH;
+  padding-right: @antmuiCellGapH;
+  font-size: @antmuiCellTipsFontSize;
+  line-height: 1.4;
+}
+
+.antmui-cells__group_form {
+  &:first-child {
+    .antmui-cells__title {
+      margin-top: 0;
+    }
+  }
+
+  .antmui-cells__title {
+    margin-top: (24px * @hd);
+    margin-bottom: (8px * @hd);
+    padding: 0 (32px * @hd);
+  }
+
+  .antmui-cells,
+  .antmui-cell {
+    &::before {
+      left: (32px * @hd);
+      right: (32px * @hd);
+    }
+  }
+  .antmui-cells_checkbox {
+    .antmui-check__label {
+      &::before {
+        left: (72px * @hd);
+      }
+    }
+  }
+  .antmui-cells {
+    &::after {
+      left: (32px * @hd);
+      right: (32px * @hd);
+    }
+  }
+
+  .antmui-cells__tips {
+    margin-top: (8px * @hd);
+    padding: 0 (32px * @hd);
+  }
+}

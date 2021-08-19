@@ -2,7 +2,7 @@ import { ComponentClass } from 'react'
 import WEUI from './normal'
 
 export interface IconProps extends WEUI.IBaseComponent {
-  prefixClass?: string
+  fontFamily?: string
   name: string
 }
 
