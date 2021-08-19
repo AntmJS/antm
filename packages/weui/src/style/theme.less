@@ -1,0 +1,174 @@
+@import './mixins.less';
+@antmui-BRAND: #07c160;
+@antmui-RED: #fa5151;
+@antmui-BLUE: #10aeff;
+@antmui-LINK: #576b95;
+@antmui-STAR: #ffca3e;
+@antmui-BAR-BG: #ededed;
+@antmui-BAR-BORDER: #d9d9d9;
+
+@antmui-BG-COLOR: #f7f7f7;
+@antmui-FG-COLOR: #ffffff;
+@antmui-FG-SIMILAR-COLOR: #f7f7f7;
+@antmui-THIRD-COLOR: #d9d9d9; //可以用作前景色上面模块框线条颜色或者Icon
+@antmui-SECONDARY-COLOR: #8c8c8c;
+@antmui-COLOR: #1f1f1f;
+@antmui-DISABLE-OPACITY: 0.3;
+
+@hd: 2; // 基本单位
+
+// minibar
+@antmuiMiniBarColor: @antmui-COLOR;
+@antmuiMiniBarBgColor: @antmui-BAR-BG;
+@antmuiMiniBarBorderLine: @antmui-BAR-BORDER;
+
+// loading
+@antmuiLoadingColor: @antmui-SECONDARY-COLOR;
+@antmuiLoadingSimilarColor: @antmui-BAR-BG;
+@antmuiLoadingPrimaryColor: @antmui-BRAND;
+
+// default button
+@antmuiBtnDefaultColor: overlay(rgba(0, 0, 0, 0.06), @antmui-BRAND);
+@antmuiBtnDefaultBgColor: @antmui-FG-SIMILAR-COLOR;
+
+// primary button
+@antmuiBtnPrimaryColor: @antmui-FG-COLOR;
+@antmuiBtnPrimaryBgColor: @antmui-BRAND;
+
+// warn button
+@antmuiBtnWarnColor: @antmui-RED;
+@antmuiBtnWarnBgColor: @antmui-FG-SIMILAR-COLOR;
+
+// cell default button
+@antmuiBtnCellDefaultColor: @antmui-COLOR;
+@antmuiBtnCellDefaultBgColor: @antmui-FG-COLOR;
+
+// cell primary button
+@antmuiBtnCellPrimaryColor: @antmui-LINK;
+@antmuiBtnCellPrimaryBgColor: @antmui-FG-COLOR;
+
+// cell warn button
+@antmuiBtnCellWarnColor: @antmui-RED;
+@antmuiBtnCellWarnBgColor: @antmui-FG-COLOR;
+
+// disable button
+@antmuiBtnDisabledColor: @antmui-COLOR;
+@antmuiBtnDisabledBgColor: @antmui-SECONDARY-COLOR;
+
+// icon
+@antmuiIconPrimaryColor: @antmui-BRAND;
+@antmuiIconTipColor: @antmui-THIRD-COLOR;
+@antmuiIconInfoColor: @antmui-BLUE;
+
+// radio
+@antmuiRadioColor: @antmui-COLOR;
+@antmuiRadioSubColor: @antmui-SECONDARY-COLOR;
+@antmuiRadioFgColor: @antmui-FG-COLOR;
+@antmuiRadioSelectColor: @antmui-BRAND;
+@antmuiRadioBorderColor: @antmui-THIRD-COLOR;
+
+// checkbox
+@antmuiCheckboxColor: @antmui-COLOR;
+@antmuiCheckboxFgColor: @antmui-FG-COLOR;
+@antmuiCheckboxSubColor: @antmui-SECONDARY-COLOR;
+@antmuiCheckboxIconSelectColor: @antmui-FG-COLOR;
+@antmuiCheckboxIconSelectBgColor: @antmui-BRAND;
+@antmuiCheckboxBorderColor: @antmui-THIRD-COLOR;
+
+// mask
+@antmuiMask: rgba(0, 0, 0, 0.6);
+
+// actionsheet
+@antmuiActionSheetBgColor: @antmui-BG-COLOR;
+@antmuiActionSheetTitleColor: @antmui-SECONDARY-COLOR;
+@antmuiActionSheetTitleFgColor: @antmui-FG-COLOR;
+@antmuiActionSheetTitleBorderLine: @antmui-THIRD-COLOR;
+@antmuiActionSheetMenuColor: @antmui-COLOR;
+@antmuiActionSheetItemFgColor: @antmui-FG-COLOR;
+@antmuiActionSheetItemBorderLine: @antmui-THIRD-COLOR;
+@antmuiActionSheetItemActiveFgColor: @antmui-THIRD-COLOR;
+
+// searchbar
+@antmuiSearchBarBgColor: @antmui-BG-COLOR;
+@antmuiSearchBarInputFgColor: @antmui-FG-COLOR;
+@antmuiSearchBarCaretColor: @antmui-BRAND;
+@antmuiSearchBarColor: @antmui-COLOR;
+@antmuiSearchBarLabelColor: @antmui-SECONDARY-COLOR;
+@antmuiSearchBarLabelFgColor: @antmui-FG-COLOR;
+@antmuiSearchBarCancelColor: @antmui-LINK;
+
+// modal
+@antmuiModalBgColor: @antmui-FG-COLOR;
+@antmuiModalTitleColor: @antmui-COLOR;
+@antmuiModalSubTitleColor: @antmui-SECONDARY-COLOR;
+@antmuiModalBorderLine: @antmui-THIRD-COLOR;
+@antmuiModalBtnColor: @antmui-LINK;
+@antmuiModalBtnCancelColor: @antmui-SECONDARY-COLOR;
+@antmuiModalBtnFgActiveColor: @antmui-FG-SIMILAR-COLOR;
+
+// halfScreen
+@antmuiHalfScreenBgColor: @antmui-FG-COLOR;
+@antmuiHalfScreenTitleColor: @antmui-COLOR;
+@antmuiHalfScreenSubTitleColor: @antmui-SECONDARY-COLOR;
+@antmuiHalfScreenTipsColor: @antmui-SECONDARY-COLOR;
+@antmuiHalfScreenBtnColor: @antmui-BRAND;
+@antmuiHalfScreenBtnCancelColor: @antmui-THIRD-COLOR;
+
+// badge
+@antmuiBadgeColor: @antmui-FG-COLOR;
+@antmuiBadgeBgColor: @antmui-RED;
+
+// progress
+@antmuiProgressColor: @antmui-COLOR;
+@antmuiProgressBgColor: @antmui-FG-SIMILAR-COLOR;
+@antmuiProgressFgColor: @antmui-BRAND;
+
+// calendar
+@antmuiCalendarFgColor: @antmui-FG-COLOR;
+@antmuiCalendarWeekColor: @antmui-THIRD-COLOR;
+@antmuiCalendarEffectiveDayColor: @antmui-LINK;
+@antmuiCalendarMarkPointColor: @antmui-FG-COLOR;
+@antmuiCalendarArrowBgColor: @antmui-FG-SIMILAR-COLOR;
+@antmuiCalendarSelectColor: @antmui-LINK;
+@antmuiCalendarYearMonthColor: @antmui-COLOR;
+
+// InputNumber
+@antmuiInputNumberFgColor: @antmui-FG-COLOR;
+@antmuiInputNumberBtnColor: @antmui-SECONDARY-COLOR;
+@antmuiInputNumberBorderColor: @antmui-THIRD-COLOR;
+@antmuiInputNumberInputColor: @antmui-COLOR;
+
+// Rate
+@antmuiRateFgColor: @antmui-THIRD-COLOR;
+@antmuiRateFgActiveColor: @antmui-STAR;
+
+// tabbar
+@antmuiTabbarBgColor: @antmui-BAR-BG;
+@antmuiTabBarBorderLine: @antmui-BAR-BORDER;
+@antmuiTabBarColor: @antmui-SECONDARY-COLOR;
+@antmuiTabBarActiveColor: @antmui-BRAND;
+
+// indexes
+@antmuiIndexesItemColor: @antmui-LINK;
+@antmuiIndexesListTitleColor: @antmui-SECONDARY-COLOR;
+@antmuiIndexesListTitleFgColor: @antmui-FG-SIMILAR-COLOR;
+
+// list
+@antmuiListBgColor: @antmui-FG-COLOR;
+@antmuiListBorderColor: @antmui-THIRD-COLOR;
+@antmuiListTitleColor: @antmui-SECONDARY-COLOR;
+
+// listItem
+@antmuiListItemColor: @antmui-COLOR;
+@antmuiListItemActionColor: @antmui-SECONDARY-COLOR;
+@antmuiListItemIconColor: @antmui-THIRD-COLOR;
+
+// message
+@antmuiMessageColor: @antmui-FG-COLOR;
+@antmuiMessageBgColor: @antmui-RED;
+@antmuiMessageCloseColor: @antmui-THIRD-COLOR;
+
+// imagePicker
+@antmuiImagePickerFgColor: @antmui-FG-COLOR;
+@antmuiImagePickerBorderColor: @antmui-THIRD-COLOR;
+@antmuiImagePickerColor: @antmui-SECONDARY-COLOR;

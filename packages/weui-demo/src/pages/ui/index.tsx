@@ -40,7 +40,6 @@ import {
   IMessageRef,
   ImagePicker,
 } from '@antmjs/antmui'
-import '@antmjs/antmui/dist/style/index.less'
 
 export default function Index() {
   const [value, setValue] = useState(1)
@@ -179,15 +178,17 @@ export default function Index() {
         />
       </List>
       <Rate value={rateValue} onChange={setRateValue} />
-      <InputNumber
-        type="number"
-        min={0}
-        max={10}
-        step={1}
-        width={200}
-        value={value}
-        onChange={setValue}
-      />
+      <View>
+        <InputNumber
+          type="number"
+          min={0}
+          max={10}
+          step={1}
+          width={200}
+          value={value}
+          onChange={setValue}
+        />
+      </View>
       <SearchBar
         cref={searchRef}
         onInput={() => {

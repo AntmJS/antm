@@ -72,17 +72,14 @@ export default class TabBar extends Component<TabBarProps> {
           {
             'antmui-tab-bar': true,
             'antmui-tab-bar--fixed': fixed,
+            'antmui-tab-bar_border_top': border && fixed,
+            'antmui-tab-bar_border_bottom': border && !fixed,
             // 'antmui-tab-bar--ipx': isIPhoneX
           },
           className,
         )}
         style={mergeStyle(rootStyle, style || '')}
       >
-        {border && (
-          <View
-            className={'antmui-tab-bar_border' + (fixed ? '_top' : '_bottom')}
-          />
-        )}
         {tabList.map((item: TabItem, i: number) => (
           <View
             className={classNames('antmui-tab-bar__item', {

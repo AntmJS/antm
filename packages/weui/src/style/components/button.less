@@ -96,6 +96,7 @@
   height: auto;
   outline: 0;
   border-width: 0;
+  border-radius: 0;
   appearance: none;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   position: relative;
@@ -170,6 +171,8 @@
 }
 
 .antmui-btn_disabled {
+  .setDisabled();
+
   color: @antmuiBtnDisabledColor;
   background-color: @antmuiBtnDisabledBgColor;
   .setDefaultButton(@antmuiBtnDisabledColor, @antmuiBtnDisabledBgColor);

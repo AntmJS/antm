@@ -9,7 +9,7 @@
   border: 2px solid @antmuiInputNumberBorderColor;
   font-size: @antmuiFontSizeBase;
   border-radius: 4px * @hd;
-  background-color: #ffffff;
+  background-color: @antmuiInputNumberFgColor;
   overflow: hidden;
 
   /* elements */
@@ -19,11 +19,13 @@
     align-items: center;
     justify-content: center;
     padding: @antmui-input-number-btn-padding;
-    color: @antmuiInputNumberBtnColor;
     font-size: 0;
     text-align: center;
     line-height: 1;
     overflow: hidden;
+    .antmui-icon {
+      color: @antmuiInputNumberBtnColor;
+    }
 
     &-subtract,
     &-add {
@@ -48,8 +50,7 @@
 
   /* modifiers */
   &--disabled {
-    color: @antmuiInputNumberDisableColor;
-
+    .setDisabled();
     &:active {
       background-color: inherit;
     }

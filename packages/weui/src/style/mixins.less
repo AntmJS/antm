@@ -1,6 +1,9 @@
+.setDisabled() {
+  opacity: @antmui-DISABLE-OPACITY;
+}
 // 10px字体设置
 .setMinFontSize() {
-  font-size: 24px;
+  font-size: 12px * @hd;
   transform: scale(0.84);
 }
 
@@ -36,54 +39,6 @@
   &:active {
     background-color: overlay(@c, @color);
   }
-}
-
-// setArrow
-._setArrow(@arrowsize, @borderColor, @borderWidth) {
-  display: inline-block;
-  height: @arrowsize;
-  width: @arrowsize;
-  border-width: @borderWidth @borderWidth 0 0;
-  border-color: @borderColor;
-  border-style: solid;
-}
-
-.setArrow(@direction, @arrowsize, @borderColor, @borderWidth)
-  when
-  (@direction = top) {
-  ._setArrow(@arrowsize, @borderColor, @borderWidth);
-
-  transform: matrix(0.71, -0.71, 0.71, 0.71, 0, 0); // rotate(-45deg)
-}
-
-.setArrow(@direction, @arrowsize, @borderColor,@borderWidth)
-  when
-  (@direction = right) {
-  ._setArrow(@arrowsize, @borderColor, @borderWidth);
-
-  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0); // rotate(45deg);
-  position: relative;
-  top: -(2px * @hd);
-}
-
-.setArrow(@direction, @arrowsize, @borderColor,@borderWidth)
-  when
-  (@direction = down) {
-  ._setArrow(@arrowsize, @borderColor, @borderWidth);
-
-  transform: matrix(-0.71, 0.71, -0.71, -0.71, 0, 0); // rotate(135deg);
-  position: relative;
-  top: -(3px * @hd);
-}
-
-.setArrow(@direction, @arrowsize, @borderColor,@borderWidth)
-  when
-  (@direction = left) {
-  ._setArrow(@arrowsize, @borderColor, @borderWidth);
-
-  transform: matrix(-0.71, -0.71, 0.71, -0.71, 0, 0); // rotate(-135deg);
-  position: relative;
-  top: -(2px * @hd);
 }
 
 // setLoading
@@ -131,7 +86,7 @@
     position: absolute;
     top: 0;
     left: 50%;
-    margin-left: (-@wide / 2);
+    margin-left: -(@wide / 2);
     width: @wide;
     height: @wide;
     border-top-right-radius: @wide;
@@ -151,52 +106,60 @@
 }
 
 // setOnepx
-.setTopLine(@c: rgba(0, 0, 0, 0.1)) {
+.setTopLine(@c: @antmui-FG-SIMILAR-COLOR) {
   content: ' ';
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
-  height: (2px * @hd);
+
+  /* prettier-ignore */
+  height: 2PX;
   background-color: @c;
   transform-origin: 0 0;
-  transform: scaleY(0.4);
+  transform: scaleY(0.37);
 }
 
-.setBottomLine(@c: rgba(0, 0, 0, 0.1)) {
+.setBottomLine(@c: @antmui-FG-SIMILAR-COLOR) {
   content: ' ';
   position: absolute;
   left: 0;
   bottom: 0;
   right: 0;
-  height: (2px * @hd);
+
+  /* prettier-ignore */
+  height: 2PX;
   background-color: @c;
   transform-origin: 0 100%;
-  transform: scaleY(0.4);
+  transform: scaleY(0.37);
 }
 
-.setLeftLine(@c: rgba(0, 0, 0, 0.1)) {
+.setLeftLine(@c: @antmui-FG-SIMILAR-COLOR) {
   content: ' ';
   position: absolute;
   left: 0;
   top: 0;
   bottom: 0;
-  width: (2px * @hd);
+
+  /* prettier-ignore */
+  width: 2PX;
   background-color: @c;
   transform-origin: 0 0;
-  transform: scaleX(0.4);
+  transform: scaleX(0.37);
 }
 
-.setRightLine(@c: rgba(0, 0, 0, 0.1)) {
+.setRightLine(@c: @antmui-FG-SIMILAR-COLOR) {
   content: ' ';
   position: absolute;
   right: 0;
   top: 0;
   bottom: 0;
-  width: (2px * @hd);
+
+  /* prettier-ignore */
+  width: 2PX;
   background-color: @c;
   transform-origin: 100% 0;
-  transform: scaleX(0.4);
+  transform: scaleX(0.37);
 }
 
 // text
