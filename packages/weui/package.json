@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/antmui",
-  "version": "1.8.1",
+  "version": "1.8.2",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "typings": "types/index.d.ts",
@@ -59,7 +59,7 @@
     "prop-types": "^15.7.2"
   },
   "devDependencies": {
-    "@antmjs/iconfont": "1.8.1",
+    "@antmjs/iconfont": "1.8.2",
     "@tarojs/components": "^3.3.2",
     "@tarojs/taro": "^3.3.2",
     "@types/lodash.flow": "^3.5.6",
