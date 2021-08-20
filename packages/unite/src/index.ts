@@ -14,8 +14,8 @@ import type TypeUnite from '../types/index.d'
 let catchMethod: any
 
 function executeCatch(
-  err: any,
-  setError: React.Dispatch<React.SetStateAction<any>>,
+  err: TypeUnite.IError,
+  setError: React.Dispatch<React.SetStateAction<TypeUnite.IError | undefined>>,
 ): void {
   if (catchMethod) {
     catchMethod(err, setError)
@@ -32,7 +32,7 @@ function useEventEnhancement<
 >(
   config: TypeUnite.Option<TState, TAll, TProps>,
   setState: React.Dispatch<React.SetStateAction<TState>>,
-  setError: React.Dispatch<React.SetStateAction<any>>,
+  setError: React.Dispatch<React.SetStateAction<TypeUnite.IError | undefined>>,
   context: React.MutableRefObject<any>,
 ): TypeUnite.EventEnhancementResponse<TAll> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -53,9 +53,11 @@ function useEventEnhancement<
       }
     }
 
-    const _setError = function (err: any): void {
+    const _setError: React.Dispatch<
+      React.SetStateAction<TypeUnite.IError | undefined>
+    > = function (res) {
       if (context.current.__mounted) {
-        setError(err)
+        setError(res)
       }
     }
 
@@ -152,7 +154,10 @@ function useContainer<
     useRef({ __mounted: false, __init: false, props })
   )
   const [state, setState] = useState(config.state)
-  const [error, setError] = useState(undefined)
+  const [error, setError] = useState(undefined) as [
+    TypeUnite.IError | undefined,
+    React.Dispatch<React.SetStateAction<TypeUnite.IError | undefined>>,
+  ]
 
   const { events, loading } = useEventEnhancement(
     config,
@@ -215,8 +220,10 @@ function useContainer<
 
 export function registerCatch(
   method: (
-    err: any,
-    setError: React.Dispatch<React.SetStateAction<any>>,
+    err: TypeUnite.IError,
+    setError: React.Dispatch<
+      React.SetStateAction<TypeUnite.IError | undefined>
+    >,
   ) => void,
 ): void {
   catchMethod = method

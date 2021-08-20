@@ -19,6 +19,7 @@ declare global {
 declare namespace Unite {
   type IAnyObject = Record<string, any>
   type IFunctionObject = Record<string, (arg?: any) => any>
+  type IError = { code: string; message: string; options?: IAnyObject }
 
   interface State<TState extends IAnyObject> {
     /** 组件的内部数据，和 `properties` 一同用于组件的模板渲染 */
@@ -45,7 +46,7 @@ declare namespace Unite {
 
   interface InstanceMethods<TState extends IAnyObject> {
     setState: (state: Partial<StateOpt<TState>>) => void
-    setError: React.Dispatch<React.SetStateAction<any>>
+    setError: React.Dispatch<React.SetStateAction<IError | undefined>>
   }
   interface InstanceProperty<
     TAll extends IFunctionObject,
@@ -112,7 +113,7 @@ declare namespace Unite {
 
   type Response<TState extends IAnyObject, TAll extends IAnyObject> = {
     state: StateOpt<TState>
-    error: any
+    error: IError | undefined
   } & EventEnhancementResponse<TAll>
 }
 
@@ -129,6 +130,11 @@ declare function Unite<
   ) => JSX.Element,
 ): (props: TProps) => any
 
-export function registerCatch(method: (err: any) => void): void
+export function registerCatch(
+  method: (
+    err: Unite.IError,
+    setError: React.Dispatch<React.SetStateAction<Unite.IError | undefined>>,
+  ) => void,
+): void
 
 export default Unite

@@ -5,11 +5,13 @@ declare namespace GlobalState {
   type IAnyObject = Record<string, any>
   type NoneEmptyArray<T> = [T, ...T[]]
   type IFunctionObject = Record<string, (arg?: any) => any>
+  type IError = { code: string; message: string; options?: IAnyObject }
   type IPromiseFunctionObject<TData> = Partial<
     {
-      [K in keyof TData]: (
-        params?: any,
-      ) => Promise<{ data: any; error?: { code: string; message: string } }>
+      [K in keyof TData]: (params?: any) => Promise<{
+        data: any
+        error?: IError
+      }>
     }
   >
 
@@ -59,16 +61,14 @@ declare namespace GlobalState {
     }
 
     useGlobalError: {
-      (): Partial<{ [K in keyof TFetch]: { code: string; message: string } }>
+      (): Partial<{ [K in keyof TFetch]: IError }>
       <T extends keyof TFetch>(key: T): Partial<
-        { [K in keyof TFetch]: { code: string; message: string } }
+        { [K in keyof TFetch]: IError }
       >[T]
     }
 
     useClearGlobalError: () => React.Dispatch<
-      React.SetStateAction<
-        Partial<{ [K in keyof TFetch]: { code: string; message: string } }>
-      >
+      React.SetStateAction<Partial<{ [K in keyof TFetch]: IError }>>
     >
 
     useUpdate: () => <T extends keyof TData>(

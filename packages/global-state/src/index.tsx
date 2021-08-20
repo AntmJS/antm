@@ -35,10 +35,10 @@ export default function <
   const errorContext = createContext(null) as React.Context<
     | null
     | [
-        Partial<{ [K in keyof TFetch]: { code: string; message: string } }>,
+        Partial<{ [K in keyof TFetch]: GlobalState.IError }>,
         React.Dispatch<
           React.SetStateAction<
-            Partial<{ [K in keyof TFetch]: { code: string; message: string } }>
+            Partial<{ [K in keyof TFetch]: GlobalState.IError }>
           >
         >,
       ]
