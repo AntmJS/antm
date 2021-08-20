@@ -132,7 +132,7 @@ declare function Unite<
 
 export function registerCatch(
   method: (
-    err: Unite.IError,
+    err: any,
     setError: React.Dispatch<React.SetStateAction<Unite.IError | undefined>>,
   ) => void,
 ): void

@@ -14,7 +14,7 @@ import type TypeUnite from '../types/index.d'
 let catchMethod: any
 
 function executeCatch(
-  err: TypeUnite.IError,
+  err: any,
   setError: React.Dispatch<React.SetStateAction<TypeUnite.IError | undefined>>,
 ): void {
   if (catchMethod) {
