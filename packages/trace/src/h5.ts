@@ -30,6 +30,15 @@ window.onerror = function (
   colno /** 列号 */,
   error /** 错误对象 */,
 ) {
+  if (process.env.NODE_ENV === 'development') {
+    console.error(
+      message /** 错误信息 */,
+      source /** 出错文件 */,
+      lineno /** 行号 */,
+      colno /** 列号 */,
+      error /** 错误对象 */,
+    )
+  }
   pushMonitorData(EMlf.js, {
     d1:
       toString.call(error) === '[object Error]'
@@ -44,6 +53,9 @@ window.onerror = function (
 window.addEventListener(
   'error',
   function (res) {
+    if (process.env.NODE_ENV === 'development') {
+      console.error(res)
+    }
     pushMonitorData(EMlf.js, {
       d1:
         toString.call(res.error) === '[object Error]'

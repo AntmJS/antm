@@ -51,6 +51,9 @@ const minins =
     : undefined
 
 minins?.onError?.((res: any) => {
+  if (process.env.NODE_ENV === 'development') {
+    console.error(res)
+  }
   pushMonitorData(EMlf.js, {
     d1:
       toString.call(res) === '[object Error]'
@@ -59,6 +62,9 @@ minins?.onError?.((res: any) => {
   })
 })
 minins?.onUnhandledRejection?.((res: any) => {
+  if (process.env.NODE_ENV === 'development') {
+    console.error(res)
+  }
   pushMonitorData(EMlf.promise, {
     d1:
       toString.call(res) === '[object Error]'
