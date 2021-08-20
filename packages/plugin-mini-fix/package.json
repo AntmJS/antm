@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/plugin-mini-fix",
-  "version": "1.9.0",
+  "version": "1.9.1",
   "main": "index.js",
   "author": "三少 <hi_sanshao@outlook.com>",
   "description": "解决Taro不应该关心但应用需要自己处理的异常或者优化",
