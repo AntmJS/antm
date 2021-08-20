@@ -45,11 +45,13 @@ declare namespace Unite {
 
   interface InstanceMethods<TState extends IAnyObject> {
     setState: (state: Partial<StateOpt<TState>>) => void
+    setError: React.Dispatch<React.SetStateAction<any>>
   }
   interface InstanceProperty<
     TAll extends IFunctionObject,
     TProps extends IAnyObject,
   > {
+    error: any
     props: TProps
     location: Taro.RouterInfo
     loading: Partial<{ [K in keyof PromiseProperties<TAll>]: boolean }>
@@ -110,6 +112,7 @@ declare namespace Unite {
 
   type Response<TState extends IAnyObject, TAll extends IAnyObject> = {
     state: StateOpt<TState>
+    error: any
   } & EventEnhancementResponse<TAll>
 }
 

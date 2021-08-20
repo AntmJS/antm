@@ -13,9 +13,12 @@ import type TypeUnite from '../types/index.d'
 
 let catchMethod: any
 
-function executeCatch(err: any): void {
+function executeCatch(
+  err: any,
+  setError: React.Dispatch<React.SetStateAction<any>>,
+): void {
   if (catchMethod) {
-    catchMethod(err)
+    catchMethod(err, setError)
   } else {
     console.warn('请先注册registerCatch')
   }
@@ -29,6 +32,7 @@ function useEventEnhancement<
 >(
   config: TypeUnite.Option<TState, TAll, TProps>,
   setState: React.Dispatch<React.SetStateAction<TState>>,
+  setError: React.Dispatch<React.SetStateAction<any>>,
   context: React.MutableRefObject<any>,
 ): TypeUnite.EventEnhancementResponse<TAll> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,6 +53,12 @@ function useEventEnhancement<
       }
     }
 
+    const _setError = function (err: any): void {
+      if (context.current.__mounted) {
+        setError(err)
+      }
+    }
+
     const _setLoading = function (
       obj: Partial<{ [K in keyof TypeUnite.PromiseProperties<TAll>]: boolean }>,
     ): void {
@@ -65,6 +75,8 @@ function useEventEnhancement<
     context.current.loading = loading
     context.current.setState = _setState
     eventsRef.current.setState = _setState
+    context.current.setError = _setError
+    eventsRef.current.setError = _setError
 
     for (const item in config) {
       if (typeof config[item] === 'function') {
@@ -85,7 +97,7 @@ function useEventEnhancement<
               return res
             }
           } catch (err) {
-            executeCatch(err)
+            executeCatch(err, _setError)
           }
 
           const loadingTrue = {
@@ -108,12 +120,12 @@ function useEventEnhancement<
                 })
                 .catch(function (err: any) {
                   _setLoading(loadingFalse)
-                  executeCatch(err)
+                  executeCatch(err, _setError)
                 })
             })
           } catch (err) {
             _setLoading(loadingFalse)
-            executeCatch(err)
+            executeCatch(err, _setError)
           }
         }
         context.current[item] = _defined.bind(context.current)
@@ -140,12 +152,19 @@ function useContainer<
     useRef({ __mounted: false, __init: false, props })
   )
   const [state, setState] = useState(config.state)
+  const [error, setError] = useState(undefined)
 
-  const { events, loading } = useEventEnhancement(config, setState, context)
+  const { events, loading } = useEventEnhancement(
+    config,
+    setState,
+    setError,
+    context,
+  )
 
   const routerInfo: Taro.RouterInfo = useRouter()
   context.current.location = routerInfo
   context.current.state = state
+  context.current.error = error
 
   useEffect(function () {
     // 解决development环境热更新（useState不可破坏性），重新setState
@@ -155,6 +174,7 @@ function useContainer<
 
     return function (): void {
       context.current && (context.current.__mounted = false)
+      setError(undefined)
       context.current?.onUnload?.()
     }
   }, [])
@@ -190,10 +210,15 @@ function useContainer<
     }
   }, [props])
 
-  return { state, events, loading }
+  return { state, events, loading, error }
 }
 
-export function registerCatch(method: (err: any) => void): void {
+export function registerCatch(
+  method: (
+    err: any,
+    setError: React.Dispatch<React.SetStateAction<any>>,
+  ) => void,
+): void {
   catchMethod = method
 }
 

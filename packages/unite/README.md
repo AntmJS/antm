@@ -14,12 +14,25 @@ yarn add @antmjs/unite
 
 ## 使用
 
+app.tsx
+
+```js
+import { registerCatch } from '@antmjs/unite'
+
+registerCatch(function (err, setError) {
+  // 在Unite方法的第一个参数对象内发起的请求或者js异常都会在这里被捕获到，你可以在这里处理好异常根据实际情况toast或者setError
+})
+
+```
 
 ```js
 import Unite from '@antmjs/unite'
 
 const { exposure, log, monitor } =  Unite(
-  { state: {}, onLoad() {} }, function ({state, events, loading}) {
+  { state: {}, onLoad() {
+    cosnole.log(this.error)
+    this.setError({})
+  } }, function ({state, events, loading, error}) {
     return <View>Hello World</View>
   }
 )
