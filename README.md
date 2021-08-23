@@ -10,7 +10,7 @@
 - [@antmjs/mini-fix](https://www.npmjs.com/package/@antmjs/mini-fix)
 - [@antmjs/plugin-mini-fix](https://www.npmjs.com/package/@antmjs/plugin-mini-fix)
 - [@antmjs/plugin-icestark](https://www.npmjs.com/package/@antmjs/plugin-icestark)
-- @antmjs/webpack
+- @antmjs/config
 - @antmjs/web-deploy(antm.config.js)
 - @antmjs/mini-deploy(antm.config.js)
 - @antmjs/warning(antm.config.js)

@@ -28,7 +28,7 @@ registerCatch(function (err, setError) {
 ```js
 import Unite from '@antmjs/unite'
 
-const { exposure, log, monitor } =  Unite(
+Unite(
   { state: {}, onLoad() {
     cosnole.log(this.error)
     this.setError({})
