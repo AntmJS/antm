@@ -32,7 +32,7 @@ Unite(
   { state: {}, onLoad() {
     cosnole.log(this.error)
     this.setError({})
-  } }, function ({state, events, loading, error}) {
+  } }, function ({state, events, loading, error}, props) {
     return <View>Hello World</View>
   }
 )
