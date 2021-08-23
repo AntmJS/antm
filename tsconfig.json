@@ -46,8 +46,7 @@
     "packages/**/src",
     "packages/**/lib",
     "packages/**/types",
-    "packages/**/__test__",
-    "packages/weui-demo/config"
+    "packages/**/__test__"
   ],
   "compileOnSave": false
 }

@@ -13,13 +13,3 @@ package-lock.json
 node_modules
 packages/**/coverage
 packages/**/dist
-packages/weui-demo/weapp
-packages/weui-demo/alipay
-packages/weui-demo/swan
-packages/weui-demo/h5
-packages/weui-demo/tt
-packages/weui-demo/qq
-packages/weui-demo/dd
-packages/weui-demo/qywx
-packages/weui-demo/jd
-packages/weui-demo/iot
