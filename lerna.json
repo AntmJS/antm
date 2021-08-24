@@ -5,7 +5,12 @@
       "message": "chore(release): publish %s"
     }
   },
-  "packages": ["packages/*"],
-  "ignoreChanges": ["**/*.md", "**/__test__/**"],
-  "version": "1.9.3"
+  "packages": [
+    "packages/*"
+  ],
+  "ignoreChanges": [
+    "**/*.md",
+    "**/__test__/**"
+  ],
+  "version": "1.9.4"
 }
