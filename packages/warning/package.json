@@ -1,0 +1,27 @@
+{
+  "name": "git-warning-dd",
+  "version": "0.0.2",
+  "description": "指定文件，在git commit提交的时候，钉钉通知到群组展示文件内容的修改",
+  "main": "index.js",
+  "bin": {
+    "git-warning-dd": "./bin/index.js"
+  },
+  "keywords": [
+    "git",
+    "git commit",
+    "ding",
+    "warning"
+  ],
+  "repository": {
+    "monitorFiles": [
+      "./package.json"
+    ]
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "diff": "^5.0.0",
+    "git-last-commit": "^1.0.0",
+    "shelljs": "^0.8.4"
+  }
+}
