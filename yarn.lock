@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@antmjs/eslint@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.npmjs.org/@antmjs/eslint/-/eslint-1.5.0.tgz#9809688a142821c19d2c7cb3a384fd8e1afa3cc6"
-  integrity sha512-wRM3CLH6+8lor1E2xCF5OTuRg5bUsN+48dU6L0ZAAO9jIMyIhai1yh0GJYnMzohYD7auSr/l7mNj59e4cn0Nuw==
+"@antmjs/eslint@^1.9.4":
+  version "1.9.4"
+  resolved "https://registry.npmjs.org/@antmjs/eslint/-/eslint-1.9.4.tgz#76d961b85df1a0f31336e77924288cff1b03e83f"
+  integrity sha512-KpxJinJwjEP0HJnRbBALogKxjxliA3TOB3veR6T4EHu8a97++QraLa5Nwrd51PW2Q3HyQR2jrxh0u79PuL5kcg==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.28.3"
     "@typescript-eslint/parser" "^4.28.3"
@@ -16,10 +16,10 @@
     eslint-plugin-react "^7.24.0"
     eslint-plugin-react-hooks "^4.2.0"
 
-"@antmjs/stylelint@^1.5.0":
-  version "1.5.0"
-  resolved "https://registry.npmjs.org/@antmjs/stylelint/-/stylelint-1.5.0.tgz#9a1a8a1c0db9272ba17f9efbe76e88c46598c3c2"
-  integrity sha512-rRj1ix/n1nlKrUP7h6hwMP+JysADCdSeFe4Wo9J5IOTd7f5SEEn62eGSZwHWf/7jb17DkAGFcxlZnTp2XKi7+w==
+"@antmjs/stylelint@^1.9.4":
+  version "1.9.4"
+  resolved "https://registry.npmjs.org/@antmjs/stylelint/-/stylelint-1.9.4.tgz#ab84abaaa0ef1055e3115445d97006cec5609b58"
+  integrity sha512-G4mPZo8kSaWeUzZUAnIFKzz2qOXhZj5jD0HldSnkbwnBUaoRgA9RlJUDYaULq7uZWhy8JLqJq3QP+rulAnNQ8g==
   dependencies:
     stylelint-config-prettier "^8.0.2"
     stylelint-config-standard "^22.0.0"

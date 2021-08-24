@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { stringify } from '@antmjs/utils'
 import type Trace from '../types/index.d'
+import { stringify } from '@antmjs/utils'
 
 declare const my: any
 declare const wx: any

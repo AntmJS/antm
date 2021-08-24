@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import type TypeUnite from '../types/index.d'
 import {
   useReady,
   useDidShow,
@@ -9,7 +10,6 @@ import {
   useRouter,
 } from '@tarojs/taro'
 import { useRef, useState, useEffect, memo } from 'react'
-import type TypeUnite from '../types/index.d'
 
 let catchMethod: any
 

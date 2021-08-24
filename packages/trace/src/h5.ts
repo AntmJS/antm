@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import type Trace from '../types/index.d'
 import { stringify, parse } from '@antmjs/utils'
 import MobileDetect from 'mobile-detect'
 import history from 'history/browser'
-import type Trace from '../types/index.d'
 import {
   EGcs,
   EAppType,
