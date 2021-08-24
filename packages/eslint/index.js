@@ -28,10 +28,17 @@ module.exports = {
     'import/order': [
       'error',
       {
+        pathGroups: [
+          {
+            pattern: '@/**',
+            group: 'external',
+            position: 'after',
+          },
+        ],
         groups: [
+          'type',
           'builtin',
           'external',
-          'type',
           'internal',
           'parent',
           'sibling',
