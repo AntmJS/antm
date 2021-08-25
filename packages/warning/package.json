@@ -1,10 +1,10 @@
 {
-  "name": "git-warning-dd",
+  "name": "@antmjs/warning",
   "version": "0.0.2",
-  "description": "指定文件，在git commit提交的时候，钉钉通知到群组展示文件内容的修改",
+  "description": "指定文件，在git commit提交的时候，将文件更改内容通知到微信、钉钉、飞书等聊天群或者发送到指定的邮箱",
   "main": "index.js",
   "bin": {
-    "git-warning-dd": "./bin/index.js"
+    "antm-warning": "./bin/index.js"
   },
   "keywords": [
     "git",
@@ -12,16 +12,22 @@
     "ding",
     "warning"
   ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://registry.npmjs.org"
+  },
   "repository": {
-    "monitorFiles": [
-      "./package.json"
-    ]
+    "type": "https",
+    "url": "https://github.com/AntmJS/antm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AntmJS/antm/issues/new"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
-    "diff": "^5.0.0",
-    "git-last-commit": "^1.0.0",
-    "shelljs": "^0.8.4"
+    "chalk": "^4.1.2",
+    "commander": "^8.1.0",
+    "nodemailer": "^6.6.3"
   }
 }

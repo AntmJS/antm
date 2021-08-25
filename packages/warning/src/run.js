@@ -1,44 +1,31 @@
-const fs = require('fs')
-const diffStr = require('diff')
 const path = require('path')
-const shell = require('shelljs')
+const fs = require('fs')
 const cwd = process.cwd()
-const tempPath = path.resolve(__dirname, './.temp')
-const commitInfo = require('./commit-info')
-const { monitorFiles } = require(path.join(cwd, './package.json')).repository
-const projectName = require(path.join(cwd, './package.json')).name
+const configPath = path.resolve(cwd, './antm.config.js')
+let antmConfigWarning = { monitorFiles: ['./src/run.js'] }
 
-if (!shell.which('git')) {
-  shell.echo('Sorry, this script requires git')
-  process.exit(1)
+if (fs.existsSync(configPath)) {
+  const antmConfig = require(configPath)
+  if (antmConfig.warning && typeof antmConfig.warning === 'object') {
+
+    antmConfigWarning = antmConfig.warning
+  }
 }
 
-if (!monitorFiles) {
-  shell.echo('Sorry, this script requires monitorFiles in package.json repository.monitorFiles')
-  process.exit(1)
-}
-
-module.exports = async function run(token) {
-  if (fs.existsSync(tempPath)) shell.rm('-rf', tempPath)
-  fs.mkdirSync(tempPath, { node: 0o422 })
-  const lastCommitInfo = await commitInfo(cwd)
-  shell.cd(cwd)
-  monitorFiles.forEach((file) => {
-    shell.exec(`git show ${lastCommitInfo.hash}:${file} > ${path.resolve(tempPath, file)}`)
-  })
-
-  const diffRes = {
-    diff: {},
-    branch: lastCommitInfo.branch,
-    committer: lastCommitInfo.committer,
-    projectName,
+/**
+ * 
+ * @param {string} type  'chart' | 'email'
+ * @param {object} fnConfig
+ */
+module.exports = function run(type, fnConfig = {}) {
+  const triggers = {
+    chart: require('./chartWarning.js'),
+    email: require('./emailWarning.js')
   }
 
-  monitorFiles.forEach((file) => {
-    const oldlySrt = fs.readFileSync(path.resolve(tempPath, file), 'utf-8')
-    const newlyStr = fs.readFileSync(path.join(cwd, file), 'utf-8')
-    diffRes.diff[file] = diffStr.diffLines(oldlySrt, newlyStr)
-  })
-  shell.rm('-rf', tempPath)
-  require('./warning')(diffRes, { token })
+  return (...args) => {
+    args[0] = Object.assign(args[0] || {}, antmConfigWarning)
+    args[0] = Object.assign(args[0] || {}, fnConfig)
+    triggers[type](...args)
+  }
 }
