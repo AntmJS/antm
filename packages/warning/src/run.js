@@ -14,12 +14,12 @@ if (fs.existsSync(configPath)) {
 
 /**
  * 
- * @param {string} type  'chart' | 'email'
+ * @param {string} type  'webhook' | 'email'
  * @param {object} fnConfig
  */
 module.exports = function run(type, fnConfig = {}) {
   const triggers = {
-    chart: require('./chartWarning.js'),
+    webhook: require('./webhookWarning.js'),
     email: require('./emailWarning.js')
   }
 

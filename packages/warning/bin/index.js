@@ -3,11 +3,11 @@ const { Command } = require("commander")
 const program = new Command()
 
 program.version('0.0.1')
-  .command('chart')
+  .command('webhook')
   .description('use chat robot of dingding | wechart | Lark | others, send diff results of assign files to chat group brefore git commit')
   .option('-webhooks, --webhooks <webhooks>', 'set webhooks api of dingding | wechart | Lark | others, separated by commas')
   .option('-monitor-files, --monitor-files <monitorFiles>', 'set monitor files')
-  .action(require('../src/run')('chart'))
+  .action(require('../src/run')('webhook'))
 
 program.command('email')
   .description('send diff results of assign files to some emails')
