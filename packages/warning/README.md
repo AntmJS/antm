@@ -2,12 +2,14 @@
 在git commit的时候，获取工作区和暂存区指定的文件 与最后一次提交成功的对比的结果
 - 实现通过微信、钉钉、飞书等聊天群机器人的webhooks，通知群内成员对比的结果
 - 实现邮件发送，邮件通知到目标邮件对比结果
+## 为什么需要
+团队成员对项目关键的配置项或代码修改了，需要通知开发组成员修改内容，避免影响开发的规范性和统一性
 ### 安装
 
 使用前你需要确认安装 [husky](https://www.npmjs.com/package/husky)
 
 ```sh
-yarn add @antm/warning -D
+yarn add @antmjs/warning -D
 ```
 ### 配置
 - 根目录配置antm.config.js
@@ -16,41 +18,42 @@ yarn add @antm/warning -D
 ```javascript
 module.exports = {
   warning: {
-    monitorFiles: [                             // 监听的文件
-      'package.json'
-    ],
-    webhooks: 'https://oapi.dingtalk.com/robot/send?access_token=xxx'，
+    monitorFiles: ['package.json'],
+    branchs: ['master'],                    // 监听的分支，不设置的话所有的分支都监听
+    webhooks: { 
+      url: 'https://oapi.dingtalk.com/robot/send?access_token=xxx'  // webhooks地址，多个用数组
+    },
     email: {
-      emailSender: 'abcd@126.com',                // 发送人
-      emailSenderPass: 'ASDFGHJASD',              // 发送令牌，邮箱需要设置SMTP服务获取
-      emailReceivers: 'xxxxxx@qq.com',            // 接收人邮箱，多个用数组
+      sender: 'abcd@126.com',                // 发送人
+      senderPass: 'ASDFGHJASD',              // 发送令牌，邮箱需要设置SMTP服务获取
+      receivers: 'xxxxxx@qq.com',            // 接收人邮箱，多个用数组
     }
   }
 }
 ```
 ### 命令行的使用
 - 在husky的脚本中触发
-- 所有相关的配置项都可以通过命令行设置
+- 命令行中可以配置相关配置
 ```sh
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
 yarn lint-staged
-antm-warning webhook
+antm-warning webhooks
 antm-warning email
 ```
 antm-warning webhook的相关参数
 ```sh
-antm-warning webhook:
-  -webhooks, --webhooks, <webhooks>                    set webhooks api of dingding | wechart | Lark | others, separated by commas
-  -monitor-files, --monitor-files, <monitorFiles>      set monitor files
+antm-warning webhooks:
+  -u, --url, <url>                            set webhooks api of dingding | wechart | Lark | others, separated by commas
+  -mf, --monitor-files, <monitorFiles>        set monitor files
 ```
 
 antm-warning email的相关参数
 ```sh
 antm-warning email:
-  -monitor-files, --monitor-files, <webhooks>                   set monitor files
-  -email-sender, --email-sender, <emailSender>                  set the email sender
-  -email-sender-pass, --email-sender-pass, <emailSenderPass>    set the email sender pass
-  -email-receivers, --email-receivers, <emailreceivers>         set the email receivers, separated by commas
+  -mf, --monitor-files, <monitorFiles>         set monitor files
+  -sender, --sender, <sender>                  set the email sender
+  -sender-pass, --sender-pass, <senderPass>    set the email sender pass
+  -receivers, --receivers, <receivers>         set the email receivers, separated by commas
 ```

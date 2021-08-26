@@ -7,8 +7,9 @@
     "antm-warning": "./bin/index.js"
   },
   "keywords": [
+    "antmjs",
     "git",
-    "git commit",
+    "git commit pre",
     "warning",
     "webhooks"
   ],

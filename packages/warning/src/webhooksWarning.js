@@ -7,11 +7,9 @@ const { getBranch, getUserInfo, checkWebHooks, log } = require('./utils')
 const projectName = require(path.join(cwd, './package.json')).name
 
 module.exports = async function chartWarning(props) {
-  if (!props.webhooks) {
+  if (!props.url) {
     log.fail(`** please set webhooks **`)
-    log.warining(
-      'set in cli like: antm-warning webhook --webhooks https://abc.com',
-    )
+    log.warining('set in cli like: antm-warning webhooks --url https://abc.com')
     log.warining(
       'set in antm.config.js like: { warning: { webhooks: ["https://abc.com"] } }',
     )
@@ -21,7 +19,7 @@ module.exports = async function chartWarning(props) {
   if (!props.monitorFiles) {
     log.fail(`** please set monitor files **`)
     log.warining(
-      'set in cli like: antm-warning webhook --monitor-files package.json,README.md',
+      'set in cli like: antm-warning webhooks --monitor-files package.json,README.md',
     )
     log.warining(
       'set in antm.config.js like: { warining: { monitorFiles: [ "package.json", "README.md"] } }',
@@ -33,17 +31,15 @@ module.exports = async function chartWarning(props) {
   props.monitorFiles = Array.isArray(props.monitorFiles)
     ? props.monitorFiles
     : props.monitorFiles.split(',')
-  props.webhooks = Array.isArray(props.webhooks)
-    ? props.webhooks
-    : props.webhooks.split(',')
+  props.url = Array.isArray(props.url) ? props.url : props.url.split(',')
 
-  if (!checkWebHooks(props.webhooks)) {
-    log.fail(`please set correct webhooks like https://abc.com`)
+  if (!checkWebHooks(props.url)) {
+    log.fail(`please set correct url like https://abc.com`)
 
     process.exit(1)
   }
 
-  const webhooksObjs = props.webhooks.map((item) => {
+  const webhooksObjs = props.url.map((item) => {
     const u = new URL(item)
     return {
       hostname: u.hostname,
@@ -67,8 +63,6 @@ module.exports = async function chartWarning(props) {
       isAtAll: true,
     },
   }
-
-  console.info(res, hasFilesChange)
 
   if (hasFilesChange) {
     Object.keys(res).map((key) => {

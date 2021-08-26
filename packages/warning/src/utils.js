@@ -21,7 +21,7 @@ function getBranch() {
   }
   const branchsArr = `${stdout}`.match().input.split('\n')
   const b = branchsArr.filter((item) => item.indexOf('*') !== -1)
-  return b[0]
+  return b[0].replace(/\*|\s/g, '')
 }
 
 /** git diff */

@@ -10,49 +10,41 @@ module.exports = async function emailWarning(props) {
     ...props,
     ...props.email,
   }
-  if (!props.emailSender) {
-    log.fail(`** please set emailSender **`)
+  if (!props.sender) {
+    log.fail(`** please set sender **`)
+    log.warining('set in cli like: antm-warning email --sender abc@163.com')
     log.warining(
-      'set in cli like: antm-warning email --email-sender abc@163.com',
-    )
-    log.warining(
-      'set in antm.config.js like: { warning: { email: { emailSender: abc@163.com  } } }',
+      'set in antm.config.js like: { warning: { email: { sender: abc@163.com  } } }',
     )
 
     process.exit(1)
   }
 
-  if (!checkEmial(props.emailSender)) {
-    log.fail(`** please set correct emailSender **`)
+  if (!checkEmial(props.sender)) {
+    log.fail(`** please set correct sender **`)
+    log.warining('set in cli like: antm-warning email --sender abc@163.com')
     log.warining(
-      'set in cli like: antm-warning email --email-sender abc@163.com',
-    )
-    log.warining(
-      'set in antm.config.js like: { warning: { email: { emailSender: abc@163.com } } }',
+      'set in antm.config.js like: { warning: { email: { sender: abc@163.com } } }',
     )
 
     process.exit(1)
   }
 
-  if (!props.emailReceivers) {
-    log.fail(`** please set emailReceivers **`)
+  if (!props.receivers) {
+    log.fail(`** please set receivers **`)
+    log.warining('set in cli like: antm-warning email -receivers abc@163.com')
     log.warining(
-      'set in cli like: antm-warning email --email-receivers abc@163.com',
-    )
-    log.warining(
-      'set in antm.config.js like: { warning: { email: { emailReceivers: abc@163.com } } }',
+      'set in antm.config.js like: { warning: { email: { receivers: abc@163.com } } }',
     )
 
     process.exit(1)
   }
 
-  if (!props.emailSenderPass) {
-    log.fail(`** please set emailSenderPass **`)
+  if (!props.senderPass) {
+    log.fail(`** please set senderPass **`)
+    log.warining('set in cli like: antm-warning email --sender-pass hgfdsa5rew')
     log.warining(
-      'set in cli like: antm-warning email --email-sender-pass hgfdsa5rew',
-    )
-    log.warining(
-      'set in antm.config.js like: { warning: { email: { emailSenderpass: hgfdsa5rew  } } }',
+      'set in antm.config.js like: { warning: { email: { senderpass: hgfdsa5rew  } } }',
     )
 
     process.exit(1)
@@ -88,32 +80,38 @@ module.exports = async function emailWarning(props) {
   if (hasFilesChange) {
     Object.keys(res).map((key) => {
       if (res[key]) {
-        html += `
+        let s = `
 <h5>【${key}修改】</h5>
-${res[key].replaceAll(/\n/, '<br />')}`
+${res[key]}`
+        s = s.replace(
+          /([+]\s*[\s\S]+?)(?=\n+?)/g,
+          '<div style="background: green">$1</div>',
+        )
+        s = s.replace(
+          /([-]\s*[\s\S]+?)(?=\n+?)/g,
+          '<div style="background: red">$1</div>',
+        )
+        html += s.replace(/\n/g, '<br />')
       }
     })
   }
 
   SendEmail({
     html,
-    emailSender: props.emailSender,
-    emailSenderPass: props.emailSenderPass,
-    emailReceivers: props.emailReceivers,
+    sender: props.sender,
+    senderPass: props.senderPass,
+    receivers: props.receivers,
   }).then((res) => {
     log.success(
-      `send monitor files diff results to chart group success, reponse:
-      ${res.toString()}`,
+      `send monitor files diff results to assig emails success, reponse:${res}`,
     )
   })
 }
 
 //发送验证码
-function SendEmail({ html, emailSender, emailSenderPass, emailReceivers }) {
-  emailReceivers = Array.isArray(emailReceivers)
-    ? emailReceivers.join(',')
-    : emailReceivers
-  const host = emailSender.split('@')[1]
+function SendEmail({ html, sender, senderPass, receivers }) {
+  receivers = Array.isArray(receivers) ? receivers.join(',') : receivers
+  const host = sender.split('@')[1]
 
   return new Promise((resolve, reject) => {
     const transporter = nodemailer.createTransport({
@@ -121,8 +119,8 @@ function SendEmail({ html, emailSender, emailSenderPass, emailReceivers }) {
       port: 465, // 端口
       secureConnection: false, // use SSL
       auth: {
-        user: emailSender, // 邮箱账号
-        pass: emailSenderPass, // 邮箱的授权码
+        user: sender, // 邮箱账号
+        pass: senderPass, // 邮箱的授权码
       },
     })
 
@@ -130,16 +128,15 @@ function SendEmail({ html, emailSender, emailSenderPass, emailReceivers }) {
       transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
           reject(error)
-          return console.log(error)
+          return log.fail(error)
         }
         resolve(info.messageId)
-        console.log('Message send: %s', info.messageId)
       })
     }
 
     const mailOptions = {
-      from: emailSender, // 发件人地址
-      to: emailReceivers, // 收件人地址，多个收件人可以使用逗号分隔
+      from: sender, // 发件人地址
+      to: receivers, // 收件人地址，多个收件人可以使用逗号分隔
       subject: '文件修改通知', // 邮件标题
       html, // 邮件内容
     }
