@@ -7,7 +7,7 @@
 使用前你需要确认安装 [husky](https://www.npmjs.com/package/husky)
 
 ```sh
-npm install @antm/warning -D
+yarn addd @antm/warning -D
 ```
 ### 配置
 - 根目录配置antm.config.js
@@ -16,13 +16,15 @@ npm install @antm/warning -D
 ```javascript
 module.exports = {
   warning: {
-    emailSender: 'zuolung@126.com',               // 发送人
-    emailSenderPass: 'IQHRFVTPWWYVAYJS',          // 发送令牌，邮箱需要设置SMTP服务获取
-    emailReceivers: '461332496@qq.com',
-    monitorFiles: [                               // 监听
+    monitorFiles: [                             // 监听的文件
       'package.json'
     ],
-    webhooks: 'https://oapi.dingtalk.com/robot/send?access_token=b82d1228bf1e75cd2e4efdad2dff934982447b76fab32d9a308ad10bcab3c40b'
+    webhooks: 'https://oapi.dingtalk.com/robot/send?access_token=xxx'，
+    email: {
+      emailSender: 'abcd@126.com',                // 发送人
+      emailSenderPass: 'ASDFGHJASD',              // 发送令牌，邮箱需要设置SMTP服务获取
+      emailReceivers: 'xxxxxx@qq.com',            // 接收人邮箱，多个用数组
+    }
   }
 }
 ```
@@ -34,12 +36,12 @@ module.exports = {
 . "$(dirname "$0")/_/husky.sh"
 
 yarn lint-staged
-antm-warning chart
-antm-warning emial
+antm-warning webhook
+antm-warning email
 ```
-antm-warning chart的相关参数
+antm-warning webhook的相关参数
 ```sh
-antm-warning chart:
+antm-warning webhook:
   -webhooks, --webhooks, <webhooks>                    set webhooks api of dingding | wechart | Lark | others, separated by commas
   -monitor-files, --monitor-files, <monitorFiles>      set monitor files
 ```

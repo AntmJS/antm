@@ -9,8 +9,8 @@
   "keywords": [
     "git",
     "git commit",
-    "ding",
-    "warning"
+    "warning",
+    "webhooks"
   ],
   "publishConfig": {
     "access": "public",

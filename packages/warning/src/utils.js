@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const cp = require('child_process')
 const chalk = require('chalk')
 
@@ -19,7 +20,7 @@ function getBranch() {
     process.exit(1)
   }
   const branchsArr = `${stdout}`.match().input.split('\n')
-  const b = branchsArr.filter(item => item.indexOf('*') !== -1)
+  const b = branchsArr.filter((item) => item.indexOf('*') !== -1)
   return b[0]
 }
 
@@ -30,12 +31,15 @@ function getDiff(file) {
     console.error(error)
     process.exit(1)
   }
-  return `${stdout}`.match(/@@[\w\W]*$/)[0]
+
+  return `${stdout}` && `${stdout}`.length
+    ? `${stdout}`.match(/@@[\w\W]*$/)[0]
+    : ''
 }
 
 /** 校验webhooks */
 function checkWebHooks(webhooks) {
-  const allValid = webhooks.every(item => /^https:\/\/[/w/W]*/.test(item))
+  const allValid = webhooks.every((item) => /^https:\/\/[/w/W]*/.test(item))
 
   return allValid
 }
@@ -48,19 +52,13 @@ function checkEmial(email) {
 /** 信息打印 */
 const log = {
   success(info) {
-    console.info(
-      chalk.green(info)
-    )
+    console.info(chalk.green(info))
   },
   fail(info) {
-    console.error(
-      chalk.red(info)
-    )
+    console.error(chalk.red(info))
   },
   warining(info) {
-    console.error(
-      chalk.yellow(info)
-    )
+    console.error(chalk.yellow(info))
   },
 }
 
