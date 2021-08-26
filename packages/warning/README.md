@@ -7,7 +7,7 @@
 使用前你需要确认安装 [husky](https://www.npmjs.com/package/husky)
 
 ```sh
-yarn addd @antm/warning -D
+yarn add @antm/warning -D
 ```
 ### 配置
 - 根目录配置antm.config.js
