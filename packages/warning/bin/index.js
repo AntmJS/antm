@@ -2,9 +2,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { Command } = require('commander')
 const program = new Command()
+const version = require('../package.json').version
 
 program
-  .version('0.0.1')
+  .version(version)
   .command('webhooks')
   .description(
     'use chat robot of dingding | wechart | Lark | others, send diff results of assign files to chat group brefore git commit',

@@ -84,11 +84,11 @@ module.exports = async function emailWarning(props) {
 <h5>【${key}修改】</h5>
 ${res[key]}`
         s = s.replace(
-          /([+]\s*[\s\S]+?)(?=\n+?)/g,
+          /((?<=\n)[+]\s*[\s\S]+?)(?=\n+?)/g,
           '<div style="background: green">$1</div>',
         )
         s = s.replace(
-          /([-]\s*[\s\S]+?)(?=\n+?)/g,
+          /((?<=\n)[-]\s*[\s\S]+?)(?=\n+?)/g,
           '<div style="background: red">$1</div>',
         )
         html += s.replace(/\n/g, '<br />')

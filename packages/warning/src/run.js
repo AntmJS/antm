@@ -2,7 +2,6 @@
 const path = require('path')
 const fs = require('fs')
 const cwd = process.cwd()
-const antmConfig = require('../antm.config.js')
 const { getBranch } = require('./utils')
 const configPath = path.resolve(cwd, './antm.config.js')
 let antmConfigWarning = { monitorFiles: ['./src/run.js'] }
@@ -27,8 +26,8 @@ if (fs.existsSync(configPath)) {
  */
 module.exports = function run(type, fnConfig = {}) {
   if (
-    antmConfig.warning.branchs &&
-    !antmConfig.warning.branchs.includes(currentBranch)
+    antmConfigWarning.branchs &&
+    !antmConfigWarning.branchs.includes(currentBranch)
   ) {
     return () => {
       console.info('')
