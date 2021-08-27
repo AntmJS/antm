@@ -41,8 +41,8 @@
   },
   "include": [
     "*.js",
-    "packages/*/*.js",
-    "packages/*/*.d.ts",
+    "packages/**/*.js",
+    "packages/**/*.d.ts",
     "packages/**/src",
     "packages/**/lib",
     "packages/**/types",
