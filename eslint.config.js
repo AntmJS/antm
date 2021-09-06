@@ -1,16 +1,6 @@
 module.exports = {
   extends: './node_modules/@antmjs/eslint/index.js',
-  parserOptions: {
-    project: 'tsconfig.json',
-    sourceType: 'module',
-    ecmaVersion: '2021',
-  },
   settings: {
-    'import/resolver': {
-      typescript: {
-        project: 'tsconfig.json',
-      },
-    },
     react: {
       createClass: 'createReactClass', // Regex for Component Factory to use,
       // default to "createReactClass"
