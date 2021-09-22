@@ -20,7 +20,7 @@ function executeCatch(
   if (catchMethod) {
     catchMethod(err, setError)
   } else {
-    console.warn('请先注册registerCatch')
+    console.error(err)
   }
 }
 
