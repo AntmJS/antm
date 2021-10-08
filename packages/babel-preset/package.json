@@ -1,0 +1,57 @@
+{
+  "name": "@antmjs/babel-preset",
+  "version": "1.12.0",
+  "main": "index.js",
+  "author": "三少 <hi_sanshao@outlook.com>",
+  "description": "ES6+转译到ES5工具库",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://registry.npmjs.org"
+  },
+  "keywords": [
+    "babel",
+    "babel-preset",
+    "react",
+    "typescript"
+  ],
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/AntmJS/antm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AntmJS/antm/issues/new"
+  },
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6.4",
+    "yarn": ">=1.22"
+  },
+  "browserslist": [
+    "Chrome >= 35",
+    "ChromeAndroid >= 35",
+    "iOS >= 8",
+    "Safari >= 8",
+    "Android >= 4.1",
+    "QQAndroid >= 4.1",
+    "UCAndroid >= 4.1"
+  ],
+  "scripts": {
+    "build": "",
+    "test:watch": "",
+    "test": ""
+  },
+  "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-decorators": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.14.5",
+    "@babel/preset-env": "^7.14.7",
+    "@babel/preset-react": "^7.14.5",
+    "@babel/preset-typescript": "^7.14.5",
+    "@babel/runtime-corejs3": "^7.14.7",
+    "babel-plugin-import": "^1.13.3",
+    "babel-plugin-lodash": "^3.3.4",
+    "core-js": "^3.15.2",
+    "react-refresh": "^0.10.0"
+  }
+}
