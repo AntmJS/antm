@@ -1,0 +1,63 @@
+{
+  "name": "@antmjs/rapper",
+  "version": "0.0.2",
+  "description": "rapper, use http api as a function",
+  "main": "./dist/index.js",
+  "scripts": {
+    "lint": "eslint 'src/**/*.{js,ts,tsx}' --quiet --fix",
+    "build": "./node_modules/typescript/bin/tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build"
+  },
+  "bin": {
+    "rap": "./dist/models.js",
+    "rapper": "./dist/models.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AntmJS/antm/blob/main/packages/rapper"
+  },
+  "keywords": [
+    "api",
+    "rap",
+    "rapper",
+    "typescript"
+  ],
+  "author": "banlangen",
+  "license": "ISC",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "registry": "http://registry.npmjs.org"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "chalk": "^2.4.2",
+    "commander": "^4.0.1",
+    "inquirer": "^7.0.4",
+    "json-schema-to-typescript": "^10.1.4",
+    "json5": "^2.1.0",
+    "lodash": "^4.17.15",
+    "mkdirp": "^0.5.1",
+    "node-fetch": "^2.6.1",
+    "ora": "^4.0.3",
+    "semver": "^6.3.0",
+    "ts-json-schema-generator": "^0.93.0",
+    "typescript-json-schema": "^0.50.1"
+  },
+  "devDependencies": {
+    "ts-node": "^10.0.0",
+    "@types/lodash": "^4.14.144",
+    "@types/node": "^15.6.1",
+    "@types/semver": "^6.2.0",
+    "@typescript-eslint/eslint-plugin": "^2.5.0",
+    "@typescript-eslint/parser": "^2.5.0",
+    "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.4.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "fs-extra": "^8.1.0",
+    "typescript": "^4.2.4"
+  },
+  "types": "./dist/index.d.ts"
+}
