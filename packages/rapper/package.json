@@ -15,8 +15,8 @@
   },
   "scripts": {
     "_clean": "npx rimraf dist",
-    "_real": "npx rollup -c ./rollup.config.js",
-    "watch": "npx rollup -c ./rollup.config.js -w",
+    "_real": "npx tsc -p tsconfig.json",
+    "watch": "npx tsc -p tsconfig.json -w",
     "build": "npx run-s _clean _real",
     "test:watch": "",
     "test": ""
