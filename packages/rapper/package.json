@@ -1,0 +1,76 @@
+{
+  "name": "@antmjs/rapper",
+  "version": "0.1.1",
+  "description": "rapper, use http api as a function",
+  "main": "./dist/index.js",
+  "typings": "types/index.d.ts",
+  "private": false,
+  "bin": {
+    "rap": "./dist/models.js",
+    "rapper": "./dist/models.js"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://registry.npmjs.org"
+  },
+  "scripts": {
+    "_clean": "npx rimraf dist",
+    "_real": "npx tsc -p tsconfig.json",
+    "watch": "npx tsc -p tsconfig.json -w",
+    "build": "npx run-s _clean _real",
+    "test:watch": "",
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AntmJS/antm"
+  },
+  "keywords": [
+    "api",
+    "rap",
+    "rapper",
+    "typescript"
+  ],
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6.4",
+    "yarn": ">=1.22"
+  },
+  "browserslist": [
+    "Chrome >= 35",
+    "ChromeAndroid >= 35",
+    "iOS >= 8",
+    "Safari >= 8",
+    "Android >= 4.1",
+    "QQAndroid >= 4.1",
+    "UCAndroid >= 4.1"
+  ],
+  "author": "banlangen",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.14.7",
+    "axios": "^0.19.0",
+    "chalk": "^2.4.2",
+    "commander": "^4.0.1",
+    "inquirer": "^8.2.0",
+    "json-schema-to-typescript": "^10.1.4",
+    "json5": "^2.1.0",
+    "lodash": "^4.17.15",
+    "mkdirp": "^1.0.4",
+    "node-fetch": "^2.6.1",
+    "ora": "^4.0.3",
+    "semver": "^6.3.0",
+    "ts-json-schema-generator": "^0.93.0",
+    "typescript-json-schema": "^0.50.1"
+  },
+  "devDependencies": {
+    "@types/inquirer": "^8.1.3",
+    "@types/lodash": "^4.14.144",
+    "@types/mkdirp": "^1.0.2",
+    "@types/node": "^15.6.1",
+    "@types/node-fetch": "^3.0.3",
+    "@types/semver": "^6.2.0",
+    "fs-extra": "^8.1.0",
+    "ts-node": "^10.0.0"
+  }
+}
