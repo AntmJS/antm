@@ -5,12 +5,7 @@
       "message": "chore(release): publish %s"
     }
   },
-  "packages": [
-    "packages/*"
-  ],
-  "ignoreChanges": [
-    "**/*.md",
-    "**/__test__/**"
-  ],
+  "packages": ["packages/*"],
+  "ignoreChanges": ["**/*.md", "**/__test__/**"],
   "version": "1.13.0"
 }
