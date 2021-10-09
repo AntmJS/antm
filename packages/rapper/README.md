@@ -44,6 +44,11 @@ Rapper 是 TypeScript 的最佳拍档，它可以帮你生成具有类型定义�
 * 暂时不支持url带path参数
 > rapper接口字段名称对应 
 ```ts
+interface XY {
+  x: number;
+  y: number;
+  z: number;
+}
 export type IUserInfo = {
   request: { // (1)
     age?: string; // (2)
@@ -65,6 +70,10 @@ export type IUserInfo = {
          * @value #cname // (5)
          */
          name: string;
+        /**
+         * 支持泛型以及接口引用
+         */
+        other: XY
       }[];
     };
   };
