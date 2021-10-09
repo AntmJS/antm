@@ -73,7 +73,7 @@ export type IUserInfo = {
         /**
          * 支持泛型以及接口引用
          */
-        other: XY
+        other: XY;
       }[];
     };
   };
