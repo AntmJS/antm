@@ -1,5 +1,7 @@
-const fetch = require('node-fetch');
-import { URL } from 'url';
+import { URL } from 'url'
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import fetch from 'node-fetch'
 // 更新接口
 export function updateInterface(
   params: { properties: any; id: number },
@@ -18,39 +20,39 @@ export function updateInterface(
     }),
     method: 'POST',
   })
-    .then(e => {
+    .then((e: any) => {
       if (e.status !== 200) {
         if (e.status === 500) {
           throw new Error(
             `接口更新失败，请检查：${funcName}(${params.id})对应的远程接口是不是删除了`,
-          );
+          )
         }
-        throw new Error(e.statusText);
+        throw new Error(e.statusText)
       }
-      return e.json();
+      return e.json()
     })
-    .then(e => {
+    .then((e: any) => {
       if (e.isOk || e.data) {
-        return e.data;
+        return e.data
       } else {
-        throw e.errMsg;
+        throw e.errMsg
       }
     })
 
-    .catch(err => {
-      throw err;
-    });
+    .catch((err: any) => {
+      throw err
+    })
 }
 
 // 创建接口
 export async function createInterface(
   params: {
-    name: string;
-    url: string;
-    method: string;
-    description?: string;
-    moduleId: number;
-    repositoryId: number;
+    name: string
+    url: string
+    method: string
+    description?: string
+    moduleId: number
+    repositoryId: number
   },
   apiUrl: string,
   cookie: string,
@@ -63,53 +65,61 @@ export async function createInterface(
     body: JSON.stringify(params),
     method: 'POST',
   })
-    .then(e => {
+    .then((e: any) => {
       if (e.status !== 200) {
-        throw new Error(e.statusText);
+        throw new Error(e.statusText)
       }
-      return e.json();
+      return e.json()
     })
-    .then(e => {
+    .then((e: any) => {
       if (e.isOk || e.data) {
-        return e.data;
+        return e.data
       } else {
-        throw e.errMsg;
+        throw e.errMsg
       }
     })
-    .catch(err => {
-      throw err;
-    });
-  return data;
+    .catch((err: any) => {
+      throw err
+    })
+  return data
 }
 
 // 删除接口
-export function deleteInterface({ id }: { id: number }, apiUrl: string, cookie: string) {
+export function deleteInterface(
+  { id }: { id: number },
+  apiUrl: string,
+  cookie: string,
+) {
   return fetch(`${new URL(apiUrl).origin}/interface/remove?id=${id}`, {
     headers: {
       cookie,
     },
     method: 'GET',
   })
-    .then(e => {
+    .then((e: any) => {
       if (e.status !== 200) {
-        throw new Error(e.statusText);
+        throw new Error(e.statusText)
       }
-      return e.json();
+      return e.json()
     })
-    .then(e => {
+    .then((e: any) => {
       if (e.isOk || e.data) {
       } else {
-        throw new Error(e.errMsg);
+        throw new Error(e.errMsg)
       }
     })
 
-    .catch(err => {
-      throw new Error(err);
-    });
+    .catch((err: any) => {
+      throw new Error(err)
+    })
 }
 
 // 删除模块
-export function deleteModule({ id }: { id: number }, apiUrl: string, cookie: string) {
+export function deleteModule(
+  { id }: { id: number },
+  apiUrl: string,
+  cookie: string,
+) {
   fetch(`${new URL(apiUrl).origin}/module/remove?id=${id}`, {
     headers: {
       'content-type': 'application/json',
@@ -117,33 +127,33 @@ export function deleteModule({ id }: { id: number }, apiUrl: string, cookie: str
     },
     method: 'GET',
   })
-    .then(e => {
+    .then((e: any) => {
       if (e.status !== 200) {
-        throw new Error(e.statusText);
+        throw new Error(e.statusText)
       }
-      return e.json();
+      return e.json()
     })
-    .then(e => {
+    .then((e: any) => {
       if (e.isOk || e.data) {
       } else {
-        throw new Error(e.errMsg);
+        throw new Error(e.errMsg)
       }
     })
 
-    .catch(err => {
-      throw new Error(err);
-    });
+    .catch((err: any) => {
+      throw new Error(err)
+    })
 }
 
 // 创建模块
 export async function createModule(
   params: {
-    description: string;
-    name: string;
-    repositoryId: number;
+    description: string
+    name: string
+    repositoryId: number
   },
-  apiUrl,
-  cookie,
+  apiUrl: any,
+  cookie: any,
 ): Promise<any> {
   const data = await fetch(`${new URL(apiUrl).origin}/module/create`, {
     headers: {
@@ -153,22 +163,22 @@ export async function createModule(
     body: JSON.stringify(params),
     method: 'POST',
   })
-    .then(e => {
+    .then((e: any) => {
       if (e.status !== 200) {
-        throw new Error(e.statusText);
+        throw new Error(e.statusText)
       }
-      return e.json();
+      return e.json()
     })
-    .then(e => {
+    .then((e: any) => {
       if (e.isOk || e.data) {
-        return e.data;
+        return e.data
       } else {
-        throw e.errMsg;
+        throw e.errMsg
       }
     })
 
-    .catch(err => {
-      throw new Error(err);
-    });
-  return data;
+    .catch((err: any) => {
+      throw new Error(err)
+    })
+  return data
 }

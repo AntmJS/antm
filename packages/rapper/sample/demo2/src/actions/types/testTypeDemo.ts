@@ -2,29 +2,29 @@
 /* Rap仓库ModuleId: 479543 */
 
 interface XY {
-  x: number;
-  y: number;
-  z: number;
+  x: number
+  y: number
+  z: number
 }
 
 interface Shape {
-  size: number;
+  size: number
 }
 
 interface Circle {
-  shape: Shape;
-  point: XY;
-  radius: number;
+  shape: Shape
+  point: XY
+  radius: number
 }
 
 type IGetRES<T> = {
-  data: T;
+  data: T
   /**
    * 成功
    * @value  true
    **/
-  success: boolean;
-};
+  success: boolean
+}
 
 /**
  *  结口1
@@ -34,15 +34,15 @@ type IGetRES<T> = {
  */
 export type IUserInfo = {
   request: {
-    age: string;
-    sex?: string;
-  };
+    age: string
+    sex?: string
+  }
   response: {
     /**
      *
      * @value true
      */
-    success: boolean;
+    success: boolean
     data: {
       /**
        * 数组演示
@@ -53,40 +53,40 @@ export type IUserInfo = {
          * 名称
          * @value #cname
          */
-        name: string;
+        name: string
         /**
          * 年纪
          * @value \@increment(10)
          */
-        age: string;
+        age: string
         /**
          * 性别
          * @value \@increment(10)
          */
-        sex: number;
-      }[];
-    };
+        sex: number
+      }[]
+    }
     /**
      *
      * @value 0
      */
-    code: number;
-  };
-};
+    code: number
+  }
+}
 
-export type IReqGoodsAudit = Record<string, unknown>;
+export type IReqGoodsAudit = Record<string, unknown>
 
 interface IList {
   /**
    * 我是name
    * @value #cname
    */
-  name: string;
+  name: string
   /**
    * 我是id
    * @value /@id
    */
-  id: number;
+  id: number
 }
 
 /**
@@ -96,7 +96,7 @@ interface IList {
  * @rapUrl  http://rap2.taobao.org/repository/editor?id=284428&mod=479543&itf=2091282
  */
 export type IResGoodsAudit = {
-  request: Circle;
+  request: Circle
   //
   // response: IGetRES<Circle>;
   // 修改
@@ -105,14 +105,14 @@ export type IResGoodsAudit = {
      * 我是列表
      * @rule 23
      */
-    list: IList[];
+    list: IList[]
     /**
      * 总数
      * @value 500
      */
-    total: number;
-  }>;
-};
+    total: number
+  }>
+}
 
 // 新建
 /**
@@ -122,6 +122,6 @@ export type IResGoodsAudit = {
  * @rapUrl  http://rap2.taobao.org/repository/editor?id=284428&mod=479543&itf=2091284
  */
 export type getRouters = {
-  request: Circle;
-  response: IGetRES<Circle>;
-};
+  request: Circle
+  response: IGetRES<Circle>
+}

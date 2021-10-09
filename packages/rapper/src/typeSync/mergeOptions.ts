@@ -1,27 +1,33 @@
-import * as path from 'path';
-import { searchRootPath } from './../utils';
+import * as path from 'path'
+import { searchRootPath } from './../utils'
 function completionOptions(options: IOptions = { download: {}, upload: {} }) {
   const defaultOptions = {
     download: {
       //请求 function 模板
-      requestFunc(params) {
-        function getFnName(url: string): null | string {
-          const fnName = url.match(/\/([.a-z0-9_-]+)\/([a-z0-9_-]+$)/i);
+      requestFunc(params: any) {
+        function getFnName(url: string): undefined | string {
+          const fnName = url.match(/\/([.a-z0-9_-]+)\/([a-z0-9_-]+$)/i)
           if (fnName && fnName.length === 3) {
-            if (/^\d+\.\d+$/.test(fnName[1])) {
-              return fnName[2];
+            if (/^\d+\.\d+$/.test(fnName[1]!)) {
+              return fnName[2]
             }
-            return fnName[1] + fnName[2].charAt(0).toUpperCase() + fnName[2].slice(1);
+            return (
+              fnName[1] +
+              fnName[2]!.charAt(0).toUpperCase() +
+              fnName[2]!.slice(1)
+            )
           }
-          return null;
+          return undefined
         }
-        const fnName = getFnName(params.requestUrl);
+        const fnName = getFnName(params.requestUrl)
         if (!fnName) {
-          throw new TypeError('接口路径不对,请修改合规');
+          throw new TypeError('接口路径不对,请修改合规')
         }
-        const camelCaseName = `${fnName.charAt(0).toUpperCase()}${fnName.slice(1)}`;
-        const reqTypeName = `IReq${camelCaseName}`;
-        const resTypeName = `IRes${camelCaseName}`;
+        const camelCaseName = `${fnName.charAt(0).toUpperCase()}${fnName.slice(
+          1,
+        )}`
+        const reqTypeName = `IReq${camelCaseName}`
+        const resTypeName = `IRes${camelCaseName}`
         return {
           reqTypeName,
           resTypeName,
@@ -32,10 +38,10 @@ function completionOptions(options: IOptions = { download: {}, upload: {} }) {
                */
               export const ${fnName} = createFetch<${reqTypeName}, ${resTypeName}>('${params.requestUrl}', '${params.requestMethod}')
               `,
-        };
+        }
       },
       //请求 函数共工头（用于引入函数
-      requestModule(params) {
+      requestModule(params: any) {
         return {
           fileName: params.moduleDescription,
           moduleHeader: `
@@ -64,7 +70,7 @@ function createFetch<REQ extends Record<string, unknown>, RES extends {data: any
   }
 }
 `,
-        };
+        }
       },
     },
     rapper: {
@@ -85,17 +91,20 @@ function createFetch<REQ extends Record<string, unknown>, RES extends {data: any
       // (/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$
       fileRegex: './src/actions/types/.*(js|jsx|ts|tsx)',
 
-      formatFunc(params) {
+      formatFunc(params: any) {
         // createFetch<IReqGoodsQbf, IResGoodsQbf>('/c/api/1.0/approve/goods/qbf', 'GET')
         // export const goodsQbf = createFetch<IGoodsQbf['request'], IGoodsQbf['response']>("/c/api/1.0/approve/goods/qbf", "GET");
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [_, reqTypeName, resTypeName, reqUrl, reqMethod] =
           params.body.match(
             /createFetch<([\w\[\]'"]+),\s+([\w\[\]'"]+)>\(['"]([\s\S]+)['"], ['"]([a-zA-Z]+)['"]\)/,
-          ) || [];
+          ) || []
         if (!reqTypeName || !resTypeName) {
-          return null;
+          return null
         }
-        const matchInterfaceId = params.comment.match(/http:\/\/rap2\.tao[\s\S]+&itf=(\d+)/);
+        const matchInterfaceId = params.comment.match(
+          /http:\/\/rap2\.tao[\s\S]+&itf=(\d+)/,
+        )
         return {
           resTypeName,
           reqTypeName,
@@ -103,7 +112,7 @@ function createFetch<REQ extends Record<string, unknown>, RES extends {data: any
           interfaceId: matchInterfaceId ? Number(matchInterfaceId[1]) : null,
           reqUrl: reqUrl,
           reqMethod: reqMethod,
-        };
+        }
       },
       // webpack 别名 alias 绝对路径
       alias: {
@@ -111,43 +120,48 @@ function createFetch<REQ extends Record<string, unknown>, RES extends {data: any
       },
     },
     isUpload: true,
-  };
+  }
 
-  const _options: IOptions = {};
+  const _options: IOptions | any = {}
   _options.download = {
     ...defaultOptions.download,
     ...(options.download || {}),
-  };
+  }
   _options.upload = {
     ...defaultOptions.upload,
     ...(options.upload || {}),
-  };
+  }
   _options.isUpload =
-    typeof _options.isUpload === 'boolean' ? _options.isUpload : defaultOptions.isUpload;
+    typeof _options.isUpload === 'boolean'
+      ? _options.isUpload
+      : defaultOptions.isUpload
 
   _options.rapper = {
     ...defaultOptions.rapper,
     ...(options.rapper || {}),
-  };
+  }
 
-  _options.__completion = true;
+  _options.__completion = true
 
-  const rootPath = searchRootPath();
+  const rootPath = searchRootPath()
   if (!rootPath) {
-    process.exit(1);
+    process.exit(1)
   }
 
   // _options.upload.matchDir = path.resolve(rootPath, _options.upload.matchDir)
-  _options.rapper.rapperPath = path.resolve(rootPath, _options.rapper.rapperPath);
-  _options.upload.fileRegex = path.resolve(rootPath, _options.upload.fileRegex);
+  _options.rapper.rapperPath = path.resolve(
+    rootPath,
+    _options.rapper.rapperPath,
+  )
+  _options.upload.fileRegex = path.resolve(rootPath, _options.upload.fileRegex)
 
-  const alias = _options.upload.alias;
+  const alias = _options.upload.alias
   for (const v in alias) {
     //path.resolve(rootPath, alias[v])
-    _options.upload.alias.v = path.resolve(rootPath, alias[v]);
+    _options.upload.alias.v = path.resolve(rootPath, alias[v])
   }
 
-  return _options;
+  return _options
 }
 
 // 文件缓存  增速
@@ -164,18 +178,18 @@ interface IConfig {
      * funcMain: 请求函数体;
      */
     requestFunc?: (params: {
-      funcDescription: string;
-      repositoryId: number;
-      moduleId: number;
-      interfaceId: number;
-      requestUrl: string;
-      requestMethod: string;
-      rapUrl: string;
+      funcDescription: string
+      repositoryId: number
+      moduleId: number
+      interfaceId: number
+      requestUrl: string
+      requestMethod: string
+      rapUrl: string
     }) => {
-      reqTypeName: string;
-      resTypeName: string;
-      funcMain: string;
-    };
+      reqTypeName: string
+      resTypeName: string
+      funcMain: string
+    }
     /**
      *
      * @param params   rap 上填入的module信息
@@ -184,35 +198,35 @@ interface IConfig {
      * moduleHeader: 模块头部的banner;
      */
     requestModule?: (params: {
-      repositoryId: number;
-      moduleId: number;
-      moduleRapUrl: string;
-      moduleDescription: string;
+      repositoryId: number
+      moduleId: number
+      moduleRapUrl: string
+      moduleDescription: string
     }) => {
-      fileName: string;
-      moduleHeader: string;
-    };
+      fileName: string
+      moduleHeader: string
+    }
     // 自定下载的module
-    moduleId?: number;
-  };
+    moduleId?: number
+  }
   rapper: {
     // 拉取接口地址
-    apiUrl?: string;
+    apiUrl?: string
     /** rap 前端地址，默认是 http://rap2.taobao.org */
-    rapUrl?: string;
+    rapUrl?: string
     // 生成的文件目录地址
-    rapperPath?: string;
+    rapperPath?: string
     // rap登录cookie
-    tokenCookie?: string;
+    tokenCookie?: string
     // rap项目id
-    repositoryId?: number;
-  };
+    repositoryId?: number
+  }
   upload: {
     //  模式 type 文件扫描入口是type（需要编译生成fetch)
     //  fetch 文件扫描入口是fetch请求函数（不需要编译）
-    mode?: 'type' | 'fetch';
+    mode?: 'type' | 'fetch'
     // 需要解析的文件名称正则
-    fileRegex?: string;
+    fileRegex?: string
     /**
      *
      * @param params  函数信息
@@ -224,34 +238,34 @@ interface IConfig {
      * interfaceId: 接口id;
      */
     formatFunc?: (params: {
-      funcName: string;
-      body: string;
-      comment: string;
+      funcName: string
+      body: string
+      comment: string
       // 三种函数 定义 会被选中到导出
-      funcType: 'CallExpression' | 'FunctionDeclaration' | 'ArrowFunction';
+      funcType: 'CallExpression' | 'FunctionDeclaration' | 'ArrowFunction'
     }) => {
-      resTypeName: string;
-      reqTypeName: string;
-      reqUrl: string;
-      reqMethod: string;
-      interfaceId: number;
-    } | null;
+      resTypeName: string
+      reqTypeName: string
+      reqUrl: string
+      reqMethod: string
+      interfaceId: number
+    } | null
     // 指定下载的 模块id
-    moduleId?: number;
+    moduleId?: number
     // webpack 别名
-    alias?: Record<string, string>;
-  };
+    alias?: Record<string, string>
+  }
   // 内部标识使用 不用管
-  __completion?: boolean;
+  __completion?: boolean
   // 是不是上传
-  isUpload: boolean;
+  isUpload: boolean
 }
 
-export type IOptions = Partial<IConfig>;
+export type IOptions = Partial<IConfig>
 
 export default function defineConfig(options: IOptions, completion = true) {
   if (completion && options.__completion) {
-    return options;
+    return options
   }
-  return completionOptions(options);
+  return completionOptions(options)
 }

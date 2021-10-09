@@ -1,15 +1,15 @@
-import { JSONSchema4 } from 'json-schema';
-import { compile, DEFAULT_OPTIONS, Options } from 'json-schema-to-typescript';
-import { Interface } from '../types';
-import * as JSON5 from 'json5';
-import * as _ from 'lodash';
+import type Rapper from '../../types/index.d'
+import { JSONSchema4 } from 'json-schema'
+import { compile, DEFAULT_OPTIONS, Options } from 'json-schema-to-typescript'
+import * as JSON5 from 'json5'
+import { chain } from 'lodash'
 
 function inferArraySchema(
-  p: Interface.IProperty,
+  p: Rapper.IProperty,
   childProperties: JSONSchema4,
   common: Record<string, any>,
 ) {
-  const rule = (p.rule && p.rule.trim()) || '';
+  const rule = (p.rule && p.rule.trim()) || ''
   // console.log(p)
   if (Object.keys(childProperties).length !== 0) {
     // 如果有子孙那么肯定是 object
@@ -21,32 +21,32 @@ function inferArraySchema(
           type: 'object',
           properties: childProperties,
           // 把 child 的 required 挪到 items 下面
-          required: common.required,
+          required: common['required'],
           additionalProperties: false,
         },
         ...common,
         required: [],
       },
-    ];
+    ]
   } else if (['+1', '1'].includes(rule) && p.value) {
     // 当 rule 为 +1 时 mockjs 从属性值 array 中顺序选取 1 个元素，作为最终值。
     // 当 rule 为 1 时 mockjs 从属性值 array 中随机选取 1 个元素，作为最终值。
     // 这时候这个属性的类型并非 array，而是 array 子元素的类型
     // 子元素的类型可以从 value 中推断出来
     try {
-      const arr: any[] | any = JSON5.parse(p.value);
+      const arr: any[] | any = JSON5.parse(p.value)
       if (Array.isArray(arr) && arr.length) {
-        const type = _.chain(arr)
-          .map(e => typeof e)
+        const type = chain(arr)
+          .map((e) => typeof e)
           .uniq()
-          .value();
+          .value()
         return [
           p.name,
           {
             type,
             ...common,
           },
-        ];
+        ]
       } else {
         // 解析失败，返回 any
         return [
@@ -55,7 +55,7 @@ function inferArraySchema(
             type: ['string', 'number', 'boolean', 'object'],
             ...common,
           },
-        ];
+        ]
       }
     } catch (error) {
       // 解析失败，返回 any
@@ -65,14 +65,14 @@ function inferArraySchema(
           type: ['string', 'number', 'boolean', 'object'],
           ...common,
         },
-      ];
+      ]
     }
   } else if (rule === '' && p.value) {
     // 当有无子孙、有值、且无生成规则时，默认做 hack 满足 rap2 无法表示 array<primitive> 的问题，
     // primitive 的具体类型通过 value 推断
 
     try {
-      const v: any[] | any = JSON5.parse(p.value);
+      const v: any[] | any = JSON5.parse(p.value)
 
       if (Array.isArray(v)) {
         // 如果是空数组返回 any[]
@@ -83,13 +83,13 @@ function inferArraySchema(
               type: 'array',
               ...common,
             },
-          ];
+          ]
         }
         // 如果是数组使用数组元素类型
-        const type = _.chain(v)
-          .map(e => typeof e)
+        const type = chain(v)
+          .map((e) => typeof e)
           .uniq()
-          .value();
+          .value()
         return [
           p.name,
           {
@@ -99,10 +99,10 @@ function inferArraySchema(
             },
             ...common,
           },
-        ];
+        ]
       } else {
         // 如果不是数组直接使用 value 类型
-        const type = typeof v;
+        const type = typeof v
         return [
           p.name,
           {
@@ -112,7 +112,7 @@ function inferArraySchema(
             },
             ...common,
           },
-        ];
+        ]
       }
     } catch (error) {
       // 解析失败 返回 any[]
@@ -122,7 +122,7 @@ function inferArraySchema(
           type: 'array',
           ...common,
         },
-      ];
+      ]
     }
   } else {
     // 无生成规则也无值，生成 any[]
@@ -132,29 +132,29 @@ function inferArraySchema(
         type: 'array',
         ...common,
       },
-    ];
+    ]
   }
 }
 
-type Scope = 'request' | 'response';
+type Scope = 'request' | 'response'
 
-const removeComment = (str: string) => str.replace(/\/\*|\*\//g, '');
+const removeComment = (str: string) => str.replace(/\/\*|\*\//g, '')
 
-function getRestfulPlaceHolders(itf: Interface.IRoot) {
-  const urlSplit = itf.url.split('/');
-  const restfulPlaceHolders: string[] = [];
+function getRestfulPlaceHolders(itf: Rapper.IRoot) {
+  const urlSplit = itf.url.split('/')
+  const restfulPlaceHolders: (string | undefined)[] = []
   for (let i = 0; i < urlSplit.length; ++i) {
-    const part = urlSplit[i];
-    const matchKeys = part.match(/(?:\{(.*)\}|\:(.*))/);
-    if (!matchKeys) continue;
-    const key = matchKeys[1] || matchKeys[2];
-    restfulPlaceHolders.push(key);
+    const part = urlSplit[i]
+    const matchKeys = part!.match(/(?:\{(.*)\}|\:(.*))/)
+    if (!matchKeys) continue
+    const key = matchKeys[1] || matchKeys[2]
+    restfulPlaceHolders.push(key)
   }
-  return restfulPlaceHolders;
+  return restfulPlaceHolders
 }
 
-function interfaceToJSONSchema(itf: Interface.IRoot, scope: Scope): JSONSchema4 {
-  let properties = itf.properties.filter(p => p.scope === scope);
+function interfaceToJSONSchema(itf: Rapper.IRoot, scope: Scope): JSONSchema4 {
+  let properties = itf.properties.filter((p) => p.scope === scope)
   //  console.log(properties, 'json')
   properties = [
     ...properties,
@@ -165,10 +165,10 @@ function interfaceToJSONSchema(itf: Interface.IRoot, scope: Scope): JSONSchema4 
       scope,
       type: 'object',
     } as any,
-  ];
+  ]
 
   if (scope === 'request') {
-    const placeHolders = getRestfulPlaceHolders(itf);
+    const placeHolders = getRestfulPlaceHolders(itf)
     properties = [
       ...properties,
       ...placeHolders.map((name, index) => ({
@@ -178,41 +178,48 @@ function interfaceToJSONSchema(itf: Interface.IRoot, scope: Scope): JSONSchema4 
         scope,
         type: 'string',
       })),
-    ] as any;
+    ] as any
   }
 
-  function findChildProperties(parentId: number) {
-    return _.chain(properties)
-      .filter(p => p.parentId === parentId)
-      .map(p => {
-        const type = p.type.toLowerCase().replace(/regexp|function/, 'string');
-        const childProperties = findChildProperties(p.id);
-        const childItfs = properties.filter(x => x.parentId === p.id);
+  function findChildProperties(parentId: number): any {
+    return chain(properties)
+      .filter((p) => p.parentId === parentId)
+      .map((p) => {
+        const type = p.type.toLowerCase().replace(/regexp|function/, 'string')
+        const childProperties = findChildProperties(p.id)
+        const childItfs = properties.filter((x) => x.parentId === p.id)
         const common: {
-          description?: string;
-          required: string[];
-          additionalProperties: boolean;
-          enum?: string[];
+          description?: string
+          required: string[]
+          additionalProperties: boolean
+          enum?: string[]
         } = {
           // 这里默认所有的属性都有值
           additionalProperties: false,
           // request 的时候按照实际标注，response 全部默认存在
           required:
             scope === 'request'
-              ? childItfs.filter(e => e.required).map(e => e.name)
-              : childItfs.map(e => e.name),
-        };
+              ? childItfs.filter((e) => e.required).map((e) => e.name)
+              : childItfs.map((e) => e.name),
+        }
 
-        common.description = '';
-        if (p?.description !== undefined && p.description !== '' && p.description !== null) {
-          common.description = `${removeComment(p.description)}`;
+        common.description = ''
+        if (
+          p?.description !== undefined &&
+          p.description !== '' &&
+          p.description !== null
+        ) {
+          common.description = `${removeComment(p.description)}`
         }
         // console.log(typeof p?.rule, p?.rule)
         if (p?.rule !== undefined && p.rule !== '' && p.rule !== null) {
-          common.description += `\n@rule ${removeComment(p.rule)}`;
+          common.description += `\n@rule ${removeComment(p.rule)}`
         }
         if (p?.value !== undefined && p.value !== '' && p.value !== null) {
-          common.description += `\n@value ${removeComment(p.value).replace(/^@/, '/@')}`;
+          common.description += `\n@value ${removeComment(p.value).replace(
+            /^@/,
+            '/@',
+          )}`
         }
 
         /**
@@ -221,16 +228,16 @@ function interfaceToJSONSchema(itf: Interface.IRoot, scope: Scope): JSONSchema4 
          * issue地址：https://github.com/thx/rapper/issues/9
          */
         if (['string', 'number'].includes(type) && p.value) {
-          let enumArr: string[] = [];
-          const regResult = /^@pick\(([\s\S]+)\)$/.exec(p.value);
+          let enumArr: string[] = []
+          const regResult = /^@pick\(([\s\S]+)\)$/.exec(p.value)
           try {
             if (regResult) {
-              const result = regResult[1];
-              enumArr = eval(result);
+              const result = regResult[1]
+              enumArr = result && eval(result)
             }
           } catch (err) {}
           if (Array.isArray(enumArr) && enumArr.length) {
-            common.enum = enumArr;
+            common.enum = enumArr
           }
         }
 
@@ -241,7 +248,7 @@ function interfaceToJSONSchema(itf: Interface.IRoot, scope: Scope): JSONSchema4 
               type,
               ...common,
             },
-          ];
+          ]
         } else if (type === 'object') {
           return [
             p.name,
@@ -250,9 +257,9 @@ function interfaceToJSONSchema(itf: Interface.IRoot, scope: Scope): JSONSchema4 
               properties: childProperties,
               ...common,
             },
-          ];
+          ]
         } else if (type === 'array') {
-          return inferArraySchema(p, childProperties, common);
+          return inferArraySchema(p, childProperties, common)
         } else {
           // 解析失败，返回 any
           return [
@@ -261,7 +268,7 @@ function interfaceToJSONSchema(itf: Interface.IRoot, scope: Scope): JSONSchema4 
               type: ['string', 'number', 'boolean', 'object'],
               ...common,
             },
-          ];
+          ]
           // throw `type: ${type}
           // parentID: ${parentId}
           // itf.url: ${itf.url}
@@ -269,37 +276,37 @@ function interfaceToJSONSchema(itf: Interface.IRoot, scope: Scope): JSONSchema4 
         }
       })
       .fromPairs()
-      .value();
+      .value()
   }
 
-  const propertyChildren = findChildProperties(-2);
-  const root = propertyChildren['dummyroot'];
+  const propertyChildren = findChildProperties(-2)
+  const root = propertyChildren['dummyroot']
 
   // 只有一个 key 为 _root_ 或者 __root__ 的数组时，代表想表达根节点是个数组
   if (
     Object.keys(root.properties).length === 1 &&
     (root.properties._root_ || root.properties.__root__)
   ) {
-    const _root_ = root.properties._root_ || root.properties.__root__;
+    const _root_ = root.properties._root_ || root.properties.__root__
     if (_root_.type === 'array') {
-      return _root_;
+      return _root_
     }
   }
 
-  return root;
+  return root
 }
 
-export default function convert(itf: Interface.IRoot): Promise<string[]> {
-  const reqJSONSchema = interfaceToJSONSchema(itf, 'request');
-  const resJSONSchema = interfaceToJSONSchema(itf, 'response');
+export default function convert(itf: Rapper.IRoot): Promise<string[]> {
+  const reqJSONSchema = interfaceToJSONSchema(itf, 'request')
+  const resJSONSchema = interfaceToJSONSchema(itf, 'response')
   // console.log(resJSONSchema.properties, 'resJSONSchema')
 
   const options: Options = {
     ...DEFAULT_OPTIONS,
     bannerComment: '',
-  };
+  }
   return Promise.all([
     compile(reqJSONSchema, 'Req', options),
     compile(resJSONSchema, 'Res', options),
-  ]);
+  ])
 }

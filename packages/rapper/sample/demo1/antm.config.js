@@ -1,4 +1,5 @@
-const { defineConfig } = require('./../../dist/index');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { defineConfig } = require('./../../dist/index')
 
 module.exports = {
   rapper: defineConfig({
@@ -12,22 +13,26 @@ module.exports = {
       //请求 function 模板
       requestFunc(params) {
         function getFnName(url) {
-          const fnName = url.match(/\/([.a-z0-9_-]+)\/([a-z0-9_-]+$)/i);
+          const fnName = url.match(/\/([.a-z0-9_-]+)\/([a-z0-9_-]+$)/i)
           if (fnName && fnName.length === 3) {
             if (/^\d+\.\d+$/.test(fnName[1])) {
-              return fnName[2];
+              return fnName[2]
             }
-            return fnName[1] + fnName[2].charAt(0).toUpperCase() + fnName[2].slice(1);
+            return (
+              fnName[1] + fnName[2].charAt(0).toUpperCase() + fnName[2].slice(1)
+            )
           }
-          return null;
+          return null
         }
-        const fnName = getFnName(params.requestUrl);
+        const fnName = getFnName(params.requestUrl)
         if (!fnName) {
-          throw new TypeError('接口路径不对,请修改合规');
+          throw new TypeError('接口路径不对,请修改合规')
         }
-        const camelCaseName = `${fnName.charAt(0).toUpperCase()}${fnName.slice(1)}`;
-        const reqTypeName = `IReq${camelCaseName}`;
-        const resTypeName = `IRes${camelCaseName}`;
+        const camelCaseName = `${fnName.charAt(0).toUpperCase()}${fnName.slice(
+          1,
+        )}`
+        const reqTypeName = `IReq${camelCaseName}`
+        const resTypeName = `IRes${camelCaseName}`
         return {
           reqTypeName,
           resTypeName,
@@ -38,7 +43,7 @@ module.exports = {
                 */
                export const ${fnName} = createFetch<${reqTypeName}, ${resTypeName}>('${params.requestUrl}', '${params.requestMethod}')
                `,
-        };
+        }
       },
       //请求 函数共工头（用于引入函数
       requestModule(params) {
@@ -70,7 +75,7 @@ module.exports = {
    }
   }
   `,
-        };
+        }
       },
     },
 
@@ -78,14 +83,17 @@ module.exports = {
       mode: 'fetch',
       fileRegex: './src/actions/.*(js|jsx|ts|tsx)',
       formatFunc(params) {
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [_, reqTypeName, resTypeName, reqUrl, reqMethod] =
           params.body.match(
             /createFetch<([\w\[\]'"]+),\s+([\w\[\]'"]+)>\(['"]([\s\S]+)['"], ['"]([a-zA-Z]+)['"]\)/,
-          ) || [];
+          ) || []
         if (!reqTypeName || !resTypeName) {
-          return null;
+          return null
         }
-        const matchInterfaceId = params.comment.match(/http:\/\/rap2\.tao[\s\S]+&itf=(\d+)/);
+        const matchInterfaceId = params.comment.match(
+          /http:\/\/rap2\.tao[\s\S]+&itf=(\d+)/,
+        )
         return {
           resTypeName,
           reqTypeName,
@@ -93,8 +101,8 @@ module.exports = {
           interfaceId: matchInterfaceId ? Number(matchInterfaceId[1]) : null,
           reqUrl: reqUrl,
           reqMethod: reqMethod,
-        };
+        }
       },
     },
   }),
-};
+}
