@@ -26,7 +26,7 @@ let IDX = 1
 function generateRapJson(
   definitions: {
     [key: string]: any
-  },
+  } = {},
   currentDefinitions: any,
   scope: 'request' | 'response',
   parentId: number | string,
@@ -37,7 +37,8 @@ function generateRapJson(
   const ref =
     currentDefinitions['$ref'] || currentDefinitions?.['items']?.['$ref']
   const obj = ref ? getGeneric(definitions, ref) : currentDefinitions
-  const isObject = obj?.type === 'object'
+  const isAny = Object.keys(obj).length === 0
+  const isObject = obj?.type === 'object' || isAny
   const properties = isObject ? obj.properties : obj.items.properties
   const required = (isObject ? obj.required : obj.items.required) || []
 
@@ -50,8 +51,11 @@ function generateRapJson(
     }
     // 第一层肯定是一个obk
     const id = `$memory-${IDX}`
-    const type = element.enum ? typeof element.enum[0] : element.type
-
+    let type = element.enum ? typeof element.enum[0] : element.type
+    if (Array.isArray(type)) {
+      console.log('\nUnion Types:', type, '注意： 自动取第一个')
+      type = type[0]
+    }
     const ifItem = {
       scope,
       name: key,
@@ -84,7 +88,7 @@ function getProperties(
 ) {
   const _namePath = Array.isArray(namePath) ? namePath : [namePath]
   return _namePath.reduce((curr: any = {}, next) => {
-    const result = curr.properties[next]
+    const result = curr!.properties![next]
     return result
   }, data)
 }
@@ -100,26 +104,23 @@ export function generateUploadRapJson(
   const rootProperties = { properties: schema.definitions }
   const reqProperties = getProperties(rootProperties, requestTypeName)
   const resProperties = getProperties(rootProperties, responseTypeName)
-  // console.log(resProperties, '===\n===', reqProperties);
-  // console.log(reqProperties, 'requestTypeName:', requestTypeName);
-  // console.log(resProperties, 'responseTypeName:', responseTypeName);
   if (!resProperties || !reqProperties) {
     throw new Error(
       `[${requestTypeName}] 或 [${responseTypeName}]出现了一个错误，类型未找到`,
     )
   }
 
-  // fs.writeFileSync(`./${interfaceId}.json`, JSON.stringify(schema, null, 4));
+  // require('fs').writeFileSync(`./${interfaceId}.json`, JSON.stringify(schema, null, 4));
 
   return generateRapJson(
-    schema.definitions!,
+    schema?.definitions,
     reqProperties,
     'request',
     parentId,
     interfaceId,
   ).concat(
     generateRapJson(
-      schema.definitions!,
+      schema?.definitions,
       resProperties,
       'response',
       parentId,

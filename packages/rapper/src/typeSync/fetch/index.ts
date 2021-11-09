@@ -1,8 +1,7 @@
 import { URL } from 'url'
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import fetch from 'node-fetch'
-// 更新接口
+import fetch from 'node-fetch' // 更新接口
 export function updateInterface(
   params: { properties: any; id: number },
   funcName: string,
@@ -20,18 +19,24 @@ export function updateInterface(
     }),
     method: 'POST',
   })
-    .then((e: any) => {
-      if (e.status !== 200) {
-        if (e.status === 500) {
-          throw new Error(
-            `接口更新失败，请检查：${funcName}(${params.id})对应的远程接口是不是删除了`,
-          )
+    .then(
+      (e: {
+        status: number
+        statusText: string | undefined
+        json: () => any
+      }) => {
+        if (e.status !== 200) {
+          if (e.status === 500) {
+            throw new Error(
+              `接口更新失败，请检查：${funcName}(${params.id})对应的远程接口是不是删除了`,
+            )
+          }
+          throw new Error(e.statusText)
         }
-        throw new Error(e.statusText)
-      }
-      return e.json()
-    })
-    .then((e: any) => {
+        return e.json()
+      },
+    )
+    .then((e: { isOk: any; data: any; errMsg: any }) => {
       if (e.isOk || e.data) {
         return e.data
       } else {
@@ -65,13 +70,19 @@ export async function createInterface(
     body: JSON.stringify(params),
     method: 'POST',
   })
-    .then((e: any) => {
-      if (e.status !== 200) {
-        throw new Error(e.statusText)
-      }
-      return e.json()
-    })
-    .then((e: any) => {
+    .then(
+      (e: {
+        status: number
+        statusText: string | undefined
+        json: () => any
+      }) => {
+        if (e.status !== 200) {
+          throw new Error(e.statusText)
+        }
+        return e.json()
+      },
+    )
+    .then((e: { isOk: any; data: any; errMsg: any }) => {
       if (e.isOk || e.data) {
         return e.data
       } else {
@@ -96,20 +107,26 @@ export function deleteInterface(
     },
     method: 'GET',
   })
-    .then((e: any) => {
-      if (e.status !== 200) {
-        throw new Error(e.statusText)
-      }
-      return e.json()
-    })
-    .then((e: any) => {
+    .then(
+      (e: {
+        status: number
+        statusText: string | undefined
+        json: () => any
+      }) => {
+        if (e.status !== 200) {
+          throw new Error(e.statusText)
+        }
+        return e.json()
+      },
+    )
+    .then((e: { isOk: any; data: any; errMsg: string | undefined }) => {
       if (e.isOk || e.data) {
       } else {
         throw new Error(e.errMsg)
       }
     })
 
-    .catch((err: any) => {
+    .catch((err: string | undefined) => {
       throw new Error(err)
     })
 }
@@ -120,20 +137,26 @@ export function deleteModule(
   apiUrl: string,
   cookie: string,
 ) {
-  fetch(`${new URL(apiUrl).origin}/module/remove?id=${id}`, {
+  return fetch(`${new URL(apiUrl).origin}/module/remove?id=${id}`, {
     headers: {
       'content-type': 'application/json',
       cookie,
     },
     method: 'GET',
   })
-    .then((e: any) => {
-      if (e.status !== 200) {
-        throw new Error(e.statusText)
-      }
-      return e.json()
-    })
-    .then((e: any) => {
+    .then(
+      (e: {
+        status: number
+        statusText: string | undefined
+        json: () => any
+      }) => {
+        if (e.status !== 200) {
+          throw new Error(e.statusText)
+        }
+        return e.json()
+      },
+    )
+    .then((e: { isOk: any; data: any; errMsg: string | undefined }) => {
       if (e.isOk || e.data) {
       } else {
         throw new Error(e.errMsg)
@@ -141,7 +164,8 @@ export function deleteModule(
     })
 
     .catch((err: any) => {
-      throw new Error(err)
+      // console.log(err, '接口报错')
+      throw err
     })
 }
 
@@ -152,8 +176,8 @@ export async function createModule(
     name: string
     repositoryId: number
   },
-  apiUrl: any,
-  cookie: any,
+  apiUrl: string,
+  cookie: string,
 ): Promise<any> {
   const data = await fetch(`${new URL(apiUrl).origin}/module/create`, {
     headers: {
@@ -163,13 +187,19 @@ export async function createModule(
     body: JSON.stringify(params),
     method: 'POST',
   })
-    .then((e: any) => {
-      if (e.status !== 200) {
-        throw new Error(e.statusText)
-      }
-      return e.json()
-    })
-    .then((e: any) => {
+    .then(
+      (e: {
+        status: number
+        statusText: string | undefined
+        json: () => any
+      }) => {
+        if (e.status !== 200) {
+          throw new Error(e.statusText)
+        }
+        return e.json()
+      },
+    )
+    .then((e: { isOk: any; data: any; errMsg: any }) => {
       if (e.isOk || e.data) {
         return e.data
       } else {
@@ -177,7 +207,7 @@ export async function createModule(
       }
     })
 
-    .catch((err: any) => {
+    .catch((err: string | undefined) => {
       throw new Error(err)
     })
   return data

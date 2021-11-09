@@ -2,6 +2,8 @@
   "private": true,
   "scripts": {
     "ts-rap": "ts-node ./../../src/models.ts",
-    "rap": "node ./../../dist/models.js"
+    "rap": "node ./../../dist/models.js",
+    "del": "node ./../../dist/models.js --del ./src/actions/types/testTypeDemo.ts",
+    "dc": "node ./../../dist/models.js --dc ./src/actions/types/testTypeDemo.ts"
   }
 }

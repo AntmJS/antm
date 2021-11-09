@@ -1,4 +1,5 @@
 import * as path from 'path'
+import * as fs from 'fs'
 import * as ora from 'ora'
 import chalk from 'chalk'
 import { IOptions } from './mergeOptions'
@@ -11,8 +12,13 @@ import {
   getContentMd5,
   getRapModuleId,
 } from './../utils'
-import { updateInterface, createInterface, createModule } from './fetch'
-
+import {
+  updateInterface,
+  createInterface,
+  createModule,
+  deleteModule,
+} from './fetch'
+const spinner = ora.default()
 function typeFileIsChange(content: string): boolean {
   const { oldMd5, newMd5 } = getContentMd5(content)
   if (oldMd5 && oldMd5 === newMd5) {
@@ -61,7 +67,7 @@ async function getFileInterface(
   const definitions = schema.definitions
   const fileName = path.basename(filePath).replace(/\.[a-z0-9]+$/, '')
   const interfaceContainer = []
-  let moduleId = getRapModuleId(content)
+  let moduleId = getRapModuleId(content, false)
   let newContent: any
   let moduleHeader = config.download!.requestModule!({
     repositoryId: config.rapper!.repositoryId!,
@@ -70,7 +76,7 @@ async function getFileInterface(
     moduleDescription: fileName,
   }).moduleHeader
   moduleHeader = moduleId
-    ? `/* Rap仓库ModuleId: ${moduleId} */ \n${moduleHeader}`
+    ? `/* Rap仓库ModuleId: ${moduleId} */\n${moduleHeader}`
     : moduleHeader
   const fetchContentPath = path.resolve(
     config.rapper!.rapperPath!,
@@ -97,11 +103,11 @@ async function getFileInterface(
               name: fileName,
               repositoryId: config.rapper!.repositoryId!,
             },
-            config.rapper!.apiUrl,
-            config.rapper!.tokenCookie,
+            config.rapper!.apiUrl as string,
+            config.rapper!.tokenCookie as string,
           )
           //  修改 content
-          const moduleIdStr = `/* Rap仓库ModuleId: ${modId} */ \n`
+          const moduleIdStr = `/* Rap仓库ModuleId: ${modId} */\n`
           moduleHeader = moduleIdStr + moduleHeader
           newContent = moduleIdStr + (newContent || content)
           moduleId = modId
@@ -130,10 +136,10 @@ async function getFileInterface(
             reg,
             (_: any, group: any) => {
               return group.replace(
-                /((\s+)\*\/$)/,
-                `$2* @rapUrl  ${config!.rapper!.rapUrl}/repository/editor?id=${
+                /(\s+)\*\/$/,
+                `$1* @rapUrl ${config!.rapper!.rapUrl}/repository/editor?id=${
                   config.rapper!.repositoryId
-                }&mod=${moduleId}&itf=${interfaceId}$1\n`,
+                }&mod=${moduleId}&itf=${interfaceId}$1*/\n`,
               )
             },
           )
@@ -152,9 +158,9 @@ export const ${item.charAt(0).toLowerCase()}${item.slice(1)}${fileName
           .charAt(0)
           .toUpperCase()}${fileName.slice(
           1,
-        )} = createFetch<${item}['request'], ${item}['response']>("${
+        )} = createFetch<${item}['request'], ${item}['response']>('${
           el.url
-        }", "${el.method}");\n`
+        }', '${el.method}');\n`
 
         interfaceContainer.push({
           id: interfaceId,
@@ -194,10 +200,9 @@ export const ${item.charAt(0).toLowerCase()}${item.slice(1)}${fileName
     writeFile(
       fetchContentPath,
       `${moduleHeader}
-import type { ${importTypeNames.join(', ')} } from "@${filePath.replace(
-        /(^[\s\S]+src)/,
-        '',
-      )}";
+import type { ${importTypeNames.join(', ')} } from '@${filePath
+        .replace(/(^[\s\S]+src)/, '')
+        .replace(/\.(js|ts)x?$/, '')}';
   ${fetchContent}`,
     ),
   ]
@@ -208,7 +213,6 @@ import type { ${importTypeNames.join(', ')} } from "@${filePath.replace(
   return interfaceContainer.length
 }
 export default async function typeUpload(config: IOptions) {
-  const spinner = ora.default()
   // const spinner = ora(chalk.grey('开始扫描本地文件'));
   spinner.start()
   spinner.info(chalk.grey(`当前mode:${config.upload!.mode}`))
@@ -235,5 +239,45 @@ export default async function typeUpload(config: IOptions) {
     spinner.succeed(chalk.grey('提交成功'))
   } catch (error) {
     spinner.fail(chalk.red(`同步失败！${error}`))
+  }
+}
+
+export async function deleteTag(
+  pathName: string,
+  config: IOptions,
+  isTypeUpload: boolean,
+) {
+  try {
+    const isExists = fs.existsSync(pathName)
+    if (!isExists) return
+
+    let content = fs.readFileSync(pathName, 'utf-8')
+    // 删除模块开始
+    const { content: newContent, modId } = getRapModuleId(content, true)
+    content = newContent
+
+    if (modId) {
+      try {
+        await deleteModule(
+          { id: modId },
+          config?.rapper?.apiUrl as string,
+          config?.rapper?.tokenCookie as string,
+        )
+      } catch (error) {
+        spinner.fail(chalk.red(`${modId}, 模块不存在`))
+        spinner.fail(chalk.red(error as any))
+      }
+    }
+    await writeFile(pathName, content)
+    const fileName = pathName.replace(/^[\s\S]+\/(?=[\w-]+\.(ts|js)x?$)/, '')
+    spinner.succeed(chalk.gray(`开始删除...`))
+    spinner.succeed(chalk.gray(`文件：${fileName}`))
+    spinner.succeed(chalk.green(`删除成功`))
+
+    if (isTypeUpload) {
+      typeUpload(config)
+    }
+  } catch (error) {
+    spinner.fail(chalk.red(`删除失败！${error}`))
   }
 }

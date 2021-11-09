@@ -5,7 +5,13 @@ import { existsSync } from 'fs'
 import chalk from 'chalk'
 import program from 'commander'
 import { searchRootPath } from './utils'
-import { rapper, defineConfig, uploadType, typeUpload } from './index'
+import {
+  rapper,
+  defineConfig,
+  uploadType,
+  typeUpload,
+  deleteTag,
+} from './index'
 ;(() => {
   program
     .option('--apiUrl <apiUrl>', '设置Rap平台后端地址')
@@ -16,6 +22,8 @@ import { rapper, defineConfig, uploadType, typeUpload } from './index'
     .option('--u, --upload []', '上传类型')
     .option('--d, --download []', '下载类型')
     .option('--t, --token <tokenCookie>', '授权cookie')
+    .option('--del, --delete <deleteRapUrl>', '删除接口创建标识')
+    .option('--dc, --deleteCreate <createAfterDelete>', '删除之后创建')
 
   program.parse(process.argv)
 
@@ -75,6 +83,16 @@ import { rapper, defineConfig, uploadType, typeUpload } from './index'
   }
 
   const result = defineConfig(config)
+  // 删除之后在创建
+  if (program['deleteCreate']) {
+    deleteTag(resolve(process.cwd(), program['deleteCreate']), result, true)
+    return
+  }
+  // 单纯删除
+  if (program['delete']) {
+    deleteTag(resolve(process.cwd(), program['delete']), result, false)
+    return
+  }
 
   if (!result.isUpload) {
     rapper(result)
