@@ -126,18 +126,37 @@ export function getOldProjectId(rappperPath: string): string | undefined {
   }
 }
 
-export function getRapModuleId(content: string) {
-  try {
-    const projectIdStr = content.split('\n')
-    const matchArr =
-      projectIdStr
-        .slice(0, 5)
-        .join()
-        .match(/\/\*\sRap仓库ModuleId:\s(\S*)\s\*\//) ?? []
-    return Number(matchArr[1])
-  } catch (err) {
-    return undefined
+export function getRapModuleId<T extends boolean = false>(
+  content: string,
+  isDel: T,
+): T extends false
+  ? number | undefined
+  : {
+      content: string
+      modId: number
+    } {
+  const modReg = /\/\*\s+Rap仓库ModuleId:\s(\S*)\s\*\/\n/
+  let fiveElements = ''
+  const newContent = content.replace(/^(([^\n]+)?\n){5}/, (e) => {
+    fiveElements = e
+    return ''
+  })
+
+  const matchArr = fiveElements.match(modReg) ?? []
+  // console.log('fiveElements', fiveElements)
+  if (isDel) {
+    fiveElements = fiveElements
+      .replace(modReg, '')
+      .replace(/\/\*\s+md5:\s+\w+\s+\*\/\n/g, '')
+    return {
+      content: (fiveElements + newContent).replace(
+        /\*?(\s+)?@rapUrl\s+\S+\n/g,
+        '',
+      ),
+      modId: Number(matchArr[1]),
+    } as any
   }
+  return Number(matchArr[1]) as any
 }
 
 /** 模板文件覆盖确认 */

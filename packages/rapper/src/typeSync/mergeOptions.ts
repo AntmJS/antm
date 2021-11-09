@@ -4,20 +4,26 @@ function completionOptions(options: IOptions = { download: {}, upload: {} }) {
   const defaultOptions = {
     download: {
       //请求 function 模板
-      requestFunc(params: any) {
-        function getFnName(url: string): undefined | string {
-          const fnName = url.match(/\/([.a-z0-9_-]+)\/([a-z0-9_-]+$)/i)
+      requestFunc(params: {
+        funcDescription: string
+        repositoryId: number
+        moduleId: number
+        interfaceId: number
+        requestUrl: string
+        requestMethod: string
+        rapUrl: string
+      }) {
+        function getFnName(url: string): null | string {
+          const fnName = url.match(/\/([.a-z0-9_-]+)\/([a-z0-9_-]+$)/i) as any[]
           if (fnName && fnName.length === 3) {
-            if (/^\d+\.\d+$/.test(fnName[1]!)) {
+            if (/^\d+\.\d+$/.test(fnName[1])) {
               return fnName[2]
             }
             return (
-              fnName[1] +
-              fnName[2]!.charAt(0).toUpperCase() +
-              fnName[2]!.slice(1)
+              fnName[1] + fnName[2].charAt(0).toUpperCase() + fnName[2].slice(1)
             )
           }
-          return undefined
+          return null
         }
         const fnName = getFnName(params.requestUrl)
         if (!fnName) {
@@ -41,7 +47,12 @@ function completionOptions(options: IOptions = { download: {}, upload: {} }) {
         }
       },
       //请求 函数共工头（用于引入函数
-      requestModule(params: any) {
+      requestModule(params: {
+        repositoryId: number
+        moduleId: number
+        moduleRapUrl: string
+        moduleDescription: string
+      }) {
         return {
           fileName: params.moduleDescription,
           moduleHeader: `
@@ -91,10 +102,15 @@ function createFetch<REQ extends Record<string, unknown>, RES extends {data: any
       // (/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$
       fileRegex: './src/actions/types/.*(js|jsx|ts|tsx)',
 
-      formatFunc(params: any) {
+      formatFunc(params: {
+        funcName: string
+        body: string
+        comment: string
+        // 三种函数 定义 会被选中到导出
+        funcType: 'CallExpression' | 'FunctionDeclaration' | 'ArrowFunction'
+      }) {
         // createFetch<IReqGoodsQbf, IResGoodsQbf>('/c/api/1.0/approve/goods/qbf', 'GET')
         // export const goodsQbf = createFetch<IGoodsQbf['request'], IGoodsQbf['response']>("/c/api/1.0/approve/goods/qbf", "GET");
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const [_, reqTypeName, resTypeName, reqUrl, reqMethod] =
           params.body.match(
             /createFetch<([\w\[\]'"]+),\s+([\w\[\]'"]+)>\(['"]([\s\S]+)['"], ['"]([a-zA-Z]+)['"]\)/,
@@ -157,7 +173,6 @@ function createFetch<REQ extends Record<string, unknown>, RES extends {data: any
 
   const alias = _options.upload.alias
   for (const v in alias) {
-    //path.resolve(rootPath, alias[v])
     _options.upload.alias[v] = path.resolve(rootPath, alias[v])
   }
 
@@ -222,6 +237,7 @@ interface IConfig {
     repositoryId?: number
   }
   upload: {
+    // moduleUpdate: 'create' | 'update'
     //  模式 type 文件扫描入口是type（需要编译生成fetch)
     //  fetch 文件扫描入口是fetch请求函数（不需要编译）
     mode?: 'type' | 'fetch'
