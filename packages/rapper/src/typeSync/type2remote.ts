@@ -76,7 +76,7 @@ async function getFileInterface(
     moduleDescription: fileName,
   }).moduleHeader
   moduleHeader = moduleId
-    ? `/* Rap仓库ModuleId: ${moduleId} */ \n${moduleHeader}`
+    ? `/* Rap仓库ModuleId: ${moduleId} */\n${moduleHeader}`
     : moduleHeader
   const fetchContentPath = path.resolve(
     config.rapper!.rapperPath!,
@@ -107,7 +107,7 @@ async function getFileInterface(
             config.rapper!.tokenCookie as string,
           )
           //  修改 content
-          const moduleIdStr = `/* Rap仓库ModuleId: ${modId} */ \n`
+          const moduleIdStr = `/* Rap仓库ModuleId: ${modId} */\n`
           moduleHeader = moduleIdStr + moduleHeader
           newContent = moduleIdStr + (newContent || content)
           moduleId = modId
@@ -136,10 +136,10 @@ async function getFileInterface(
             reg,
             (_: any, group: any) => {
               return group.replace(
-                /((\s+)\*\/$)/,
-                `$2* @rapUrl  ${config!.rapper!.rapUrl}/repository/editor?id=${
+                /((\s+)\s\*\/$)/,
+                `$1* @rapUrl  ${config!.rapper!.rapUrl}/repository/editor?id=${
                   config.rapper!.repositoryId
-                }&mod=${moduleId}&itf=${interfaceId}$1\n`,
+                }&mod=${moduleId}&itf=${interfaceId}$1*/\n`,
               )
             },
           )

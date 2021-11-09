@@ -94,7 +94,7 @@ export function requestFileParse(
     filePath,
     fileName: path.basename(filePath).replace(/\.[a-z]+$/, ''),
     content,
-    moduleId: getRapModuleId(content)!,
+    moduleId: getRapModuleId(content, false)!,
   }
 
   ts.forEachChild(sourceFile, (node: any) => {

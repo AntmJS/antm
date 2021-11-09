@@ -104,12 +104,12 @@ function getAllModule(
             name: fileInfo.fileName,
             repositoryId: config.rapper!.repositoryId!,
           },
-          config.rapper!.apiUrl,
-          config.rapper!.tokenCookie,
+          config.rapper!.apiUrl as string,
+          config.rapper!.tokenCookie as string,
         )
         //  修改 content
         newContent =
-          `/* Rap仓库ModuleId: ${modId} */ \n` + (newContent || content)
+          `/* Rap仓库ModuleId: ${modId} */\n` + (newContent || content)
         moduleId = modId
         // 如果 没有 moduleId  就认为这个文件新接口
       }

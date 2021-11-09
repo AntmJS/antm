@@ -3,7 +3,7 @@
 import { resolve } from 'path'
 import { existsSync } from 'fs'
 import chalk from 'chalk'
-import * as _program from 'commander'
+import program from 'commander'
 import { searchRootPath } from './utils'
 import {
   rapper,
@@ -13,7 +13,6 @@ import {
   deleteTag,
 } from './index'
 ;(() => {
-  const program = _program as any
   program
     .option('--apiUrl <apiUrl>', '设置Rap平台后端地址')
     .option('--rapUrl <rapUrl>', '设置Rap平台前端地址')
@@ -28,14 +27,14 @@ import {
 
   program.parse(process.argv)
 
-  const isUpload: boolean = program.download ? false : true
+  const isUpload: boolean = program['download'] ? false : true
   const configName = 'antm'
   let config = defineConfig({ isUpload })
   const rootPath = searchRootPath()
 
   // 通过 命令行配置config
-  if (program.config) {
-    const configPath = resolve(rootPath, program.config)
+  if (program['config']) {
+    const configPath = resolve(rootPath, program['config'])
     if (existsSync(configPath)) {
       console.log(chalk.yellow('config 文件路径不对，请检查'))
       process.exit(1)
@@ -61,38 +60,37 @@ import {
 
   // 都没有就用 defaultConfig
 
-  if (program.moduleId) {
-    config.download.moduleId = program.moduleId
-    config.upload.moduleId = program.moduleId
+  if (program['moduleId']) {
+    config.download.moduleId = program['moduleId']
+    config.upload.moduleId = program['moduleId']
   }
 
-  if (program.apiUrl && program.rapUrl) {
+  if (program['apiUrl'] && program['rapUrl']) {
     /** 通过 scripts 配置 */
     const rapperConfig = {
-      apiUrl: program.apiUrl,
-      rapUrl: program.rapUrl,
-      rapperPath: program.rapperPath || config.rapper.rapperPath,
+      apiUrl: program['apiUrl'],
+      rapUrl: program['rapUrl'],
+      rapperPath: program['rapperPath'] || config.rapper.rapperPath,
     }
     config.rapper = rapperConfig
   }
 
-  if (program.tokenCookie) {
+  if (program['tokenCookie']) {
     config.rapper = {
       ...(config.rapper || {}),
-      tokenCookie: program.tokenCookie,
+      tokenCookie: program['tokenCookie'],
     }
   }
 
   const result = defineConfig(config)
-
   // 删除之后在创建
-  if (program.deleteCreate) {
-    deleteTag(resolve(process.cwd(), program.deleteCreate), result, true)
+  if (program['deleteCreate']) {
+    deleteTag(resolve(process.cwd(), program['deleteCreate']), result, true)
     return
   }
   // 单纯删除
-  if (program.delete) {
-    deleteTag(resolve(process.cwd(), program.delete), result, false)
+  if (program['delete']) {
+    deleteTag(resolve(process.cwd(), program['delete']), result, false)
     return
   }
 

@@ -146,7 +146,7 @@ export function getRapModuleId<T extends boolean = false>(
   // console.log('fiveElements', fiveElements)
   if (isDel) {
     fiveElements = fiveElements
-      .replace(modReg, '')
+      .replace(/\/\*\s+Rap仓库ModuleId:\s(\S*)\s\*\/\n/g, '')
       .replace(/\/\*\s+md5:\s+\w+\s+\*\/\n/g, '')
     return {
       content: (fiveElements + newContent).replace(
