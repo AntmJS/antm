@@ -136,7 +136,7 @@ async function getFileInterface(
             reg,
             (_: any, group: any) => {
               return group.replace(
-                /((\s+)\s\*\/$)/,
+                /(\s+)\s\*\/$/,
                 `$1* @rapUrl  ${config!.rapper!.rapUrl}/repository/editor?id=${
                   config.rapper!.repositoryId
                 }&mod=${moduleId}&itf=${interfaceId}$1*/\n`,
@@ -158,9 +158,9 @@ export const ${item.charAt(0).toLowerCase()}${item.slice(1)}${fileName
           .charAt(0)
           .toUpperCase()}${fileName.slice(
           1,
-        )} = createFetch<${item}['request'], ${item}['response']>("${
+        )} = createFetch<${item}['request'], ${item}['response']>('${
           el.url
-        }", "${el.method}");\n`
+        }', '${el.method}');\n`
 
         interfaceContainer.push({
           id: interfaceId,
@@ -200,10 +200,9 @@ export const ${item.charAt(0).toLowerCase()}${item.slice(1)}${fileName
     writeFile(
       fetchContentPath,
       `${moduleHeader}
-import type { ${importTypeNames.join(', ')} } from "@${filePath.replace(
-        /(^[\s\S]+src)/,
-        '',
-      )}";
+import type { ${importTypeNames.join(', ')} } from '@${filePath
+        .replace(/(^[\s\S]+src)/, '')
+        .replace(/\.(js|ts)x?$/, '')}';
   ${fetchContent}`,
     ),
   ]
@@ -265,8 +264,8 @@ export async function deleteTag(
           config?.rapper?.tokenCookie as string,
         )
       } catch (error) {
-        spinner.warn(chalk.gray(`${modId}, 模块不存在`))
-        spinner.warn(chalk.gray(error as any))
+        spinner.fail(chalk.red(`${modId}, 模块不存在`))
+        spinner.fail(chalk.red(error as any))
       }
     }
     await writeFile(pathName, content)

@@ -149,10 +149,9 @@ export function getRapModuleId<T extends boolean = false>(
       .replace(/\/\*\s+Rap仓库ModuleId:\s(\S*)\s\*\/\n/g, '')
       .replace(/\/\*\s+md5:\s+\w+\s+\*\/\n/g, '')
     return {
-      content: (fiveElements + newContent).replace(
-        /\*?(\s+)?@rapUrl\s+\S+\n/g,
-        '',
-      ),
+      content: (fiveElements + newContent)
+        .replace(/([ \n]+)?\*?(\s+)?@rapUrl\s+\S+(?=\n)/g, '')
+        .replace(/^\s+/, ''),
       modId: Number(matchArr[1]),
     } as any
   }
