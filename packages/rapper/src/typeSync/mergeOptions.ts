@@ -158,7 +158,7 @@ function createFetch<REQ extends Record<string, unknown>, RES extends {data: any
   const alias = _options.upload.alias
   for (const v in alias) {
     //path.resolve(rootPath, alias[v])
-    _options.upload.alias.v = path.resolve(rootPath, alias[v])
+    _options.upload.alias[v] = path.resolve(rootPath, alias[v])
   }
 
   return _options
