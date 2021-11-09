@@ -136,8 +136,8 @@ async function getFileInterface(
             reg,
             (_: any, group: any) => {
               return group.replace(
-                /(\s+)\s\*\/$/,
-                `$1* @rapUrl  ${config!.rapper!.rapUrl}/repository/editor?id=${
+                /(\s+)\*\/$/,
+                `$1* @rapUrl ${config!.rapper!.rapUrl}/repository/editor?id=${
                   config.rapper!.repositoryId
                 }&mod=${moduleId}&itf=${interfaceId}$1*/\n`,
               )

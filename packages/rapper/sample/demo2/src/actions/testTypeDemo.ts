@@ -1,4 +1,4 @@
-/* Rap仓库ModuleId: 486677 */
+/* Rap仓库ModuleId: 486695 */
 
 /* eslint-disable */
 /* tslint:disable */
@@ -29,18 +29,18 @@ import type { IUserInfo, IResGoodsAudit, getRouters } from '@/actions/types/test
   
 /**
  * 接口名：结口1
- * Rap 地址: http://rap2.taobao.org/repository/editor?id=284428&mod=486677&itf=2128578
+ * Rap 地址: http://rap2.taobao.org/repository/editor?id=284428&mod=486695&itf=2128690
  */
 export const iUserInfoTestTypeDemo = createFetch<IUserInfo['request'], IUserInfo['response']>('/c/b/w/api/1.0/user', 'GET');
 
 /**
  * 接口名：接口2
- * Rap 地址: http://rap2.taobao.org/repository/editor?id=284428&mod=486677&itf=2128579
+ * Rap 地址: http://rap2.taobao.org/repository/editor?id=284428&mod=486695&itf=2128691
  */
 export const iResGoodsAuditTestTypeDemo = createFetch<IResGoodsAudit['request'], IResGoodsAudit['response']>('/c/b/w/api/1.0/user/9', 'POST');
 
 /**
  * 接口名：我是刚刚新建的接口
- * Rap 地址: http://rap2.taobao.org/repository/editor?id=284428&mod=486677&itf=2128580
+ * Rap 地址: http://rap2.taobao.org/repository/editor?id=284428&mod=486695&itf=2128692
  */
 export const getRoutersTestTypeDemo = createFetch<getRouters['request'], getRouters['response']>('/c/b/w/api/1.0/router/6', 'POST');
