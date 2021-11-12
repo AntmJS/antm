@@ -1,4 +1,5 @@
 import * as TJS from 'typescript-json-schema'
+import chalk from 'chalk'
 const settings = {
   required: true,
   comments: true,
@@ -24,14 +25,13 @@ export function tsTypeParse(file: string) {
 
 let IDX = 1
 function generateRapJson(
-  definitions: {
-    [key: string]: any
-  } = {},
+  commonProps: { codePosition: string; definitions?: Record<string, unknown> },
   currentDefinitions: any,
   scope: 'request' | 'response',
   parentId: number | string,
   interfaceId: number,
 ): any {
+  const { codePosition, definitions = {} } = commonProps
   const ifs = []
   // in 什么都能循环
   const ref =
@@ -51,9 +51,12 @@ function generateRapJson(
     }
     // 第一层肯定是一个obk
     const id = `$memory-${IDX}`
+
     let type = element.enum ? typeof element.enum[0] : element.type
     if (Array.isArray(type)) {
-      console.log('\nUnion Types:', type, '注意： 自动取第一个')
+      console.log(
+        chalk.red(`${codePosition}Union Types: ${type}注意： 自动取第一个`),
+      )
       type = type[0]
     }
     const ifItem = {
@@ -76,7 +79,7 @@ function generateRapJson(
     ifs.push(ifItem)
     IDX++
     if (element.type === 'object' || element.type === 'array') {
-      ifs.push(...generateRapJson(definitions, element, scope, id, interfaceId))
+      ifs.push(...generateRapJson(commonProps, element, scope, id, interfaceId))
     }
   }
   return ifs
@@ -94,6 +97,7 @@ function getProperties(
 }
 
 export function generateUploadRapJson(
+  codePosition: string,
   schema: TJS.Definition,
   interfaceId: number,
   responseTypeName: string | string[],
@@ -106,25 +110,29 @@ export function generateUploadRapJson(
   const resProperties = getProperties(rootProperties, responseTypeName)
   if (!resProperties || !reqProperties) {
     throw new Error(
-      `[${requestTypeName}] 或 [${responseTypeName}]出现了一个错误，类型未找到`,
+      `${codePosition}[${requestTypeName}] 或 [${responseTypeName}]出现了一个错误，类型未找到`,
     )
   }
 
   // require('fs').writeFileSync(`./${interfaceId}.json`, JSON.stringify(schema, null, 4));
-
-  return generateRapJson(
-    schema?.definitions,
-    reqProperties,
-    'request',
-    parentId,
-    interfaceId,
-  ).concat(
-    generateRapJson(
-      schema?.definitions,
-      resProperties,
-      'response',
+  try {
+    return generateRapJson(
+      { codePosition, definitions: schema?.definitions },
+      reqProperties,
+      'request',
       parentId,
       interfaceId,
-    ),
-  )
+    ).concat(
+      generateRapJson(
+        { codePosition, definitions: schema?.definitions },
+        resProperties,
+        'response',
+        parentId,
+        interfaceId,
+      ),
+    )
+  } catch (error) {
+    console.log(chalk.red(`${codePosition}类型解析出错`))
+    throw error
+  }
 }

@@ -130,7 +130,7 @@ async function getFileInterface(
           )
           interfaceId = result.itf.id
           const reg = new RegExp(
-            `((\/\\*([^*]|[\r\n]|(\\*+([^*/]|[\r\n])))*\\*+\/)|(\/\/.*))\\s*(?=export\\s+(type|interface)\\s+${item}\)`,
+            `((\/\\*([^*]|[\r\n]|(\\*+([^*/]|[\r\n])))*\\*+\/)|(\/\/.*))\\s*(?=export\\s+(type|interface)\\s+${item}\\s+=\)`,
           )
           newContent = (newContent || content).replace(
             reg,
@@ -162,9 +162,12 @@ export const ${item.charAt(0).toLowerCase()}${item.slice(1)}${fileName
           el.url
         }', '${el.method}');\n`
 
+        const codePosition = `${el.description}/${item}(id:${interfaceId})-`
         interfaceContainer.push({
+          codePosition,
           id: interfaceId,
           properties: generateUploadRapJson(
+            codePosition,
             schema,
             interfaceId,
             [item, 'response'],
@@ -181,7 +184,7 @@ export const ${item.charAt(0).toLowerCase()}${item.slice(1)}${fileName
             id: e.id,
             properties: e.properties,
           },
-          e.name,
+          e.codePosition,
           config.rapper!.apiUrl!,
           config.rapper!.tokenCookie!,
         )
@@ -250,7 +253,7 @@ export async function deleteTag(
   try {
     const isExists = fs.existsSync(pathName)
     if (!isExists) return
-
+    const fileName = pathName.replace(/^[\s\S]+\/(?=[\w-]+\.(ts|js)x?$)/, '')
     let content = fs.readFileSync(pathName, 'utf-8')
     // 删除模块开始
     const { content: newContent, modId } = getRapModuleId(content, true)
@@ -264,12 +267,11 @@ export async function deleteTag(
           config?.rapper?.tokenCookie as string,
         )
       } catch (error) {
-        spinner.fail(chalk.red(`${modId}, 模块不存在`))
+        spinner.fail(chalk.red(`${pathName}(${modId})-模块不存在`))
         spinner.fail(chalk.red(error as any))
       }
     }
     await writeFile(pathName, content)
-    const fileName = pathName.replace(/^[\s\S]+\/(?=[\w-]+\.(ts|js)x?$)/, '')
     spinner.succeed(chalk.gray(`开始删除...`))
     spinner.succeed(chalk.gray(`文件：${fileName}`))
     spinner.succeed(chalk.green(`删除成功`))
