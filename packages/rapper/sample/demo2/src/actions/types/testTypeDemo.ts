@@ -1,5 +1,5 @@
-/* md5: e9cdfe8bd581fa1f22f13d842264f51f */
-/* Rap仓库ModuleId: 486695 */
+/* md5: 079bb314899ff0bd92e9e8583e67ac04 */
+/* Rap仓库ModuleId: 487580 */
 interface XY {
   x: number
   y: number
@@ -29,7 +29,7 @@ type IGetRES<T> = {
  *  结口1
  * @url /c/b/w/api/1.0/user
  * @method GET
- * @rapUrl http://rap2.taobao.org/repository/editor?id=284428&mod=486695&itf=2128690
+ * @rapUrl http://rap2.taobao.org/repository/editor?id=284428&mod=487580&itf=2133695
  */
 export type IUserInfo = {
   request: {
@@ -92,7 +92,7 @@ interface IList {
  *  接口2
  * @url /c/b/w/api/1.0/user/9
  * @method POST
- * @rapUrl http://rap2.taobao.org/repository/editor?id=284428&mod=486695&itf=2128691
+ * @rapUrl http://rap2.taobao.org/repository/editor?id=284428&mod=487580&itf=2133696
  */
 export type IResGoodsAudit = {
   request: Circle
@@ -118,7 +118,7 @@ export type IResGoodsAudit = {
  * 我是刚刚新建的接口
  * @url /c/b/w/api/1.0/router/6
  * @method POST
- * @rapUrl http://rap2.taobao.org/repository/editor?id=284428&mod=486695&itf=2128692
+ * @rapUrl http://rap2.taobao.org/repository/editor?id=284428&mod=487580&itf=2133697
  */
 export type getRouters = {
   request: Circle

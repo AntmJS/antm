@@ -4,7 +4,7 @@ import { URL } from 'url'
 import fetch from 'node-fetch' // 更新接口
 export function updateInterface(
   params: { properties: any; id: number },
-  funcName: string,
+  codePosition: string,
   apiUrl: string,
   cookie: string,
 ): Promise<any> {
@@ -27,9 +27,7 @@ export function updateInterface(
       }) => {
         if (e.status !== 200) {
           if (e.status === 500) {
-            throw new Error(
-              `接口更新失败，请检查：${funcName}(${params.id})对应的远程接口是不是删除了`,
-            )
+            throw new Error(`${codePosition}远程接口不存在`)
           }
           throw new Error(e.statusText)
         }

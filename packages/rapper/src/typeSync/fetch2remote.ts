@@ -188,7 +188,9 @@ $2`,
             importType.importPath,
           )
         }
+        const codePosition = `${el.funcName}(id:${el.interfaceId})-`
         const properties = generateUploadRapJson(
+          codePosition,
           typeFileJsonMap[importType.importPath],
           el.interfaceId!,
           el.resTypeName,
@@ -199,7 +201,7 @@ $2`,
             id: el.interfaceId!,
             properties,
           },
-          el.funcName,
+          codePosition,
           config.rapper!.apiUrl!,
           config.rapper!.tokenCookie!,
         )
