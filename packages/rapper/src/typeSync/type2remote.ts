@@ -130,7 +130,7 @@ async function getFileInterface(
           )
           interfaceId = result.itf.id
           const reg = new RegExp(
-            `((\/\\*([^*]|[\r\n]|(\\*+([^*/]|[\r\n])))*\\*+\/)|(\/\/.*))\\s*(?=export\\s+(type|interface)\\s+${item}\)`,
+            `((\/\\*([^*]|[\r\n]|(\\*+([^*/]|[\r\n])))*\\*+\/)|(\/\/.*))\\s*(?=export\\s+(type|interface)\\s+${item}\\s+=\)`,
           )
           newContent = (newContent || content).replace(
             reg,

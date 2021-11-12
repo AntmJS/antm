@@ -1,4 +1,4 @@
-/* md5: 079bb314899ff0bd92e9e8583e67ac04 */
+/* md5: 2739ab5cb72c940356eda8e20afb9f71 */
 /* Rap仓库ModuleId: 487580 */
 interface XY {
   x: number
@@ -26,10 +26,24 @@ type IGetRES<T> = {
 }
 
 /**
+ *  结口3
+ * @url /c/b/w/api/1.0/user
+ * @method GET
+ * @rapUrl http://rap2.taobao.org/repository/editor?id=284428&mod=487580&itf=2134019
+ */
+export type IUserInfo2 = {
+  request: {
+    age: string
+    sex?: string
+  }
+  response: Record<string, unknown>
+}
+
+/**
  *  结口1
  * @url /c/b/w/api/1.0/user
  * @method GET
- * @rapUrl http://rap2.taobao.org/repository/editor?id=284428&mod=487580&itf=2133695
+ * @rapUrl http://rap2.taobao.org/repository/editor?id=284428&mod=487580&itf=2134020
  */
 export type IUserInfo = {
   request: {
