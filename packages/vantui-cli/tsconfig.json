@@ -19,7 +19,7 @@
     "module": "esnext",
     // default: module === AMD or UMD or System or ES6, then Classic otherwise Node
     "moduleResolution": "Node",
-    "outDir": "./dist",
+    "outDir": "./lib",
     "lib": ["ESNext", "dom"],
     /** Interop Constraints */
     "esModuleInterop": true,

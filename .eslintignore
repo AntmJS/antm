@@ -25,3 +25,4 @@ LICENSE
 node_modules
 packages/**/coverage
 packages/**/dist
+packages/**/lib

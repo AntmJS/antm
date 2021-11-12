@@ -2,8 +2,8 @@
   "name": "@antmjs/vantui-cli",
   "version": "1.15.1",
   "type": "module",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "bin": {
     "antm-vantui-cli": "./bin.js"
   },
