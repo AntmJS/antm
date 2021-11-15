@@ -6,7 +6,7 @@ import {
   smartOutputFile,
   normalizePath,
 } from '../common/index.js'
-import { SRC_DIR, getPackageJson, getVantConfig } from '../common/constant.js'
+import { SRC_DIR, getVantConfig } from '../common/constant.js'
 
 type PathResolver = (path: string) => string
 
@@ -45,20 +45,12 @@ function genExports(
       .join('\n')
 
     return `
-  export {
-    init,
-    pxTransform,
-    version,
-  };
   ${exports}
 `
   }
 
   return `
   export {
-    init,
-    pxTransform,
-    version,
     ${names.map(pascalize).join(',\n  ')}
   };
   `
@@ -76,23 +68,10 @@ export function genPackageEntry({
 
   const namedExport = get(vantConfig, 'build.namedExport', false)
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const version = process.env.PACKAGE_VERSION || getPackageJson().version
-
   const content = `
-import { init, pxTransform } from './hackReact';
 ${genImports(names, pathResolver, namedExport)}
 
-const version = '${version}';
-
 ${genExports(names, pathResolver, namedExport)}
-
-export default {
-  init,
-  pxTransform,
-  version
-};
 `
 
   smartOutputFile(outputPath, content)
