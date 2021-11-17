@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/rapper",
-  "version": "1.15.5",
+  "version": "1.15.6",
   "description": "rapper, use http api as a function",
   "main": "./dist/index.js",
   "typings": "types/index.d.ts",
