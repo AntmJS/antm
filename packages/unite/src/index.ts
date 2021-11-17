@@ -34,7 +34,7 @@ function useEventEnhancement<
   setState: React.Dispatch<React.SetStateAction<TState>>,
   setError: React.Dispatch<React.SetStateAction<TypeUnite.IError | undefined>>,
   context: React.MutableRefObject<any>,
-): TypeUnite.EventEnhancementResponse<TAll> {
+): TypeUnite.EventEnhancementResponse<TAll, TState> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const eventsRef = <React.MutableRefObject<any>>useRef({})
 

@@ -92,7 +92,7 @@ declare namespace Unite {
   > = State<TState> &
     InstanceProperty<TAll, TProps> &
     InstanceMethods<TState> &
-    TAll
+    StateOpt<TAll>
 
   type Option<
     TState extends IAnyObject,
@@ -106,15 +106,18 @@ declare namespace Unite {
     > &
     ThisType<Instance<TState, TAll, TProps>>
 
-  type EventEnhancementResponse<TAll extends IAnyObject> = {
-    events: FunctionProperties<TAll>
+  type EventEnhancementResponse<
+    TAll extends IAnyObject,
+    TState extends IAnyObject,
+  > = {
+    events: FunctionProperties<TAll> & InstanceMethods<TState>
     loading: Partial<{ [K in keyof PromiseProperties<TAll>]: boolean }>
   }
 
   type Response<TState extends IAnyObject, TAll extends IAnyObject> = {
     state: StateOpt<TState>
     error: IError | undefined
-  } & EventEnhancementResponse<TAll>
+  } & EventEnhancementResponse<TAll, TState>
 }
 
 declare function Unite<
