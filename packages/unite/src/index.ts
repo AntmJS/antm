@@ -31,7 +31,7 @@ function useEventEnhancement<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 >(
   config: TypeUnite.Option<TState, TAll, TProps>,
-  setState: React.Dispatch<React.SetStateAction<TState>>,
+  setState: React.Dispatch<React.SetStateAction<TypeUnite.StateOpt<TState>>>,
   setError: React.Dispatch<React.SetStateAction<TypeUnite.IError | undefined>>,
   context: React.MutableRefObject<any>,
 ): TypeUnite.EventEnhancementResponse<TAll, TState> {
@@ -44,12 +44,18 @@ function useEventEnhancement<
     context.current.__init = true
 
     const _setState = function (
-      obj: Partial<TypeUnite.StateOpt<TState>>,
+      res:
+        | Partial<TypeUnite.StateOpt<TState>>
+        | React.SetStateAction<TypeUnite.StateOpt<TState>>,
     ): void {
       if (context.current.__mounted) {
-        setState((preState) => {
-          return { ...preState, ...obj }
-        })
+        if (toString.call(res) === '[object Object]') {
+          setState((preState) => {
+            return { ...preState, ...res }
+          })
+        } else {
+          setState(res as React.SetStateAction<TypeUnite.StateOpt<TState>>)
+        }
       }
     }
 

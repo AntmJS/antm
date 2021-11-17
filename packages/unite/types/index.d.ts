@@ -45,7 +45,9 @@ declare namespace Unite {
   }
 
   interface InstanceMethods<TState extends IAnyObject> {
-    setState: (state: Partial<StateOpt<TState>>) => void
+    setState: (
+      state: Partial<StateOpt<TState>> | React.SetStateAction<StateOpt<TState>>,
+    ) => void
     setError: React.Dispatch<React.SetStateAction<IError | undefined>>
   }
   interface InstanceProperty<
