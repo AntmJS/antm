@@ -16,7 +16,13 @@ if (fs.existsSync(configPath)) {
       monitorFiles: antmConfig.warning.monitorFiles,
       branchs: antmConfig.branchs,
     }
+  } else {
+    console.error('请检查antm.config.js文件的配置信息和README的要求是否一致')
+    process.exit(1)
   }
+} else {
+  console.error('根目录找不到antm.config.js文件')
+  process.exit(1)
 }
 
 /**

@@ -1,0 +1,55 @@
+{
+  "name": "@antmjs/upload-tencent",
+  "version": "1.0.0",
+  "description": "Upload to Tenecnt COS.",
+  "main": "utils/index.js",
+  "bin": {
+    "antm-upload-tencent": "utils/index.js"
+  },
+  "author": {
+    "name": "三少",
+    "email": "hi_sanshao@outlook.com"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "keywords": [
+    "miniprogram",
+    "upload"
+  ],
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/AntmJS/antm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AntmJS/antm/issues/new"
+  },
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6.4",
+    "yarn": ">=1.22"
+  },
+  "browserslist": [
+    "Chrome >= 35",
+    "ChromeAndroid >= 35",
+    "iOS >= 8",
+    "Safari >= 8",
+    "Android >= 4.1",
+    "QQAndroid >= 4.1",
+    "UCAndroid >= 4.1"
+  ],
+  "scripts": {
+    "build": "",
+    "test:watch": "",
+    "test": ""
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "commander": "^6.1.0",
+    "cos-nodejs-sdk-v5": "^2.5.14",
+    "crypto": "^1.0.1",
+    "inquirer": "^7.3.3"
+  }
+}

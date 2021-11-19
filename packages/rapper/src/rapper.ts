@@ -51,7 +51,7 @@ async function sanDeleteInterfaces(
       const { confirmed } = await templateFilesRelyConfirm()
       if (!confirmed) {
         console.log(chalk.red('更新操作已终止'))
-        process.exit(0)
+        process.exit(1)
       }
     } else {
       spinner.succeed(chalk.grey('rapper: 未发现不合法依赖'))
@@ -170,7 +170,7 @@ export default async function rapper(config: IOptions) {
     const { confirmed } = await templateFilesOverwriteConfirm()
     if (!confirmed) {
       console.log(chalk.red('更新操作已终止'))
-      process.exit(0)
+      process.exit(1)
     }
   } else {
     spinner.succeed(chalk.grey('rapper: 模板代码未被修改'))
