@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/mini-fix",
-  "version": "1.16.2",
+  "version": "1.16.3",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "typings": "types/index.d.ts",
@@ -44,7 +44,7 @@
     "test": ""
   },
   "dependencies": {
-    "@antmjs/utils": "1.16.2",
+    "@antmjs/utils": "1.16.3",
     "@babel/runtime-corejs3": "^7.14.7"
   }
 }
