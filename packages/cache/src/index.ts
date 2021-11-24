@@ -56,7 +56,11 @@ export default function <
       let value = store[key]
       if (isUndefined(value) || isNull(value)) {
         try {
-          value = minins?.getStorageSync(key)
+          if (dd || my || iot) {
+            value = minins?.getStorageSync(key)?.data
+          } else {
+            value = minins?.getStorageSync(key)
+          }
           store[key] = value
         } catch {}
       }
@@ -64,7 +68,7 @@ export default function <
       return value
     }
     console.error(
-      `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
+      `请先注册该Key：Cache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
     )
     return
   }
@@ -93,7 +97,7 @@ export default function <
         }
       } else {
         console.error(
-          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：Cache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
         )
         resolve(undefined)
       }
@@ -109,11 +113,18 @@ export default function <
     } else if (localKeys.includes(key as keyof TLocal)) {
       store[key] = value
       if (!isUndefined(value) && !isNull(value)) {
-        minins?.setStorageSync(key, value)
+        if (dd || my || iot) {
+          minins?.setStorageSync({
+            key: key,
+            data: value,
+          })
+        } else {
+          minins?.setStorageSync(key, value)
+        }
       }
     } else {
       console.error(
-        `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
+        `请先注册该Key：Cache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
       )
     }
   }
@@ -143,7 +154,7 @@ export default function <
         }
       } else {
         console.error(
-          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：Cache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
         )
         resolve()
       }
@@ -157,11 +168,16 @@ export default function <
       delete store[key]
     } else if (localKeys.includes(key as keyof TLocal)) {
       delete store[key]
-
-      minins?.removeStorageSync(key)
+      if (dd || my || iot) {
+        minins?.removeStorageSync({
+          key: key,
+        })
+      } else {
+        minins?.removeStorageSync(key)
+      }
     } else {
       console.error(
-        `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
+        `请先注册该Key：Cache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
       )
     }
   }
@@ -186,7 +202,7 @@ export default function <
         })
       } else {
         console.error(
-          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：Cache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
         )
         resolve()
       }
