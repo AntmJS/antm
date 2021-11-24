@@ -61,7 +61,7 @@ export default function <
             typeof my === 'object' ||
             typeof iot === 'object'
           ) {
-            value = minins?.getStorageSync(key)?.data
+            value = minins?.getStorageSync({ key: key })?.data
           } else {
             value = minins?.getStorageSync(key)
           }
