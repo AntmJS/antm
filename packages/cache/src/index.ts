@@ -17,17 +17,17 @@ const minins =
     ? my
     : typeof tt === 'object'
     ? tt
-    : typeof tt === 'object'
+    : typeof swan === 'object'
     ? swan
-    : typeof swan === 'object'
+    : typeof qq === 'object'
     ? qq
-    : typeof swan === 'object'
+    : typeof dd === 'object'
     ? dd
-    : typeof swan === 'object'
+    : typeof jd === 'object'
     ? jd
-    : typeof swan === 'object'
+    : typeof qywx === 'object'
     ? qywx
-    : typeof swan === 'object'
+    : typeof iot === 'object'
     ? iot
     : undefined
 
@@ -56,7 +56,11 @@ export default function <
       let value = store[key]
       if (isUndefined(value) || isNull(value)) {
         try {
-          if (dd || my || iot) {
+          if (
+            typeof dd === 'object' ||
+            typeof my === 'object' ||
+            typeof iot === 'object'
+          ) {
             value = minins?.getStorageSync(key)?.data
           } else {
             value = minins?.getStorageSync(key)
@@ -113,7 +117,11 @@ export default function <
     } else if (localKeys.includes(key as keyof TLocal)) {
       store[key] = value
       if (!isUndefined(value) && !isNull(value)) {
-        if (dd || my || iot) {
+        if (
+          typeof dd === 'object' ||
+          typeof my === 'object' ||
+          typeof iot === 'object'
+        ) {
           minins?.setStorageSync({
             key: key,
             data: value,
@@ -168,7 +176,11 @@ export default function <
       delete store[key]
     } else if (localKeys.includes(key as keyof TLocal)) {
       delete store[key]
-      if (dd || my || iot) {
+      if (
+        typeof dd === 'object' ||
+        typeof my === 'object' ||
+        typeof iot === 'object'
+      ) {
         minins?.removeStorageSync({
           key: key,
         })

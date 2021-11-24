@@ -36,17 +36,17 @@ const minins =
     ? my
     : typeof tt === 'object'
     ? tt
-    : typeof tt === 'object'
+    : typeof swan === 'object'
     ? swan
-    : typeof swan === 'object'
+    : typeof qq === 'object'
     ? qq
-    : typeof swan === 'object'
+    : typeof dd === 'object'
     ? dd
-    : typeof swan === 'object'
+    : typeof jd === 'object'
     ? jd
-    : typeof swan === 'object'
+    : typeof qywx === 'object'
     ? qywx
-    : typeof swan === 'object'
+    : typeof iot === 'object'
     ? iot
     : undefined
 
