@@ -27,9 +27,13 @@ async function compileFile(filePath: string) {
     throw err
   }
 }
-
-export async function compileStyle(filePath: string) {
+/**
+ *
+ * @param filePath 读取路径和输出路径，有outputPath时仅为读取路径
+ * @param outputPath
+ */
+export async function compileStyle(filePath: string, outputPath?: string) {
   const css = await compileFile(filePath)
 
-  writeFileSync(replaceExt(filePath, '.css'), css)
+  writeFileSync(replaceExt(outputPath || filePath, '.css'), css)
 }

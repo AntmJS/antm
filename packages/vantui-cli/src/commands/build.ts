@@ -80,8 +80,16 @@ async function compileDir(dir: string) {
   )
 }
 
-async function copySourceCode() {
-  return Promise.all([copy(SRC_DIR, ES_DIR), copy(SRC_DIR, LIB_DIR)])
+async function copySourceCode(type?: 'lib' | 'es') {
+  let copys: any = []
+  if (type === 'es') {
+    copys = [copy(SRC_DIR, ES_DIR)]
+  } else if (type === 'lib') {
+    copys = [copy(SRC_DIR, LIB_DIR)]
+  } else {
+    copys = [copy(SRC_DIR, ES_DIR), copy(SRC_DIR, LIB_DIR)]
+  }
+  return Promise.all(copys)
 }
 
 async function buildESMOutputs() {
@@ -109,16 +117,20 @@ async function buildStyleEntry() {
   genComponentStyle()
 }
 
-async function buildPackageScriptEntry() {
+async function buildPackageScriptEntry(types?: 'lib' | 'es') {
   const esEntryFile = join(ES_DIR, 'index.js')
   const libEntryFile = join(LIB_DIR, 'index.js')
 
-  genPackageEntry({
-    outputPath: esEntryFile,
-    pathResolver: (path: string) => `./${relative(SRC_DIR, path)}`,
-  })
+  if (!types || types === 'es') {
+    genPackageEntry({
+      outputPath: esEntryFile,
+      pathResolver: (path: string) => `./${relative(SRC_DIR, path)}`,
+    })
+  }
 
-  await copy(esEntryFile, libEntryFile)
+  if (!types || types === 'lib') {
+    await copy(esEntryFile, libEntryFile)
+  }
 }
 
 async function buildPackageStyleEntry() {
@@ -171,16 +183,26 @@ const tasks = [
   },
 ]
 
-async function runBuildTasks() {
-  for (let i = 0; i < tasks.length; i++) {
+const LIB_INDEX = 6
+const ES_INDEX = 5
+
+async function runBuildTasks(type?: 'es' | 'lib') {
+  const _tasks = tasks
+  if (type === 'es') {
+    _tasks.splice(LIB_INDEX, 1)
+  }
+  if (type === 'lib') {
+    _tasks.splice(ES_INDEX, 1)
+  }
+  for (let i = 0; i < _tasks.length; i++) {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const { task, text } = tasks[i]
+    const { task, text } = _tasks[i]
     const spinner = ora(text).start()
 
     try {
       /* eslint-disable no-await-in-loop */
-      await task()
+      await task(type)
       spinner.succeed(text)
     } catch (err) {
       spinner.fail(text)
@@ -192,13 +214,13 @@ async function runBuildTasks() {
   consola.success('Compile successfully')
 }
 
-export async function build() {
+export async function build(params: { type?: 'es' | 'lib' }) {
   setNodeEnv('production')
 
   try {
     await clean()
     await installDependencies()
-    await runBuildTasks()
+    await runBuildTasks(params.type)
   } catch (err) {
     consola.error('Build failed')
     process.exit(1)
