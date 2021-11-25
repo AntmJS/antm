@@ -36,17 +36,17 @@ const minins =
     ? my
     : typeof tt === 'object'
     ? tt
-    : typeof tt === 'object'
+    : typeof swan === 'object'
     ? swan
-    : typeof swan === 'object'
+    : typeof qq === 'object'
     ? qq
-    : typeof swan === 'object'
+    : typeof dd === 'object'
     ? dd
-    : typeof swan === 'object'
+    : typeof jd === 'object'
     ? jd
-    : typeof swan === 'object'
+    : typeof qywx === 'object'
     ? qywx
-    : typeof swan === 'object'
+    : typeof iot === 'object'
     ? iot
     : undefined
 
@@ -384,6 +384,31 @@ const handlePageCycle = function (
   }
 }
 
+const loopFindClickId = function (
+  innerId: any,
+  parentNode: any,
+): {
+  ckid?: any
+  clickId?: any
+  ext?: any
+} {
+  if (parentNode) {
+    if (
+      parentNode.dataset?.ckid ||
+      (parentNode.dataset?.clickId && parentNode.id === innerId)
+    ) {
+      return {
+        ckid: parentNode.dataset?.ckid,
+        clickId: parentNode.dataset?.clickId,
+        ext: parentNode.dataset?.ext,
+      }
+    }
+    return loopFindClickId(innerId, parentNode.parentNode)
+  } else {
+    return {}
+  }
+}
+
 /**
  * 处理页面事件
  */
@@ -392,14 +417,23 @@ const handleEvents = function (args: any) {
     const arg1 = args[0]
 
     if (arg1?.type === 'touchstart') {
+      const innerId = arg1.currentTarget?.id
       let ckid = arg1.currentTarget?.dataset?.ckid
       let clickId = arg1.currentTarget?.dataset?.clickId
       let ext = arg1.currentTarget?.dataset?.ext
       if (!ckid && !clickId && globalConfig?.getElementById) {
-        const { dataset } = globalConfig.getElementById(arg1.target.id)
+        const { dataset, parentNode } = globalConfig.getElementById(
+          arg1.target.id,
+        )
         ckid = dataset?.ckid
         clickId = dataset?.clickId
         ext = dataset?.ext
+        if (!ckid && !clickId) {
+          const res: any = loopFindClickId(innerId, parentNode)
+          ckid = res?.ckid
+          clickId = res?.clickId
+          ext = res?.ext
+        }
       }
 
       if (ckid || clickId) {

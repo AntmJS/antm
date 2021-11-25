@@ -36,7 +36,7 @@ export default function <
       return value
     }
     console.error(
-      `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
+      `请先注册该Key：Cache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
     )
     return
   }
@@ -65,7 +65,7 @@ export default function <
         }
       } else {
         console.error(
-          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：Cache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
         )
         resolve(undefined)
       }
@@ -87,7 +87,7 @@ export default function <
       }
     } else {
       console.error(
-        `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
+        `请先注册该Key：Cache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
       )
     }
   }
@@ -115,7 +115,7 @@ export default function <
         }
       } else {
         console.error(
-          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：Cache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
         )
         resolve()
       }
@@ -134,7 +134,7 @@ export default function <
       } catch {}
     } else {
       console.error(
-        `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
+        `请先注册该Key：Cache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
       )
     }
   }
@@ -156,7 +156,7 @@ export default function <
         }
       } else {
         console.error(
-          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：Cache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
         )
         resolve()
       }

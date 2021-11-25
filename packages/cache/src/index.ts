@@ -17,17 +17,17 @@ const minins =
     ? my
     : typeof tt === 'object'
     ? tt
-    : typeof tt === 'object'
+    : typeof swan === 'object'
     ? swan
-    : typeof swan === 'object'
+    : typeof qq === 'object'
     ? qq
-    : typeof swan === 'object'
+    : typeof dd === 'object'
     ? dd
-    : typeof swan === 'object'
+    : typeof jd === 'object'
     ? jd
-    : typeof swan === 'object'
+    : typeof qywx === 'object'
     ? qywx
-    : typeof swan === 'object'
+    : typeof iot === 'object'
     ? iot
     : undefined
 
@@ -56,7 +56,15 @@ export default function <
       let value = store[key]
       if (isUndefined(value) || isNull(value)) {
         try {
-          value = minins?.getStorageSync(key)
+          if (
+            typeof dd === 'object' ||
+            typeof my === 'object' ||
+            typeof iot === 'object'
+          ) {
+            value = minins?.getStorageSync({ key: key })?.data
+          } else {
+            value = minins?.getStorageSync(key)
+          }
           store[key] = value
         } catch {}
       }
@@ -64,7 +72,7 @@ export default function <
       return value
     }
     console.error(
-      `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
+      `请先注册该Key：Cache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
     )
     return
   }
@@ -93,7 +101,7 @@ export default function <
         }
       } else {
         console.error(
-          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：Cache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
         )
         resolve(undefined)
       }
@@ -109,11 +117,22 @@ export default function <
     } else if (localKeys.includes(key as keyof TLocal)) {
       store[key] = value
       if (!isUndefined(value) && !isNull(value)) {
-        minins?.setStorageSync(key, value)
+        if (
+          typeof dd === 'object' ||
+          typeof my === 'object' ||
+          typeof iot === 'object'
+        ) {
+          minins?.setStorageSync({
+            key: key,
+            data: value,
+          })
+        } else {
+          minins?.setStorageSync(key, value)
+        }
       }
     } else {
       console.error(
-        `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
+        `请先注册该Key：Cache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
       )
     }
   }
@@ -143,7 +162,7 @@ export default function <
         }
       } else {
         console.error(
-          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：Cache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
         )
         resolve()
       }
@@ -157,11 +176,20 @@ export default function <
       delete store[key]
     } else if (localKeys.includes(key as keyof TLocal)) {
       delete store[key]
-
-      minins?.removeStorageSync(key)
+      if (
+        typeof dd === 'object' ||
+        typeof my === 'object' ||
+        typeof iot === 'object'
+      ) {
+        minins?.removeStorageSync({
+          key: key,
+        })
+      } else {
+        minins?.removeStorageSync(key)
+      }
     } else {
       console.error(
-        `请先注册该Key：ACEMiniCache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
+        `请先注册该Key：Cache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
       )
     }
   }
@@ -186,7 +214,7 @@ export default function <
         })
       } else {
         console.error(
-          `请先注册该Key：ACEMiniCache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：Cache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
         )
         resolve()
       }

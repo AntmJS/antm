@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/utils",
-  "version": "1.16.0",
+  "version": "1.16.4",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "typings": "types/index.d.ts",
