@@ -185,9 +185,11 @@ const tasks = [
 
 const LIB_INDEX = 6
 const ES_INDEX = 5
+const DIST_INDEX = 7
 
 async function runBuildTasks(type?: 'es' | 'lib') {
   const _tasks = tasks
+  if (type) _tasks.splice(DIST_INDEX, 1)
   if (type === 'es') {
     _tasks.splice(LIB_INDEX, 1)
   }

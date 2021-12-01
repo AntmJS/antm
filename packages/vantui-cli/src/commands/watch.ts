@@ -40,13 +40,19 @@ async function changeOrAddAction(path: any, type: 'lib' | 'es') {
     pathArr[1],
     fileName,
   )
-  await compileFile({
-    fileName,
-    DIR,
-    path,
-  })
-  spinner.stop()
-  consola.success('Update successfully')
+  try {
+    await compileFile({
+      fileName,
+      DIR,
+      path,
+    })
+    spinner.stop()
+    consola.success('Update successfully')
+  } catch (err) {
+    spinner.stop()
+    consola.success('Update failed')
+    consola.error(err)
+  }
 }
 
 function watchFile(type: 'lib' | 'es') {
@@ -93,6 +99,19 @@ function watchFile(type: 'lib' | 'es') {
       consola.success('Update successfully')
     }
   })
+
+  watcher.on('unlink', function (path: string) {
+    if (readyOk) {
+      const spinner = ora('updating...').start()
+      const deleteTarget = path.replace(
+        SRC_DIR,
+        type === 'lib' ? LIB_DIR : ES_DIR,
+      )
+      remove(deleteTarget)
+      spinner.stop()
+      consola.success('Update successfully')
+    }
+  })
 }
 
 export async function watch(params: { type?: 'es' | 'lib' }) {
@@ -104,7 +123,7 @@ export async function watch(params: { type?: 'es' | 'lib' }) {
   } else if (type === 'lib') {
     setModuleEnv('commonjs')
   }
-  await build(params)
+  await build({ type })
 
   consola.log(`
   watching files update
