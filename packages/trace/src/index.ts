@@ -422,13 +422,12 @@ const handleEvents = function (args: any) {
       let clickId = arg1.currentTarget?.dataset?.clickId
       let ext = arg1.currentTarget?.dataset?.ext
       if (!ckid && !clickId && globalConfig?.getElementById) {
-        const { dataset, parentNode } = globalConfig.getElementById(
-          arg1.target.id,
-        )
+        const res = globalConfig.getElementById(arg1.target.id)
+        const { dataset, parentNode } = res || {}
         ckid = dataset?.ckid
         clickId = dataset?.clickId
         ext = dataset?.ext
-        if (!ckid && !clickId) {
+        if (!ckid && !clickId && parentNode) {
           const res: any = loopFindClickId(innerId, parentNode)
           ckid = res?.ckid
           clickId = res?.clickId
