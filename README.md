@@ -12,7 +12,7 @@
 - [@antmjs/plugin-icestark](https://www.npmjs.com/package/@antmjs/plugin-icestark)
 - [@antmjs/plugin-vantui](https://www.npmjs.com/package/@antmjs/plugin-vantui)
 - [@antmjs/upload-tencent](https://www.npmjs.com/package/@antmjs/upload-tencent)
-- [@antmjs/mini-deploy](https://www.npmjs.com/package/@antmjs/mini-deploy)
+- [@antmjs/mini-upload](https://www.npmjs.com/package/@antmjs/mini-upload)
 - [@antmjs/warning](https://www.npmjs.com/package/@antmjs/warning)
 - [@antmjs/rapper](https://www.npmjs.com/package/@antmjs/rapper)
 - [@antmjs/unite](https://www.npmjs.com/package/@antmjs/unite)
