@@ -1,5 +1,4 @@
 /* eslint-disable import/no-named-as-default-member */
-import * as path__ from 'path'
 import { mkdirSync } from 'fs'
 import { remove } from 'fs-extra'
 // eslint-disable-next-line import/default
@@ -35,11 +34,7 @@ async function changeOrAddAction(path: any, type: 'lib' | 'es') {
   const spinner = ora('updating...').start()
   const pathArr = path.split('/').reverse()
   const fileName = pathArr[0]
-  const DIR = path__.resolve(
-    type === 'lib' ? LIB_DIR : ES_DIR,
-    pathArr[1],
-    fileName,
-  )
+  const DIR = path.replace(SRC_DIR, type === 'lib' ? LIB_DIR : ES_DIR)
   try {
     await compileFile({
       fileName,
