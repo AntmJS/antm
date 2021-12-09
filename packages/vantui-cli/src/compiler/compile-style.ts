@@ -35,5 +35,12 @@ async function compileFile(filePath: string) {
 export async function compileStyle(filePath: string, outputPath?: string) {
   const css = await compileFile(filePath)
 
-  writeFileSync(replaceExt(outputPath || filePath, '.css'), css)
+  if (outputPath) {
+    writeFileSync(
+      replaceExt(outputPath || filePath, '.less'),
+      readFileSync(filePath),
+    )
+  } else {
+    writeFileSync(replaceExt(outputPath || filePath, '.css'), css)
+  }
 }
