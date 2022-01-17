@@ -33,7 +33,7 @@ IceStarkPlugin.prototype.apply = function (compiler) {
       PLUGIN_NAME,
       (loaderContext, module) => {
         const { dir, name } = path.parse(module.resource)
-        if (/@tarojs\/router\/dist/.test(path.join(dir, name))) {
+        if (/@tarojs[\\/]router[\\/]dist/.test(path.join(dir, name))) {
           module.loaders.push({
             loader: path.join(__dirname, 'fixTaroRouterLoader'),
             options: {},

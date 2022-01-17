@@ -253,7 +253,7 @@ export async function deleteTag(
   try {
     const isExists = fs.existsSync(pathName)
     if (!isExists) return
-    const fileName = pathName.replace(/^[\s\S]+\/(?=[\w-]+\.(ts|js)x?$)/, '')
+    const fileName = pathName.replace(/^[\s\S]+[\\/](?=[\w-]+\.(ts|js)x?$)/, '')
     let content = fs.readFileSync(pathName, 'utf-8')
     // 删除模块开始
     const { content: newContent, modId } = getRapModuleId(content, true)
