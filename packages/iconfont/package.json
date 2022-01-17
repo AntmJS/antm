@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/iconfont",
-  "version": "1.17.4",
+  "version": "1.17.5",
   "main": "index.js",
   "bin": {
     "antm-icon": "index.js"
