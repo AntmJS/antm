@@ -24,7 +24,7 @@ const config = {
   external: ['@babel/runtime-corejs3'],
   plugins: [
     commonjs({
-      include: /\/node_modules\//,
+      include: /[\\/]node_modules[\\/]/,
     }),
     nodeResolve({
       customResolveOptions: {

@@ -77,7 +77,7 @@ function getAllModule(
       }
       console.log(
         `${importType.importPath.replace(
-          /^[\s|\S]+\/src/,
+          /^[\s|\S]+[\\/]src/,
           'src',
         )}文件内[${reqTypeName}] 或 [${resTypeName}] 没有这个接口, 同步将会忽略掉`,
       )

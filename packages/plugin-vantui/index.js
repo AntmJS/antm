@@ -27,7 +27,7 @@ class EnjectPlugin {
         (loaderContext, module) => {
           const { designWidth, deviceRatio } = this.options || {}
           const { dir, name } = path.parse(module.resource)
-          if (/vantui\/dist\/h5\./.test(path.join(dir, name))) {
+          if (/vantui[\\/]dist[\\/]h5\./.test(path.join(dir, name))) {
             module.loaders.push({
               loader: path.join(__dirname, 'pxTransformLoader.js'),
               options: {
