@@ -33,6 +33,7 @@ declare namespace Unite {
     onUnload(): void | Promise<void>
     onPullDownRefresh(): void | Promise<void>
     onReachBottom(): void | Promise<void>
+    onResize(): void | Promise<void>
     onPageScroll(payload: Taro.PageScrollObject): void | Promise<void>
   }
 
@@ -51,7 +52,7 @@ declare namespace Unite {
     setError: React.Dispatch<React.SetStateAction<IError | undefined>>
   }
   interface InstanceProperty<
-    TAll extends IFunctionObject,
+    TAll extends IAnyObject,
     TProps extends IAnyObject,
   > {
     error: any
@@ -69,14 +70,17 @@ declare namespace Unite {
       ? T[K] & IAnyObject
       : T[K]
   }
-  type FunctionPropertyNames<T> = {
+  type FunctionPropertyNames<T extends IAnyObject> = {
     [K in keyof T]: T[K] extends (...args: any) => any ? K : never
   }[keyof T]
   type PromisePropertyNames<T extends IFunctionObject> = {
     [K in keyof T]: ReturnType<T[K]> extends Promise<any> ? K : never
   }[keyof T]
-  type FunctionProperties<T> = Pick<T, FunctionPropertyNames<T>>
-  type PromiseProperties<T> = Pick<
+  type FunctionProperties<T extends IAnyObject> = Pick<
+    T,
+    FunctionPropertyNames<T>
+  >
+  type PromiseProperties<T extends IAnyObject> = Pick<
     T,
     PromisePropertyNames<FunctionProperties<T>>
   >
@@ -129,10 +133,7 @@ declare function Unite<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 >(
   config: Unite.Option<TState, TAll, TProps>,
-  renderCom: (
-    data: Unite.Response<TState, TAll>,
-    props?: TProps,
-  ) => JSX.Element,
+  renderCom: (data: Unite.Response<TState, TAll>, props: TProps) => JSX.Element,
 ): (props: TProps) => any
 
 export function registerCatch(

@@ -8,8 +8,47 @@ import {
   useReachBottom,
   usePageScroll,
   useRouter,
+  useResize,
 } from '@tarojs/taro'
 import { useRef, useState, useEffect, memo } from 'react'
+
+function isString(args: any): boolean {
+  return toString.call(args) === '[object String]'
+}
+
+function parse(str: string, decode = true): TypeUnite.IAnyObject {
+  const params: TypeUnite.IAnyObject = {}
+  if (!isString(str)) {
+    return params
+  }
+  const trimStr: string = str.trim()
+  if (trimStr === '') {
+    return params
+  }
+
+  const newStr: string[] = trimStr.split('&')
+
+  for (let i = 0; i < newStr.length; i++) {
+    const [key, value]: string[] = newStr[i]!.split('=')
+    if (decode) {
+      const kkey = decodeURIComponent(key!)
+      const vvalue = decodeURIComponent(value!)
+      if (isString(vvalue)) {
+        try {
+          params[kkey] = JSON.parse(vvalue)
+        } catch (error) {
+          params[kkey] = vvalue
+        }
+      } else {
+        params[kkey] = vvalue
+      }
+    } else {
+      params[key!] = value
+    }
+  }
+
+  return params
+}
 
 let catchMethod: any
 
@@ -24,129 +63,6 @@ function executeCatch(
   }
 }
 
-function useEventEnhancement<
-  TState extends TypeUnite.IAnyObject,
-  TProps extends TypeUnite.IFunctionObject,
-  TAll extends TypeUnite.IAnyObject,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
->(
-  config: TypeUnite.Option<TState, TAll, TProps>,
-  setState: React.Dispatch<React.SetStateAction<TypeUnite.StateOpt<TState>>>,
-  setError: React.Dispatch<React.SetStateAction<TypeUnite.IError | undefined>>,
-  context: React.MutableRefObject<any>,
-): TypeUnite.EventEnhancementResponse<TAll, TState> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const eventsRef = <React.MutableRefObject<any>>useRef({})
-
-  const [loading, setLoading] = useState({})
-  // 解决development环境热更新问题，重新创建eventsRef
-  if (!context.current.__init || process.env.NODE_ENV === 'development') {
-    context.current.__init = true
-
-    const _setState = function (
-      res:
-        | Partial<TypeUnite.StateOpt<TState>>
-        | React.SetStateAction<TypeUnite.StateOpt<TState>>,
-    ): void {
-      if (context.current.__mounted) {
-        if (toString.call(res) === '[object Object]') {
-          setState((preState) => {
-            return { ...preState, ...res }
-          })
-        } else {
-          setState(res as React.SetStateAction<TypeUnite.StateOpt<TState>>)
-        }
-      }
-    }
-
-    const _setError: React.Dispatch<
-      React.SetStateAction<TypeUnite.IError | undefined>
-    > = function (res) {
-      if (context.current.__mounted) {
-        setError(res)
-      }
-    }
-
-    const _setLoading = function (
-      obj: Partial<{ [K in keyof TypeUnite.PromiseProperties<TAll>]: boolean }>,
-    ): void {
-      if (context.current.__mounted) {
-        // 这里同步更新，保证this.loading的同步性
-        context.current.loading = { ...loading, ...obj }
-        setLoading((preState) => {
-          return { ...preState, ...obj }
-        })
-      }
-    }
-
-    // 这里只执行一遍
-    context.current.loading = loading
-    context.current.setState = _setState
-    eventsRef.current.setState = _setState
-    context.current.setError = _setError
-    eventsRef.current.setError = _setError
-
-    for (const item in config) {
-      if (typeof config[item] === 'function') {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const newFunc = <(...args: any[]) => any>config[item]
-
-        /** 开发环境保留原始函数 */
-        // if (process.env.NODE_ENV === 'development') {
-        //   eventsRef.current[`${item}_origin`] = config[item]
-        // }
-
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const _defined = function (this: any, ...args: any[]): any {
-          let res: any
-          try {
-            res = newFunc.call(this, ...args)
-            if (typeof res?.then !== 'function') {
-              return res
-            }
-          } catch (err) {
-            executeCatch(err, _setError)
-          }
-
-          const loadingTrue = {
-            [item]: true,
-          } as Partial<
-            { [K in keyof TypeUnite.PromiseProperties<TAll>]: boolean }
-          >
-          const loadingFalse = {
-            [item]: false,
-          } as Partial<
-            { [K in keyof TypeUnite.PromiseProperties<TAll>]: boolean }
-          >
-          try {
-            return new Promise(function (resolve) {
-              _setLoading(loadingTrue)
-              res
-                .then(function (result: any) {
-                  _setLoading(loadingFalse)
-                  resolve(result)
-                })
-                .catch(function (err: any) {
-                  _setLoading(loadingFalse)
-                  executeCatch(err, _setError)
-                })
-            })
-          } catch (err) {
-            _setLoading(loadingFalse)
-            executeCatch(err, _setError)
-          }
-        }
-        context.current[item] = _defined.bind(context.current)
-        eventsRef.current[item] = _defined.bind(context.current)
-      } else if (item !== 'state') {
-        context.current[item] = config[item]
-      }
-    }
-  }
-
-  return { events: eventsRef.current, loading }
-}
-
 function useContainer<
   TState extends TypeUnite.IAnyObject,
   TProps extends TypeUnite.IAnyObject,
@@ -155,73 +71,192 @@ function useContainer<
   config: TypeUnite.Option<TState, TAll, TProps>,
   props: TProps,
 ): TypeUnite.Response<TState, TAll> {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const context = <React.MutableRefObject<any>>(
-    useRef({ __mounted: false, __init: false, props })
-  )
-  const [state, setState] = useState(config.state)
-  const [error, setError] = useState(undefined) as [
-    TypeUnite.IError | undefined,
-    React.Dispatch<React.SetStateAction<TypeUnite.IError | undefined>>,
-  ]
+  // 兼容react-refresh
+  const cfgRef = <React.MutableRefObject<any>>useRef({})
+  cfgRef.current = config
 
-  const { events, loading } = useEventEnhancement(
-    config,
-    setState,
-    setError,
-    context,
-  )
+  // 通过ref初始化实例对象
+  const insRef = <React.MutableRefObject<any>>useRef({})
 
+  // 初始化state
+  const [state, setState]: any = useState(cfgRef.current.state)
+
+  // 定义错误收集器，页面级展示的错误可以设置到这里面
+  const [error, setError]: any = useState()
+
+  // 定义加载收集器
+  const [loading, setLoading]: any = useState({})
+
+  // 通过ref定义一些开关
+  const flagRef = <React.MutableRefObject<any>>useRef({
+    __mounted: false,
+    __init: false,
+    __refactor: function () {
+      insRef.current.setState = function (
+        res:
+          | Partial<TypeUnite.StateOpt<TState>>
+          | React.SetStateAction<TypeUnite.StateOpt<TState>>,
+      ): void {
+        if (flagRef.current.__mounted) {
+          if (toString.call(res) === '[object Object]') {
+            setState((preState: any) => {
+              return { ...preState, ...res }
+            })
+          } else {
+            setState(res as React.SetStateAction<TypeUnite.StateOpt<TState>>)
+          }
+        }
+      }
+
+      insRef.current.setError = function (res: TypeUnite.IError | undefined) {
+        if (flagRef.current.__mounted) {
+          setError(res)
+        }
+      }
+
+      const _setLoading = function (
+        obj: Partial<
+          { [K in keyof TypeUnite.PromiseProperties<TAll>]: boolean }
+        >,
+      ): void {
+        if (flagRef.current.__mounted) {
+          setLoading((preState: any) => {
+            return { ...preState, ...obj }
+          })
+        }
+      }
+      for (const item in cfgRef.current) {
+        if (typeof cfgRef.current[item] === 'function') {
+          const copyFunc = cfgRef.current[item]
+          const _defined = function (this: any, ...args: any[]): any {
+            let res: any
+            try {
+              res = copyFunc!.call(this, ...args)
+              if (typeof res?.then !== 'function') {
+                return res
+              }
+            } catch (err) {
+              executeCatch(err, insRef.current.setError)
+            }
+
+            const loadingTrue = {
+              [item]: true,
+            } as Partial<
+              { [K in keyof TypeUnite.PromiseProperties<TAll>]: boolean }
+            >
+            const loadingFalse = {
+              [item]: false,
+            } as Partial<
+              { [K in keyof TypeUnite.PromiseProperties<TAll>]: boolean }
+            >
+            try {
+              return new Promise(function (resolve) {
+                _setLoading(loadingTrue)
+                res
+                  .then(function (result: any) {
+                    _setLoading(loadingFalse)
+                    resolve(result)
+                  })
+                  .catch(function (err: any) {
+                    _setLoading(loadingFalse)
+                    executeCatch(err, insRef.current.setError)
+                  })
+              })
+            } catch (err) {
+              _setLoading(loadingFalse)
+              executeCatch(err, insRef.current.setError)
+            }
+          }
+          insRef.current[item] = _defined.bind(insRef.current)
+        } else if (item !== 'state') {
+          insRef.current[item] = cfgRef.current[item]
+        }
+      }
+    },
+  })
+
+  // 初始化
+  if (!flagRef.current.__init) {
+    flagRef.current.__init = true
+    flagRef.current.__refactor()
+  }
+
+  // 将loading直接赋值给实例对象，方便开发通过this.loading取值
+  insRef.current.loading = loading
+
+  // 将state直接赋值给实例对象，方便开发通过this.state取值
+  insRef.current.state = state
+
+  // 将props直接赋值给实例对象，方便开发通过this.props取值
+  insRef.current.props = props
+
+  // 将路由信息挂在到实例对象，方便开发通过this.location取值
   const routerInfo: Taro.RouterInfo = useRouter()
-  context.current.location = routerInfo
-  context.current.state = state
-  context.current.error = error
+  if (process.env.TARO_ENV === 'h5') {
+    const query = parse(location.search ? location.search.slice(1) : '')
+    routerInfo.params = { ...routerInfo.params, ...query }
+  }
+  insRef.current.location = routerInfo
+
+  // 将页面级错误也挂到实例对象，方便开发通过this.error取值
+  // 一般不需要用到，因为页面级的错误通常是传递给render函数去渲染错误页面即可
+  insRef.current.error = error
 
   useEffect(function () {
-    // 解决development环境热更新（useState不可破坏性），重新setState
-    if (process.env.NODE_ENV === 'development') setState(config.state)
-    context.current.__mounted = true
-    context.current?.onLoad?.()
+    flagRef.current.__mounted = true
+    // if (flagRef.current.__reactRefresh) {
+    //   flagRef.current.__reactRefresh = false
+    //   //解决react-refresh问题
+    //   insRef.current = {
+    //     props: insRef.current.props,
+    //   }
+    //   setLoading({})
+    //   insRef.current.loading = {}
+    //   setState(cfgRef.current.state)
+    //   insRef.current.state = cfgRef.current.state
+    //   flagRef.current.__refactor()
+    // }
+    insRef.current?.onLoad?.()
 
     return function (): void {
-      context.current && (context.current.__mounted = false)
+      flagRef.current.__mounted = false
+      // flagRef.current.__reactRefresh = true
       setError(undefined)
-      context.current?.onUnload?.()
+      insRef.current.error = undefined
+      insRef.current?.onUnload?.()
     }
   }, [])
 
   useReady(function () {
-    context.current?.onReady?.()
+    insRef.current?.onReady?.()
   })
 
   useDidShow(function () {
-    context.current.__mounted = true
-    context.current?.onShow?.()
+    flagRef.current.__mounted = true
+    insRef.current?.onShow?.()
   })
 
   useDidHide(function () {
-    context.current?.onHide?.()
+    insRef.current?.onHide?.()
   })
 
   usePullDownRefresh(function () {
-    context.current?.onPullDownRefresh?.()
+    insRef.current?.onPullDownRefresh?.()
   })
 
   useReachBottom(function () {
-    context.current?.onReachBottom?.()
+    insRef.current?.onReachBottom?.()
   })
 
   usePageScroll(function (payload: Taro.PageScrollObject) {
-    context.current?.onPageScroll?.(payload)
+    insRef.current?.onPageScroll?.(payload)
   })
 
-  useEffect(() => {
-    if (context.current) {
-      context.current.props = props
-    }
-  }, [props])
+  useResize(function () {
+    insRef.current?.onResize?.()
+  })
 
-  return { state, events, loading, error }
+  return { state, events: insRef.current, loading, error }
 }
 
 export function registerCatch(
@@ -239,12 +274,11 @@ export default function Unite<
   TState extends TypeUnite.IAnyObject,
   TAll extends TypeUnite.IAnyObject,
   TProps extends TypeUnite.IAnyObject,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
 >(
   config: TypeUnite.Option<TState, TAll, TProps>,
   renderCom: (
     data: TypeUnite.Response<TState, TAll>,
-    props?: TProps,
+    props: TProps,
   ) => JSX.Element,
 ): (props: TProps) => any {
   return memo(function Index(props) {
