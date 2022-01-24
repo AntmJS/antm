@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/plugin-vantui",
-  "version": "1.17.5",
+  "version": "1.17.6",
   "main": "index.js",
   "author": "三少 <hi_sanshao@outlook.com>",
   "description": "vantui组件在React中使用时更新单位换算尺寸的插件",
