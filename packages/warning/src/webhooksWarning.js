@@ -68,7 +68,7 @@ module.exports = async function chartWarning(props) {
     Object.keys(res).map((key) => {
       if (res[key]) {
         content.text.content += `
->>>>>>>>>>>>>>>>>>【${key}修改】<<<<<<<<<<<<<<<<<<<
+>>>>>>>>>>>>>>>>>>【${key}】<<<<<<<<<<<<<<<<<<<
 ${res[key]}`
       }
     })

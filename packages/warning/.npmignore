@@ -11,6 +11,5 @@
 CHANGELOG.md
 package-lock.json
 
-src
 node_modules
 coverage
