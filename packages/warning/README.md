@@ -18,7 +18,10 @@ yarn add @antmjs/warning -D
 ```javascript
 module.exports = {
   warning: {
-    monitorFiles: ['package.json'],
+    monitorFiles: [
+      'package.json', 
+      './packages/[!node_modules]**/package.json' // 支持glob语法
+    ],
     branchs: ['master'],                    // 监听的分支，不设置的话所有的分支都监听
     webhooks: { 
       url: 'https://oapi.dingtalk.com/robot/send?access_token=xxx'  // webhooks地址，多个用数组
@@ -39,8 +42,8 @@ module.exports = {
 . "$(dirname "$0")/_/husky.sh"
 
 yarn lint-staged
-antm-warning webhooks
-antm-warning email
+npx antm-warning webhooks
+npx antm-warning email
 ```
 antm-warning webhook的相关参数
 ```sh

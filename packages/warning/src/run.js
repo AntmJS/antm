@@ -2,9 +2,9 @@
 const path = require('path')
 const fs = require('fs')
 const cwd = process.cwd()
-const { getBranch } = require('./utils')
+const { getBranch, getGlobUrls } = require('./utils')
 const configPath = path.resolve(cwd, './antm.config.js')
-let antmConfigWarning = { monitorFiles: ['./src/run.js'] }
+let antmConfigWarning = { monitorFiles: [] }
 const currentBranch = getBranch()
 
 if (fs.existsSync(configPath)) {
@@ -13,7 +13,7 @@ if (fs.existsSync(configPath)) {
     antmConfigWarning = {
       webhooks: antmConfig.warning.webhooks,
       email: antmConfig.warning.email,
-      monitorFiles: antmConfig.warning.monitorFiles,
+      monitorFiles: getGlobUrls(antmConfig.warning.monitorFiles),
       branchs: antmConfig.branchs,
     }
   } else {

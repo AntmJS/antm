@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const cp = require('child_process')
 const chalk = require('chalk')
+const glob = require('glob')
 
 /** git用户名 */
 function getUserInfo() {
@@ -49,6 +50,22 @@ function checkEmial(email) {
   return /^\w+@[a-z0-9]+\.[a-z]{2,4}$/.test(email)
 }
 
+/** 处理glob的文件路径 */
+function getGlobUrls(monitorFiles) {
+  const hasGlob = monitorFiles.some((item) => item.includes('*'))
+  if (!hasGlob) return monitorFiles
+  let notGlobItems = monitorFiles.filter((item) => !item.includes('*'))
+  const globItems = monitorFiles.filter((item) => item.includes('*'))
+  for (let i = 0; i < globItems.length; i++) {
+    const res = glob.sync(globItems[i], {
+      cwd: process.cwd(),
+    })
+    if (res && res.length) notGlobItems = notGlobItems.concat(res)
+  }
+
+  return notGlobItems
+}
+
 /** 信息打印 */
 const log = {
   success(info) {
@@ -68,5 +85,6 @@ module.exports = {
   getDiff,
   checkWebHooks,
   checkEmial,
+  getGlobUrls,
   log,
 }
