@@ -14,13 +14,13 @@ export default function <
 >(init: { ram: TRam; loc: TLocal }): Cache.IMethod<TRam, TLocal> {
   const tempKeys = Object.keys(init.ram) as (keyof TRam)[]
   const localKeys = Object.keys(init.loc) as (keyof TLocal)[]
-  const store = { ...init.ram, ...init.loc }
+  const store: any = {}
 
   function cacheGetSync<T extends Cache.ICacheOptAllKey<TRam, TLocal>>(
     key: T,
   ): Partial<Cache.StateOpt<Cache.ICacheOptAll<TRam, TLocal>>>[T] {
     if (tempKeys.includes(key as keyof TRam)) {
-      return store[key]
+      return store[key] || init.ram[key as keyof TRam]
     } else if (localKeys.includes(key as keyof TLocal)) {
       let value = store[key]
       if (isUndefined(value) || isNull(value)) {
@@ -33,7 +33,7 @@ export default function <
         } catch {}
       }
 
-      return value
+      return value ?? (init.loc[key as keyof TLocal] as any)
     }
     console.error(
       `请先注册该Key：Cache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
@@ -46,7 +46,7 @@ export default function <
   }): Promise<Partial<Cache.StateOpt<Cache.ICacheOptAll<TRam, TLocal>>>[T]> {
     return new Promise(function (resolve) {
       if (tempKeys.includes(option.key as keyof TRam)) {
-        resolve(store[option.key])
+        resolve(store[option.key] || init.ram[option.key as keyof TRam])
       } else if (localKeys.includes(option.key as keyof TLocal)) {
         let value = store[option.key]
         if (isUndefined(value) || isNull(value)) {
@@ -56,9 +56,9 @@ export default function <
               value = JSON.parse(result)
             }
             store[option.key] = value
-            resolve(value)
+            resolve(value ?? (init.loc[option.key as keyof TLocal] as any))
           } catch {
-            resolve(value)
+            resolve(value ?? (init.loc[option.key as keyof TLocal] as any))
           }
         } else {
           resolve(value)
@@ -74,7 +74,7 @@ export default function <
 
   function cacheSetSync<T extends Cache.ICacheOptAllKey<TRam, TLocal>>(
     key: T,
-    value: Cache.StateOpt<Cache.ICacheOptAll<TRam, TLocal>>[T],
+    value: Partial<Cache.StateOpt<Cache.ICacheOptAll<TRam, TLocal>>[T]>,
   ): void {
     if (tempKeys.includes(key as keyof TRam)) {
       store[key] = value
@@ -94,7 +94,7 @@ export default function <
 
   function cacheSet<T extends Cache.ICacheOptAllKey<TRam, TLocal>>(option: {
     key: T
-    data: Cache.StateOpt<Cache.ICacheOptAll<TRam, TLocal>>[T]
+    data: Partial<Cache.StateOpt<Cache.ICacheOptAll<TRam, TLocal>>[T]>
   }): Promise<void> {
     return new Promise(function (resolve: (args: void) => void) {
       if (tempKeys.includes(option.key as keyof TRam)) {

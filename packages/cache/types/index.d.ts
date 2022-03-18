@@ -32,11 +32,11 @@ declare namespace Cache {
     }) => Promise<Partial<StateOpt<ICacheOptAll<TRam, TLocal>>>[T]>
     cacheSetSync: <T extends ICacheOptAllKey<TRam, TLocal>>(
       key: T,
-      value: StateOpt<ICacheOptAll<TRam, TLocal>>[T],
+      value: Partial<StateOpt<ICacheOptAll<TRam, TLocal>>[T]>,
     ) => void
     cacheSet: <T extends ICacheOptAllKey<TRam, TLocal>>(option: {
       key: T
-      data: StateOpt<ICacheOptAll<TRam, TLocal>>[T]
+      data: Partial<StateOpt<ICacheOptAll<TRam, TLocal>>[T]>
     }) => Promise<void>
     cacheRemoveSync: <T extends ICacheOptAllKey<TRam, TLocal>>(key: T) => void
     cacheRemove: <T extends ICacheOptAllKey<TRam, TLocal>>(option: {

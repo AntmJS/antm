@@ -11,6 +11,7 @@ declare const dd: any
 declare const jd: any
 declare const qywx: any
 declare const iot: any
+declare const ks: any
 declare const getCurrentPages: any
 // eslint-disable-next-line prefer-const
 declare let App: any
@@ -48,6 +49,8 @@ const minins =
     ? qywx
     : typeof iot === 'object'
     ? iot
+    : typeof ks === 'object'
+    ? ks
     : undefined
 
 minins?.onError?.((res: any) => {
@@ -97,16 +100,6 @@ let sysInfo: any
 let location: Trace.ILocation
 
 function setCommonTrackData() {
-  const minins =
-    typeof wx === 'object'
-      ? wx
-      : typeof my === 'object'
-      ? my
-      : typeof tt === 'object'
-      ? tt
-      : typeof swan === 'object'
-      ? dd
-      : undefined
   if (!uuid) {
     minins.getStorage({
       key: 'mgstat_uuid',
