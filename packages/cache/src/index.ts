@@ -9,7 +9,7 @@ declare const dd: any
 declare const jd: any
 declare const qywx: any
 declare const iot: any
-declare const kwai: any
+declare const ks: any
 
 const minins =
   typeof wx === 'object'
@@ -30,8 +30,8 @@ const minins =
     ? qywx
     : typeof iot === 'object'
     ? iot
-    : typeof kwai === 'object'
-    ? kwai
+    : typeof ks === 'object'
+    ? ks
     : undefined
 
 function isUndefined(args: any): boolean {
