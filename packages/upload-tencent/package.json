@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/upload-tencent",
-  "version": "1.17.8",
+  "version": "1.17.9",
   "description": "Upload to Tenecnt COS.",
   "main": "utils/index.js",
   "bin": {
