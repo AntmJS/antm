@@ -38,6 +38,8 @@ export enum EAppSubType {
   qywx = '10',
   // 支付宝IOT小程序
   iot = '11',
+  // 快手小程序
+  kwai = '12',
 }
 
 export enum ELf {

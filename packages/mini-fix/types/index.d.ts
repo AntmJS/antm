@@ -13,6 +13,7 @@ declare global {
         | 'qywx'
         | 'jd'
         | 'iot'
+        | 'kwai'
     }
   }
 }
