@@ -41,6 +41,7 @@
     "@types/markdown-it": "^12.2.3"
   },
   "dependencies": {
+    "@antmjs/babel-preset": "^1.18.0",
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
