@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
 const PLUGIN_NAME = 'MiniFixPlugin'
+const caches = []
 function MiniFixPlugin(options) {
   this.options = options
 }
@@ -12,10 +13,13 @@ MiniFixPlugin.prototype.apply = function (compiler) {
       PLUGIN_NAME,
       (loaderContext, module) => {
         const { base } = path.parse(module.resource)
-        if (/app\.[t|j]?sx?/.test(base)) {
+        if (
+          /app\.(tsx|jsx|ts|js)$/.test(base) &&
+          !caches.includes(module.resource)
+        ) {
+          caches.push(module.resource)
           module.loaders.push({
             loader: path.join(__dirname, 'fixTaroQueryLoader'),
-            options: {},
           })
         }
       },
