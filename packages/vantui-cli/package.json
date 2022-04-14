@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/vantui-cli",
-  "version": "1.18.2",
+  "version": "1.18.3",
   "type": "module",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -41,7 +41,7 @@
     "@types/markdown-it": "^12.2.3"
   },
   "dependencies": {
-    "@antmjs/babel-preset": "1.18.2",
+    "@antmjs/babel-preset": "1.18.3",
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.0",
     "@babel/preset-typescript": "^7.16.0",
