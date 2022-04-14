@@ -131,6 +131,9 @@ function useContainer<
           const _defined = function (this: any, ...args: any[]): any {
             let res: any
             try {
+              if (insRef.current.loading[item]) {
+                return new Promise(() => {})
+              }
               res = copyFunc!.call(this, ...args)
               if (typeof res?.then !== 'function') {
                 return res
@@ -155,12 +158,6 @@ function useContainer<
                 _setLoading(loadingTrue)
                 res
                   .then(function (result: any) {
-                    if (
-                      insRef.current.loading[item] &&
-                      typeof result === 'undefined'
-                    ) {
-                      return
-                    }
                     insRef.current.loading[item] = false
                     _setLoading(loadingFalse)
                     resolve(result)
