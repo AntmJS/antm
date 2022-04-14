@@ -151,18 +151,28 @@ function useContainer<
             >
             try {
               return new Promise(function (resolve) {
+                insRef.current.loading[item] = true
                 _setLoading(loadingTrue)
                 res
                   .then(function (result: any) {
+                    if (
+                      insRef.current.loading[item] &&
+                      typeof result === 'undefined'
+                    ) {
+                      return
+                    }
+                    insRef.current.loading[item] = false
                     _setLoading(loadingFalse)
                     resolve(result)
                   })
                   .catch(function (err: any) {
+                    insRef.current.loading[item] = false
                     _setLoading(loadingFalse)
                     executeCatch(err, insRef.current.setError)
                   })
               })
             } catch (err) {
+              insRef.current.loading[item] = false
               _setLoading(loadingFalse)
               executeCatch(err, insRef.current.setError)
             }
