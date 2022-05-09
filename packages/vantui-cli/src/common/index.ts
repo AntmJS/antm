@@ -1,11 +1,6 @@
-import type { InlineConfig } from 'vite'
 import { sep, join } from 'path'
-// eslint-disable-next-line import/default
 import fse from 'fs-extra'
-import { get } from 'lodash-es'
 import { SRC_DIR, getVantConfig } from './constant.js'
-
-// eslint-disable-next-line import/no-named-as-default-member
 const { lstatSync, existsSync, readdirSync, readFileSync, outputFileSync } = fse
 
 export const EXT_REGEXP = /\.\w+$/
@@ -140,16 +135,6 @@ export function smartOutputFile(filePath: string, content: string) {
   }
 
   outputFileSync(filePath, content)
-}
-
-export function mergeCustomViteConfig(config: InlineConfig) {
-  const vantConfig = getVantConfig()
-  const configureVite = get(vantConfig, 'build.configureVite')
-
-  if (configureVite) {
-    return configureVite(config)
-  }
-  return config
 }
 
 export { getVantConfig }

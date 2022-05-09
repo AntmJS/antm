@@ -29,7 +29,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     // declaration和allowJs不能同时设为true
-    "allowJs": true,
+    // "allowJs": true,
     "jsx": "react-jsx",
     "skipLibCheck": false,
 
