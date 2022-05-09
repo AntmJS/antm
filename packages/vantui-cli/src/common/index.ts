@@ -1,4 +1,6 @@
 import { sep, join } from 'path'
+
+// eslint-disable-next-line import/default
 import fse from 'fs-extra'
 import { SRC_DIR, getVantConfig } from './constant.js'
 const { lstatSync, existsSync, readdirSync, readFileSync, outputFileSync } = fse
