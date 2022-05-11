@@ -1,11 +1,11 @@
 {
   "name": "@antmjs/vantui-cli",
-  "version": "0.0.0",
+  "version": "1.18.4",
   "type": "module",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "bin": {
-    "vantui-cli": "./bin.js"
+    "antm-vantui-cli": "./bin.js"
   },
   "engines": {
     "node": ">=12",
@@ -51,9 +51,9 @@
     "@docsearch/js": "3.0.0-alpha.41",
     "@vant/markdown-vetur": "^2.2.0",
     "@vant/touch-emulator": "^1.3.2",
-    "autoprefixer": "^10.4.0",
+    "autoprefixer": "^10.4.7",
     "babel-loader": "^8.2.5",
-    "chalk": "^4.1.2",
+    "chalk": "^5.0.1",
     "chokidar": "^3.5.3",
     "classnames": "^2.3.1",
     "clean-css": "^5.2.2",

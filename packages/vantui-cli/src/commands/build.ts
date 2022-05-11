@@ -3,7 +3,6 @@ import { join, relative } from 'path'
 import fse from 'fs-extra'
 import { CSS_LANG } from '../common/css.js'
 import { ora, consola } from '../common/logger.js'
-import { installDependencies } from '../common/manager.js'
 import { compileStyle } from '../compiler/compile-style.js'
 import { compileScript } from '../compiler/compile-script.js'
 import { genPackageEntry } from '../compiler/gen-package-entry.js'
@@ -21,6 +20,7 @@ import {
   setBuildTarget,
 } from '../common/index.js'
 import { clean } from './clean.js'
+// eslint-disable-next-line import/no-named-as-default-member
 const { remove, copy, readdir } = fse
 
 async function compileFile(filePath: string) {
@@ -173,7 +173,6 @@ export async function build(params: { type?: 'es' | 'lib' }) {
 
   try {
     await clean()
-    await installDependencies()
     await runBuildTasks(params.type)
   } catch (err) {
     consola.error('Build failed')
