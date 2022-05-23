@@ -29,7 +29,7 @@ function smoothOutParams() {
           args[0].query = decodeParams(args[0].query || {})
         }
         firstShow = true
-        console.log('inner launch', JSON.stringify(args[0]))
+        // console.log('inner launch', JSON.stringify(args[0]))
         break
       }
 
@@ -53,7 +53,7 @@ function smoothOutParams() {
           currentPage.minifixWithTT = JSON.stringify(args[0])
         }
         firstShowOpt = null
-        console.log('inner load', JSON.stringify(args[0]))
+        // console.log('inner load', JSON.stringify(args[0]))
 
         break
       }
@@ -63,7 +63,7 @@ function smoothOutParams() {
           if (firstShow) {
             firstShow = false
             firstShowOpt = JSON.stringify(args[0].query || {})
-            console.log('inner first show', JSON.stringify(args[0]))
+            // console.log('inner first show', JSON.stringify(args[0]))
           } else {
             if (process.env.TARO_ENV === 'weapp') {
               args[0].query = decodeParams(args[0].query || {})
@@ -76,7 +76,7 @@ function smoothOutParams() {
                 args[0].query = decodeParams(args[0].query || {})
               }
             }
-            console.log('inner not first show', JSON.stringify(args[0]))
+            // console.log('inner not first show', JSON.stringify(args[0]))
           }
         }
         break
@@ -94,7 +94,7 @@ function smoothOutParams() {
         const factoryOptions = handlePageCycle(methodName, args, isApp)
         return methodFunc.apply(this, factoryOptions)
       } catch (e) {
-        console.info('ace-mini wrapMethod error', e)
+        console.info('antmjs wrapMethod error', e)
       }
 
       return methodFunc.apply(this, args)
@@ -109,7 +109,7 @@ function smoothOutParams() {
           wrapMethod(obj, methodName, isApp)
         })
     } catch (e) {
-      console.info('ace-mini filterFunctions error', e)
+      console.info('antmjs filterFunctions error', e)
     }
   }
 
