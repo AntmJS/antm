@@ -45,11 +45,7 @@ md文件的位置
 - src/`componentName`/README.md
 - docs/`anyDocName`.md
 配置文件vant.config.js下的build
-<<<<<<< HEAD
 ```js
-=======
-```
->>>>>>> main
 module.exports = {
   name: 'vantui-doc',
   site: {
