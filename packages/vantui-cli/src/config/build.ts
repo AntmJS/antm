@@ -6,7 +6,11 @@ export default async function build() {
   // @ts-ignore
   process.env.NODE_ENV === 'production'
   const Con = await getPro()
-  Webpack(Con as any, (err) => {
+  const compile = Webpack(Con as any, (err) => {
+    if (err) console.info(err)
+  })
+
+  compile.run((err) => {
     if (err) console.info(err)
   })
 }
