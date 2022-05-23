@@ -38,7 +38,8 @@
     "@types/fs-extra": "^9.0.13",
     "@types/less": "^3.0.3",
     "@types/lodash-es": "^4.17.5",
-    "@types/markdown-it": "^12.2.3"
+    "@types/markdown-it": "^12.2.3",
+    "@types/prettier": "^2.6.1"
   },
   "dependencies": {
     "@antmjs/babel-preset": "1.18.4",
@@ -64,6 +65,7 @@
     "execa": "^5.1.1",
     "fast-glob": "^3.2.7",
     "fs-extra": "^10.1.0",
+    "glob": "^8.0.3",
     "hash-sum": "^2.0.0",
     "highlight.js": "^11.3.1",
     "html-webpack-plugin": "^5.5.0",
@@ -72,12 +74,14 @@
     "lodash-es": "^4.17.21",
     "markdown-it": "^12.2.0",
     "markdown-it-anchor": "^8.4.1",
+    "markdown-to-ast": "^6.0.3",
     "mini-css-extract-plugin": "^2.6.0",
     "net": "^1.0.2",
     "ora": "^6.0.1",
     "postcss": "^8.3.11",
     "postcss-load-config": "^3.1.0",
     "postcss-loader": "^6.2.1",
+    "prettier": "^2.6.2",
     "raw-loader": "^4.0.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",

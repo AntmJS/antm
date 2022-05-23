@@ -2,12 +2,12 @@ import React from 'react'
 import hljs from 'highlight.js'
 import MarkdownIt from 'markdown-it'
 import './index.less'
-import { set } from 'lodash-es'
+// eslint-disable-next-line import/no-named-as-default
 import toast, { Toaster } from 'react-hot-toast'
 
 const config = {
   highlight: function (str, lang) {
-    return hljs.highlight(str, { language: lang !== 'js' ? 'xml' : 'js' }).value
+    return hljs.highlight(str, { language: lang }).value
   },
   html: true,
 }

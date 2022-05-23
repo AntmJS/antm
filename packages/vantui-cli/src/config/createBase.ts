@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { dirname } from 'path'
 import { fileURLToPath } from 'url'
-import { VANT_CONFIG_FILE } from '../common/constant.js'
+import { getVantConfig } from '../common/constant.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const cwd = process.cwd()
@@ -68,15 +68,6 @@ export default async function Create() {
   fs.writeFileSync(`${__dirname}/vant.base.js`, codeStr)
 
   return base
-}
-
-async function getVantConfig(): Promise<any> {
-  let res = await fs.readFileSync(VANT_CONFIG_FILE, 'utf-8')
-  res = eval(`(function() {
-    return ${res.replace(`module.exports = `, '')}
-  })()`)
-
-  return res
 }
 
 function resetPath(r: string, firstBig?: boolean) {

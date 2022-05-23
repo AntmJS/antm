@@ -15,14 +15,15 @@ export default function PageLayout() {
       setHash(window.location.hash)
     })
     window.addEventListener('scroll', function (e) {
-      console.dir(this.pageYOffset)
-      if (this.pageYOffset < 74 && this.pageYOffset > 30) {
-        setIframeTop(84 - setIframeTop)
-      } else if (this.pageYOffset >= 74) {
-        setIframeTop(10)
-      } else {
-        setIframeTop(84)
-      }
+      this.requestIdleCallback(() => {
+        if (this.pageYOffset < 74 && this.pageYOffset > 30) {
+          setIframeTop(84 - this.pageYOffset)
+        } else if (this.pageYOffset >= 74) {
+          setIframeTop(10)
+        } else {
+          setIframeTop(84)
+        }
+      })
     })
   }, [])
 

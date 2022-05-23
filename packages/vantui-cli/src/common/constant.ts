@@ -19,6 +19,7 @@ function findRootDir(dir: string): string {
 
 // Root paths
 export const CWD = process.cwd()
+
 export const ROOT = findRootDir(CWD)
 export const ES_DIR = join(ROOT, 'es')
 export const LIB_DIR = join(ROOT, 'lib')
@@ -27,6 +28,10 @@ export const PACKAGE_JSON_FILE = join(ROOT, 'package.json')
 
 // Relative paths
 const __dirname = dirname(fileURLToPath(import.meta.url))
+export const DEFAULT_DEMO_PAGE_PATH = join(
+  __dirname,
+  '../../site/simulator/src/pages',
+)
 export const CJS_DIR = join(__dirname, '..', '..', 'cjs')
 export const DIST_DIR = join(__dirname, '..', '..', 'dist')
 export const CONFIG_DIR = join(__dirname, '..', 'config')
@@ -54,6 +59,7 @@ async function getVantConfigAsync() {
   try {
     return (await import(VANT_CONFIG_FILE)).default
   } catch (err) {
+    console.info('VANT_CONFIG_FILE err: ', err)
     return {}
   }
 }

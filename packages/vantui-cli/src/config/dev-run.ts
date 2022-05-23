@@ -1,5 +1,6 @@
 import path, { dirname } from 'path'
 import { fileURLToPath } from 'url'
+// eslint-disable-next-line import/no-named-as-default
 import webpack from 'webpack'
 import Server from 'webpack-dev-server'
 import getBase from './webpack.base.config.js'

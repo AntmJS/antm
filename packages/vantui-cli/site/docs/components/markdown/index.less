@@ -10,10 +10,8 @@
   padding-right: 400px;
 
   td > em {
-    max-width: 340px;
     display: block;
-    word-wrap: break-word;
-    word-break: normal;
+    max-width: 400px;
   }
 
   p {
@@ -127,6 +125,10 @@
     .hljs-variable {
       color: #eb6f6f;
     }
+
+    .hljs-keyword {
+      color: #4994df;
+    }
   }
 
   pre {
@@ -219,6 +221,9 @@
         padding: 8px;
         font-style: normal !important;
         border-top: 1px solid #f1f4f8;
+        &:nth-child(3) {
+          max-width: 280px;
+        }
         code {
           -webkit-font-smoothing: antialiased;
           background-color: #f7f8fa;
