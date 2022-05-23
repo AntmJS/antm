@@ -45,7 +45,11 @@ md文件的位置
 - src/`componentName`/README.md
 - docs/`anyDocName`.md
 配置文件vant.config.js下的build
+<<<<<<< HEAD
+```js
+=======
 ```
+>>>>>>> main
 module.exports = {
   name: 'vantui-doc',
   site: {
@@ -89,4 +93,24 @@ module.exports = {
   },
 }
 
+```
+
+### 组件代码同步
+基本配置
+```js
+module.exports = {
+  site: {
+    ouDir: join(process.cwd(), 'site'),
+    simulator: {
+      url: {
+        development: 'http://localhost:10086',
+        production: '',
+      },
+      pagePath: path.join(__dirname, '../vantui-demo/src/pages'),
+      configPath: path.join(__dirname, '../vantui-demo/src/config.json'),
+      appConfigPath: path.join(__dirname, '../vantui-demo/src/app.config.js'),
+      withTabPages: ['icon', 'power-scroll-view'],
+    },
+  }
+}
 ```

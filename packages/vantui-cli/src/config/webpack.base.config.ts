@@ -3,15 +3,10 @@ import { fileURLToPath } from 'url'
 import htmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import autoprefixer from 'autoprefixer'
-
 import CreateBase from './createBase.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const cwd = process.cwd()
-
-function resolveLoaderPath(url: string) {
-  return path.join(__dirname, `../../node_modules/${url}`)
-}
 
 export default async function base() {
   const vantuiBase = await CreateBase()
@@ -40,34 +35,34 @@ export default async function base() {
       rules: [
         {
           test: /\.js|.ts|.tsx$/,
-          loader: resolveLoaderPath('babel-loader'),
-          exclude: /node_modules/,
+          loader: 'babel-loader',
+          exclude: /node_modules\/(?!@antmjs\/vantui-cli)/,
           options: {
             presets: [
               [
-                resolveLoaderPath('@babel/preset-env'),
+                '@babel/preset-env',
                 {
                   targets: {
                     esmodules: false,
                   },
                 },
               ],
-              resolveLoaderPath('@babel/preset-react'),
+              '@babel/preset-react',
             ],
           },
         },
         {
           test: /\.css$/,
-          use: [MiniCssExtractPlugin.loader, resolveLoaderPath('css-loader')],
+          use: [MiniCssExtractPlugin.loader, 'css-loader'],
         },
         {
           test: /\.less$/,
           use: [
             MiniCssExtractPlugin.loader,
-            resolveLoaderPath('css-loader'),
-            resolveLoaderPath('less-loader'),
+            'css-loader',
+            'less-loader',
             {
-              loader: resolveLoaderPath('postcss-loader'),
+              loader: 'postcss-loader',
               options: {
                 postcssOptions: {
                   plugins: () => {
@@ -84,11 +79,11 @@ export default async function base() {
         },
         {
           test: /\.(jpe?g|png|gif)(\?.+)?$/,
-          loader: resolveLoaderPath('file-loader'),
+          loader: 'file-loader',
         },
         {
           test: /\.md$/,
-          loader: resolveLoaderPath('raw-loader'),
+          loader: 'raw-loader',
         },
       ],
     },

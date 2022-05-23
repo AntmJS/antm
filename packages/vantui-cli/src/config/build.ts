@@ -6,7 +6,12 @@ export default async function build() {
   // @ts-ignore
   process.env.NODE_ENV === 'production'
   const Con = await getPro()
-  Webpack(Con as any, (err) => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const compile = Webpack(Con as any)
+
+  compile.run((err, stats) => {
     if (err) console.info(err)
+    console.info(stats)
   })
 }
