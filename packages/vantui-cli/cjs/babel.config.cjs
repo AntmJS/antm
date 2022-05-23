@@ -18,13 +18,5 @@ module.exports = function (api, options) {
       ],
       require.resolve('@babel/preset-typescript'),
     ],
-    plugins: [
-      [
-        require.resolve('@vue/babel-plugin-jsx'),
-        {
-          enableObjectSlots: options.enableObjectSlots,
-        },
-      ],
-    ],
   }
 }

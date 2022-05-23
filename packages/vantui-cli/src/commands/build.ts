@@ -1,14 +1,10 @@
-/* eslint-disable import/default */
 import { join, relative } from 'path'
-// import execa from 'execa'
+// eslint-disable-next-line import/default
 import fse from 'fs-extra'
 import { CSS_LANG } from '../common/css.js'
 import { ora, consola } from '../common/logger.js'
-import { installDependencies } from '../common/manager.js'
-// import { compileSfc } from '../compiler/compile-sfc.js'
 import { compileStyle } from '../compiler/compile-style.js'
 import { compileScript } from '../compiler/compile-script.js'
-import { compilePackage } from '../compiler/compile-package.js'
 import { genPackageEntry } from '../compiler/gen-package-entry.js'
 import { genStyleDepsMap } from '../compiler/gen-style-deps-map.js'
 import { genComponentStyle } from '../compiler/gen-component-style.js'
@@ -16,18 +12,14 @@ import { SRC_DIR, LIB_DIR, ES_DIR } from '../common/constant.js'
 import { genPackageStyle } from '../compiler/gen-package-style.js'
 import {
   isDir,
-  // isSfc,
   isAsset,
   isStyle,
   isScript,
-  // isDemoDir,
-  // isTestDir,
   setNodeEnv,
   setModuleEnv,
   setBuildTarget,
 } from '../common/index.js'
 import { clean } from './clean.js'
-
 // eslint-disable-next-line import/no-named-as-default-member
 const { remove, copy, readdir } = fse
 
@@ -43,32 +35,6 @@ async function compileFile(filePath: string) {
   }
   return remove(filePath)
 }
-
-/**
- * Pre-compile
- * 1. Remove unneeded dirs
- * 2. compile sfc into scripts/styles
- */
-// async function preCompileDir(dir: string) {
-//   const files = await readdir(dir)
-
-//   await Promise.all(
-//     files.map((filename) => {
-//       const filePath = join(dir, filename)
-
-//       if (isDemoDir(filePath) || isTestDir(filePath)) {
-//         return remove(filePath)
-//       }
-//       if (isDir(filePath)) {
-//         return preCompileDir(filePath)
-//       }
-//       if (isSfc(filePath)) {
-//         return compileSfc(filePath)
-//       }
-//       return Promise.resolve()
-//     }),
-//   )
-// }
 
 async function compileDir(dir: string) {
   const files = await readdir(dir)
@@ -105,11 +71,7 @@ async function buildCJSOutputs() {
 }
 
 async function buildTypeDeclarations() {
-  // await Promise.all([preCompileDir(ES_DIR), preCompileDir(LIB_DIR)])
-  // const tsConfig = join(process.cwd(), 'tsconfig.declaration.json')
-  // if (existsSync(tsConfig)) {
-  //   await execa('tsc', ['-p', tsConfig])
-  // }
+  // todo
 }
 
 async function buildStyleEntry() {
@@ -142,12 +104,6 @@ async function buildPackageStyleEntry() {
   })
 }
 
-async function buildBundledOutputs() {
-  setModuleEnv('esmodule')
-  await compilePackage(false)
-  await compilePackage(true)
-}
-
 const tasks = [
   {
     text: 'Copy Source Code',
@@ -176,10 +132,6 @@ const tasks = [
   {
     text: 'Build CommonJS Outputs',
     task: buildCJSOutputs,
-  },
-  {
-    text: 'Build Bundled Outputs',
-    task: buildBundledOutputs,
   },
 ]
 
@@ -221,7 +173,6 @@ export async function build(params: { type?: 'es' | 'lib' }) {
 
   try {
     await clean()
-    await installDependencies()
     await runBuildTasks(params.type)
   } catch (err) {
     consola.error('Build failed')

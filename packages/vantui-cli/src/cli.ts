@@ -1,6 +1,15 @@
 import { Command } from 'commander'
 
-import { clean, build, release, changelog, cliVersion, watch } from './index.js'
+import {
+  clean,
+  build,
+  release,
+  changelog,
+  cliVersion,
+  watch,
+  docs,
+  mdCode,
+} from './index.js'
 
 const program = new Command()
 
@@ -24,6 +33,22 @@ program
   .description('Compile components and release it')
   .option('--tag <tag>', 'Release tag')
   .action(release)
+
+program
+  .command('docs')
+  .description('Compile docs')
+  .option('--mode <mode>', 'Docs mode production | development')
+  .action(docs)
+
+program
+  .command('mdcode')
+  .description('Watch md, compile it into s')
+  .option('--mode <mode>', 'Docs mode create | watch')
+  .option(
+    '--type <type>',
+    'Compile simulator type h5 | weapp | alipay | kwai | swan | dd | qq',
+  )
+  .action(mdCode)
 
 program.command('changelog').description('Generate changelog').action(changelog)
 
