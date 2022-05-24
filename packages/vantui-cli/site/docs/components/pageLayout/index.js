@@ -133,6 +133,6 @@ function getMobileUrl() {
   }
 
   return isHideSimulator
-    ? `${domain}/#/pages/${defaultUrl}/index`
-    : `${domain}/#/pages/${current}/index`
+    ? `${domain}#/pages/${defaultUrl}/index`
+    : `${domain}#/pages/${current}/index`
 }
