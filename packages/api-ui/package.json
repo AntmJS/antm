@@ -1,6 +1,6 @@
 {
-  "name": "@antmjs/api-ui",
-  "version": "0.0.0",
+  "name": "api-see",
+  "version": "0.0.19",
   "description": "",
   "main": "./ui/lib.js",
   "typings": "global.d.ts",

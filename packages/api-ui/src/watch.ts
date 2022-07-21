@@ -4,12 +4,16 @@ import nodemon from 'nodemon'
 import runDev from './config/dev-run.js'
 import log from './log.js'
 import file from './file.js'
+import getConfig from './config/getConfig.js'
 
 type Iprops = {
   path?: string
   server?: boolean
   mock?: boolean
 }
+
+const antmConfig = getConfig()
+const apiUi = antmConfig.apiUi || {}
 
 export default async function watch(props: Iprops) {
   const { path = 'src/actions/types', mock, server } = props
@@ -29,7 +33,7 @@ export default async function watch(props: Iprops) {
   }
 
   await file({
-    path: path,
+    path: apiUi['path'] || path,
     watch: true,
   })
 
