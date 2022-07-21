@@ -1,6 +1,6 @@
 {
-  "name": "api-see",
-  "version": "0.0.19",
+  "name": "@antmjs/api-ui",
+  "version": "0.0.0",
   "description": "",
   "main": "./ui/lib.js",
   "typings": "global.d.ts",
@@ -15,7 +15,12 @@
     "type": "git",
     "url": "https://github.com/AntmJS/antm"
   },
-  "keywords": [],
+  "keywords": [
+    "antm",
+    "api",
+    "mock",
+    "ui"
+  ],
   "scripts": {
     "_clean": "npx rimraf dist",
     "_real": "npx tsc -p tsconfig.json && yarn babel",
