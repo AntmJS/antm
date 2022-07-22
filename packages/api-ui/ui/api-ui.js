@@ -80,7 +80,7 @@ export function ApiUi(props) {
             className="logo"
             src="https://antm-js.gitee.io/resource/antmjs-vantui.jpg"
           />
-          <span className="logo-title">@antmjs/open-ui</span>
+          <span className="logo-title">@antmjs/api-ui</span>
         </div>
         <div
           className="goReadme"
