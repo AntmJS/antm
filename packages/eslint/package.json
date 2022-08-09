@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/eslint",
-  "version": "1.20.1",
+  "version": "1.20.2",
   "main": "index.js",
   "author": "三少 <hi_sanshao@outlook.com>",
   "description": "代码统一规范工具库",
