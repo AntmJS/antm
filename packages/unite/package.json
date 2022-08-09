@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/unite",
-  "version": "1.20.1",
+  "version": "1.20.2",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "typings": "types/index.d.ts",
