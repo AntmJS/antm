@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+const { Compilation, sources } = require('webpack')
 const PLUGIN_NAME = 'GlobalFixPlugin'
 function GlobalFixPlugin(options) {
   this.options = options
