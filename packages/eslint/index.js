@@ -9,6 +9,9 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:prettier/recommended',
   ],
+  parserOptions: {
+    warnOnUnsupportedTypeScriptVersion: false,
+  },
   settings: {
     'import/resolver': {
       typescript: {
@@ -61,7 +64,7 @@ module.exports = {
       parserOptions: {
         project: 'tsconfig.json',
         sourceType: 'module',
-        ecmaVersion: '2020',
+        ecmaVersion: '2021',
       },
     },
     {
