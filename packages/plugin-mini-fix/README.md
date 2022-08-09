@@ -1,4 +1,4 @@
-# @antmjs/mini-fix
+# @antmjs/plugin-mini-fix
 
 > 解决Taro不应该关心但应用需要自己处理的异常或者优化
 
