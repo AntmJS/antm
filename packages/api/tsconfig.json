@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "outDir": "dist", //输出目录
+    /** type checking */
+    "strict": false,
+    // 默认false,是否检测定义了但是没使用的变量
+    "noUnusedLocals": true,
+    // 用于检查是否有在函数体中没有使用的参数
+    "noUnusedParameters": true,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": false,
+    "noImplicitReturns": true,
+    // "noImplicitAny": false,
+    "noPropertyAccessFromIndexSignature": true,
+    "noUncheckedIndexedAccess": true,
+    /** module */
+    "baseUrl": "./",
+    "module": "commonjs",
+    // default: module === AMD or UMD or System or ES6, then Classic otherwise Node
+    "moduleResolution": "Node",
+    "target": "es5",
+    "lib": ["es5"],
+    /** emit */
+    "noEmit": false,
+    /** Interop Constraints */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    // declaration和allowJs不能同时设为true
+    "allowJs": true,
+    // "jsx": "react-jsx",
+    "skipLibCheck": true
+    // "paths": {
+    //   // 指定模块的路径，和baseUrl有关联，和webpack中resolve.alias配置一样
+    //   "@/*": ["./src/*"]
+    // }
+  },
+  "include": ["src/**/*", "./global.d.ts"],
+  "compileOnSave": false
+}
