@@ -4,6 +4,7 @@ declare module 'nodemon'
 declare module 'js-yaml'
 declare module 'node-fetch'
 declare module 'spark-md5'
+declare module 'prettier'
 declare module '*.json' {
   const value: any
   export default value
