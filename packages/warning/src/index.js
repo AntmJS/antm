@@ -15,7 +15,7 @@ program
     'set webhooks api of dingding | wechart | Lark | others, separated by commas',
   )
   .option('-mf, --monitor-files <monitorFiles>', 'set monitor files')
-  .action(require('../src/run')('webhooks'))
+  .action(require('./run')('webhooks'))
 
 program
   .command('email')
@@ -30,6 +30,6 @@ program
     'set the email receivers, separated by commas',
   )
   .option('-mf, --monitor-files <monitorFiles>', 'set monitor files')
-  .action(require('../src/run')('email'))
+  .action(require('./run')('email'))
 
 program.parse(process.argv)
