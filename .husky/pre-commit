@@ -2,4 +2,4 @@
 . "$(dirname "$0")/_/husky.sh"
 
 yarn lint-staged
-npx antm-warning webhooks
+node ./packages/warning/dist/index.js webhooks
