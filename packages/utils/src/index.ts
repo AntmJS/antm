@@ -42,6 +42,9 @@ export function decodeParams(params: IAnyObject): IAnyObject {
     if (isString(vvalue)) {
       try {
         newParams[kkey] = JSON.parse(vvalue)
+        if (isNumber(params[kkey]) && params[kkey] + '' !== vvalue + '') {
+          params[kkey] = vvalue
+        }
       } catch (error) {
         newParams[kkey] = vvalue
       }
@@ -88,6 +91,9 @@ export function parse(str: string, decode = true): IAnyObject {
       if (isString(vvalue)) {
         try {
           params[kkey] = JSON.parse(vvalue)
+          if (isNumber(params[kkey]) && params[kkey] + '' !== vvalue + '') {
+            params[kkey] = vvalue
+          }
         } catch (error) {
           params[kkey] = vvalue
         }
