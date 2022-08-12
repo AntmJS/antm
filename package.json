@@ -104,8 +104,9 @@
     "packages/*"
   ],
   "dependencies": {
-    "@antmjs/eslint": "^1.20.4",
-    "@antmjs/stylelint": "^1.20.4",
+    "@antmjs/eslint": "^1.21.1",
+    "@antmjs/stylelint": "^1.21.1",
+    "@antmjs/warning": "^1.21.1",
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "@rollup/plugin-babel": "^5.3.0",
@@ -123,11 +124,11 @@
     "lerna": "^5.4.0",
     "lint-staged": "^11.0.1",
     "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
     "rollup": "^2.48.0",
     "rollup-plugin-copy": "^3.4.0",
     "rollup-plugin-copy-watch": "^0.0.1",
-    "prettier": "^2.7.1",
-    "rimraf": "^3.0.2",
     "stylelint": "^13.13.1",
     "typescript": "^4.7.4"
   }

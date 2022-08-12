@@ -1623,10 +1623,10 @@
     tslib "^2.4.0"
     unixify "^1.0.0"
 
-"@graphql-tools/delegate@9.0.1":
-  version "9.0.1"
-  resolved "https://registry.npmmirror.com/@graphql-tools/delegate/-/delegate-9.0.1.tgz#5d4e172525bd4ddad7eb146bd5763b1e3ac4d679"
-  integrity sha512-U350Q2oYGvXhto+sD3RNqgYFh+GbUYim++JUsm+2bgr4f38AqyRJxm85Y2iGn00u4lyXSXf3AHfztdMU3hYyHQ==
+"@graphql-tools/delegate@9.0.3":
+  version "9.0.3"
+  resolved "https://registry.npmmirror.com/@graphql-tools/delegate/-/delegate-9.0.3.tgz#c9ae8f0982d581356b1f568c91373915be6ee4b5"
+  integrity sha512-4noYCEL/0UeH+5KVRkkqLYH3iyXBb56hh120Y9DEc/JFmb1ldhgxGH2BuoINE2kt35dYhzRk9QA1+HG8FXIBWQ==
   dependencies:
     "@graphql-tools/batch-execute" "8.5.3"
     "@graphql-tools/schema" "9.0.1"
@@ -1705,17 +1705,17 @@
     value-or-promise "1.0.11"
 
 "@graphql-tools/url-loader@^7.9.7":
-  version "7.13.5"
-  resolved "https://registry.npmmirror.com/@graphql-tools/url-loader/-/url-loader-7.13.5.tgz#e2dff16cfed6191b0454ea8388130312e60c34c0"
-  integrity sha512-p0h0foOjikd9q4RvN1ZQxl//UJ1oHJf1cA5qxwqiDKqsbLx27EYNZrRNT52zx8mDR7/vmAYcS1dlmLRKhukEXw==
+  version "7.13.8"
+  resolved "https://registry.npmmirror.com/@graphql-tools/url-loader/-/url-loader-7.13.8.tgz#2cd810e53411e5ab68e19ec3189f6792fe552ac5"
+  integrity sha512-toJI7FyEDD4pVp4QVmek03r7NebQ5qGTmnlDHoz29WMNlwdQQMOYE2hWBqcwRqyGNJceApVpdW4GboDVoV/rfA==
   dependencies:
     "@ardatan/sync-fetch" "0.0.1"
-    "@graphql-tools/delegate" "9.0.1"
+    "@graphql-tools/delegate" "9.0.3"
     "@graphql-tools/utils" "8.10.0"
-    "@graphql-tools/wrap" "9.0.1"
+    "@graphql-tools/wrap" "9.0.4"
     "@n1ru4l/graphql-live-query" "^0.10.0"
     "@types/ws" "^8.0.0"
-    "@whatwg-node/fetch" "^0.2.4"
+    "@whatwg-node/fetch" "^0.2.9"
     dset "^3.1.2"
     extract-files "^11.0.0"
     graphql-ws "^5.4.1"
@@ -1732,12 +1732,12 @@
   dependencies:
     tslib "^2.4.0"
 
-"@graphql-tools/wrap@9.0.1":
-  version "9.0.1"
-  resolved "https://registry.npmmirror.com/@graphql-tools/wrap/-/wrap-9.0.1.tgz#8c280a0f64f4da639c4d4e62e7e6dd6e396310cc"
-  integrity sha512-8bqVyi0j8STUsesFVdOSG/oHAuFHnr1Jkr2mL4IDDqtzXZ1XVVh5BS7biilnG6976u2ADmqHlO2UZfKqppK6Sg==
+"@graphql-tools/wrap@9.0.4":
+  version "9.0.4"
+  resolved "https://registry.npmmirror.com/@graphql-tools/wrap/-/wrap-9.0.4.tgz#771d1a90db8532c78faf49778703cdd29f79cb35"
+  integrity sha512-l1t/LmVBec54NhLCJHXi8dCAENotkeqje+2XT0dl3N0RCetO8Fq5PkxWo/59DVM7AgGvqifJLvD/bmpZLGS4Bw==
   dependencies:
-    "@graphql-tools/delegate" "9.0.1"
+    "@graphql-tools/delegate" "9.0.3"
     "@graphql-tools/schema" "9.0.1"
     "@graphql-tools/utils" "8.10.0"
     tslib "^2.4.0"
@@ -4800,10 +4800,10 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
-"@whatwg-node/fetch@^0.2.4":
-  version "0.2.8"
-  resolved "https://registry.npmmirror.com/@whatwg-node/fetch/-/fetch-0.2.8.tgz#ccfa4a32873fcd5442a6a0c18e3fd3ae934329c4"
-  integrity sha512-KyUD1Vx9TpdTTlM01aXOx1NED93C33cOT/5RyCqVL6H/srGTU1hlLacOLgmYSLNzkEVerVfhb7Bd6IxiI7JziA==
+"@whatwg-node/fetch@^0.2.9":
+  version "0.2.9"
+  resolved "https://registry.npmmirror.com/@whatwg-node/fetch/-/fetch-0.2.9.tgz#0f0e72f79957a0544d2a9455082802d87be93ffe"
+  integrity sha512-h+ehuqE/ZqJdRy+xywHyKpBIPmST0ms8Itgf4gGSu10pJrmod3/t9DbG/GlATvLBE4pvqYHrxKAKo3NNQVJc3g==
   dependencies:
     "@peculiar/webcrypto" "^1.4.0"
     abort-controller "^3.0.0"
