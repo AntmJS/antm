@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/plugin-icestark",
-  "version": "1.21.1",
+  "version": "1.21.2",
   "main": "index.js",
   "author": "三少 <hi_sanshao@outlook.com>",
   "description": "TaroH5支持飞冰的微前端框架",
