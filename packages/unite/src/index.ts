@@ -36,6 +36,12 @@ function parse(str: string, decode = true): TypeUnite.IAnyObject {
       if (isString(vvalue)) {
         try {
           params[kkey] = JSON.parse(vvalue)
+          if (
+            toString.call(params[kkey]) === '[object Number]' &&
+            params[kkey] + '' !== vvalue + ''
+          ) {
+            params[kkey] = vvalue
+          }
         } catch (error) {
           params[kkey] = vvalue
         }
@@ -76,7 +82,10 @@ function useContainer<
   cfgRef.current = config
 
   // 通过ref初始化实例对象
-  const insRef = <React.MutableRefObject<any>>useRef({})
+  const insRef = <React.MutableRefObject<any>>useRef({
+    loading: {},
+    hooks: {},
+  })
 
   // 初始化state
   const [state, setState]: any = useState(cfgRef.current.state)
@@ -163,14 +172,22 @@ function useContainer<
                     resolve(result)
                   })
                   .catch(function (err: any) {
-                    insRef.current.loading[item] = false
-                    _setLoading(loadingFalse)
+                    const allLoading: any = {}
+                    Object.keys(insRef.current.loading).map((xitem) => {
+                      insRef.current.loading[xitem] = false
+                      allLoading[xitem] = false
+                    })
+                    _setLoading(allLoading)
                     executeCatch(err, insRef.current.setError)
                   })
               })
             } catch (err) {
-              insRef.current.loading[item] = false
-              _setLoading(loadingFalse)
+              const allLoading: any = {}
+              Object.keys(insRef.current.loading).map((xitem) => {
+                insRef.current.loading[xitem] = false
+                allLoading[xitem] = false
+              })
+              _setLoading(allLoading)
               executeCatch(err, insRef.current.setError)
             }
           }
@@ -178,6 +195,9 @@ function useContainer<
         } else if (item !== 'state') {
           insRef.current[item] = cfgRef.current[item]
         }
+      }
+      insRef.current.setHooks = function (hooks: any) {
+        insRef.current.hooks = Object.assign(insRef.current.hooks, hooks)
       }
     },
   })
