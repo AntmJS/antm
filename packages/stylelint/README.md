@@ -18,6 +18,6 @@ stylelint.config.js
 
 ```javascript
 module.exports = {
-  extends: ['@antmjs/stylelint']
+  extends: ['@antmjs/stylelint'],
 }
 ```

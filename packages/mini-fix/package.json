@@ -36,10 +36,8 @@
     "UCAndroid >= 4.1"
   ],
   "scripts": {
-    "_clean": "npx rimraf dist",
-    "_real": "npx rollup -c ./rollup.config.js",
-    "watch": "npx rollup -c ./rollup.config.js -w",
-    "build": "npx run-s _clean _real",
+    "watch": "rm -rf dist && npx rollup -c ./rollup.config.js -w",
+    "build": "rm -rf dist && npx rollup -c ./rollup.config.js",
     "test:watch": "",
     "test": ""
   },

@@ -5,7 +5,7 @@
 - 无需自行书写请求代码，把 HTTP 接口当做函数调用
 - 代码自动化转化为接口文档，代码和文档完全保持一致
 - 本地生成 mock 服务，提升联调效率
-- 基于swagger 接口文档，生成本地字段类型ts文件和请求方法，同时支持简易mock方法
+- 基于 swagger 接口文档，生成本地字段类型 ts 文件和请求方法，同时支持简易 mock 方法
 
 ### 安装
 
@@ -35,36 +35,36 @@ yarn add @antmjs/api
 
 antmjs.config.js 下配置 api
 
-| 字段                       | 描述                                                              | 类型       | 默认值                                         |
-| -------------------------- | ----------------------------------------------------------------- | ---------- | ---------------------------------------------- |
-| path                       | 请求字段类型所在的文件路径`                                       | _string_   | "./src/actions/types"                          |
-| buildPath                  | 接口文档打包路径                                                  | _string_   | "./api-ui"                                     |
-| buildPort                  | 接口文档开发环境服务端口                                          | _number_   | 7878                                           |
-| mockPort                   | 接口文档开发环境服务端口                                          | _number_   | 10099                                          |
-| action.requestImport       | 导入请求方法的代码字符串                                          | _string_   | "import { createFetch } from "@/utils/request" |
-| action.dirPath             | 请求方法所在文件夹, 相对类型文件的路径                            | _string_   | "../"                                          |
-| action.requestFnName       | 请求方法名称                                                      | _string_   | "createFetch"                                  |
-| action.createDefaultModel  | 自行定义请求方法的结构                                            | _function_ | `createDefaultModel`                           |
-| swagger.url                | swagger 数据地址                                                  | _string_   | --                                             |
-| swagger.modules            | 使用的的接口模块，对应`swagger.tags.name`, 不传则使用所有         | _string_   | --                                             |
-| swagger.createTypeFileName | 根据请求路径生成ts 类型文件名称，不需要后缀，返回空则默认使用 `swagger.tags.name` | _function_ | `createTypeFileName`                           |
+| 字段                       | 描述                                                                               | 类型       | 默认值                                         |
+| -------------------------- | ---------------------------------------------------------------------------------- | ---------- | ---------------------------------------------- |
+| path                       | 请求字段类型所在的文件路径`                                                        | _string_   | "./src/actions/types"                          |
+| buildPath                  | 接口文档打包路径                                                                   | _string_   | "./api-ui"                                     |
+| buildPort                  | 接口文档开发环境服务端口                                                           | _number_   | 7878                                           |
+| mockPort                   | 接口文档开发环境服务端口                                                           | _number_   | 10099                                          |
+| action.requestImport       | 导入请求方法的代码字符串                                                           | _string_   | "import { createFetch } from "@/utils/request" |
+| action.dirPath             | 请求方法所在文件夹, 相对类型文件的路径                                             | _string_   | "../"                                          |
+| action.requestFnName       | 请求方法名称                                                                       | _string_   | "createFetch"                                  |
+| action.createDefaultModel  | 自行定义请求方法的结构                                                             | _function_ | `createDefaultModel`                           |
+| swagger.url                | swagger 数据地址                                                                   | _string_   | --                                             |
+| swagger.modules            | 使用的的接口模块，对应`swagger.tags.name`, 不传则使用所有                          | _string_   | --                                             |
+| swagger.createTypeFileName | 根据请求路径生成 ts 类型文件名称，不需要后缀，返回空则默认使用 `swagger.tags.name` | _function_ | `createTypeFileName`                           |
 
 默认的`createTypeFileName`如下
 
 ```js
 export function createTypeFileName(url) {
   const urlArr = url
-    .split("/")
+    .split('/')
     .filter((it) => !!it)
     .map((u) => {
-      return u.replace(".", "");
-    });
+      return u.replace('.', '')
+    })
 
   if (url.length > 2) {
-    return `${urlArr[0]}-${urlArr[1]}-${urlArr[2]}`;
+    return `${urlArr[0]}-${urlArr[1]}-${urlArr[2]}`
   } else {
     // 返回空则使用swagger.tags.name
-    return "";
+    return ''
   }
 }
 ```
@@ -74,26 +74,26 @@ export function createTypeFileName(url) {
 ```js
 function createDefaultModel({
   requestImport = "import { createFetch } from '@/utils/request'",
-  requestFnName = "createFetch",
-  fileName = "a",
+  requestFnName = 'createFetch',
+  fileName = 'a',
   data = {},
-  requestSuffix = "Action",
+  requestSuffix = 'Action',
 }) {
-  const packages = [];
-  let requestActionsStr = "";
+  const packages = []
+  let requestActionsStr = ''
   // 根据data拼接多个业务请求方法
   for (const key in data) {
-    if (key !== "Record<string,any>") {
-      const item = data[key];
-      packages.push(key);
+    if (key !== 'Record<string,any>') {
+      const item = data[key]
+      packages.push(key)
       requestActionsStr += `
       // ${item.description}
       export const ${key}${requestSuffix} = ${requestFnName}<${key}['request'], ${key}['response']>('${item.url}', '${item.method}');
-      `;
+      `
     }
   }
 
-  const packagesStr = packages.join(",");
+  const packagesStr = packages.join(',')
 
   return `
     // @ts-nocheck
@@ -101,7 +101,7 @@ function createDefaultModel({
     import type { ${packagesStr} } from './types/${fileName}';
 
     ${requestActionsStr}
-    `;
+    `
 }
 ```
 
@@ -165,13 +165,13 @@ export type userInfo = {
 正式打包则使用 `antm-api file`, 再执行本地项目的构建
 
 ```jsx
-import { ApiUi } from "@antmjs/api";
+import { ApiUi } from '@antmjs/api'
 // 默认当前项目生成接口文档数据，.gitignore文件加上 .cache
-import apiData from "@/../.cache/api-ui-data.json";
-import "@antmjs/api/ui/app.less";
+import apiData from '@/../.cache/api-ui-data.json'
+import '@antmjs/api/ui/app.less'
 
 export default function Index(): React.ReactNode {
-  return <ApiUi title="crm接口文档" mockPort={10998} apiData={apiData} />;
+  return <ApiUi title="crm接口文档" mockPort={10998} apiData={apiData} />
 }
 ```
 

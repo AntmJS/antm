@@ -15,5 +15,11 @@ yarn add @antmjs/utils
 ## 使用
 
 ```js
-import { stringify, parse, encodeParams, decodeParams, version } from '@antmjs/utils'
+import {
+  stringify,
+  parse,
+  encodeParams,
+  decodeParams,
+  version,
+} from '@antmjs/utils'
 ```

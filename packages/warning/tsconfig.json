@@ -40,6 +40,6 @@
     //   "@/*": ["./src/*"]
     // }
   },
-  "include": ["src", "types", "__test__"],
+  "include": ["src", "__test__"],
   "compileOnSave": false
 }

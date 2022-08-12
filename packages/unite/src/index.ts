@@ -124,9 +124,9 @@ function useContainer<
       }
 
       const _setLoading = function (
-        obj: Partial<
-          { [K in keyof TypeUnite.PromiseProperties<TAll>]: boolean }
-        >,
+        obj: Partial<{
+          [K in keyof TypeUnite.PromiseProperties<TAll>]: boolean
+        }>,
       ): void {
         if (flagRef.current.__mounted) {
           setLoading((preState: any) => {
@@ -153,14 +153,14 @@ function useContainer<
 
             const loadingTrue = {
               [item]: true,
-            } as Partial<
-              { [K in keyof TypeUnite.PromiseProperties<TAll>]: boolean }
-            >
+            } as Partial<{
+              [K in keyof TypeUnite.PromiseProperties<TAll>]: boolean
+            }>
             const loadingFalse = {
               [item]: false,
-            } as Partial<
-              { [K in keyof TypeUnite.PromiseProperties<TAll>]: boolean }
-            >
+            } as Partial<{
+              [K in keyof TypeUnite.PromiseProperties<TAll>]: boolean
+            }>
             try {
               return new Promise(function (resolve) {
                 insRef.current.loading[item] = true

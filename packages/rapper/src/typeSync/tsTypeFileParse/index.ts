@@ -32,7 +32,7 @@ function generateRapJson(
   interfaceId: number,
 ): any {
   const { codePosition, definitions = {} } = commonProps
-  const ifs = []
+  const ifs: any[] = []
   // in 什么都能循环
   const ref =
     currentDefinitions['$ref'] || currentDefinitions?.['items']?.['$ref']

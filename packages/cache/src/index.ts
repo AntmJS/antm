@@ -75,7 +75,9 @@ export default function <
       return value ?? (init.loc[key as keyof TLocal] as any)
     }
     console.error(
-      `请先注册该Key：Cache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
+      `请先注册该Key：Cache({ ram: { ${String(key)}: '${String(
+        key,
+      )}' }, loc: { ${String(key)}: '${String(key)}' } })`,
     )
     return
   }
@@ -104,7 +106,9 @@ export default function <
         }
       } else {
         console.error(
-          `请先注册该Key：Cache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：Cache({ ram: { ${String(option.key)}: '${String(
+            option.key,
+          )}' }, loc: { ${String(option.key)}: '${String(option.key)}' } })`,
         )
         resolve(undefined)
       }
@@ -135,7 +139,9 @@ export default function <
       }
     } else {
       console.error(
-        `请先注册该Key：Cache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
+        `请先注册该Key：Cache({ ram: { ${String(key)}: '${String(
+          key,
+        )}' }, loc: { ${String(key)}: '${String(key)}' } })`,
       )
     }
   }
@@ -165,7 +171,9 @@ export default function <
         }
       } else {
         console.error(
-          `请先注册该Key：Cache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：Cache({ ram: { ${String(option.key)}: '${String(
+            option.key,
+          )}' }, loc: { ${String(option.key)}: '${String(option.key)}' } })`,
         )
         resolve()
       }
@@ -192,7 +200,9 @@ export default function <
       }
     } else {
       console.error(
-        `请先注册该Key：Cache({ ram: { ${key}: '${key}' }, loc: { ${key}: '${key}' } })`,
+        `请先注册该Key：Cache({ ram: { ${String(key)}: '${String(
+          key,
+        )}' }, loc: { ${String(key)}: '${String(key)}' } })`,
       )
     }
   }
@@ -217,7 +227,9 @@ export default function <
         })
       } else {
         console.error(
-          `请先注册该Key：Cache({ ram: { ${option.key}: '${option.key}' }, loc: { ${option.key}: '${option.key}' } })`,
+          `请先注册该Key：Cache({ ram: { ${String(option.key)}: '${String(
+            option.key,
+          )}' }, loc: { ${String(option.key)}: '${String(option.key)}' } })`,
         )
         resolve()
       }

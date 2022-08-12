@@ -67,7 +67,7 @@ async function getFileInterface(
 ) {
   const definitions = schema.definitions
   const fileName = path.basename(filePath).replace(/\.[a-z0-9]+$/, '')
-  const interfaceContainer = []
+  const interfaceContainer: any[] = []
   let moduleId = getRapModuleId(content, false)
   let newContent: any
   let moduleHeader = config.download!.requestModule!({
@@ -84,7 +84,7 @@ async function getFileInterface(
     `./${fileName}.ts`,
   )
   let fetchContent = ''
-  const importTypeNames = []
+  const importTypeNames: any[] = []
   try {
     for (const item in definitions) {
       const el = definitions[item]

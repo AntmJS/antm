@@ -8,12 +8,8 @@
 .rn_temp
 .DS_Store
 
-src
-
 CHANGELOG.md
-package-lock.json
 
 node_modules
 coverage
-
-tsconfig.json
+src

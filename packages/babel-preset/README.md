@@ -1,10 +1,10 @@
 # @antmjs/babel-preset
 
-> ES6+转译到ES5工具库
+> ES6+转译到 ES5 工具库
 
 ## 为什么需要
 
-这个库包含了编译成ES5所需的最小可用Presets，也就是说大部分情况下这个库能满足大部分的转译需求了。
+这个库包含了编译成 ES5 所需的最小可用 Presets，也就是说大部分情况下这个库能满足大部分的转译需求了。
 
 ## 安装
 
@@ -69,9 +69,15 @@ module.exports = {
     ],
   ],
   plugins: [
-    [require('babel-plugin-transform-taroapi'), { packageName: '@tarojs/taro', apis }] // taro可以加，tree-shaking用
-    [require('babel-plugin-import'), { "libraryName": "antd", "style": true }, 'antd']
-  ]
+    [
+      require('babel-plugin-transform-taroapi'),
+      { packageName: '@tarojs/taro', apis },
+    ][ // taro可以加，tree-shaking用
+      (require('babel-plugin-import'),
+      { libraryName: 'antd', style: true },
+      'antd')
+    ],
+  ],
 }
 ```
 
@@ -87,6 +93,6 @@ package.json
     "Android >= 4.1",
     "QQAndroid >= 4.1",
     "UCAndroid >= 4.1"
-  ],
+  ]
 }
 ```

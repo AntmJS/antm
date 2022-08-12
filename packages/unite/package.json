@@ -37,23 +37,20 @@
     "UCAndroid >= 4.1"
   ],
   "scripts": {
-    "_clean": "npx rimraf dist",
-    "_real": "npx rollup -c ./rollup.config.js",
-    "watch": "npx rollup -c ./rollup.config.js -w",
-    "build": "npx run-s _clean _real",
+    "watch": "rm -rf dist && npx rollup -c ./rollup.config.js -w",
+    "build": "rm -rf dist && npx rollup -c ./rollup.config.js",
     "test:watch": "",
     "test": ""
   },
   "peerDependencies": {
-    "@tarojs/taro": ">=3.3.0",
-    "react": ">=17.0.0"
+    "react": ">=17"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.14.7"
   },
   "devDependencies": {
-    "@tarojs/taro": "^3.3.0",
-    "@types/react": "^17.0.17",
-    "react": "^17.0.2"
+    "@tarojs/taro": "^3.5.3",
+    "@types/react": "^18.0.17",
+    "react": "^18.2.0"
   }
 }

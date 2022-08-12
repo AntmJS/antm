@@ -22,7 +22,7 @@ export function getFiles(parentPath: string): string[] {
   ) {
     return fileList
   }
-  let files = []
+  let files: any[] = []
   try {
     files = fs.readdirSync(parentPath)
   } catch (err) {

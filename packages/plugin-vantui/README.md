@@ -1,6 +1,6 @@
-# 如何在React中使用
+# 如何在 React 中使用
 
-### 在React应用中使用需要在如下文件中添加代码
+### 在 React 应用中使用需要在如下文件中添加代码
 
 ```bash
 yarn add @antmjs/vantui
@@ -174,4 +174,5 @@ body {
 }
 
 ```
+
 > 愉快的玩耍吧！

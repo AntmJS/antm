@@ -39,6 +39,7 @@
     "UCAndroid >= 4.1"
   ],
   "scripts": {
+    "watch": "",
     "build": "",
     "test:watch": "",
     "test": ""

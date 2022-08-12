@@ -14,10 +14,8 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "_clean": "npx rimraf dist",
-    "_real": "npx tsc -p tsconfig.json",
-    "watch": "npx tsc -p tsconfig.json -w",
-    "build": "npx run-s _clean _real",
+    "watch": "rm -rf dist && npx tsc -p tsconfig.json -w",
+    "build": "rm -rf dist && npx tsc -p tsconfig.json",
     "test:watch": "",
     "test": ""
   },

@@ -3,7 +3,7 @@ import * as path from 'path'
 import * as fs from 'fs'
 import * as crypto from 'crypto'
 import mkdirp from 'mkdirp'
-import inquirer from 'inquirer'
+import { prompt } from 'inquirer'
 import chalk from 'chalk'
 import axios from 'axios'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -170,7 +170,7 @@ export async function templateFilesOverwriteConfirm() {
       default: false,
     },
   ]
-  const answers = await inquirer.prompt(question)
+  const answers = await prompt(question)
   return answers
 }
 
@@ -186,7 +186,7 @@ export async function templateFilesRelyConfirm() {
       default: false,
     },
   ]
-  const answers = await inquirer.prompt(question)
+  const answers = await prompt(question)
   return answers
 }
 

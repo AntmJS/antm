@@ -19,11 +19,9 @@ export function ApiUi(props) {
   const [active, setActive] = useState([0, 0])
   const [urls, setUrls] = useState([])
   const [api, setApi] = useState()
-  const [hash, setHash] = useState('')
 
   const hashChange = () => {
     const hash_ = window.location.hash.replace('#/', '')
-    setHash(hash_)
     if (!hash_.includes('readme')) {
       const arr = hash_.split('/')
       setActive([Number(arr[0]), Number(arr[1])])

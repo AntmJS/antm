@@ -1,5 +1,4 @@
 *.log
-*.md
 *.lock
 *.swp
 
@@ -20,3 +19,4 @@ node_modules
 packages/**/coverage
 packages/**/dist
 packages/**/lib
+packages/api/ui/lib.js

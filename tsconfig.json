@@ -11,23 +11,24 @@
     "noFallthroughCasesInSwitch": true,
     "noImplicitOverride": false,
     "noImplicitReturns": true,
-    // "noImplicitAny": false,
+    "noImplicitAny": false,
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
     /** module */
     "baseUrl": "./",
-    "module": "esnext",
+    "module": "commonjs",
     // default: module === AMD or UMD or System or ES6, then Classic otherwise Node
     "moduleResolution": "Node",
-    "target": "es2017",
+    "target": "ES5",
     "lib": ["ESNext", "dom"],
+    "outDir": "lib", //输出目录
     /** emit */
     "noEmit": true,
     /** Interop Constraints */
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "isolatedModules": true,
+    // "isolatedModules": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     // declaration和allowJs不能同时设为true
@@ -41,13 +42,14 @@
   },
   "include": [
     "*.js",
-    "packages/**/*.js",
-    "packages/**/*.d.ts",
+    "packages/*/*.js",
+    "packages/*/*.d.ts",
     "packages/**/src",
-    "packages/**/lib",
+    "packages/**/utils",
+    "packages/**/ui",
     "packages/**/types",
-    "packages/**/__test__",
-    "packages/config/webpack"
+    "packages/**/sample",
+    "packages/**/__test__"
   ],
   "compileOnSave": false
 }

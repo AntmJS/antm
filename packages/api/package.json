@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/api",
-  "version": "0.0.0",
+  "version": "1.20.5",
   "description": "api tools",
   "main": "./ui/lib.js",
   "typings": "./global.d.ts",
@@ -22,10 +22,11 @@
     "swagger"
   ],
   "scripts": {
-    "_clean": "npx rimraf dist",
-    "_real": "npx tsc -p tsconfig.json && yarn babel",
-    "watch": "npx tsc -p tsconfig.json -w",
-    "babel": "npx babel ui/api-ui.js --out-file ui/lib.js"
+    "babel": "npx babel ui/api-ui.js --out-file ui/lib.js",
+    "watch": "rm -rf dist && npx tsc -p tsconfig.json -w",
+    "build": "rm -rf dist && npx tsc -p tsconfig.json && yarn babel",
+    "test:watch": "",
+    "test": ""
   },
   "author": "zuolong",
   "license": "MIT",
@@ -62,11 +63,13 @@
   },
   "devDependencies": {
     "@types/mockjs": "^1.0.6",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "peerDependencies": {
-    "react": ">=17.0.2",
-    "react-dom": ">=17.0.2"
+    "react": ">=17",
+    "react-dom": ">=17"
   }
 }

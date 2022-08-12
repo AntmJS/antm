@@ -1,16 +1,14 @@
 {
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "useNx": true,
+  "useWorkspaces": true,
   "npmClient": "yarn",
   "command": {
     "publish": {
       "message": "chore(release): publish %s"
     }
   },
-  "packages": [
-    "packages/*"
-  ],
-  "ignoreChanges": [
-    "**/*.md",
-    "**/__test__/**"
-  ],
+  "packages": ["packages/*"],
+  "ignoreChanges": ["**/*.md", "**/__test__/**"],
   "version": "1.20.5"
 }

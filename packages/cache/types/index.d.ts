@@ -9,8 +9,7 @@ declare namespace Cache {
 
   type ICacheOptAll<TRam extends IAnyObject, TLocal extends IAnyObject> = {
     [K in keyof TLocal]: TLocal[K]
-  } &
-    { [K in keyof TRam]: TRam[K] }
+  } & { [K in keyof TRam]: TRam[K] }
 
   type ICacheOptAllKey<TRam extends IAnyObject, TLocal extends IAnyObject> =
     | keyof TRam

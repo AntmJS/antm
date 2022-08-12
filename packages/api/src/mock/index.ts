@@ -48,7 +48,7 @@ export default function main() {
       'Access-Control-Allow-Methods': 'DELETE,PUT,POST,GET,OPTIONS',
     })
 
-    const reqUrl = req.url.split('?')[0]
+    const reqUrl = req.url?.split('?')[0]
 
     mockData.forEach((item) => {
       if (reqUrl === item.url && item.url) {
