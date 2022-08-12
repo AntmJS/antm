@@ -51,6 +51,7 @@ declare namespace Unite {
       state: Partial<StateOpt<TState>> | React.SetStateAction<StateOpt<TState>>,
     ) => void
     setError: React.Dispatch<React.SetStateAction<IError | undefined>>
+    setHooks: (hooks: IAnyObject) => void
   }
   interface InstanceProperty<
     TAll extends IAnyObject,
@@ -58,6 +59,7 @@ declare namespace Unite {
   > {
     error: any
     props: TProps
+    hooks: IAnyObject
     location: Taro.RouterInfo
     loading: Partial<{ [K in keyof PromiseProperties<TAll>]: boolean }>
   }
@@ -111,7 +113,7 @@ declare namespace Unite {
       TAll,
       Inner<TAll> & InstanceMethods<TState> & InstanceProperty<TAll, TProps>
     > &
-    ThisType<Instance<TState, TAll, TProps>>
+    ThisType<Omit<Instance<TState, TAll, TProps>, 'setHooks'>>
 
   type EventEnhancementResponse<
     TAll extends IAnyObject,
