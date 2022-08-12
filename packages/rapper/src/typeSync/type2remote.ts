@@ -28,7 +28,8 @@ function typeFileIsChange(content: string): boolean {
   }
   return true
 }
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 async function getContent(config: IOptions, spinner: ora.Ora) {
   const allFile = getFiles(config.rapper!.rapperPath!)
   // TODO: 没找到一步扫描本地 代码的 api

@@ -97,7 +97,8 @@
     "release:lerna": "lerna version --exact --no-git-tag-version --force-publish",
     "release:beta": "lerna publish --force-publish=* --exact --skip-temp-tag  --preid=beta --npm-tag=beta",
     "release": "git pull origin main && npm run release:lerna && npm run changelog && node ./pullRequest.js",
-    "test": "npx lerna run test"
+    "test": "npx lerna run test",
+    "prepare": "npx husky install"
   },
   "dependencies": {
     "@commitlint/cli": "^12.1.4",

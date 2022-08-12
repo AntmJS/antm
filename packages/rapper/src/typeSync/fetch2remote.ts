@@ -227,7 +227,8 @@ $2`,
     moduleId,
   }
 }
-
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 async function getFileInterface(config: IOptions, spinner: ora.Ora) {
   // console.log(config.rapper.rapperPath);
   const allFile = getFiles(config.rapper!.rapperPath!)
