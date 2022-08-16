@@ -53,6 +53,7 @@
     "node-fetch": "^2.2.10",
     "nodemon": "^2.0.17",
     "ora": "^5.1.2",
+    "pinyin-pro": "^3.11.0",
     "postcss-loader": "^7.0.0",
     "prettier": "^2.7.1",
     "react-json-view": "^1.21.0",

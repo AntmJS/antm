@@ -1,14 +1,11 @@
-export function createTypeFileName(url: string) {
-  const urlArr = url
-    .split('/')
-    .filter((it) => !!it)
-    .map((u) => {
-      return u.replace('.', '')
-    })
+import { pinyin } from 'pinyin-pro'
 
-  if (url.length > 2) {
-    return `${urlArr[0]}-${urlArr[1]}-${urlArr[2]}`
-  } else {
-    return ''
-  }
+export function createTypeFileName(swaggerTagName: string) {
+  let swaggerTagName_ = swaggerTagName
+  const regInvalidWords = /[\.\,\，\.\-]/g
+  swaggerTagName_ = swaggerTagName_.replace(regInvalidWords, '')
+
+  swaggerTagName_ = pinyin(swaggerTagName_, { toneType: 'none' })
+
+  return swaggerTagName_.replace(/\s/g, '')
 }

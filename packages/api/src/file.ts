@@ -93,10 +93,12 @@ function watchAction(
   watcher.on('ready', function () {
     readyOk = true
   })
-  watcher.on('add', function () {
+  watcher.on('add', function (path) {
+    console.info(log.tips(`${path}类型文件新增`))
     if (readyOk) work(targetUrl, action)
   })
-  watcher.on('change', function () {
+  watcher.on('change', function (path) {
+    console.info(log.tips(`${path}类型文件变更`))
     if (readyOk) work(targetUrl, action)
   })
   watcher.on('unlink', function () {
@@ -136,10 +138,12 @@ function workUnit(
                 requestFnName,
               })
             } else {
-              content = antmConfig?.api?.action?.createDefaultModel(
-                fileName,
-                def as any,
-              )
+              content = antmConfig?.api?.action?.createDefaultModel({
+                data: def,
+                fileName: fileName,
+                requestImport,
+                requestFnName,
+              })
             }
 
             const prettierConfig = await getPrettierConfig()
@@ -149,14 +153,21 @@ function workUnit(
               parser: 'typescript',
             })
 
-            fs.writeFileSync(
+            await fs.writeFileSync(
               path_.resolve(writeActionTarget, `${fileName}.ts`),
               formatContent,
             )
           }
         }
 
-        spinner.info(log.tips(`生成请求接口模块: ${p}`))
+        spinner.info(
+          log.tips(
+            `生成请求接口模块: ${path_.resolve(
+              writeActionTarget,
+              `${fileName}.ts`,
+            )}`,
+          ),
+        )
         cacheData[p] = curHash
       }
     }

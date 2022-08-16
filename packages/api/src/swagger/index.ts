@@ -16,8 +16,6 @@ export default async function swagger(props: Iprops) {
   const url = props.url || config.api?.swagger?.url
   const path_ = path || config.api?.path || ''
   const modules = config.api?.swagger?.modules
-  const createTypeFileName_ =
-    config.api?.swagger?.createTypeFileName || createTypeFileName
   if (!url) {
     log.error('can not get swagger url')
     return
@@ -40,7 +38,7 @@ swagger data                                                    +
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 `),
   )
-  await transform(swaggerData, path_, modules, createTypeFileName_)
+  await transform(swaggerData, path_, modules, createTypeFileName)
 
   setTimeout(() => {
     file({
