@@ -44,7 +44,6 @@ swagger data                                                    +
     file({
       path: path_,
       action: true,
-      forceUpdate: true,
     })
   })
 }
