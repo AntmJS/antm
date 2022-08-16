@@ -63,8 +63,9 @@ function createDefaultModel({
   let requestActionsStr = ''
   // 根据data拼接多个业务请求方法
   for (const key in data) {
-    if (key !== 'Record<string,any>') {
-      const item = data[key]
+    const item = data[key]
+    // 需要判断item.url && item.description
+    if (key !== 'Record<string,any>' && item.url && item.description) {
       packages.push(key)
       requestActionsStr += `
       // ${item.description}
@@ -110,7 +111,7 @@ export type userInfo = {
     /**
      * 第几页
      **/
-    pageSize: number
+    pageNum: number
   };
   response: {
     /**
