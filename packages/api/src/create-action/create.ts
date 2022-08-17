@@ -11,7 +11,7 @@ export function createDefaultModel({
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     const item = data[key]
-    if (key !== 'Record<string,any>' && item.url) {
+    if (key !== 'Record<string,any>' && item.url && item.description) {
       packages.push(key)
       requestActionsStr += `
       // ${item.description}

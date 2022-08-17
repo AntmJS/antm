@@ -40,17 +40,20 @@ export async function transform(
 
   const spinner = ora.default()
 
-  spinner.start(log.tips('swagger数据解析中...'))
+  spinner.start(
+    log.tips(`
+    swagger数据解析中...
+    `),
+  )
 
   for (const key in definitions) {
     const def = definitions[key]
 
     const parseResult = parseDef(def)
-    spinner.start(log.tips('公共基础类型数据解析中...'))
 
     baseTypes += `
     /**
-     * ${def.description || '--'}
+     * ${def.description}
      */
     export type ${formatBaseTypeKey(key)} = ${parseResult.codes}`
   }
@@ -69,6 +72,7 @@ export async function transform(
         result[moduleName].firstUrl = key
       }
 
+      /** 请求参数数据类型拼接 */
       let reqCodes = `{ \n `
       const parameters = filterRepeatName(item.parameters)
 
@@ -87,6 +91,7 @@ export async function transform(
 
       reqCodes += `} \n `
 
+      /** 相应数据类型拼接 */
       let resCodes = ``
       if (item.responses['200']?.schema) {
         const schema = item.responses['200']
@@ -125,14 +130,17 @@ export async function transform(
     )} } from "../baseTypes";
       `
     fs.writeFileSync(
-      pat.join(typesUrl, `${createTypeFileName(mode.firstUrl)}.ts`),
+      pat.join(typesUrl, `${createTypeFileName(nn)}.ts`),
       formatTs(`${baseImport}${mode.codes}`),
     )
   }
 
   console.info(
-    log.tips(`
-    👊 swagger数据解析完成
+    log.success(` 
+  
+  👊 swagger数据解析完成
+  
+
   `),
   )
 
@@ -152,15 +160,23 @@ function parseDef(def: Record<string, any>, kk?: string) {
       let $value = ''
       const $description = data['description'] || ''
       if (key) {
-        if (type__ === 'string') {
+        if (type__ === 'string' || type__ === 'number') {
           if (data['default']) $value = data['default']
-          if (data['enum']) $value = `[${data['enum'].join(',')}]`
+          if (data['enum'])
+            $value = `[${data['enum']
+              .map((it: any) => {
+                if (
+                  typeof it === 'string' &&
+                  !it.includes(`'`) &&
+                  !it.includes(`"`)
+                )
+                  return `"${it}"`
+                return it
+              })
+              .join(',')}]`
           if (data['format'] === 'date-time') {
             $value = `#datetime()`
           }
-        } else if (type__ === 'number') {
-          if (data['format'])
-            $value = `#integer(${data['format'].replace('int', '')})`
         }
         const comments = `
         /**

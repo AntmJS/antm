@@ -23,10 +23,11 @@ yarn add @antmjs/api
 ```json
 {
   "scripts": {
-    "api:watch": "antm-api  watch --path ./src/actions/types --server true --mock true --action true",
-    "api:build": "antm-api  build --path ./src/actions/types",
-    "api:file": "antm-api  file --path ./src/actions/types",
-    "swagger": "antm-api swagger --url https://xxxxxxxx/v2/api-docs"
+    "swagger": "npx antm-api swagger --path ./src/actions/swagger/types --url https://petstore.swagger.io/v2/swagger.json ",
+    "api:file": "npx antm-api file --path ./src/actions/api/types --action true",
+    "mock": "npx antm-api watch  --path ./src/actions/api/types --mock true --action true",
+    "api:build": "npx antm-api build --path ./src/actions/api/types",
+    "api:start": "npx antm-api watch --path ./src/actions/api/types --server true --action true --mock true"
   }
 }
 ```
@@ -35,39 +36,18 @@ yarn add @antmjs/api
 
 antmjs.config.js 下配置 api
 
-| 字段                       | 描述                                                                               | 类型       | 默认值                                         |
-| -------------------------- | ---------------------------------------------------------------------------------- | ---------- | ---------------------------------------------- |
-| path                       | 请求字段类型所在的文件路径`                                                        | _string_   | "./src/actions/types"                          |
-| buildPath                  | 接口文档打包路径                                                                   | _string_   | "./api-ui"                                     |
-| buildPort                  | 接口文档开发环境服务端口                                                           | _number_   | 7878                                           |
-| mockPort                   | 接口文档开发环境服务端口                                                           | _number_   | 10099                                          |
-| action.requestImport       | 导入请求方法的代码字符串                                                           | _string_   | "import { createFetch } from "@/utils/request" |
-| action.dirPath             | 请求方法所在文件夹, 相对类型文件的路径                                             | _string_   | "../"                                          |
-| action.requestFnName       | 请求方法名称                                                                       | _string_   | "createFetch"                                  |
-| action.createDefaultModel  | 自行定义请求方法的结构                                                             | _function_ | `createDefaultModel`                           |
-| swagger.url                | swagger 数据地址                                                                   | _string_   | --                                             |
-| swagger.modules            | 使用的的接口模块，对应`swagger.tags.name`, 不传则使用所有                          | _string_   | --                                             |
-| swagger.createTypeFileName | 根据请求路径生成 ts 类型文件名称，不需要后缀，返回空则默认使用 `swagger.tags.name` | _function_ | `createTypeFileName`                           |
-
-默认的`createTypeFileName`如下
-
-```js
-export function createTypeFileName(url) {
-  const urlArr = url
-    .split('/')
-    .filter((it) => !!it)
-    .map((u) => {
-      return u.replace('.', '')
-    })
-
-  if (url.length > 2) {
-    return `${urlArr[0]}-${urlArr[1]}-${urlArr[2]}`
-  } else {
-    // 返回空则使用swagger.tags.name
-    return ''
-  }
-}
-```
+| 字段                      | 描述                                                      | 类型       | 默认值                                         |
+| ------------------------- | --------------------------------------------------------- | ---------- | ---------------------------------------------- |
+| path                      | 请求字段类型所在的文件路径`                               | _string_   | "./src/actions/types"                          |
+| buildPath                 | 接口文档打包路径                                          | _string_   | "./api-ui"                                     |
+| buildPort                 | 接口文档开发环境服务端口                                  | _number_   | 7878                                           |
+| mockPort                  | 接口文档开发环境服务端口                                  | _number_   | 10099                                          |
+| action.requestImport      | 导入请求方法的代码字符串                                  | _string_   | "import { createFetch } from "@/utils/request" |
+| action.dirPath            | 请求方法所在文件夹, `相对类型文件的路径`                  | _string_   | "../"                                          |
+| action.requestFnName      | 请求方法名称                                              | _string_   | "createFetch"                                  |
+| action.createDefaultModel | 自定义请求方法的结构                                      | _function_ | `createDefaultModel`                           |
+| swagger.url               | swagger 数据地址                                          | _string_   | --                                             |
+| swagger.modules           | 使用的的接口模块，对应`swagger.tags.name`, 不传则使用所有 | _string_   | --                                             |
 
 默认的`createDefaultModel`如下
 
@@ -83,8 +63,9 @@ function createDefaultModel({
   let requestActionsStr = ''
   // 根据data拼接多个业务请求方法
   for (const key in data) {
-    if (key !== 'Record<string,any>') {
-      const item = data[key]
+    const item = data[key]
+    // 需要判断item.url && item.description
+    if (key !== 'Record<string,any>' && item.url && item.description) {
       packages.push(key)
       requestActionsStr += `
       // ${item.description}
@@ -130,7 +111,7 @@ export type userInfo = {
     /**
      * 第几页
      **/
-    pageSize: number
+    pageNum: number
   };
   response: {
     /**
@@ -174,7 +155,3 @@ export default function Index(): React.ReactNode {
   return <ApiUi title="crm接口文档" mockPort={10998} apiData={apiData} />
 }
 ```
-
-### 使用案例
-
-[github:api-ui-demo](https://github.com/zuolung/api-ui-demo)

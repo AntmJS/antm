@@ -16,14 +16,12 @@ type Iconfig = {
       requestFnName?: string
       requestSuffix?: string
       /** 自定义请求方法 */
-      createDefaultModel?: (
-        fileName: string,
-        data: {
-          url: string
-          description: string
-          method: string
-        }[],
-      ) => string
+      createDefaultModel?: (params: {
+        data: any
+        fileName: string
+        requestImport?: string
+        requestFnName?: string
+      }) => string
     }
     /** swagger生成请求字段类型 */
     swagger?: {
