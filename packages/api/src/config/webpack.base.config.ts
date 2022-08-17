@@ -26,7 +26,7 @@ export default async function base() {
         {
           test: /\.js$/,
           loader: require.resolve('babel-loader'),
-          exclude: /node_modules\/(?!api-see)/,
+          exclude: /node_modules\/(?!@antmjs\/api)/,
           options: {
             presets: [
               [

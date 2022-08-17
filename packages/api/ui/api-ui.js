@@ -77,7 +77,7 @@ export function ApiUi(props) {
         <div
           className="goReadme"
           onClick={() => {
-            window.open('https://www.npmjs.com/package/api-see')
+            window.open('https://github.com/AntmJS/antm/tree/main/packages/api')
           }}
         >
           查看文档
