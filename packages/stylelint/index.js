@@ -4,6 +4,7 @@
 // 'function-url-no-scheme-relative': null, // --禁止使用相对协议的链接
 
 module.exports = {
+  customSyntax: 'postcss-less',
   extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
   rules: {
     'selector-max-id': 0, // 限制选择器中ID选择器的数量#a{}'
@@ -23,7 +24,6 @@ module.exports = {
     'font-family-no-duplicate-names': true, // 禁止使用重复的字体名称
     'font-family-no-missing-generic-family-keyword': true, // 不允许移除通用的字体
     'font-weight-notation': 'named-where-possible', // --要求使用数字或命名的 (可能的情况下) font-weight 值
-    'function-calc-no-invalid': true, // 禁止在calc函数出现无效的参数
     'function-calc-no-unspaced-operator': true, // 禁止在 calc 函数内使用不加空格的操作符
     'function-linear-gradient-no-nonstandard-direction': true, // 根据标准语法，禁止 linear-gradient() 中无效的方向值
     'function-url-quotes': 'always', // --要求或禁止 url 使用引号
@@ -39,5 +39,10 @@ module.exports = {
     'string-no-newline': true, // 禁止在字符串中使用（非转义的）换行符
     'string-quotes': 'single', // 在字符串周围指定单引号或双引号
     'value-list-comma-space-after': 'always-single-line', // 在值列表的逗号后需要一个空格或不允许空格
+    // 以下规则为升级 stylelint 到 14 版本后添加
+    // 允许选择器带浏览器前缀，如 -moz-
+    'selector-no-vendor-prefix': null,
+    // 类名命名规则
+    'selector-class-pattern': null,
   },
 }

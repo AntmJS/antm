@@ -14,8 +14,8 @@
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "watch": "rm -rf dist && npx tsc -p tsconfig.json -w",
-    "build": "rm -rf dist && npx tsc -p tsconfig.json",
+    "watch": "rm -rf dist && npx tsc -p tsconfig.cjs.json --watch --sourceMap",
+    "build": "rm -rf dist && npx tsc -p tsconfig.cjs.json",
     "test:watch": "",
     "test": ""
   },
@@ -30,23 +30,13 @@
     "typescript"
   ],
   "engines": {
-    "node": ">=12",
+    "node": ">=14",
     "npm": ">=6.4",
     "yarn": ">=1.22"
   },
-  "browserslist": [
-    "Chrome >= 35",
-    "ChromeAndroid >= 35",
-    "iOS >= 8",
-    "Safari >= 8",
-    "Android >= 4.1",
-    "QQAndroid >= 4.1",
-    "UCAndroid >= 4.1"
-  ],
   "author": "banlangen",
   "license": "MIT",
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.14.7",
     "axios": "^0.19.0",
     "chalk": "^2.4.2",
     "commander": "^4.0.1",

@@ -33,7 +33,7 @@ import type {
   IUserInfo,
   IResGoodsAudit,
   getRouters,
-} from '@/actions/types/testTypeDemo'
+} from './types/testTypeDemo'
 
 /**
  * 接口名：结口3

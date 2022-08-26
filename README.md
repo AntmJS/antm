@@ -18,7 +18,6 @@
 - [@antmjs/rapper](https://www.npmjs.com/package/@antmjs/rapper)
 - [@antmjs/api](https://www.npmjs.com/package/@antmjs/api)
 - [@antmjs/unite](https://www.npmjs.com/package/@antmjs/unite)
-- [@antmjs/global-state](https://www.npmjs.com/package/@antmjs/global-state)
 - [@antmjs/cache](https://www.npmjs.com/package/@antmjs/cache)
 - [@antmjs/trace](https://www.npmjs.com/package/@antmjs/trace)
 - [@antmjs/utils](https://www.npmjs.com/package/@antmjs/utils)

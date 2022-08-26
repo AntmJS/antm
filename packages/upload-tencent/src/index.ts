@@ -1,9 +1,9 @@
 #!/usr/bin/env node
-/* eslint-disable @typescript-eslint/no-var-requires */
-
-const program = require('commander')
-const pkg = require('../package.json')
-const cos = require('./cos')
+import program from 'commander'
+import * as cos from './cos'
+// tsc编译输出目录比当前目录多一级，暂时不知道怎么处理
+// eslint-disable-next-line import/no-unresolved, @typescript-eslint/no-var-requires
+const version = require('../package.json').version
 
 function check(action, regex) {
   return function (v, vv) {
@@ -25,7 +25,7 @@ function check(action, regex) {
   }
 }
 
-program.version(pkg.version, '-v, --version')
+program.version(version, '-v, --version')
 
 program
   .command('upload')

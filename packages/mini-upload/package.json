@@ -2,9 +2,9 @@
   "name": "@antmjs/mini-upload",
   "version": "1.21.3",
   "description": "小程序预览及上传工具",
-  "main": "utils/index.js",
+  "main": "dist/index.js",
   "bin": {
-    "antm-mini-upload": "utils/index.js"
+    "antm-mini-upload": "dist/index.js"
   },
   "license": "MIT",
   "publishConfig": {
@@ -23,22 +23,13 @@
     "url": "https://github.com/AntmJS/antm/issues/new"
   },
   "engines": {
-    "node": ">=12",
+    "node": ">=14",
     "npm": ">=6.4",
     "yarn": ">=1.22"
   },
-  "browserslist": [
-    "Chrome >= 35",
-    "ChromeAndroid >= 35",
-    "iOS >= 8",
-    "Safari >= 8",
-    "Android >= 4.1",
-    "QQAndroid >= 4.1",
-    "UCAndroid >= 4.1"
-  ],
   "scripts": {
-    "watch": "",
-    "build": "",
+    "watch": "rm -rf dist && npx tsc -p tsconfig.cjs.json --watch --sourceMap",
+    "build": "rm -rf dist && npx tsc -p tsconfig.cjs.json",
     "test:watch": "",
     "test": ""
   },

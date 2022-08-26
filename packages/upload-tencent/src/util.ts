@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const npath = require('path')
-const fs = require('fs')
+import npath from 'path'
+import fs from 'fs'
 
 function fillZero(value) {
   return value < 10 ? `0${value}` : value
@@ -30,7 +29,7 @@ function getFiles(dir = process.cwd(), prefix = '') {
     return []
   }
   const files = fs.readdirSync(dir)
-  let rst = []
+  let rst: string[] = []
   files.forEach((item) => {
     const filepath = dir + npath.sep + item
     const stat = fs.statSync(filepath)
@@ -51,7 +50,4 @@ function getFiles(dir = process.cwd(), prefix = '') {
   return rst
 }
 
-module.exports = {
-  formatTime,
-  getFiles,
-}
+export { formatTime, getFiles }

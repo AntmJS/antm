@@ -1,7 +1,10 @@
 {
   "compilerOptions": {
-    /** type checking */
+    "target": "ES2015",
+    "module": "ES2022",
     "strict": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
     // 默认false,是否检测定义了但是没使用的变量
     "noUnusedLocals": true,
     // 用于检查是否有在函数体中没有使用的参数
@@ -14,32 +17,14 @@
     "noImplicitAny": false,
     "noPropertyAccessFromIndexSignature": true,
     "noUncheckedIndexedAccess": true,
-    /** module */
-    "baseUrl": "./",
-    "outDir": "dist",
-    "module": "commonjs",
-    // default: module === AMD or UMD or System or ES6, then Classic otherwise Node
     "moduleResolution": "Node",
-    "target": "ES5",
-    "lib": ["ESNext", "dom"],
-    /** emit */
-    // "noEmit": true,
-    /** Interop Constraints */
-    "esModuleInterop": true,
+    "removeComments": true,
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    // "isolatedModules": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    // declaration和allowJs不能同时设为true
     "allowJs": true,
-    "jsx": "react-jsx",
-    "skipLibCheck": true
-    // "paths": {
-    //   // 指定模块的路径，和baseUrl有关联，和webpack中resolve.alias配置一样
-    //   "@/*": ["./src/*"]
-    // }
+    "jsx": "react-jsx"
   },
-  "include": ["src", "__test__"],
   "compileOnSave": false
 }

@@ -75,7 +75,7 @@ export function ApiUi(props) {
           <span className="logo-title">{title || `@antmjs/api`}</span>
         </div>
         <div
-          className="goReadme"
+          className="go-readme"
           onClick={() => {
             window.open('https://github.com/AntmJS/antm/tree/main/packages/api')
           }}

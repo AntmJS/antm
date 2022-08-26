@@ -1,6 +1,14 @@
 /* eslint-disable camelcase */
 // page show click add ext
 
+declare global {
+  namespace NodeJS {
+    export interface ProcessEnv {
+      NODE_ENV: 'development' | 'production'
+    }
+  }
+}
+
 // 地图     大陆/港/澳      台湾省          海外
 // 高德      GCJ-02        WGS84          WGS84
 // Google   GCJ-02        WGS84          WGS84

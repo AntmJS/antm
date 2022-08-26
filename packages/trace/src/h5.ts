@@ -42,7 +42,7 @@ window.onerror = function (
   pushMonitorData(EMlf.js, {
     d1:
       toString.call(error) === '[object Error]'
-        ? error!.toString()
+        ? error?.toString()
         : JSON.stringify(error),
     d2: JSON.stringify(message || ''),
     d3: JSON.stringify(source || ''),
@@ -59,7 +59,7 @@ window.addEventListener(
     pushMonitorData(EMlf.js, {
       d1:
         toString.call(res.error) === '[object Error]'
-          ? res.error!.toString()
+          ? res.error.toString()
           : JSON.stringify(res.error),
       d2: JSON.stringify(res.message || ''),
       d3: JSON.stringify(res.filename || ''),
@@ -246,12 +246,12 @@ function getCommonTrackData(): Trace.ISystemLog &
   }
 
   const appLog: Trace.IAppLog = {
-    ap_t: globalConfig.appType!, // 应用类型
+    ap_t: globalConfig.appType, // 应用类型
     ap_v: sysInfo?.version ?? '', // 应用版本
-    ap_st: globalConfig.appSubType!, // 应用内应用类型
-    ap_stv: globalConfig.appSubTypeVersion!, // 应用内应用版本号
+    ap_st: globalConfig.appSubType, // 应用内应用类型
+    ap_stv: globalConfig.appSubTypeVersion, // 应用内应用版本号
     ap_stmv: sysInfo?.SDKVersion ?? '', // 小程序基础库版本 没有则为空字符串
-    ap_id: globalConfig.appId!, // 应用ID
+    ap_id: globalConfig.appId, // 应用ID
     ap_uid: uid, // userId
     ap_uuid: uuid, // uuid
     ap_gid: gid, // genderId
@@ -318,10 +318,10 @@ function fetchTrackData(immediate = false) {
     }
     if (immediate) {
       list.forEach((item: Trace.TLog) => {
-        globalConfig!.request('log', item)
+        globalConfig.request('log', item)
       })
     } else {
-      globalConfig!.request('log', list)
+      globalConfig.request('log', list)
     }
   }
 }
@@ -338,7 +338,7 @@ function fetchMonitorData(immediate = false) {
     }
     if (immediate) {
       list.forEach((item: Trace.TMonitor) => {
-        globalConfig!.request('monitor', item)
+        globalConfig.request('monitor', item)
       })
     } else {
       globalConfig.request('monitor', list)
@@ -476,9 +476,9 @@ document.body.addEventListener(
   function (e: any) {
     let target: any = e.target
     while (target?.tagName !== 'BODY') {
-      let ckid = target!['data-ckid']
-      let clickId = target!['data-click-id']
-      let ext = target!['data-ext']
+      let ckid = target['data-ckid']
+      let clickId = target['data-click-id']
+      let ext = target['data-ext']
       if (!ckid && !clickId) {
         ckid = e.dataset?.ckid
         clickId = e.dataset?.clickId
@@ -493,7 +493,7 @@ document.body.addEventListener(
         })
         break
       }
-      target = target!.parentNode
+      target = target.parentNode
     }
   },
   false,
