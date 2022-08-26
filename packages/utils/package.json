@@ -1,8 +1,8 @@
 {
   "name": "@antmjs/utils",
-  "version": "1.21.3",
+  "version": "2.0.0",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
+  "module": "dist/index.js",
   "typings": "types/index.d.ts",
   "author": "三少 <hi_sanshao@outlook.com>",
   "description": "常用工具",
@@ -22,26 +22,14 @@
     "url": "https://github.com/AntmJS/antm/issues/new"
   },
   "engines": {
-    "node": ">=12",
+    "node": ">=14",
     "npm": ">=6.4",
     "yarn": ">=1.22"
   },
-  "browserslist": [
-    "Chrome >= 35",
-    "ChromeAndroid >= 35",
-    "iOS >= 8",
-    "Safari >= 8",
-    "Android >= 4.1",
-    "QQAndroid >= 4.1",
-    "UCAndroid >= 4.1"
-  ],
   "scripts": {
-    "watch": "rm -rf dist && npx rollup -c ./rollup.config.js -w",
-    "build": "rm -rf dist && npx rollup -c ./rollup.config.js",
+    "watch": "rm -rf ./dist && npx tsc -p tsconfig.esm.json --watch --sourceMap",
+    "build": "rm -rf ./dist && npx tsc -p tsconfig.esm.json",
     "test:watch": "",
     "test": ""
-  },
-  "dependencies": {
-    "@babel/runtime-corejs3": "^7.14.7"
   }
 }

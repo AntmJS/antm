@@ -161,7 +161,7 @@ function setCommonTrackData() {
   }
 
   if (!location) {
-    const promiseLocation = globalConfig!.getLocation()
+    const promiseLocation = globalConfig.getLocation()
     promiseLocation
       ?.then((loc) => {
         location = loc
@@ -170,7 +170,7 @@ function setCommonTrackData() {
   }
 
   if (!uid) {
-    const promiseUid = globalConfig!.getUserId()
+    const promiseUid = globalConfig.getUserId()
     promiseUid
       ?.then((userId) => {
         uid = userId
@@ -179,7 +179,7 @@ function setCommonTrackData() {
   }
 
   if (!gid) {
-    const promiseGid = globalConfig!.getGenderId()
+    const promiseGid = globalConfig.getGenderId()
     promiseGid
       ?.then((genderId) => {
         gid = genderId
@@ -209,13 +209,13 @@ function getCommonTrackData(): Trace.ISystemLog &
   }
 
   const appLog: Trace.IAppLog = {
-    ap_t: globalConfig!.appType, // 应用类型
+    ap_t: globalConfig.appType, // 应用类型
     ap_v: sysInfo?.version ?? '', // 应用版本
-    ap_st: globalConfig!.appSubType, // 应用内应用类型
-    ap_stv: globalConfig!.appSubTypeVersion, // 应用内应用版本号
+    ap_st: globalConfig.appSubType, // 应用内应用类型
+    ap_stv: globalConfig.appSubTypeVersion, // 应用内应用版本号
     ap_stmv:
       typeof my === 'object' ? my.SDKVersion ?? '' : sysInfo?.SDKVersion ?? '', // 小程序基础库版本 没有则为空字符串
-    ap_id: globalConfig!.appId, // 应用ID
+    ap_id: globalConfig.appId, // 应用ID
     ap_uid: uid, // userId
     ap_uuid: uuid, // uuid
     ap_gid: gid, // genderId
@@ -282,10 +282,10 @@ function fetchTrackData(immediate = false) {
     }
     if (immediate) {
       list.forEach((item: Trace.TLog) => {
-        globalConfig!.request('log', item)
+        globalConfig.request('log', item)
       })
     } else {
-      globalConfig!.request('log', list)
+      globalConfig.request('log', list)
     }
   }
 }
@@ -302,7 +302,7 @@ function fetchMonitorData(immediate = false) {
     }
     if (immediate) {
       list.forEach((item: Trace.TMonitor) => {
-        globalConfig!.request('monitor', item)
+        globalConfig.request('monitor', item)
       })
     } else {
       globalConfig.request('monitor', list)

@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/eslint",
-  "version": "1.21.3",
+  "version": "2.0.0",
   "main": "index.js",
   "author": "三少 <hi_sanshao@outlook.com>",
   "description": "代码统一规范工具库",
@@ -25,19 +25,10 @@
     "url": "https://github.com/AntmJS/antm/issues/new"
   },
   "engines": {
-    "node": ">=12",
+    "node": ">=14",
     "npm": ">=6.4",
     "yarn": ">=1.22"
   },
-  "browserslist": [
-    "Chrome >= 35",
-    "ChromeAndroid >= 35",
-    "iOS >= 8",
-    "Safari >= 8",
-    "Android >= 4.1",
-    "QQAndroid >= 4.1",
-    "UCAndroid >= 4.1"
-  ],
   "scripts": {
     "watch": "",
     "build": "",
@@ -45,7 +36,7 @@
     "test": ""
   },
   "peerDependencies": {
-    "eslint": ">=7",
+    "eslint": ">=8",
     "typescript": ">=4"
   },
   "dependencies": {

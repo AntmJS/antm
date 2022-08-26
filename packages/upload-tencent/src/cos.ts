@@ -1,11 +1,12 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const npath = require('path')
-const crypto = require('crypto')
-const chalk = require('chalk')
-const COS = require('cos-nodejs-sdk-v5')
-const inquirer = require('inquirer')
-const configPath = path.resolve(process.cwd(), './antm.config.js')
-const util = require('./util')
+import npath from 'path'
+import crypto from 'crypto'
+import fs from 'fs'
+import chalk from 'chalk'
+import COS from 'cos-nodejs-sdk-v5'
+import * as inquirer from 'inquirer'
+import * as util from './util'
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const configPath = require(npath.resolve(process.cwd(), './antm.config.js'))
 
 const bucketConfig = {
   CDN: '',
@@ -23,6 +24,7 @@ const comfirmType = {
 }
 
 if (fs.existsSync(configPath)) {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const antmConfig = require(configPath)
   if (
     antmConfig.uploadTencent &&
@@ -108,9 +110,8 @@ async function uploadToTencentRemote(target, targetDir) {
           //   const speed = parseInt(info.speed / 1024 / 1024 * 100) / 100
           //   console.log(`进度：${percent}%; 速度：${speed}Mb/s;`)
           // },
-          onFileFinish(err, data, options) {
+          onFileFinish(err) {
             if (err) {
-              console.error(chalk.red(`${options.Key} upload fail.`))
               console.error(chalk.bgWhite('                   '))
               console.error(err)
               console.error(chalk.bgWhite('                   '))
@@ -136,7 +137,7 @@ async function uploadToTencentRemote(target, targetDir) {
                 )}`,
               ),
             )
-            resolve()
+            resolve('')
           }
         },
       )
@@ -169,7 +170,7 @@ async function uploadToTencentRemote(target, targetDir) {
                 )}`,
               ),
             )
-            resolve()
+            resolve('')
           }
         },
       )
@@ -271,7 +272,4 @@ async function bundle(program) {
   }
 }
 
-module.exports = {
-  upload,
-  bundle,
-}
+export { upload, bundle }

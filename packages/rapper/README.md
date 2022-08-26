@@ -1,5 +1,7 @@
 ## Rapper 是什么？
 
+> 注：可以使用@antmjs/api 代替
+
 Rapper 是 TypeScript 的最佳拍档，它可以帮你生成具有类型定义的请求方案。
 
 - 无需自行书写请求代码，把 HTTP 接口当做函数调用

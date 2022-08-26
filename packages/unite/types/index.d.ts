@@ -1,7 +1,6 @@
 declare global {
   namespace NodeJS {
     export interface ProcessEnv {
-      NODE_ENV: 'development' | 'production'
       TARO_ENV:
         | 'weapp'
         | 'swan'
@@ -20,22 +19,19 @@ declare global {
 declare namespace Unite {
   type IAnyObject = Record<string, any>
   type IFunctionObject = Record<string, (arg?: any) => any>
-  type IError = { code: string; message: string; options?: IAnyObject }
+  type IError = { code: string; message: string; data: any }
 
   interface State<TState extends IAnyObject> {
     /** 组件的内部数据，和 `properties` 一同用于组件的模板渲染 */
     state: StateOpt<TState>
   }
   interface ILifetime {
-    onLoad(): void | Promise<void>
-    onShow(): void | Promise<void>
-    onReady(): void | Promise<void>
+    onLoad(): Promise<void>
+    onShow(): Promise<void>
+    onReady(): Promise<void>
     onHide(): void | Promise<void>
     onUnload(): void | Promise<void>
-    onPullDownRefresh(): void | Promise<void>
     onReachBottom(): void | Promise<void>
-    onResize(): void | Promise<void>
-    onPageScroll(payload: Taro.PageScrollObject): void | Promise<void>
   }
 
   interface Inner<TAll extends IAnyObject> {
@@ -51,17 +47,45 @@ declare namespace Unite {
       state: Partial<StateOpt<TState>> | React.SetStateAction<StateOpt<TState>>,
     ) => void
     setError: React.Dispatch<React.SetStateAction<IError | undefined>>
+    onRefresh: <T extends boolean>(
+      catchRefresh?: T,
+    ) => T extends true
+      ? Promise<{ code: string; message: string; data: any }>
+      : void
     setHooks: (hooks: IAnyObject) => void
+  }
+  interface RouterInfo<
+    TParams extends Partial<Record<string, string>> = Partial<
+      Record<string, string>
+    >,
+  > {
+    /** 路由参数 */
+    params: TParams
+
+    /** 页面路径 */
+    path: string
+
+    onReady?: string
+    onHide?: string
+    onShow?: string
+
+    shareTicket?: string | undefined
+    scene?: number | undefined
+    exitState?: any
   }
   interface InstanceProperty<
     TAll extends IAnyObject,
     TProps extends IAnyObject,
   > {
-    error: any
+    error: IError
     props: TProps
     hooks: IAnyObject
-    location: Taro.RouterInfo
-    loading: Partial<{ [K in keyof PromiseProperties<TAll>]: boolean }>
+    location: RouterInfo
+    loading: Partial<
+      { [K in keyof PromiseProperties<TAll>]: boolean } & {
+        pullDownRefresh: boolean
+      }
+    >
   }
 
   type StateOpt<T> = {
@@ -136,14 +160,41 @@ declare function Unite<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 >(
   config: Unite.Option<TState, TAll, TProps>,
-  renderCom: (data: Unite.Response<TState, TAll>, props: TProps) => JSX.Element,
+  render: (data: Unite.Response<TState, TAll>, props: TProps) => JSX.Element,
+  options?: {
+    page?: boolean
+    cancelInterception?: Partial<{
+      [K in keyof Unite.PromiseProperties<TAll>]: boolean
+    }>
+  },
 ): (props: TProps) => any
 
-export function registerCatch(
+declare function registerCatch(
   method: (
     err: any,
     setError: React.Dispatch<React.SetStateAction<Unite.IError | undefined>>,
+    methodName?: string,
+    refresh?: boolean,
   ) => void,
 ): void
+
+declare const UniteContext: React.Context<{
+  uniteConfig: {
+    page?: boolean
+  }
+  onRefresh: <T extends boolean>(
+    catchRefresh?: T,
+  ) => T extends true
+    ? Promise<{ code: string; message: string; data: any }>
+    : void
+  error?: { code: string; message: string; data: any }
+  setError: React.Dispatch<
+    React.SetStateAction<
+      { code: string; message: string; data: any } | undefined
+    >
+  >
+}>
+
+export { Unite, UniteContext, registerCatch }
 
 export default Unite

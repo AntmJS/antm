@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/api",
-  "version": "1.21.3",
+  "version": "2.0.0",
   "description": "api tools",
   "main": "./ui/lib.js",
   "typings": "./global.d.ts",
@@ -23,8 +23,8 @@
   ],
   "scripts": {
     "babel": "npx babel ui/api-ui.js --out-file ui/lib.js",
-    "watch": "rm -rf dist && npx tsc -p tsconfig.json -w",
-    "build": "rm -rf dist && npx tsc -p tsconfig.json && yarn babel",
+    "watch": "rm -rf dist && npx tsc -p tsconfig.cjs.json --watch --sourceMap",
+    "build": "rm -rf dist && npx tsc -p tsconfig.cjs.json && yarn babel",
     "test:watch": "",
     "test": ""
   },

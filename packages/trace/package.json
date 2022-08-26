@@ -1,9 +1,9 @@
 {
   "name": "@antmjs/trace",
-  "version": "1.21.3",
+  "version": "2.0.0",
   "main": "dist/index.js",
-  "module": "dist/index.esm.js",
-  "main:h5": "dist/h5.esm.js",
+  "module": "dist/index.js",
+  "main:h5": "dist/h5.js",
   "typings": "types/index.d.ts",
   "author": "三少 <hi_sanshao@outlook.com>",
   "description": "统一的埋点及异常收集工具",
@@ -27,28 +27,18 @@
     "url": "https://github.com/AntmJS/antm/issues/new"
   },
   "engines": {
-    "node": ">=12",
+    "node": ">=14",
     "npm": ">=6.4",
     "yarn": ">=1.22"
   },
-  "browserslist": [
-    "Chrome >= 35",
-    "ChromeAndroid >= 35",
-    "iOS >= 8",
-    "Safari >= 8",
-    "Android >= 4.1",
-    "QQAndroid >= 4.1",
-    "UCAndroid >= 4.1"
-  ],
   "scripts": {
-    "watch": "rm -rf dist && npx rollup -c ./rollup.config.js -w",
-    "build": "rm -rf dist && npx rollup -c ./rollup.config.js",
+    "watch": "rm -rf ./dist && npx tsc -p tsconfig.esm.json --watch --sourceMap",
+    "build": "rm -rf ./dist && npx tsc -p tsconfig.esm.json",
     "test:watch": "",
     "test": ""
   },
   "dependencies": {
-    "@antmjs/utils": "1.21.3",
-    "@babel/runtime-corejs3": "^7.14.7",
+    "@antmjs/utils": "2.0.0",
     "history": "^5.0.0",
     "mobile-detect": "^1.4.5"
   }
