@@ -1,3 +1,3 @@
 module.exports = {
-  extends: ['@antmjs/stylelint'],
+  extends: ['./packages/stylelint/index.js'],
 }

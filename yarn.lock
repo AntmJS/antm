@@ -7863,10 +7863,10 @@ cosmiconfig-typescript-loader@^2.0.0:
     cosmiconfig "^7"
     ts-node "^10.8.1"
 
-cosmiconfig-typescript-loader@^3.1.0:
-  version "3.1.2"
-  resolved "https://registry.npmmirror.com/cosmiconfig-typescript-loader/-/cosmiconfig-typescript-loader-3.1.2.tgz#e147457854cabe1416152bdca55f53449b1f865d"
-  integrity sha512-rIwakk27LtK7vjSjGgs3FDbKkq41Byw3VHRGRuAkRQLfGla+O7s+cy1FXRkjLSZ2G9z1og1bcOIsELo1w4G0Kg==
+cosmiconfig-typescript-loader@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmmirror.com/cosmiconfig-typescript-loader/-/cosmiconfig-typescript-loader-4.0.0.tgz#4a6d856c1281135197346a6f64dfa73a9cd9fefa"
+  integrity sha512-cVpucSc2Tf+VPwCCR7SZzmQTQkPbkk4O01yXsYqXBIbjE1bhwqSyAgYQkRK1un4i0OPziTleqFhdkmOc4RQ/9g==
 
 cosmiconfig@7.0.1, cosmiconfig@^7, cosmiconfig@^7.0.0, cosmiconfig@^7.0.1:
   version "7.0.1"
@@ -10631,9 +10631,9 @@ grapheme-splitter@^1.0.4:
   integrity sha512-bzh50DW9kTPM00T8y4o8vQg89Di9oLJVLW/KaOGIXJWP/iqCN6WKYkbNOF04vFLJhwcpYUh9ydh/+5vpOqV4YQ==
 
 graphql-config@^4.3.0:
-  version "4.3.4"
-  resolved "https://registry.npmmirror.com/graphql-config/-/graphql-config-4.3.4.tgz#6d2df477bb83bf05b800fe4d80214e2ccae0cd11"
-  integrity sha512-TAUEs+NOrECotpQM89bDyg2laTCDtGjH7zv6CAdLG0l8NhybqChVQszvSpHIKJJbJdmrLkYbLmyA1WdxDaz3wA==
+  version "4.3.5"
+  resolved "https://registry.npmmirror.com/graphql-config/-/graphql-config-4.3.5.tgz#bd197ec9c1e86d2696c61332be35b920ba7be700"
+  integrity sha512-B4jXhHL7j3llCem+ACeo48wvVYhtJxRyt5SfSnvywbRlVYyUzt5ibZV6WJU2Yii2/rcVRIGi7BHDgcAPWdWdJg==
   dependencies:
     "@graphql-tools/graphql-file-loader" "^7.3.7"
     "@graphql-tools/json-file-loader" "^7.3.7"
@@ -10643,7 +10643,7 @@ graphql-config@^4.3.0:
     "@graphql-tools/utils" "^8.6.5"
     cosmiconfig "7.0.1"
     cosmiconfig-toml-loader "1.0.0"
-    cosmiconfig-typescript-loader "^3.1.0"
+    cosmiconfig-typescript-loader "^4.0.0"
     minimatch "4.2.1"
     string-env-interpolation "1.0.1"
     ts-node "^10.8.1"
