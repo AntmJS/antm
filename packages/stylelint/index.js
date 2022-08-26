@@ -27,6 +27,9 @@ module.exports = {
     'function-calc-no-unspaced-operator': true, // 禁止在 calc 函数内使用不加空格的操作符
     'function-linear-gradient-no-nonstandard-direction': true, // 根据标准语法，禁止 linear-gradient() 中无效的方向值
     'function-url-quotes': 'always', // --要求或禁止 url 使用引号
+    'function-no-unknown': null,
+    'alpha-value-notation': 'number',
+    'color-function-notation': 'legacy',
     'keyframe-declaration-no-important': true, // 禁止在 keyframe 声明中使用 !important
     'max-line-length': null, // --限制单行的长度
     'media-feature-name-no-unknown': true, // 禁止使用未知的 media 特性名称
