@@ -19,7 +19,7 @@ declare global {
 declare namespace Unite {
   type IAnyObject = Record<string, any>
   type IFunctionObject = Record<string, (arg?: any) => any>
-  type IError = { code: string; message: string; data: any }
+  type IError = { code: string; message: string; data?: any }
 
   interface State<TState extends IAnyObject> {
     /** 组件的内部数据，和 `properties` 一同用于组件的模板渲染 */
@@ -49,9 +49,7 @@ declare namespace Unite {
     setError: React.Dispatch<React.SetStateAction<IError | undefined>>
     onRefresh: <T extends boolean>(
       catchRefresh?: T,
-    ) => T extends true
-      ? Promise<{ code: string; message: string; data: any }>
-      : void
+    ) => T extends true ? Promise<Unite.IError> : void
     setHooks: (hooks: IAnyObject) => void
   }
   interface RouterInfo<
@@ -175,6 +173,7 @@ declare function registerCatch(
     setError: React.Dispatch<React.SetStateAction<Unite.IError | undefined>>,
     methodName?: string,
     refresh?: boolean,
+    closeRefresh?: () => void,
   ) => void,
 ): void
 
@@ -184,15 +183,9 @@ declare const UniteContext: React.Context<{
   }
   onRefresh: <T extends boolean>(
     catchRefresh?: T,
-  ) => T extends true
-    ? Promise<{ code: string; message: string; data: any }>
-    : void
-  error?: { code: string; message: string; data: any }
-  setError: React.Dispatch<
-    React.SetStateAction<
-      { code: string; message: string; data: any } | undefined
-    >
-  >
+  ) => T extends true ? Promise<Unite.IError> : void
+  error?: Unite.IError
+  setError: React.Dispatch<React.SetStateAction<Unite.IError | undefined>>
 }>
 
 export { Unite, UniteContext, registerCatch }

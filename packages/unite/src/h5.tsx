@@ -29,6 +29,9 @@ function useContainer(config: any, props: any, options: any) {
     __refresh: false,
     __mounted: false,
     __init: false,
+    __closeRefresh: function () {
+      flagRef.current.__refresh = false
+    },
     __refactor: function () {
       insRef.current.setState = function (res: any): void {
         if (flagRef.current.__mounted) {
@@ -98,6 +101,7 @@ function useContainer(config: any, props: any, options: any) {
                         setError,
                         item,
                         flagRef.current.__refresh,
+                        flagRef.current.__closeRefresh,
                       )
                     } else {
                       if (
@@ -130,7 +134,13 @@ function useContainer(config: any, props: any, options: any) {
               })
               _setLoading(allLoading)
               if (catchMethod) {
-                catchMethod(err, setError, item, flagRef.current.__refresh)
+                catchMethod(
+                  err,
+                  setError,
+                  item,
+                  flagRef.current.__refresh,
+                  flagRef.current.__closeRefresh,
+                )
               } else {
                 if (
                   flagRef.current.__refresh &&
@@ -316,6 +326,7 @@ function registerCatch(
     setError: React.Dispatch<React.SetStateAction<any | undefined>>,
     methodName?: string,
     refresh?: boolean,
+    closeRefresh?: () => void,
   ) => void,
 ): void {
   catchMethod = method
