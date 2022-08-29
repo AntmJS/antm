@@ -476,6 +476,7 @@ document.body.addEventListener(
   function (e: any) {
     let target: any = e.target
     while (target?.tagName !== 'BODY') {
+      if (!target) break
       let ckid = target['data-ckid']
       let clickId = target['data-click-id']
       let ext = target['data-ext']
