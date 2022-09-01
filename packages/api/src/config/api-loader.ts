@@ -20,7 +20,7 @@ export default function apiLoader(source) {
       .replace(
         `/** API_DATA_USE */`,
         `apiData={ApiData} mockPort={${port}} ${
-          apiConfig['title'] ? `title={${apiConfig['title']}}` : ''
+          apiConfig['title'] ? `title="${apiConfig['title']}"` : ''
         }`,
       )
   }
