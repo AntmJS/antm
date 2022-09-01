@@ -4,8 +4,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import autoprefixer from 'autoprefixer'
 import getConfig from './getConfig.js'
 
-const antmConfig = getConfig()
-const { buildPath } = antmConfig.api || {}
+const { buildPath } = getConfig()
 const cwd = process.cwd()
 
 export default async function base() {

@@ -44,6 +44,7 @@
     "commander": "^9.3.0",
     "core-js": "3",
     "css-loader": "^6.7.1",
+    "deepmerge": "^4.2.2",
     "html-webpack-plugin": "^5.5.0",
     "js-yaml": "^4.1.0",
     "less": "^4.1.3",

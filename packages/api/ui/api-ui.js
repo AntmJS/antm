@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useLayoutEffect, useCallback, useState, useEffect } from 'react'
 import ReactJson from 'react-json-view'
+import deepMerge from 'deepmerge'
 
 export function ApiUi(props) {
   const { apiData, title, mockPort = 10099 } = props
@@ -29,11 +30,13 @@ export function ApiUi(props) {
   }
 
   useLayoutEffect(() => {
+    if (title) document.title = title
     hashChange()
     window.addEventListener('hashchange', hashChange)
     return () => {
       window.removeEventListener('hashchange', hashChange)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -199,6 +202,13 @@ function transformData(data, target) {
     } else {
       return [data.items.type]
     }
+  } else if (data['allOf'] && Array.isArray(data['allOf'])) {
+    // 解决`&`运算类型数据
+    let handleData = {}
+    data['allOf'].reverse().map((item) => {
+      handleData = deepMerge(handleData, item)
+    })
+    return transformData(handleData, target)
   }
 }
 
