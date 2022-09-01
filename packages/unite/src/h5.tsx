@@ -265,6 +265,7 @@ function useContainer(config: any, props: any, options: any) {
   const routerInfo = {
     path: location.pathname,
     params: parse(location.search ? location.search.slice(1) : ''),
+    hash: location.hash,
   }
 
   insRef.current.location = routerInfo
