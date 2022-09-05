@@ -38,6 +38,8 @@ program
   .description('create request types and actions from  swagger data')
   .option('-p, --path <path>', 'request types path')
   .option('-u, --url <url>', 'the url of swagger data')
+  .option('-mod, --modules <modules>', 'swagger tag item split with comma')
+  .option('-a, --actions <actions>', 'if create request method')
   .action(swagger)
 
 program.parse(process.argv)

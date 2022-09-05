@@ -10,7 +10,14 @@ export default function tsTypeParse(file: string) {
   )
   return TJS.generateSchema(program, '*', {
     required: true,
-    validationKeywords: ['value', 'rule', 'url', 'method', 'introduce'],
+    validationKeywords: [
+      'value',
+      'rule',
+      'url',
+      'method',
+      'introduce',
+      'timeout',
+    ],
     excludePrivate: true,
     ignoreErrors: true,
   })

@@ -14,12 +14,11 @@ type Iprops = {
   action?: boolean
 }
 
-const antmConfig = getConfig()
-const api = antmConfig.api || {}
+const apiConfig = getConfig()
 
 export default async function watch(props: Iprops) {
   const {
-    path = api['path'] || 'src/actions/types',
+    path = apiConfig['path'] || 'src/actions/types',
     mock,
     server,
     action,

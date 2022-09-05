@@ -7,14 +7,13 @@ type Iprops = {
   path: string
 }
 
-const antmConfig = getConfig()
-const api = antmConfig.api || {}
+const apiConfig = getConfig()
 
 export default async function Run(props: Iprops) {
-  const { path = 'src/actions/types' } = props
+  const { path } = props
 
   await file({
-    path: api['path'] || path,
+    path: path || apiConfig['path'] || 'src/actions/types',
     watch: false,
   })
 

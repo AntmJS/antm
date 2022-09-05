@@ -1,8 +1,8 @@
 /* eslint-disable import/no-named-as-default */
 import path_ from 'path'
 import fs from 'fs'
-import glob from 'glob'
 import * as ora from 'ora'
+import glob from 'glob'
 import * as prettier from 'prettier'
 import { watch } from 'chokidar'
 import parser from './parser.js'
@@ -14,9 +14,9 @@ import { getPrettierConfig } from './config/getPrettierConfig.js'
 const spinner = ora.default()
 const CWD = process.cwd()
 const API_UI_DATA_PATH = path_.join(CWD, './.cache/api-ui-data.json')
-const antmConfig = getConfig()
-const { requestImport, requestFnName, dirPath } = antmConfig?.api?.action || {}
-let result: any = {}
+const apiConfig = getConfig()
+const { requestImport, requestFnName, dirPath } = apiConfig?.action || {}
+let result = {}
 
 if (fs.existsSync(API_UI_DATA_PATH)) {
   result = require(API_UI_DATA_PATH)
@@ -29,7 +29,7 @@ export function workFile(targetUrl: string, action: boolean) {
   }
 
   return new Promise((resolve) => {
-    glob(`${targetUrl}/*.ts`, async (err: any, paths: string[]) => {
+    glob(`${targetUrl}/*.ts`, async (err, paths: string[]) => {
       if (err) {
         log.error(err.toString())
         process.exit(1)
@@ -55,6 +55,7 @@ type Iprops = {
   path?: string
   watch?: boolean
   action?: boolean
+  forceUpdate?: boolean
 }
 
 export default async function file(props: Iprops) {
@@ -80,12 +81,18 @@ function watchAction(
   watcher.on('ready', function () {
     readyOk = true
   })
-  watcher.on('add', function (path) {
-    console.info(log.tips(`${path}类型文件新增`))
+  watcher.on('add', function (p) {
+    console.info(
+      log.tips(`
+    新增文件${p}`),
+    )
     if (readyOk) work(targetUrl, action)
   })
-  watcher.on('change', function (path) {
-    console.info(log.tips(`${path}类型文件变更`))
+  watcher.on('change', function (p) {
+    console.info(
+      log.tips(`
+    文件变更${p}`),
+    )
     if (readyOk) work(targetUrl, action)
   })
   watcher.on('unlink', function () {
@@ -96,57 +103,52 @@ function watchAction(
 function workUnit(paths: string[], action: boolean, writeActionTarget: string) {
   return new Promise(async (resolve) => {
     for (let i = 0; i < paths.length; i++) {
-      const p = paths[i] as string
-      const parseRes = parser(p)
-      const fileArr = p.split('/')
-      const fileName = fileArr[fileArr.length - 1]?.replace('.ts', '')
-      if (parseRes && fileName) {
-        const def = parseRes.definitions
-        result[fileName] = def
-        if (action) {
-          let content = ''
+      const p = paths[i]
+      if (p) {
+        const parseRes = parser(p)
+        const fileArr = p.split('/')
+        const fileName = fileArr[fileArr.length - 1]?.replace('.ts', '')
+        if (parseRes && fileName) {
+          const def = parseRes.definitions
+          result[fileName] = def
+          if (action) {
+            let content = ''
 
-          if (!antmConfig?.api?.action?.createDefaultModel) {
-            content = createDefaultModel({
-              data: def,
-              fileName: fileName,
-              requestImport,
-              requestFnName,
+            if (!apiConfig?.action?.createDefaultModel) {
+              content = createDefaultModel({
+                data: def,
+                fileName: fileName,
+                requestImport,
+                requestFnName,
+              })
+            } else {
+              content = apiConfig?.action?.createDefaultModel({
+                data: def,
+                fileName: fileName,
+                requestImport,
+                requestFnName,
+              })
+            }
+
+            const prettierConfig = await getPrettierConfig()
+
+            const formatContent = prettier.format(content, {
+              ...prettierConfig,
+              parser: 'typescript',
             })
-          } else {
-            content = antmConfig?.api?.action?.createDefaultModel({
-              data: def,
-              fileName: fileName,
-              requestImport,
-              requestFnName,
-            })
+
+            fs.writeFileSync(
+              path_.resolve(writeActionTarget, `${fileName}.ts`),
+              formatContent,
+            )
           }
-
-          const prettierConfig = await getPrettierConfig()
-
-          const formatContent = prettier.format(content, {
-            ...prettierConfig,
-            parser: 'typescript',
-          })
-
-          await fs.writeFileSync(
-            path_.resolve(writeActionTarget, `${fileName}.ts`),
-            formatContent,
-          )
         }
-      }
 
-      spinner.info(
-        log.tips(
-          `生成请求接口模块: ${path_.resolve(
-            writeActionTarget,
-            `${fileName}.ts`,
-          )}`,
-        ),
-      )
+        spinner.info(log.tips(`解析接口模块: ${p}`))
+      }
     }
 
-    spinner.succeed(log.success('成功生成所有请求接口'))
+    spinner.succeed(log.success('所有ts模块解析完成'))
 
     resolve(result)
   })
