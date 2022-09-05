@@ -1,4 +1,4 @@
-## antm-api 是什么？
+## @antmjs/api 是什么？
 
 `@antmjs/api` 是日常开发中接口的效率化工具。
 
@@ -12,7 +12,7 @@
 ### 安装
 
 ```
-yarn add antm-api
+yarn add @antmjs/api
 ```
 
 ### 快速开始
