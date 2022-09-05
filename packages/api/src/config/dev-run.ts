@@ -9,7 +9,7 @@ const { buildPort } = getConfig()
 
 const devServer = {
   port: buildPort || 7878,
-  host: 'localhost',
+  host: '0.0.0.0',
   hot: true,
   open: true,
   static: {
