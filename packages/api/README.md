@@ -66,11 +66,11 @@ yarn add @antmjs/api
 
 配置文件根目录下 antm.config.js 文件下`api`属性
 
-| 字段      | 描述                                                           | 类型     | 默认值     |
-| --------- | -------------------------------------------------------------- | -------- | ---------- |
+| 字段      | 描述                        | 类型     | 默认值                |
+| --------- | --------------------------- | -------- | --------------------- |
 | path      | 请求字段类型所在的文件路径` | _string_ | "./src/actions/types" |
-| buildPath | 接口文档打包路径                                               | _string_ | "./api-ui" |
-| buildPort | 接口文档开发环境服务端口                                       | _number_ | 7878       |
+| buildPath | 接口文档打包路径            | _string_ | "./api-ui"            |
+| buildPort | 接口文档开发环境服务端口    | _number_ | 7878                  |
 
 ### mock 服务配置
 
@@ -152,7 +152,6 @@ function createDefaultModel({
   requestFnName = 'createFetch',
   fileName = 'a',
   data = {},
-  requestSuffix = 'Action',
 }) {
   const packages = []
   let requestActionsStr = ''
@@ -164,7 +163,11 @@ function createDefaultModel({
       packages.push(key)
       requestActionsStr += `
       // ${item.description}
-      export const ${key}${requestSuffix} = ${requestFnName}<${key}['request'], ${key}['response']>('${item.url}', '${item.method}');
+      export const ${key}${fileName?.replace(/^\S/, function (s) {
+        return s.toUpperCase()
+      })} = ${requestFnName}<${key}['request'], ${key}['response']>('${
+        item.url
+      }', '${item.method}');
       `
     }
   }

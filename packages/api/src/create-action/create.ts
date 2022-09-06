@@ -15,7 +15,14 @@ export function createDefaultModel({
       packages.push(key)
       requestActionsStr += `
       // ${item.description}
-      export const ${key} = ${requestFnName}<${key}['request'], ${key}['response']>('${item.url}', '${item.method}');
+      export const ${
+        key +
+        fileName.replace(/^\S/, function (s) {
+          return s.toUpperCase()
+        })
+      } = ${requestFnName}<${key}['request'], ${key}['response']>('${
+        item.url
+      }', '${item.method}');
       `
     }
   }
