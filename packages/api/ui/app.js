@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { version } from 'react'
 import { createRoot } from 'react-dom/client'
 import { render } from 'react-dom'
 import { ApiUi } from './api-ui.js'
@@ -11,7 +11,7 @@ function App() {
 
 const dom = document.getElementById('root')
 
-if (render) {
+if (parseInt(version.split('.')[0]) < 18) {
   render(<App />, dom)
 } else if (createRoot) {
   createRoot(document.getElementById('root')).render(<App />)
