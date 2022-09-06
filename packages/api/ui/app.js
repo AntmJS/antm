@@ -1,4 +1,5 @@
 import React from 'react'
+import { createRoot } from 'react-dom/client'
 import { render } from 'react-dom'
 import { ApiUi } from './api-ui.js'
 /** API_DATA_IMPORT */
@@ -10,4 +11,8 @@ function App() {
 
 const dom = document.getElementById('root')
 
-render(<App />, dom)
+if (render) {
+  render(<App />, dom)
+} else if (createRoot) {
+  createRoot(document.getElementById('root')).render(<App />)
+}
