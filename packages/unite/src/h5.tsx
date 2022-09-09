@@ -264,7 +264,9 @@ function useContainer(config: any, props: any, options: any) {
   // 将路由信息挂在到实例对象，方便开发通过this.location取值
   const routerInfo = {
     path: location.pathname,
-    params: parse(location.search ? location.search.slice(1) : ''),
+    params: /^#\//.test(location.hash)
+      ? parse(location.hash.split('?')[1] ?? '')
+      : parse(location.search ? location.search.slice(1) : ''),
     hash: location.hash,
   }
 
