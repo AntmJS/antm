@@ -3,7 +3,6 @@ import log from '../log.js'
 import file from '../file'
 import { transform } from './transform.js'
 import { fetchData } from './fetch.js'
-import { createTypeFileName } from './createTypeFileName.js'
 
 type Iprops = {
   url?: string
@@ -26,21 +25,24 @@ export default async function swagger(props: Iprops) {
   console.info(log.tips('开始获取swagger数据'))
 
   const swaggerData: any = await fetchData(url)
+  const swaggerVersion = swaggerData['swagger'] || swaggerData['openapi']
+  const publicTypes =
+    swaggerData['definitions'] || swaggerData['components']['schemas']
 
   console.info(
     log.success(`
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 swagger data                                                    +
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-+ 🚀 swagger版本: ${swaggerData['swagger']}                        
++ 🚀 swagger版本: ${swaggerVersion}                        
 + 🚴‍♀️ 接口模块数: ${swaggerData['tags'].length}                      
 + 🚗 接口数: ${Object.keys(swaggerData['paths']).length}           
-+ 🚄 公共类型数: ${Object.keys(swaggerData['definitions']).length}  
++ 🚄 公共类型数: ${Object.keys(publicTypes).length}  
 + 🐘 执行模块: ${modules_ ? modules_.join(`, `) : '所有模块'}          
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 `),
   )
-  await transform(swaggerData, path_, modules_, createTypeFileName)
+  await transform(swaggerData, path_, modules_)
 
   setTimeout(() => {
     file({

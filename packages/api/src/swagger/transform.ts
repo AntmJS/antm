@@ -4,6 +4,8 @@ import prettier from 'prettier'
 import * as ora from 'ora'
 import log from '../log.js'
 import { getPrettierConfig } from '../config/getPrettierConfig.js'
+import { createTypeFileName } from './createTypeFileName.js'
+import versionCompatible from './versionCompatible.js'
 
 const typeNameCache: string[] = []
 let prettierConfig = {}
@@ -22,12 +24,13 @@ export async function transform(
   data: Record<string, any>,
   path: string,
   modules?: string[],
-  createTypeFileName?: (url: string) => string,
 ) {
   const typesUrl = pat.resolve(process.cwd(), path)
   const BaseTypesUrl = pat.resolve(typesUrl, '../baseTypes.ts')
   const result: any = {}
-  const definitions = data['definitions']
+  const { definitions } = versionCompatible({
+    data: data,
+  })
   const paths = data['paths']
 
   let baseTypes = ''
@@ -53,8 +56,12 @@ export async function transform(
         result[moduleName].firstUrl = key
       }
 
-      let reqCodes = `{ \n `
-      const parameters: Record<string, any> = filterRepeatName(item.parameters)
+      let reqCodes = ''
+
+      const parameters: Record<string, any> = versionCompatible({
+        requestParams: item,
+        data: data,
+      }).pathsRequestParams
 
       for (const km in parameters) {
         const it = parameters[km]
@@ -68,15 +75,26 @@ export async function transform(
         })
       }
 
-      reqCodes += `} \n `
+      if (reqCodes.includes(':')) {
+        reqCodes = `{
+          ${reqCodes}
+        }`
+      }
+
+      if (!reqCodes) reqCodes = 'Record<string, any> \n'
 
       let resCodes = ``
+      const responseItem = versionCompatible({
+        responseData: item,
+        data: data,
+      }).pathsResponseData
+
       if (
-        item.responses['200']?.schema &&
-        (item.responses['200']?.schema?.type === 'object' ||
-          item.responses['200']?.schema.$ref)
+        responseItem &&
+        responseItem?.schema &&
+        (responseItem?.schema?.type === 'object' || responseItem?.schema.$ref)
       ) {
-        const schema = item.responses['200']
+        const schema = responseItem
         const resParseResult = parseDef(schema)
         resCodes += resParseResult.codes
 
@@ -125,9 +143,9 @@ export async function transform(
     if (def.description) commentsParams['description'] = def.description
     const comments = createComments(commentsParams)
 
-    baseTypes += `${comments}export type ${formatBaseTypeKey(key)} = ${
-      parseResult.codes
-    }`
+    const baseKey = formatBaseTypeKey(key)
+
+    baseTypes += `${comments}export type ${baseKey} = ${parseResult.codes}`
   }
   await fs.writeFileSync(BaseTypesUrl, formatTs(baseTypes))
 
@@ -198,37 +216,39 @@ function parseDef(def: Record<string, any>, kk?: string) {
     } else if (data.type === 'array' || data.schema?.type === 'array') {
       const type__ = data.type || data.schema?.type
       const items__ = data.items || data.schema?.items
-      if (type__ && isBaseType(type__)) {
-        res += workUnit(
-          {
-            ...items__,
-            required: data.required,
-            description: data.description,
-          },
-          key,
-          true,
-        )
-      } else if (items__ && !isBaseType(type__)) {
-        if (items__.properties) res += `{ \n `
-        res += workUnit(
-          {
-            ...items__,
-            required: data.required,
-            description: data.description,
-            rule: 2,
-          },
-          key,
-          true,
-        )
-        if (items__.properties) res += `} ${noMark ? '' : '\n'}`
-      } else if (data.items?.$ref) {
-        const $ref = formatBaseTypeKey(
-          data.items?.$ref.replace('#/definitions/', ''),
-        )
-        dependencies.push($ref)
-        res += workUnit({ type: $ref }, key, true)
+      if (Object.keys(items__).length === 0) {
+        res += `${key}:any[] ${noMark ? '' : '\n'}  `
+      } else {
+        if (type__ && isBaseType(type__)) {
+          res += workUnit(
+            {
+              ...items__,
+              required: data.required,
+              description: data.description,
+            },
+            key,
+            true,
+          )
+        } else if (items__ && !isBaseType(type__)) {
+          if (items__.properties) res += `{ \n `
+          res += workUnit(
+            {
+              ...items__,
+              required: data.required,
+              description: data.description,
+              rule: 2,
+            },
+            key,
+            true,
+          )
+          if (items__.properties) res += `} ${noMark ? '' : '\n'}`
+        } else if (data.items?.$ref) {
+          const $ref = formatBaseTypeKey(data.items?.$ref)
+          dependencies.push($ref)
+          res += workUnit({ type: $ref }, key, true)
+        }
+        res += `[] ${noMark ? '' : '\n'} `
       }
-      res += '[] \n '
     } else if (data.$ref) {
       const commentsParams: Record<string, any> = {}
       if (data.rule) commentsParams['value'] = data.rule
@@ -236,7 +256,7 @@ function parseDef(def: Record<string, any>, kk?: string) {
 
       const comments = createComments(commentsParams)
 
-      const $ref = formatBaseTypeKey(data.$ref.replace('#/definitions/', ''))
+      const $ref = formatBaseTypeKey(data.$ref)
       dependencies.push($ref)
       return `${
         key ? `${comments}${key}${data.required === false ? '?' : ''}:` : ''
@@ -248,9 +268,7 @@ function parseDef(def: Record<string, any>, kk?: string) {
 
       const comments = createComments(commentsParams)
 
-      const $ref = formatBaseTypeKey(
-        data.schema?.$ref.replace('#/definitions/', ''),
-      )
+      const $ref = formatBaseTypeKey(data.schema?.$ref)
       dependencies.push($ref)
       return `${
         key ? comments + key + `:${data.required === false ? '?' : ''}` : ''
@@ -296,6 +314,7 @@ function getRequestTypeName(url: string) {
     )}`
 
     u = typeNameCache.includes(u) ? u + `1` : u
+    u = u.replace(/\-/g, '').replace(/\./g, '')
 
     typeNameCache.push(u)
 
@@ -309,9 +328,27 @@ function wordFirstBig(str: string) {
   return str.substring(0, 1).toLocaleUpperCase() + str.substring(1)
 }
 
+/** 解决类型名称太长 */
+const typeMap: Record<string, any> = {}
+const typeCache: any[] = []
+
 function formatBaseTypeKey(key: string) {
   let res = key
-  const invalidMark = ['（', '）', '，', '=', '(', ')', ',']
+  const invalidMark = [
+    '（',
+    '）',
+    '，',
+    '=',
+    '(',
+    ')',
+    ',',
+    '#/components/schemas/',
+    '#/definitions/',
+    '`',
+    ' ',
+    '[',
+    ']',
+  ]
 
   invalidMark.forEach((it) => {
     res = replaceAll(it, '', res)
@@ -319,28 +356,37 @@ function formatBaseTypeKey(key: string) {
 
   res = res.replace(/«/g, '').replace(/»/g, '').replace(/\./g, 'a')
 
-  return res
+  if (typeMap[res]) return typeMap[res]
+
+  let re = ''
+
+  if (res.length > 20) {
+    re = res.slice(res.length - 20)
+    if (re && !typeCache.includes(re)) {
+      typeCache.push(re)
+    } else {
+      re = re + '1'
+      while (typeCache.includes(re)) {
+        re = re + '1'
+      }
+      typeCache.push(re)
+    }
+    typeMap[res] = re
+  } else {
+    re = res
+    while (typeCache.includes(re)) {
+      re = re + '1'
+    }
+    typeCache.push(re)
+    typeMap[res] = re
+  }
+
+  return re
 }
 
 function replaceAll(find, replace, str) {
   const find_ = find.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
   return str.replace(new RegExp(find_, 'g'), replace)
-}
-
-function filterRepeatName(arr?: any) {
-  const keys: any[] = []
-  const newArr: any[] = []
-
-  if (arr) {
-    for (let i = 0; i < arr.length; i++) {
-      if (!keys.includes(arr[i].name)) {
-        newArr.push(arr[i])
-        keys.push(arr[i].name)
-      }
-    }
-  }
-
-  return newArr
 }
 
 function createComments(params?: Record<string, any>) {
@@ -358,3 +404,12 @@ function createComments(params?: Record<string, any>) {
 
   return res
 }
+
+console.info(
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  transform(require('../../demo.json'), './a', undefined),
+)
+
+setTimeout(() => {
+  console.info(typeMap, 'typeMap')
+})
