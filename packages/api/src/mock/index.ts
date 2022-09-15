@@ -109,12 +109,14 @@ export default function main() {
               value__ = value__.replace('#', '@')
             }
 
+            let numberRule = item.rule ? `|${item.rule}` : '|+1'
+
             if (Array.isArray(value__)) {
               value__ = randomEnum(value__)
+              numberRule = ''
             }
 
-            result[`${key}${item.rule ? `|${item.rule}` : '|+1'}`] =
-              value__ || 1
+            result[`${key}${numberRule}`] = value__ || 1
           }
           if (item.type === 'boolean') {
             let value__: any = item.value || true
