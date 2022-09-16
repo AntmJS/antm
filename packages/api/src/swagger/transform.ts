@@ -404,12 +404,3 @@ function createComments(params?: Record<string, any>) {
 
   return res
 }
-
-console.info(
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  transform(require('../../demo.json'), './a', undefined),
-)
-
-setTimeout(() => {
-  console.info(typeMap, 'typeMap')
-})
