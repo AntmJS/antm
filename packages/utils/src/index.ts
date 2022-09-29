@@ -42,8 +42,8 @@ export function decodeParams(params: IAnyObject): IAnyObject {
     if (isString(vvalue)) {
       try {
         newParams[kkey] = JSON.parse(vvalue)
-        if (isNumber(params[kkey]) && params[kkey] + '' !== vvalue + '') {
-          params[kkey] = vvalue
+        if (isNumber(newParams[kkey]) && newParams[kkey] + '' !== vvalue + '') {
+          newParams[kkey] = vvalue
         }
       } catch (error) {
         newParams[kkey] = vvalue
