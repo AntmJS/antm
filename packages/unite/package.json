@@ -2,7 +2,7 @@
   "name": "@antmjs/unite",
   "version": "2.1.1",
   "main": "dist/index.js",
-  "main:h5": "dist/h5.js",
+  "unite:h5": "dist/h5.js",
   "module": "dist/index.js",
   "typings": "types/index.d.ts",
   "author": "三少 <hi_sanshao@outlook.com>",

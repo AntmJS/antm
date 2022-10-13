@@ -14,7 +14,7 @@ yarn add @antmjs/unite
 
 ## 使用
 
-> 非 Taro 的 H5 环境使用可添加 resolve.mainFields: ["main:h5"]
+> 非 Taro 的 H5 环境使用可添加 resolve.mainFields: ["unite:h5"]
 
 ```jsx
 // 代码不多，可以自己看源码
