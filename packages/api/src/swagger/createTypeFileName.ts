@@ -7,5 +7,11 @@ export function createTypeFileName(swaggerTagName: string) {
 
   swaggerTagName_ = pinyin(swaggerTagName_, { toneType: 'none' })
 
-  return swaggerTagName_.replace(/\s/g, '')
+  swaggerTagName_ = swaggerTagName_.replace(/\s/g, '')
+
+  if (swaggerTagName_.length === 0) {
+    swaggerTagName_ = 'Default'
+  }
+
+  return swaggerTagName_
 }
