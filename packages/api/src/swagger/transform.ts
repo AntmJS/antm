@@ -46,7 +46,9 @@ export async function transform(
   for (const key in paths) {
     const method = Object.keys(paths[key])[0] as string
     const item = paths[key][method]
-    const moduleName = item.tags[0]
+    const moduleName = modules
+      ? item.tags.find((it) => modules.includes(it))
+      : item.tags[0]
 
     if (!modules || modules.length === 0 || modules.includes(moduleName)) {
       if (!result[moduleName]) {
