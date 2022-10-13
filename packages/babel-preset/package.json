@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/babel-preset",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "main": "index.js",
   "author": "三少 <hi_sanshao@outlook.com>",
   "description": "ES6+转译到ES5工具库",
