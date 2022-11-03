@@ -278,7 +278,7 @@ function useContainer(config: any, props: any, options: any) {
 
   useEffect(function () {
     flagRef.current.__mounted = true
-    const onUnload = flagRef.current?.onUnload
+    const onUnload = insRef.current?.onUnload
     insRef.current?.onLoad?.()
     insRef.current?.onReady?.()
     insRef.current?.onShow?.()

@@ -1,11 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import {
-  nextTick,
-  useDidHide,
-  useDidShow,
-  useReady,
-  useRouter,
-} from '@tarojs/taro'
+import { useDidHide, useDidShow, useReady, useRouter } from '@tarojs/taro'
 import { parse } from '@antmjs/utils'
 import { UniteContext } from './context'
 
@@ -282,7 +276,7 @@ function useContainer(config: any, props: any, options: any) {
 
   useEffect(function () {
     flagRef.current.__mounted = true
-    const onUnload = flagRef.current?.onUnload
+    const onUnload = insRef.current?.onUnload
     insRef.current?.onLoad?.()
 
     return function (): void {
@@ -297,9 +291,9 @@ function useContainer(config: any, props: any, options: any) {
 
   useDidShow(function () {
     flagRef.current.__mounted = true
-    nextTick(() => {
+    setTimeout(() => {
       insRef.current?.onShow?.()
-    })
+    }, 30)
   })
 
   useDidHide(function () {
