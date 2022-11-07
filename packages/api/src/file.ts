@@ -23,13 +23,14 @@ if (fs.existsSync(API_UI_DATA_PATH)) {
 }
 
 export function workFile(targetUrl: string, action: boolean) {
+  const globPaths = [`${targetUrl}/*.ts`, `${targetUrl}/ **/*.ts`]
   const writeActionTarget = path_.resolve(targetUrl, dirPath || '../')
   if (!fs.existsSync(writeActionTarget)) {
     fs.mkdirSync(writeActionTarget)
   }
 
   return new Promise((resolve) => {
-    glob(`${targetUrl}/*.ts`, async (err, paths: string[]) => {
+    globMax(globPaths, async (err, paths: string[]) => {
       if (err) {
         log.error(err.toString())
         process.exit(1)
@@ -151,5 +152,23 @@ function workUnit(paths: string[], action: boolean, writeActionTarget: string) {
     spinner.succeed(log.success('所有ts模块解析完成'))
 
     resolve(result)
+  })
+}
+
+async function globMax(files, callback) {
+  let allPaths: string[] = []
+  for (let i = 0; i < files.length; i++) {
+    const pats = await globSync(files[i])
+    if (pats) allPaths = allPaths.concat(pats)
+  }
+  callback(allPaths)
+}
+
+async function globSync(file): Promise<string[]> {
+  return new Promise((resolve, reject) => {
+    glob(file, (err, pats) => {
+      if (err) reject(err)
+      resolve(pats)
+    })
   })
 }
