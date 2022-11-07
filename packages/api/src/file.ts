@@ -188,7 +188,7 @@ function getApiTypeComments(codeStr: string) {
   if (commentsMatch) {
     const commentsStr = commentsMatch[0]
     const comm: Record<string, any> = parseComments(commentsStr)
-    if (comm['type'].includes('swagger')) {
+    if (comm['type']?.includes('swagger')) {
       comments = '/** @type from swagger */'
     }
   }
