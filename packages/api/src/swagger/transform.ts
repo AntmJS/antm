@@ -20,6 +20,8 @@ const DEAULT_RESPONSE = `{
    */
   success: boolean
 }`
+const API_TYPE_COMMENTS = `/** @type swagger(标注swagger生成的代码，请确认后修改) */
+`
 
 export async function transform(
   data: Record<string, any>,
@@ -134,7 +136,7 @@ export async function transform(
       `
     await fs.writeFileSync(
       pat.join(typesUrl, `${createTypeFileName?.(nn)}.ts`),
-      formatTs(`${baseImport}${mode.codes}`),
+      formatTs(`${API_TYPE_COMMENTS}${baseImport}${mode.codes}`),
     )
   }
   /** todo 只生成使用的基础类型 */
@@ -406,7 +408,7 @@ function createComments(params?: Record<string, any>) {
 
 function resetRepeatName(name) {
   if (/[0-9]{1,4}$/g.test(name)) {
-    let words = name.replace(/[0-9]{1,4}$/g, '')
+    const words = name.replace(/[0-9]{1,4}$/g, '')
     let num = name.match(/[0-9]{1,4}$/g)[0] || 0
 
     num = Number(num) + 1
