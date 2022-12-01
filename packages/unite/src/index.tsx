@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useDidHide, useDidShow, useReady, useRouter } from '@tarojs/taro'
-import { parse } from '@antmjs/utils'
 import { UniteContext } from './context'
 
 let catchMethod: any
@@ -264,10 +263,6 @@ function useContainer(config: any, props: any, options: any) {
 
   // 将路由信息挂在到实例对象，方便开发通过this.location取值
   const routerInfo: Taro.RouterInfo = useRouter()
-  if (process.env.TARO_ENV === 'h5') {
-    const query = parse(location.search ? location.search.slice(1) : '')
-    routerInfo.params = { ...routerInfo.params, ...query }
-  }
   insRef.current.location = routerInfo
 
   // 将页面级错误也挂到实例对象，方便开发通过this.error取值

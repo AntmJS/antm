@@ -1,18 +1,16 @@
 {
-  "name": "@antmjs/utils",
+  "name": "@antmjs/plugin-h5-fix",
   "version": "2.2.0",
-  "main": "dist/index.js",
-  "module": "dist/index.js",
-  "typings": "types/index.d.ts",
+  "main": "index.js",
   "author": "三少 <hi_sanshao@outlook.com>",
-  "description": "常用工具",
+  "description": "解决Taro不应该关心但应用需要自己处理的异常或者优化",
   "license": "MIT",
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
   "keywords": [
-    "tools"
+    "小程序"
   ],
   "repository": {
     "type": "https",
@@ -27,8 +25,8 @@
     "yarn": ">=1.22"
   },
   "scripts": {
-    "watch": "rm -rf ./dist && npx tsc -p tsconfig.esm.json --watch --sourceMap",
-    "build": "rm -rf ./dist && npx tsc -p tsconfig.esm.json",
+    "watch": "",
+    "build": "",
     "test:watch": "",
     "test": ""
   }
