@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
-const PLUGIN_NAME = 'MiniFixPlugin'
+const PLUGIN_NAME = 'H5FixPlugin'
 const caches = []
-function MiniFixPlugin(options) {
+function H5FixPlugin(options) {
   this.options = options
 }
 
 // 在插件函数的 prototype 上定义一个 `apply` 方法。
-MiniFixPlugin.prototype.apply = function (compiler) {
+H5FixPlugin.prototype.apply = function (compiler) {
   compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
     let normalModuleLoader
     if (Object.isFrozen(compilation.hooks)) {
@@ -22,8 +22,8 @@ MiniFixPlugin.prototype.apply = function (compiler) {
     normalModuleLoader.tap(PLUGIN_NAME, (loaderContext, module) => {
       const { base, dir } = path.parse(module.resource)
       if (
-        dir.indexOf('node_modules') === -1 &&
-        /^app\.(tsx|jsx|ts|js)$/.test(base) &&
+        dir.indexOf('@tarojs/router') > -1 &&
+        /^page\.(tsx|jsx|ts|js)$/.test(base) &&
         !caches.includes(module.resource)
       ) {
         caches.push(module.resource)
@@ -34,4 +34,4 @@ MiniFixPlugin.prototype.apply = function (compiler) {
     })
   })
 }
-module.exports = MiniFixPlugin
+module.exports = H5FixPlugin
