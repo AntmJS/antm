@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/api",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "api tools",
   "main": "./ui/lib.js",
   "typings": "./global.d.ts",
