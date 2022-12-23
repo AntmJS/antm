@@ -23,18 +23,14 @@ if (fs.existsSync(API_UI_DATA_PATH)) {
 }
 
 export function workFile(targetUrl: string, action: boolean) {
+  const globPaths = [`${targetUrl}/*.ts`, `${targetUrl}/**/*.ts`]
   const writeActionTarget = path_.resolve(targetUrl, dirPath || '../')
   if (!fs.existsSync(writeActionTarget)) {
     fs.mkdirSync(writeActionTarget)
   }
 
   return new Promise((resolve) => {
-    glob(`${targetUrl}/*.ts`, async (err, paths: string[]) => {
-      if (err) {
-        log.error(err.toString())
-        process.exit(1)
-      }
-
+    globMax(globPaths, async (paths: string[]) => {
       await workUnit(paths, action, writeActionTarget)
 
       if (!fs.existsSync(path_.join(CWD, './.cache'))) {
@@ -105,6 +101,8 @@ function workUnit(paths: string[], action: boolean, writeActionTarget: string) {
     for (let i = 0; i < paths.length; i++) {
       const p = paths[i]
       if (p) {
+        const fileCode = fs.readFileSync(p, 'utf-8')
+        const apiTypeComments = getApiTypeComments(fileCode)
         const parseRes = parser(p)
         const fileArr = p.split('/')
         const fileName = fileArr[fileArr.length - 1]?.replace('.ts', '')
@@ -132,10 +130,14 @@ function workUnit(paths: string[], action: boolean, writeActionTarget: string) {
 
             const prettierConfig = await getPrettierConfig()
 
-            const formatContent = prettier.format(content, {
-              ...prettierConfig,
-              parser: 'typescript',
-            })
+            const formatContent = prettier.format(
+              `${apiTypeComments}
+                ${content}`,
+              {
+                ...prettierConfig,
+                parser: 'typescript',
+              },
+            )
 
             fs.writeFileSync(
               path_.resolve(writeActionTarget, `${fileName}.ts`),
@@ -152,4 +154,71 @@ function workUnit(paths: string[], action: boolean, writeActionTarget: string) {
 
     resolve(result)
   })
+}
+
+async function globMax(files, callback) {
+  const allPaths: string[] = []
+  for (let i = 0; i < files.length; i++) {
+    const pats = await globSync(files[i])
+    pats.forEach((it) => {
+      if (!allPaths.includes(it)) {
+        allPaths.push(it)
+      }
+    })
+  }
+
+  callback(allPaths)
+}
+
+async function globSync(file): Promise<string[]> {
+  return new Promise((resolve, reject) => {
+    glob(file, (err, pats) => {
+      if (err) {
+        console.info(err, '????')
+        reject(err)
+      }
+      resolve(pats)
+    })
+  })
+}
+
+function getApiTypeComments(codeStr: string) {
+  const commentsMatch = codeStr.match(/\/\*\*[\w\W]{4,100}\*\//)
+  let comments = '/** @type front */'
+  if (commentsMatch) {
+    const commentsStr = commentsMatch[0]
+    const comm: Record<string, any> = parseComments(commentsStr)
+    if (comm['type']?.includes('swagger')) {
+      comments = '/** @type from swagger */'
+    }
+  }
+
+  return comments
+}
+
+function parseComments(comments = '') {
+  const res = {}
+  if (comments && comments.includes('\n')) {
+    const arr = comments
+      .split('\n')
+      .filter((item) => item.includes('@'))
+      .map((item) => item.replace(/^[\s]+/g, ''))
+      .map((item) => item.replace('* ', ''))
+      .map((item) => item.replace('@', ''))
+      .map((item) => item.replace(/[\s]+/, '##'))
+
+    arr.forEach((item) => {
+      const cons = item.split('##')
+      if (cons[0]) res[cons[0]] = cons[1]
+    })
+  } else if (comments) {
+    const arr = comments
+      .replace(/\/\*\*[\s]*/, '')
+      .replace(/[\s]*\*\//, '')
+      .replace('@', '')
+      .split(' ')
+    if (arr[0]) res[arr[0]] = arr[1]
+  }
+
+  return res
 }

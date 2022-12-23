@@ -2,6 +2,7 @@ import pat from 'path'
 import fs from 'fs'
 import prettier from 'prettier'
 import * as ora from 'ora'
+import { pinyin } from 'pinyin-pro'
 import log from '../log.js'
 import { getPrettierConfig } from '../config/getPrettierConfig.js'
 import { createTypeFileName } from './createTypeFileName.js'
@@ -19,6 +20,8 @@ const DEAULT_RESPONSE = `{
    */
   success: boolean
 }`
+const API_TYPE_COMMENTS = `/** @type swagger(标注swagger生成的代码，请确认后修改) */
+`
 
 export async function transform(
   data: Record<string, any>,
@@ -133,7 +136,7 @@ export async function transform(
       `
     await fs.writeFileSync(
       pat.join(typesUrl, `${createTypeFileName?.(nn)}.ts`),
-      formatTs(`${baseImport}${mode.codes}`),
+      formatTs(`${API_TYPE_COMMENTS}${baseImport}${mode.codes}`),
     )
   }
   /** todo 只生成使用的基础类型 */
@@ -336,59 +339,55 @@ const typeCache: any[] = []
 
 function formatBaseTypeKey(key: string) {
   let res = key
-  const invalidMark = [
-    '（',
-    '）',
-    '，',
-    '=',
-    '(',
-    ')',
-    ',',
-    '#/components/schemas/',
-    '#/definitions/',
-    '`',
-    ' ',
-    '[',
-    ']',
-  ]
+  res = res
+    .replace('#/components/schemas/', '')
+    .replace('#/definitions/', '')
+    .replace('`', '')
+  const origin = res
 
-  invalidMark.forEach((it) => {
-    res = replaceAll(it, '', res)
-  })
-
-  res = res.replace(/«/g, '').replace(/»/g, '').replace(/\./g, 'a')
-
-  if (typeMap[res]) return typeMap[res]
-
-  let re = ''
-
-  if (res.length > 20) {
-    re = res.slice(res.length - 20)
-    if (re && !typeCache.includes(re)) {
-      typeCache.push(re)
-    } else {
-      re = re + '1'
-      while (typeCache.includes(re)) {
-        re = re + '1'
-      }
-      typeCache.push(re)
-    }
-    typeMap[res] = re
-  } else {
-    re = res
-    while (typeCache.includes(re)) {
-      re = re + '1'
-    }
-    typeCache.push(re)
-    typeMap[res] = re
+  /** 服务端范型类转换成统一的名称，后续作重复处理 */
+  if (res.includes('«')) {
+    res = res.split('«')[0] || ''
   }
 
-  return re
-}
+  if (res.includes('[[')) {
+    res = res.split('[[')[0] || ''
+  }
 
-function replaceAll(find, replace, str) {
-  const find_ = find.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')
-  return str.replace(new RegExp(find_, 'g'), replace)
+  if (res.includes('<')) {
+    res = res.split('<<')[0] || ''
+  }
+
+  if (res.includes('（')) {
+    res = res.split('（')[0] || ''
+  }
+
+  if (res.includes('(')) {
+    res = res.split('(')[0] || ''
+  }
+
+  /** 引用过长的时候只取后续两位 */
+  if (res.includes('.')) {
+    const arr: string[] = res.split('.')
+    const arrLen = arr.length
+    if (arr && arrLen >= 2 && arr[arrLen - 1] && arr[arrLen - 2]) {
+      // @ts-ignore
+      res = arr[arrLen - 1] + wordFirstBig(arr[arrLen - 2])
+    }
+  }
+  res = res.replace(/\s/g, '')
+  res = pinyin(res, { toneType: 'none' })
+  res = res.replace(/\s/g, '')
+
+  if (typeMap[origin]) return typeMap[origin]
+
+  while (typeCache.includes(res)) {
+    res = resetRepeatName(res)
+  }
+  typeCache.push(res)
+  typeMap[origin] = res
+
+  return res
 }
 
 function createComments(params?: Record<string, any>) {
@@ -405,4 +404,16 @@ function createComments(params?: Record<string, any>) {
   }
 
   return res
+}
+
+function resetRepeatName(name) {
+  if (/[0-9]{1,4}$/g.test(name)) {
+    const words = name.replace(/[0-9]{1,4}$/g, '')
+    let num = name.match(/[0-9]{1,4}$/g)[0] || 0
+
+    num = Number(num) + 1
+    return `${words}${num}`
+  } else {
+    return `${name}0`
+  }
 }

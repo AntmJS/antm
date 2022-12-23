@@ -43,12 +43,14 @@ swagger data                                                    +
 `),
   )
   await transform(swaggerData, path_, modules_)
-
-  setTimeout(() => {
-    file({
-      path: path_,
-      action: action,
-      forceUpdate: true,
+  // 选择创建请求方法时，才执行file生成请求方法和ts的ast描述
+  if (action) {
+    setTimeout(() => {
+      file({
+        path: path_,
+        action: action,
+        forceUpdate: true,
+      })
     })
-  })
+  }
 }

@@ -14,7 +14,7 @@ export function createDefaultModel({
     if (key !== 'Record<string,any>' && item.url && item.description) {
       packages.push(key)
       requestActionsStr += `
-      // ${item.description}
+      // ${item.description || '暂无描述'}
       export const ${
         key +
         fileName.replace(/^\S/, function (s) {
