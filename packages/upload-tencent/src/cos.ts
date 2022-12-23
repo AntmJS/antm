@@ -6,7 +6,7 @@ import COS from 'cos-nodejs-sdk-v5'
 import * as inquirer from 'inquirer'
 import * as util from './util'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const configPath = require(npath.resolve(process.cwd(), './antm.config.js'))
+const configPath = npath.resolve(process.cwd(), './antm.config.js')
 
 const bucketConfig = {
   CDN: '',

@@ -1,6 +1,6 @@
 # @antmjs/upload-tencent
 
-npm install @antmjs/upload-tencent -g --registry=https://npm.xiaodiankeji.net
+npm install @antmjs/upload-tencent -g
 
 ### 配置
 

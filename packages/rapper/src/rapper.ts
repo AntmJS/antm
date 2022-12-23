@@ -79,9 +79,9 @@ export interface IRapper {
 }
 
 // type: 'normal',
-//     apiUrl: 'https://rap-api.xiaodiankeji.net/repository/get?id=23&token=K8qm31HyAoGopAu7kE3TIVWTMX0EOENf',
+//     apiUrl: 'http://rap2.taobao.org/repository/get?id=23&token=K8qm31HyAoGopAu7kE3TIVWTMX0EOENf',
 //     /** rap 前端地址，默认是 http://rap2.taobao.org */
-//     rapUrl: 'https://rap.xiaodiankeji.net',
+//     rapUrl: 'http://rap2.taobao.org',
 //     /** 输出文件的目录，默认是 ./src/rapper */
 //     rapperPath: './test/src/models/rapper',
 // rapper({});
