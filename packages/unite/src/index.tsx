@@ -27,7 +27,7 @@ function useContainer(config: any, props: any, options: any) {
   // 通过ref定义一些开关
   const flagRef = useRef({
     __refresh: false,
-    __mounted: false,
+    __mounted: true,
     __init: false,
     __closeRefresh: function () {
       flagRef.current.__refresh = false
@@ -270,12 +270,13 @@ function useContainer(config: any, props: any, options: any) {
   insRef.current.error = error
 
   useEffect(function () {
-    flagRef.current.__mounted = true
+    const flag = flagRef
     const onUnload = insRef.current?.onUnload
     insRef.current?.onLoad?.()
 
     return function (): void {
       setError(undefined)
+      flag.current.__mounted = false
       onUnload?.()
     }
   }, [])
@@ -285,7 +286,7 @@ function useContainer(config: any, props: any, options: any) {
   })
 
   useDidShow(function () {
-    flagRef.current.__mounted = true
+    // 确保先执行useEffect(() => {}, [])
     setTimeout(() => {
       insRef.current?.onShow?.()
     }, 30)
