@@ -185,3 +185,47 @@ export function isFunction(args: any): boolean {
 export function isSymbol(args: any): boolean {
   return toString.call(args) === '[object Symbol]'
 }
+
+export function isMobile(args: string) {
+  return /^1[3|4|5|7|8]\d{9}$/.test(args)
+}
+
+export function isIDCard(args: string) {
+  return /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/.test(args)
+}
+
+export function randomNum(min: number, max: number) {
+  return Math.floor(Math.random() * (max + 1 - min) + min)
+}
+
+export function randomStr(length: number) {
+  const possibleChars =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  let randomStr = ''
+
+  for (let i = 0; i < length; i++) {
+    randomStr += possibleChars.charAt(
+      Math.floor(Math.random() * possibleChars.length),
+    )
+  }
+
+  return randomStr
+}
+
+export function formatDigit(value) {
+  if (value === 0 || value === '0') return '0'
+  if (!value) return value
+  return (
+    value.toString().match(/((([1-9](\d+)?)|0)\.(\d+)?)|([1-9](\d+)?)/)?.[0] ??
+    ''
+  )
+}
+
+export function formatNumber(value) {
+  if (value === 0 || value === '0') return '0'
+  if (!value) return value
+  return value.toString().match(/[1-9](\d+)?/)?.[0] ?? ''
+}
+
+export const sleep = (time: number) =>
+  new Promise((resolve) => setTimeout(resolve, time))
