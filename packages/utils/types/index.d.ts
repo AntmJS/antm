@@ -196,6 +196,20 @@ declare function stringify(obj: IAnyObject, encode?: boolean): string
  */
 declare function version(ver1: string, ver2: string): number
 
+declare function isMobile(args: string): boolean
+
+declare function isIDCard(args: string): boolean
+
+declare function randomNum(min: number, max: number): number
+
+declare function randomStr(length: number): string
+
+declare function formatDigit(value): string | null | undefined
+
+declare function formatNumber(value): string | null | undefined
+
+declare function sleep(time: number): Promise<any>
+
 export {
   version,
   stringify,
@@ -212,4 +226,11 @@ export {
   isObject,
   isSymbol,
   isUndefined,
+  isMobile,
+  isIDCard,
+  randomNum,
+  randomStr,
+  formatDigit,
+  formatNumber,
+  sleep,
 }
