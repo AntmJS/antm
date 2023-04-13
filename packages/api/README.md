@@ -189,10 +189,10 @@ function createDefaultModel({
 antm.config.js 文件下`api`的`swagger`属性, swagger 转换后，对应 formatDate 和枚举类型的数据会转换成 mock 数据。
 生成请求字段文件的名称为`swagger.tags.name`,如果有中文则转拼音
 
-| 字段    | 描述                                                      | 类型     | 默认值 |
-| ------- | --------------------------------------------------------- | -------- | ------ |
-| url     | swagger 数据地址                                          | _string_ | --     |
-| modules | 使用的的接口模块，对应`swagger.tags.name`, 不传则使用所有 | _string_ | --     |
+| 字段    | 描述                                                      | 类型       | 默认值 |
+| ------- | --------------------------------------------------------- | ---------- | ------ |
+| url     | swagger 数据地址                                          | _string_   | --     |
+| modules | 使用的的接口模块，对应`swagger.tags.name`, 不传则使用所有 | _string[]_ | --     |
 
 ##### 如何定义请求字段
 

@@ -1,0 +1,42 @@
+@import url('../var.less');
+
+.antm-docs-page {
+  display: flex;
+  width: 100%;
+
+  .antm-doc-right-navs {
+    position: fixed;
+    top: 150px;
+    right: 14px;
+
+    &-title {
+      color: #000000;
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    .antm-doc-right-nav {
+      width: 108px;
+      overflow: hidden;
+      color: #455a64;
+      font-size: 13px;
+      line-height: 28px;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      transition: all 0.3s;
+
+      &-active {
+        color: @primary-color;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+.antm-docs-page-with-simulator {
+  padding-right: 400px;
+}
+
+.antm-docs-page-no-simulator {
+  padding-right: 130px;
+}

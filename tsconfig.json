@@ -11,6 +11,7 @@
     "packages/*/*.d.ts",
     "packages/**/src",
     "packages/**/utils",
+    "packages/**/doc",
     "packages/**/ui",
     "packages/**/types",
     "packages/**/sample",
