@@ -10,7 +10,8 @@
   },
   "scripts": {
     "start": "npx ts-node ./scripts/run",
-    "build": "npx ts-node ./scripts/build"
+    "build": "npx ts-node ./scripts/build",
+    "release": "npx gh-pages -d ./doc_build -e ./antm-doc"
   },
   "keywords": [
     "document",
@@ -21,10 +22,10 @@
   "author": "",
   "repository": {
     "type": "https",
-    "url": "https://github.com/AntmJS/packages/antm/doc"
+    "url": "https://github.com/AntmJS/antm/tree/main/packages/doc"
   },
   "bugs": {
-    "url": "https://github.com/AntmJS/antm/packages/issues/new"
+    "url": "https://github.com/AntmJS/antm/issues/new"
   },
   "engines": {
     "node": ">=16.4",

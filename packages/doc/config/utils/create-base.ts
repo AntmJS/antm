@@ -24,7 +24,7 @@ export async function createBase(config: IDocsConfig) {
   const { src, route } = config
   const { exclude, level = 3 } = route || {}
   _level = level
-  _src = Array.isArray(src) ? src : [src]
+  _src = Array.isArray(src) && src ? src : [src]
   _config = config
   let MD_PATHS: string[] = []
   for (let i = 0; i < _src.length; i++) {

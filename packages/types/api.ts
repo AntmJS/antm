@@ -31,7 +31,7 @@ export type IApiConfig = {
   path?: string
   buildPath?: string
   buildPort?: string
-  mock: IApiMock
-  swagger: IApiSwagger
-  action: IApiAction
+  mock?: IApiMock
+  swagger?: IApiSwagger
+  action?: IApiAction
 }

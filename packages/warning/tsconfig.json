@@ -8,5 +8,5 @@
     "skipLibCheck": false,
     "resolveJsonModule": true
   },
-  "include": ["*.js", "*.ts", "*.tsx"]
+  "include": ["./src/*.ts"]
 }

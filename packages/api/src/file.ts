@@ -123,8 +123,8 @@ function workUnit(paths: string[], action: boolean, writeActionTarget: string) {
               content = apiConfig?.action?.createDefaultModel({
                 data: def,
                 fileName: fileName,
-                requestImport,
-                requestFnName,
+                requestImport: requestImport || '',
+                requestFnName: requestFnName || '',
               })
             }
 

@@ -6,6 +6,7 @@
     "skipLibCheck": false
   },
   "include": [
+    "./antm.config.ts",
     "*.js",
     "packages/*/*.js",
     "packages/*/*.d.ts",

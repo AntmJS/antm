@@ -1,12 +1,12 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const https = require('https')
-const { URL } = require('url')
-const path = require('path')
-const cwd = process.cwd()
-const { getBranch, getUserInfo, checkWebHooks, log } = require('./utils')
-const projectName = require(path.join(cwd, './package.json')).name
+import https from 'https'
+import { URL } from 'url'
+import { join } from 'path'
+import { getBranch, getUserInfo, checkWebHooks, log } from './utils'
+import getDiffs from './getDiffs'
 
-module.exports = async function chartWarning(props) {
+const CWD = process.cwd()
+
+export default async function chartWarning(props) {
   if (!props.url) {
     log.fail(`** please set webhooks **`)
     log.warining('set in cli like: antm-warning webhooks --url https://abc.com')
@@ -48,14 +48,17 @@ module.exports = async function chartWarning(props) {
     }
   })
 
-  const res = await require('./getDiffs')(props.monitorFiles)
+  const res = getDiffs(props.monitorFiles)
   const hasFilesChange = Object.keys(res).some((item) => !!res[item])
+
+  const pkg = await import(join(CWD, './package.json'))
+
   const content = {
     msgtype: 'text',
     text: {
       content: `
 文件修改通知
-- 项目【${projectName}】
+- 项目【${pkg.default.name}】
 - 分支【${getBranch()}】
 - 提交人【${getUserInfo()}】`,
     },

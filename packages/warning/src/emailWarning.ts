@@ -1,11 +1,11 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-const path = require('path')
-const nodemailer = require('nodemailer')
-const cwd = process.cwd()
-const { getBranch, getUserInfo, checkEmial, log } = require('./utils')
-const projectName = require(path.join(cwd, './package.json')).name
+import { join } from 'path'
+import nodemailer from 'nodemailer'
+import { getBranch, getUserInfo, checkEmial, log } from './utils'
+import getDiffs from './getDiffs'
 
-module.exports = async function emailWarning(props) {
+const CWD = process.cwd()
+
+export default async function emailWarning(props) {
   props = {
     ...props,
     ...props.email,
@@ -64,15 +64,17 @@ module.exports = async function emailWarning(props) {
   props.monitorFiles = Array.isArray(props.monitorFiles)
     ? props.monitorFiles
     : props.monitorFiles.split(',')
-  const res = await require('./getDiffs')(props.monitorFiles)
+  const res = getDiffs(props.monitorFiles)
   const hasFilesChange = Object.keys(res).some((item) => !!res[item])
+
+  const pkg = await import(join(CWD, './package.json'))
 
   let html = `
     <h1>文件修改通知</h1>
-    <h3>项目${projectName}</h3>
+    <h3>项目${pkg.default.name}</h3>
     <h3>分支${getBranch()}</h3>
     <h4>修改人${getUserInfo()}</h3>`
-
+  // @ts-ignore
   String.prototype.replaceAll = function (s1, s2) {
     return this.replace(new RegExp(s1, 'gm'), s2)
   }

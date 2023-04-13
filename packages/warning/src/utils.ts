@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const cp = require('child_process')
-const chalk = require('chalk')
-const glob = require('glob')
+import cp from 'child_process'
+import chalk from 'chalk'
+import * as glob from 'glob'
 
 /** git用户名 */
 function getUserInfo() {
@@ -20,9 +20,10 @@ function getBranch() {
     console.error(error)
     process.exit(1)
   }
+  // @ts-ignore
   const branchsArr = `${stdout}`.match().input.split('\n')
   const b = branchsArr.filter((item) => item.indexOf('*') !== -1)
-  return b[0].replace(/\*|\s/g, '')
+  return b[0]?.replace(/\*|\s/g, '')
 }
 
 /** git diff */
@@ -34,7 +35,7 @@ function getDiff(file) {
   }
 
   return `${stdout}` && `${stdout}`.length
-    ? `${stdout}`.match(/@@[\w\W]*$/)[0]
+    ? `${stdout}`.match(/@@[\w\W]*$/)?.[0]
     : ''
 }
 
@@ -79,7 +80,7 @@ const log = {
   },
 }
 
-module.exports = {
+export {
   getUserInfo,
   getBranch,
   getDiff,

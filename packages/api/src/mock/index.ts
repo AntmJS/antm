@@ -99,6 +99,7 @@ export default function main() {
             if (baseIntercept) {
               value__ =
                 baseIntercept({
+                  // @ts-ignore
                   url: url || '',
                   fieldName: key,
                   type: 'number',
@@ -123,6 +124,7 @@ export default function main() {
             if (baseIntercept) {
               value__ =
                 baseIntercept({
+                  // @ts-ignore
                   url: url || '',
                   fieldName: key,
                   type: 'boolean',
@@ -138,6 +140,7 @@ export default function main() {
               if (baseIntercept) {
                 value__ =
                   baseIntercept({
+                    // @ts-ignore
                     url: url || '',
                     fieldName: key,
                     type: 'string',
@@ -156,6 +159,7 @@ export default function main() {
               if (baseIntercept) {
                 value__ =
                   baseIntercept({
+                    // @ts-ignore
                     url: url || '',
                     fieldName: key,
                     type: 'string',
@@ -176,6 +180,7 @@ export default function main() {
             if (arrayRule) {
               rule__ =
                 arrayRule({
+                  // @ts-ignore
                   url: url || '',
                   fieldName: key,
                   originRule: item.rule,
