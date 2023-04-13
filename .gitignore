@@ -10,7 +10,7 @@
 pullRequest.js
 package-lock.json
 
-.**_temp.js
+.webhooks.js
 **_build
 node_modules
 packages/**/coverage

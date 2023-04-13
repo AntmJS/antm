@@ -100,7 +100,7 @@
     "prepare": "husky install",
     "docs:start": "npx antm-doc-start",
     "docs:build": "npx antm-doc-build",
-    "release": "npx gh-pages -d doc_build -e ./antm"
+    "release": "npx gh-pages -d doc_build -e ./main"
   },
   "workspaces": [
     "packages/*"

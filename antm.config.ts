@@ -3,6 +3,8 @@ import { defineConfig, IDocMenuNavs } from '@antmjs/types'
 
 const CWD = process.cwd()
 
+// 在根目录创建".webhooks.js", 设置 webhooks.token :  { token: xxx }
+
 export default defineConfig({
   warning: {
     monitorFiles: [
@@ -10,7 +12,7 @@ export default defineConfig({
       './package.json',
     ],
     webhooks: {
-      url: 'https://oapi.dingtalk.com/robot/send?access_token=c2ca61d59a4e22f5d60b8d841494ab5ab570ec190accb16bbee10562092c8fe8',
+      url: `https://oapi.dingtalk.com/robot/send?access_token=${require('./.webhooks.js')}`,
     },
   },
   docs: {
