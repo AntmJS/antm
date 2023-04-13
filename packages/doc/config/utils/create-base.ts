@@ -1,6 +1,5 @@
-import { join, relative } from 'path'
-import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs'
-import { glob } from 'glob'
+import fs, { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs'
+import path, { basename, join, relative } from 'path'
 import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 import { watch } from 'chokidar'
@@ -22,18 +21,16 @@ let _config: any = {}
 
 export async function createBase(config: IDocsConfig) {
   const { src, route } = config
-  const { exclude, level = 3 } = route || {}
+  const { level = 3 } = route || {}
   _level = level
   _src = Array.isArray(src) && src ? src : [src]
   _config = config
-  let MD_PATHS: string[] = []
-  for (let i = 0; i < _src.length; i++) {
-    MD_PATHS = MD_PATHS.concat([`${_src[i]}/**/*.md`, `${_src[i]}/*.md`])
-  }
 
-  const mdPaths = await glob(MD_PATHS, {
-    ignore: exclude,
-  })
+  let mdPaths: string[] = []
+  for (let i = 0; i < _src.length; i++) {
+    const paths = getAllFiles(_src[i] as string, ['.md'])
+    mdPaths = [...mdPaths, ...paths]
+  }
 
   if (!existsSync(TEMP_DIR)) mkdirSync(TEMP_DIR)
   if (!existsSync(ANTM_TEMP_DIR)) mkdirSync(ANTM_TEMP_DIR)
@@ -52,7 +49,7 @@ export async function createBase(config: IDocsConfig) {
 
   if (process.env['NODE_ENV'] === 'development') {
     console.info('watch files success')
-    watchFiles([CONFIG_PATH, ...MD_PATHS])
+    watchFiles([CONFIG_PATH, ...mdPaths])
   }
 
   if (!inited) inited = true
@@ -124,12 +121,12 @@ function createMarkdownMain(mdjss: string[]) {
   for (let i = 0; i < mdjss.length; i++) {
     const item = mdjss[i]
     if (item) {
-      const arr = item.split('/')
-      if (arr.length > 0 && arr[arr.length - 1]) {
-        // @ts-ignore
-        const name = arr[arr.length - 1].replace('.js', '')
-        mdMain += `"${name}": import("${item}"),\n`
+      const name = basename(item, '.js')
+      let filePath = item
+      if (process.platform === 'win32') {
+        filePath = filePath.replace(/\\/g, '\\\\')
       }
+      mdMain += `"${name}": import("${filePath}"),\n`
     }
   }
   mdMain += `}`
@@ -167,7 +164,7 @@ async function injectGlobalStyles(globalStyles?: string[]) {
  * @returns markdown文件转换后的路径名称
  */
 function getRoutePath(ps: string): string {
-  const paths = ps.replace(`${_src}/`, '').replace('.md', '')
+  const paths = basename(ps, '.md')
   const arr = paths
     .split('/')
     .reverse()
@@ -261,4 +258,29 @@ function markdownCardWrapper(htmlCode) {
     html: newHtml,
     h3Ids: h3Ids,
   }
+}
+/**
+ * 递归遍历目录，返回所有匹配的文件路径
+ * @param dirPath 目录路径
+ * @param extnames 文件后缀数组
+ * @returns 文件路径数组
+ */
+function getAllFiles(dirPath: string, extnames: string[]): string[] {
+  let files: string[] = []
+  const items = fs.readdirSync(dirPath)
+
+  for (const item of items) {
+    const filepath = path.join(dirPath, item)
+    const stat = fs.statSync(filepath)
+
+    if (stat.isDirectory()) {
+      // 如果是子目录，则递归遍历
+      files = files.concat(getAllFiles(filepath, extnames))
+    } else if (extnames.includes(path.extname(item))) {
+      // 如果是匹配的文件后缀，则加入结果数组
+      files.push(filepath)
+    }
+  }
+
+  return files
 }
