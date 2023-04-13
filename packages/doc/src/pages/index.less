@@ -8,11 +8,31 @@
     position: fixed;
     top: 150px;
     right: 14px;
+    display: flex;
 
     &-title {
+      padding: 5px;
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+      width: 24px;
+      height: 90px;
+      background-color: #fff;
       color: #000000;
       font-weight: 500;
       font-size: 14px;
+      letter-spacing: 4px;
+    }
+
+    &-list {
+      width: 0;
+      background-color: #fff;
+      transition: width 0.3s ease-out;
+      overflow: hidden;
+
+      &-show {
+        width: 108px;
+        transition: all 0.3s;
+      }
     }
 
     .antm-doc-right-nav {
