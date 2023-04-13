@@ -1,0 +1,44 @@
+{
+  "name": "@antmjs/mini-upload",
+  "version": "2.2.4",
+  "description": "小程序预览及上传工具",
+  "main": "dist/index.js",
+  "bin": {
+    "antm-mini-upload": "dist/index.js"
+  },
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "keywords": [
+    "miniprogram",
+    "upload"
+  ],
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/AntmJS/antm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AntmJS/antm/issues/new"
+  },
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6.4",
+    "yarn": ">=1.22"
+  },
+  "scripts": {
+    "watch": "rm -rf dist && npx tsc -p tsconfig.cjs.json --watch --sourceMap",
+    "build": "rm -rf dist && npx tsc -p tsconfig.cjs.json",
+    "test:watch": "",
+    "test": ""
+  },
+  "dependencies": {
+    "alipay-dev": "^0.5.4",
+    "commander": "^6.0.0",
+    "miniprogram-ci": "1.1.5",
+    "qrcode": "^1.4.4",
+    "shelljs": "^0.8.4",
+    "tt-ide-cli": "^0.0.10"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "name": "@antmjs/plugin-global-fix",
+  "version": "2.2.4",
+  "main": "index.js",
+  "author": "三少 <hi_sanshao@outlook.com>",
+  "description": "解决Taro使用polyfill的时候支付宝等小程序报错的问题",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "keywords": [
+    "小程序"
+  ],
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/AntmJS/antm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AntmJS/antm/issues/new"
+  },
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6.4",
+    "yarn": ">=1.22"
+  },
+  "scripts": {
+    "build": "",
+    "test:watch": "",
+    "test": ""
+  }
+}

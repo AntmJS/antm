@@ -1,0 +1,41 @@
+{
+  "name": "@antmjs/warning",
+  "version": "2.2.4",
+  "description": "指定文件，在git commit提交的时候，将文件更改内容通知到微信、钉钉、飞书等聊天群或者发送到指定的邮箱",
+  "main": "dist/index.js",
+  "bin": {
+    "antm-warning": "./dist/index.js"
+  },
+  "keywords": [
+    "antmjs",
+    "git",
+    "git commit pre",
+    "warning",
+    "webhooks"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/AntmJS/antm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AntmJS/antm/issues/new"
+  },
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "watch": "rm -rf dist && npx tsc -p tsconfig.cjs.json --watch --sourceMap",
+    "build": "rm -rf dist && npx tsc -p tsconfig.cjs.json",
+    "test:watch": "",
+    "test": ""
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "commander": "^8.1.0",
+    "glob": "^7.2.0",
+    "nodemailer": "^6.6.3"
+  }
+}

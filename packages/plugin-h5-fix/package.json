@@ -1,0 +1,33 @@
+{
+  "name": "@antmjs/plugin-h5-fix",
+  "version": "2.2.4",
+  "main": "index.js",
+  "author": "三少 <hi_sanshao@outlook.com>",
+  "description": "解决Taro不应该关心但应用需要自己处理的异常或者优化",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "keywords": [
+    "小程序"
+  ],
+  "repository": {
+    "type": "https",
+    "url": "https://github.com/AntmJS/antm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AntmJS/antm/issues/new"
+  },
+  "engines": {
+    "node": ">=14",
+    "npm": ">=6.4",
+    "yarn": ">=1.22"
+  },
+  "scripts": {
+    "watch": "",
+    "build": "",
+    "test:watch": "",
+    "test": ""
+  }
+}
