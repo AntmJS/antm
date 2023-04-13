@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "baseUrl": "./",
-    "noEmit": true,
-    "skipLibCheck": false
-  },
-  "include": ["*.js", "*.ts", "*.tsx"]
-}
