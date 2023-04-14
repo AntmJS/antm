@@ -22,16 +22,20 @@ module.exports = {
 
 ##### 注：会自动生成随机串作为目录以防资源被覆盖
 
+```bash
 antm-upload-tencent upload --help
 
 antm-upload-tencent upload --file-path ./a.png [--exclude-regexp "(.+?).map"]
 
 antm-upload-tencent upload --dir ./ [--exclude-regexp "(.+?).map"]
+```
 
 ### Bundle 上传
 
 ##### 注：通过--target-dir 作为目录以防资源被覆盖
 
+```bash
 antm-upload-tencent bundle --help
 
 antm-upload-tencent bundle --target-dir \`static/${process.env.API_ENV}/${pkg.name}/${process.env.DEPOLY_VERSION}\` --dir \`./build\` [--exclude-regexp "(.+?).map"]
+```

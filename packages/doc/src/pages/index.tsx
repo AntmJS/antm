@@ -106,7 +106,7 @@ const Docs = function Docs({
         const result = res.default
         document.title = result.tile
         historyMd = result.docs
-        setMd(result.docs)
+        setMd(result.docs.replaceAll('::::', '`').replaceAll('::_::', '${'))
         setRightNavs(result.h3Ids.split(':::'))
       })
     } else if (firstPage) {

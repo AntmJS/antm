@@ -1,4 +1,4 @@
-## Rapper 是什么？
+# Rapper 是什么？
 
 > 注：可以使用@antmjs/api 代替
 
@@ -7,7 +7,7 @@ Rapper 是 TypeScript 的最佳拍档，它可以帮你生成具有类型定义�
 - 无需自行书写请求代码，把 HTTP 接口当做函数调用
 - 请求参数/返回数据类型化，静态校验、自动补全快到飞起
 
-## @antmjs/rapper 是什么？
+### @antmjs/rapper 是什么？
 
 基于 Rapper 开发，使配置更灵活，同时增加本地类型同步远程文档重要功能
 
@@ -15,7 +15,7 @@ Rapper 是 TypeScript 的最佳拍档，它可以帮你生成具有类型定义�
 - 本地接口类型上传到 rapper 远程文档，本地编码驱动远程文档
 - 自定义请求函数模板，满足不同编程规范
 
-## 快速开始
+### 快速开始
 
 1. package.json scripts 中 添加
    { "rap" : "npx rapper"}
@@ -41,7 +41,7 @@ Rapper 是 TypeScript 的最佳拍档，它可以帮你生成具有类型定义�
 
 3. 开始写你的 ts 接口类型, 然后执行 npm run rap
 
-## rapper 名称对应 接口 ts 类型介绍
+### rapper 名称对应 接口 ts 类型介绍
 
 > ts 接口类型需要配合 rapper 使用
 
@@ -98,8 +98,6 @@ export type IUserInfo = {
 
 > 注意 jsDoc 关键字的值中【@】符号由于转义问题需要替换成【#】或者【\\@】或者【/@】
 
-## 文档
-
 ### 命令函入参会和 config 合并（命令行优先级更高）
 
 - --u 上传
@@ -108,65 +106,67 @@ export type IUserInfo = {
 
 ### rapper 配置 config 有三种方案
 
-- 方案一（推荐）
+##### 方案一（推荐）
 
-  通过 antm.config.js 配置 config
+通过 antm.config.js 配置 config
 
-  ```js
-  <!-- antm.config.js文件 -->
-  const antmRapper = require('@antmjs/rapper')
-  <!--  使用antm 提供 defineConfig 会有类型提示 -->
-  export.default = antmRapper.defineConfig({
-    upload: { xx: xx }, // 本地上传 配置
-  })
-  ```
+```js
+// <!-- antm.config.js文件 -->
+const antmRapper = require('@antmjs/rapper')
+// <!--  使用antm 提供 defineConfig 会有类型提示 -->
+export.default = antmRapper.defineConfig({
+  upload: { xx: xx }, // 本地上传 配置
+})
+```
 
-- 方案二
-  通过 命令行参数执行 config 路径
+##### 方案二
 
-  ```bash
-    $ npx rapper --config  ./config/index.js
-  ```
+通过 命令行参数执行 config 路径
 
-  ```js
-  <!-- ./config/index.js文件 -->
-  const antmRapper = require('@antmjs/rapper')
-  <!--  antmRapper 提供 defineConfig 会有类型提示 -->
-  export.default = antmRapper.defineConfig({
-    upload: { xx: xx }, // 本地上传 配置
-    download: { xx: xx } // 远程下载 配置
-  })
-  ```
+```bash
+  $ npx rapper --config  ./config/index.js
+```
 
-- 方案三
-  通过 package.json 配置 antm.rapper
+```js
+// <!-- ./config/index.js文件 -->
+const antmRapper = require('@antmjs/rapper')
+// <!--  antmRapper 提供 defineConfig 会有类型提示 -->
+export.default = antmRapper.defineConfig({
+  upload: { xx: xx }, // 本地上传 配置
+  download: { xx: xx } // 远程下载 配置
+})
+```
 
-  ```js
-  <!--package.json  文件  -->
-  {
-    'antm': {
-    'rapper': {
-      'upload': { xx: xx }, // 本地上传 配置
-    }
+##### 方案三
+
+通过 package.json 配置 antm.rapper
+
+```js
+<!--package.json  文件  -->
+{
+  'antm': {
+  'rapper': {
+    'upload': { xx: xx }, // 本地上传 配置
   }
-  }
-  ```
+}
+}
+```
 
-## 本地代码类型同步到远程 raper 文档
+### 本地代码类型同步到远程 raper 文档
 
 - 解析本地文件
 - fetch 方法追加注释 （接口 id 接口模块 id）
 - 格式化 类型
 - 调用 rapper 接口
 
-## 增量更新实现
+### 增量更新实现
 
 - 每次更新会给文件头部 加一个 MD5 值
 - 初始化会检查合法的文件（符合 formatFunc 结构的文件） MD5 值 对不住
 - 去解析当前文件以及 依赖当前文件的文件
 - 提交变更的模块接口（文件级检查）,做不到方法级检查
 
-## config 接口类型
+### config 接口类型
 
 ```ts
 interface IConfig {
@@ -267,9 +267,9 @@ interface IConfig {
 export type IOptions = Partial<IConfig>
 ```
 
-## defaultConfig 会和传进来的 config 合并补全
+### defaultConfig 会和传进来的 config 合并补全
 
-````js
+````typescript
    const defaultOptions = {
     download: {
       //请求 function 模板

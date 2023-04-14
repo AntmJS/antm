@@ -30,6 +30,7 @@ export default function PageLayout() {
     // @ts-ignore
     import('../../.temp/antm-doc/markdown-main.js').then((res) => {
       setMarkdownMain(res.default)
+      console.info('DOC_ROUTERS', res.default)
     })
   }, [])
 
