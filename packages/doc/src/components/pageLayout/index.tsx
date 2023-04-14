@@ -41,10 +41,10 @@ export default function PageLayout() {
   useEffect(() => {
     window.addEventListener('scroll', function () {
       requestIdleCallback(() => {
-        setpageYOffset(this.pageYOffset)
-        if (this.pageYOffset < 74 && this.pageYOffset > 30) {
-          setIframeTop(84 - this.pageYOffset)
-        } else if (this.pageYOffset >= 74) {
+        setpageYOffset(this.scrollY)
+        if (this.scrollY < 74 && this.scrollY > 30) {
+          setIframeTop(84 - this.scrollY)
+        } else if (this.scrollY >= 74) {
           setIframeTop(10)
         } else {
           setIframeTop(84)
@@ -61,7 +61,7 @@ export default function PageLayout() {
         if (targetId) {
           setTimeout(() => {
             document.getElementById(targetId)?.scrollIntoView({
-              block: 'start',
+              block: 'center',
             })
           }, 166)
         }

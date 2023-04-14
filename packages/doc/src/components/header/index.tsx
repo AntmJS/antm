@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
+// @ts-ignore
+import React, { useCallback, useEffect, useState } from 'react'
 import { preCls } from '../../utils/common'
 import { IDocheaderLinks } from '../../../types'
 import './index.less'

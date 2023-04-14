@@ -1,11 +1,10 @@
-import {
+// @ts-ignore
+import React, {
   useState,
   useEffect,
   memo,
   useLayoutEffect,
   useContext,
-  useRef,
-  useCallback,
 } from 'react'
 import MarkdownBox from '../components/markdown/index'
 import { routerEvent } from '../utils/history'
@@ -32,13 +31,8 @@ const Docs = function Docs({
   const [md, setMd] = useState(historyMd)
   const [currentUrl, setCurrentUrl] = useContext(UrlConext)
   const [rightNavs, setRightNavs] = useState([])
-  const [currentNavs, setCurrentNavs] = useState<
-    { id: string; intersectionRatio: number }[]
-  >([])
-
+  const [mdRects, setMdRects] = useState<{ id: string; top: number }[]>([])
   const [navShow, setNavShow] = useState(false)
-
-  const contentObserver = useRef<any>([])
 
   useLayoutEffect(() => {
     if (markdownMain) {
@@ -72,13 +66,32 @@ const Docs = function Docs({
 
         setTimeout(() => {
           document.getElementById(encodeURIComponent(target))?.scrollIntoView({
-            block: 'start',
+            block: 'center',
           })
         }, 166)
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [markdownMain])
+
+  const getAllMdRects = () => {
+    const cards = document.querySelectorAll('.antm-docs-markdown .card')
+    const h3s = document.querySelectorAll('.antm-docs-markdown .card>h3')
+    if (cards && cards.length) {
+      for (let i = 0; i < cards.length; i++) {
+        const d = cards[i]
+
+        if (d) {
+          mdRects.push({
+            id: h3s[i]?.id ? decodeURIComponent(h3s[i]?.id || '') : '',
+            top: d['offsetTop'] || 0,
+          })
+        }
+      }
+    }
+
+    setMdRects([...mdRects])
+  }
 
   const mdChange = (markdownMain) => {
     let pathName =
@@ -87,9 +100,10 @@ const Docs = function Docs({
     pathName =
       pathName.replace(/^\//, '').replace(/\//g, '__').split('?')[0] || ''
     const docs = markdownMain[pathName]
+    setMdRects([])
+    setRightNavs([])
     if (docs) {
       docs.then((res) => {
-        unobserve()
         const result = res.default
         document.title = result.tile
         historyMd = result.docs
@@ -101,69 +115,10 @@ const Docs = function Docs({
     }
   }
 
-  const initRect = function (target, i) {
-    if (contentObserver.current[i] != null) {
-      contentObserver.current[i].disconnect()
-    }
-
-    contentObserver.current[i] = new IntersectionObserver(function (res: any) {
-      for (let i = 0; i < res.length; i++) {
-        const tId = decodeURIComponent(
-          res[i].target.getElementsByTagName('h3')[0]?.id,
-        )
-
-        let index
-        currentNavs.forEach((item, i) => {
-          if (item.id === tId) {
-            index = i
-          }
-        })
-        if (index !== undefined) {
-          // @ts-ignore
-          currentNavs[index].intersectionRatio = res[i].intersectionRatio
-          setCurrentNavs([...currentNavs])
-        }
-      }
-    })
-
-    contentObserver.current[i].observe(target, {
-      thresholds: [0, 0.2, 0.4, 0.6, 0.8, 1],
-    })
-  }
-
-  const unobserve = () => {
-    setCurrentNavs([])
-    const targets = document.querySelectorAll('.antm-docs-markdown .card')
-
-    if (targets.length) {
-      for (let i = 0; i < targets.length; i++) {
-        if (targets[i]) {
-          contentObserver.current[i]?.unobserve(targets[i])
-        }
-      }
-    }
-  }
-
   useEffect(() => {
     if (rightNavs.length) {
-      if (!currentNavs.length) {
-        rightNavs.forEach((item) => {
-          currentNavs.push({
-            id: item,
-            intersectionRatio: 0,
-          })
-        })
-      }
       setTimeout(() => {
-        const targets = document.querySelectorAll('.antm-docs-markdown .card')
-
-        if (targets.length) {
-          for (let i = 0; i < targets.length; i++) {
-            if (targets[i]) {
-              initRect(targets[i], i)
-            }
-          }
-        }
+        getAllMdRects()
       }, 33.33)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -172,13 +127,9 @@ const Docs = function Docs({
   const targetChange = (t) => {
     routerEvent.switch(`${currentUrl}?target=${t}`)
     document.getElementById(encodeURIComponent(t))?.scrollIntoView({
-      block: 'start',
+      block: 'center',
     })
   }
-
-  const handleToggleRightNavs = useCallback(() => {
-    setNavShow(!navShow)
-  }, [navShow])
 
   return (
     <div
@@ -189,40 +140,42 @@ const Docs = function Docs({
       }`}
     >
       <MarkdownBox>{md}</MarkdownBox>
-      {!simulator && rightNavs.length > 2 && (
+      {rightNavs.length > 1 && (
         <div
-          className="antm-doc-right-navs"
-          style={{ top: 150 - pageYOffset > 64 ? 150 - pageYOffset : 64 }}
+          className={`antm-doc-right-navs-wrapper ${
+            simulator ? 'antm-doc-right-navs-stretch' : ''
+          }`}
+          style={{ right: !navShow ? -148 : 0 }}
         >
+          {simulator && (
+            <div
+              className={`nav-button ${navShow ? 'nav-button-close' : ''}`}
+              onClick={() => setNavShow(!navShow)}
+            >
+              <svg viewBox="0 0 1024 1024" width="22" height="22">
+                <path
+                  d="M133.8 115h756.4c20.9 0 37.8 16.9 37.8 37.8v37.8c0 20.9-16.9 37.8-37.8 37.8H133.8c-20.9 0-37.8-16.9-37.8-37.8v-37.8c0-20.9 16.9-37.8 37.8-37.8zM133.8 455.3h491.6c20.9 0 37.8 16.9 37.8 37.8v37.8c0 20.9-16.9 37.8-37.8 37.8H133.8c-20.9 0-37.8-16.9-37.8-37.8v-37.8c0-20.9 16.9-37.8 37.8-37.8zM133.8 795.6h756.4c20.9 0 37.8 16.9 37.8 37.8v37.8c0 20.9-16.9 37.8-37.8 37.8H133.8c-20.9 0-37.8-16.9-37.8-37.8v-37.8c0-20.9 16.9-37.8 37.8-37.8zM757.8 600.7V423.3c0-22 29.2-33.1 46.2-17.5l97.1 88.7c10.6 9.7 10.6 25.3 0 35L804 618.1c-17 15.6-46.2 4.6-46.2-17.4z"
+                  p-id="3111"
+                ></path>
+              </svg>
+            </div>
+          )}
           <div
-            className="antm-doc-right-navs-title"
-            onClick={handleToggleRightNavs}
+            className="antm-doc-right-navs"
+            style={{ top: 150 - pageYOffset > 64 ? 150 - pageYOffset : 64 }}
           >
-            本页目录
-          </div>
-          <div
-            className={`antm-doc-right-navs-list ${
-              navShow ? 'antm-doc-right-navs-list-show' : ''
-            }`}
-          >
-            {rightNavs.map((item, index) => {
-              if (index) {
-                return (
-                  <div
-                    className={`antm-doc-right-nav antm-doc-right-nav-${
-                      item ===
-                      findMaxIntersectionRatio(currentNavs, pageYOffset)
-                        ? 'active'
-                        : 'no'
-                    }`}
-                    key={`doc-right-navs${item}`}
-                    onClick={() => targetChange(item)}
-                  >
-                    {item}
-                  </div>
-                )
-              } else return null
-            })}
+            <div className="antm-doc-right-navs-title">本页目录</div>
+            {rightNavs.map((item) => (
+              <div
+                className={`antm-doc-right-nav antm-doc-right-nav-${
+                  item === findNearest(mdRects, pageYOffset) ? 'active' : 'no'
+                }`}
+                key={`doc-right-navs${item}`}
+                onClick={() => targetChange(item)}
+              >
+                {item}
+              </div>
+            ))}
           </div>
         </div>
       )}
@@ -230,21 +183,17 @@ const Docs = function Docs({
   )
 }
 
-function findMaxIntersectionRatio(arr, pageYOffset) {
-  const max = 0
+function findNearest(arr, scrollY) {
   let cur = 0
   for (let i = 0; i < arr.length; i++) {
     const item = arr[i]
-    if (item.intersectionRatio > max) {
+    if (item.top > scrollY + 100) {
       cur = i
+      break
     }
   }
 
-  if (pageYOffset > 40) {
-    return arr[cur]?.id
-  } else {
-    return ''
-  }
+  return arr[cur]?.id
 }
 
 export default memo(Docs)

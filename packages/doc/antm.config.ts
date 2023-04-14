@@ -24,6 +24,12 @@ export default defineConfig({
       },
     ],
     menu: createMenu(),
+    // simulator: {
+    //   url: {
+    //     production: 'xx',
+    //     development: 'xxx',
+    //   },
+    // },
   },
 })
 

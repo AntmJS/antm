@@ -1,4 +1,5 @@
-import { useContext } from 'react'
+// @ts-ignore
+import React, { useContext } from 'react'
 import { preCls } from '../../utils/common'
 import { IDocMenuNavs } from '../../../types'
 import { UrlConext } from '../../context'

@@ -1,4 +1,5 @@
-import { useEffect, memo } from 'react'
+// @ts-ignore
+import React, { useEffect, memo } from 'react'
 // eslint-disable-next-line import/no-named-as-default
 import toast, { Toaster } from 'react-hot-toast'
 import { copyToClipboard } from '../../utils/common'
@@ -40,7 +41,7 @@ function scrollTargetInit() {
     item.onclick = () => {
       item.scrollIntoView({
         behavior: 'smooth',
-        block: 'start',
+        block: 'center',
       })
 
       const cur = location.href.split('?')[0]

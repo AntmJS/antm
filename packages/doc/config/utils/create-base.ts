@@ -21,7 +21,7 @@ let _config: any = {}
 
 export async function createBase(config: IDocsConfig) {
   const { src, route } = config
-  const { level = 3 } = route || {}
+  const { level = 10 } = route || {}
   _level = level
   _src = Array.isArray(src) && src ? src : [src]
   _config = config

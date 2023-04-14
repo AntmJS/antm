@@ -1,13 +1,19 @@
 :root {
-  --primary-color: #4fc08d;
-  --primary-back-color: #ebfff0;
-  --header-back-color: #02203b;
   --public-font-family: open sans, -apple-system, blinkmacsystemfont,
     helvetica neue, helvetica, segoe ui, arial, roboto, pingfang sc, miui,
     hiragino sans gb, microsoft yahei, sans-serif;
+  --primary-color: #4fc08d;
+  --primary-back-color: #ebfff0;
+  --header-back-color: #02203b;
+  --simulator-zindex: 99;
+  --right-navs-zindex: 100;
 }
+
+@public-font-family: var(--public-font-family);
 
 @primary-color: var(--primary-color);
 @primary-back-color: var(--primary-back-color);
 @header-back-color: var(--header-back-color);
-@public-font-family: var(--public-font-family);
+
+@simulator-zindex: var(--simulator-zindex);
+@right-navs-zindex: var(--right-navs-zindex);

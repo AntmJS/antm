@@ -1,3 +1,5 @@
+@import url('../../var.less');
+
 .antm-docs-main {
   display: flex;
   background-color: #f7f8fa;
@@ -13,8 +15,8 @@
   &-example {
     position: fixed;
     top: 84px;
-    right: 14px;
-    z-index: 999;
+    right: 24px;
+    z-index: @simulator-zindex;
     box-sizing: border-box;
     width: 360px;
     height: calc(100% - 84px);
