@@ -5,6 +5,7 @@ import {
   useLayoutEffect,
   useContext,
   useRef,
+  useCallback,
 } from 'react'
 import MarkdownBox from '../components/markdown/index'
 import { routerEvent } from '../utils/history'
@@ -34,6 +35,9 @@ const Docs = function Docs({
   const [currentNavs, setCurrentNavs] = useState<
     { id: string; intersectionRatio: number }[]
   >([])
+
+  const [navShow, setNavShow] = useState(false)
+
   const contentObserver = useRef<any>([])
 
   useLayoutEffect(() => {
@@ -172,6 +176,10 @@ const Docs = function Docs({
     })
   }
 
+  const handleToggleRightNavs = useCallback(() => {
+    setNavShow(!navShow)
+  }, [navShow])
+
   return (
     <div
       className={`antm-docs-page ${
@@ -186,24 +194,36 @@ const Docs = function Docs({
           className="antm-doc-right-navs"
           style={{ top: 150 - pageYOffset > 64 ? 150 - pageYOffset : 64 }}
         >
-          <div className="antm-doc-right-navs-title">本页目录</div>
-          {rightNavs.map((item, index) => {
-            if (index) {
-              return (
-                <div
-                  className={`antm-doc-right-nav antm-doc-right-nav-${
-                    item === findMaxIntersectionRatio(currentNavs, pageYOffset)
-                      ? 'active'
-                      : 'no'
-                  }`}
-                  key={`doc-right-navs${item}`}
-                  onClick={() => targetChange(item)}
-                >
-                  {item}
-                </div>
-              )
-            } else return null
-          })}
+          <div
+            className="antm-doc-right-navs-title"
+            onClick={handleToggleRightNavs}
+          >
+            本页目录
+          </div>
+          <div
+            className={`antm-doc-right-navs-list ${
+              navShow ? 'antm-doc-right-navs-list-show' : ''
+            }`}
+          >
+            {rightNavs.map((item, index) => {
+              if (index) {
+                return (
+                  <div
+                    className={`antm-doc-right-nav antm-doc-right-nav-${
+                      item ===
+                      findMaxIntersectionRatio(currentNavs, pageYOffset)
+                        ? 'active'
+                        : 'no'
+                    }`}
+                    key={`doc-right-navs${item}`}
+                    onClick={() => targetChange(item)}
+                  >
+                    {item}
+                  </div>
+                )
+              } else return null
+            })}
+          </div>
         </div>
       )}
     </div>
