@@ -1,5 +1,5 @@
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs'
-import { basename, join, relative } from 'path'
+import { basename, join, relative, sep } from 'path'
 import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 import { watch } from 'chokidar'
@@ -36,7 +36,12 @@ export async function createBase(config: IDocsConfig) {
   let MD_PATHS: string[] = []
 
   for (let i = 0; i < _src.length; i++) {
-    MD_PATHS = MD_PATHS.concat([`${_src[i]}/**/*.md`, `${_src[i]}/*.md`])
+    let filepath = _src[i] || ''
+    if (sep === '\\') {
+      // 如果当前操作系统为Windows，则将双反斜杠转换为单反斜杠
+      filepath = filepath.replace(/\\/g, '/')
+    }
+    MD_PATHS = MD_PATHS.concat([`${filepath}/**/*.md`, `${filepath}/*.md`])
   }
 
   const mdPaths = await glob(MD_PATHS, {
