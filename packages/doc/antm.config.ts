@@ -1,12 +1,13 @@
-import { join } from 'path'
-import { defineConfig, IDocMenuNavs } from '@antmjs/types'
+import type { IDocMenuNavs } from '@antmjs/types'
+import path from 'path'
+import { defineConfig } from '@antmjs/types'
 import pkg from './package.json'
 
 export default defineConfig({
   docs: {
     title: 'antm.js Doc',
-    src: join(process.cwd(), './docs'),
-    globalStyles: [join(process.cwd(), './theme.less')],
+    src: path.resolve(process.cwd(), './docs'),
+    globalStyles: [path.resolve(process.cwd(), './theme.less')],
     logo: 'https://fastly.jsdelivr.net/npm/@vant/assets/logo.png',
     route: {
       level: 1,

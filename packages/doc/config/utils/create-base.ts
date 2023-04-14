@@ -1,8 +1,9 @@
-import fs, { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs'
-import path, { basename, join, relative } from 'path'
+import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs'
+import { basename, join, relative } from 'path'
 import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 import { watch } from 'chokidar'
+import { glob } from 'glob'
 import { IDocsConfig } from '../../types'
 import {
   TEMP_DIR,
@@ -21,16 +22,20 @@ let _config: any = {}
 
 export async function createBase(config: IDocsConfig) {
   const { src, route } = config
-  const { level = 10 } = route || {}
+  const { level = 10, exclude } = route || {}
   _level = level
   _src = Array.isArray(src) && src ? src : [src]
   _config = config
 
-  let mdPaths: string[] = []
+  let MD_PATHS: string[] = []
+
   for (let i = 0; i < _src.length; i++) {
-    const paths = getAllFiles(_src[i] as string, ['.md'])
-    mdPaths = [...mdPaths, ...paths]
+    MD_PATHS = MD_PATHS.concat([`${_src[i]}/**/*.md`, `${_src[i]}/*.md`])
   }
+
+  const mdPaths = await glob(MD_PATHS, {
+    ignore: exclude,
+  })
 
   if (!existsSync(TEMP_DIR)) mkdirSync(TEMP_DIR)
   if (!existsSync(ANTM_TEMP_DIR)) mkdirSync(ANTM_TEMP_DIR)
@@ -235,7 +240,7 @@ function markdownCardWrapper(htmlCode) {
         const h3Title = fragment
           .split('h3>')[1]
           .replace('</', '')
-          .substring(0, 10)
+          .substring(0, 20)
 
         h3Ids.push(h3Title)
 
@@ -258,29 +263,4 @@ function markdownCardWrapper(htmlCode) {
     html: newHtml,
     h3Ids: h3Ids,
   }
-}
-/**
- * 递归遍历目录，返回所有匹配的文件路径
- * @param dirPath 目录路径
- * @param extnames 文件后缀数组
- * @returns 文件路径数组
- */
-function getAllFiles(dirPath: string, extnames: string[]): string[] {
-  let files: string[] = []
-  const items = fs.readdirSync(dirPath)
-
-  for (const item of items) {
-    const filepath = path.join(dirPath, item)
-    const stat = fs.statSync(filepath)
-
-    if (stat.isDirectory()) {
-      // 如果是子目录，则递归遍历
-      files = files.concat(getAllFiles(filepath, extnames))
-    } else if (extnames.includes(path.extname(item))) {
-      // 如果是匹配的文件后缀，则加入结果数组
-      files.push(filepath)
-    }
-  }
-
-  return files
 }

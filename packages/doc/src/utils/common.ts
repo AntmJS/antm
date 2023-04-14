@@ -1,6 +1,12 @@
 export const preCls = 'antm-docs'
 import { IDocSimulator } from '../../types'
 
+export function scrollToTargetParent(target) {
+  const tt = document.getElementById(target)
+  const parentTop = tt?.parentNode?.['offsetTop']
+  window.scrollTo(0, parentTop ? parentTop - 20 : 0)
+}
+
 export function copyToClipboard(str) {
   const el = document.createElement('textarea')
   el.value = str
@@ -29,7 +35,7 @@ export function copyToClipboard(str) {
 
 export function getSimulatorUrl(simulator: IDocSimulator, currentUrl: string) {
   const domain =
-    process.env.NODE_ENV === 'production'
+    process.env['NODE_ENV'] === 'production'
       ? simulator?.url?.production
       : simulator?.url?.development + '/'
 

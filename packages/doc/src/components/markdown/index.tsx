@@ -2,7 +2,7 @@
 import React, { useEffect, memo } from 'react'
 // eslint-disable-next-line import/no-named-as-default
 import toast, { Toaster } from 'react-hot-toast'
-import { copyToClipboard } from '../../utils/common'
+import { copyToClipboard, scrollToTargetParent } from '../../utils/common'
 import './index.less'
 
 type Iprops = {
@@ -39,10 +39,7 @@ function scrollTargetInit() {
   for (let i = 0; i < h3Title.length; i++) {
     const item: any = h3Title[i]
     item.onclick = () => {
-      item.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      })
+      scrollToTargetParent(item?.id)
 
       const cur = location.href.split('?')[0]
 

@@ -1,7 +1,12 @@
 import type { IDocsConfig } from '../../../types/index'
-import { useState, useEffect, useMemo } from 'react'
+// @ts-ignore
+import React, { useState, useEffect, useMemo } from 'react'
 import Page from '../../pages/index'
-import { preCls, getSimulatorUrl } from '../../utils/common'
+import {
+  preCls,
+  getSimulatorUrl,
+  scrollToTargetParent,
+} from '../../utils/common'
 import { UrlConext } from '../../context'
 import Header from '../header'
 import Menu from '../menu'
@@ -60,9 +65,7 @@ export default function PageLayout() {
         const targetId = targetStr.split('=')[1]
         if (targetId) {
           setTimeout(() => {
-            document.getElementById(targetId)?.scrollIntoView({
-              block: 'center',
-            })
+            scrollToTargetParent(targetId)
           }, 166)
         }
       }

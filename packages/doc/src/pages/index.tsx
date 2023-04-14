@@ -10,6 +10,7 @@ import MarkdownBox from '../components/markdown/index'
 import { routerEvent } from '../utils/history'
 import { UrlConext } from '../context'
 import './index.less'
+import { scrollToTargetParent } from '../utils/common'
 
 let historyMd = ''
 
@@ -61,13 +62,11 @@ const Docs = function Docs({
         // @ts-ignore
         const target = decodeURIComponent(params.split('=')[1])?.substring(
           0,
-          10,
+          20,
         )
 
         setTimeout(() => {
-          document.getElementById(encodeURIComponent(target))?.scrollIntoView({
-            block: 'center',
-          })
+          scrollToTargetParent(encodeURIComponent(target))
         }, 166)
       }
     }
@@ -126,9 +125,7 @@ const Docs = function Docs({
 
   const targetChange = (t) => {
     routerEvent.switch(`${currentUrl}?target=${t}`)
-    document.getElementById(encodeURIComponent(t))?.scrollIntoView({
-      block: 'center',
-    })
+    scrollToTargetParent(encodeURIComponent(t))
   }
 
   return (
@@ -145,7 +142,7 @@ const Docs = function Docs({
           className={`antm-doc-right-navs-wrapper ${
             simulator ? 'antm-doc-right-navs-stretch' : ''
           }`}
-          style={{ right: !navShow ? -148 : 0 }}
+          style={simulator ? { right: !navShow ? -148 : 0 } : {}}
         >
           {simulator && (
             <div
@@ -187,9 +184,8 @@ function findNearest(arr, scrollY) {
   let cur = 0
   for (let i = 0; i < arr.length; i++) {
     const item = arr[i]
-    if (item.top > scrollY + 100) {
+    if (item.top < scrollY + 30) {
       cur = i
-      break
     }
   }
 
