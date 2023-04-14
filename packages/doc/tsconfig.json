@@ -7,5 +7,5 @@
     "resolveJsonModule": true
   },
   "include": ["*.ts", "./**/*.ts"],
-  "exclude": ["antm.config.ts", "**/antm.config.ts", "**/*.js"]
+  "exclude": ["./src/.temp/**"]
 }

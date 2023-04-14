@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import path from 'path'
 // eslint-disable-next-line import/no-named-as-default
 import webpack from 'webpack'

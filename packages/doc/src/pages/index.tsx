@@ -142,7 +142,16 @@ const Docs = function Docs({
           className={`antm-doc-right-navs-wrapper ${
             simulator ? 'antm-doc-right-navs-stretch' : ''
           }`}
-          style={simulator ? { right: !navShow ? -148 : 0 } : {}}
+          style={
+            simulator
+              ? {
+                  right: !navShow ? -148 : 0,
+                  top: 150 - pageYOffset > 64 ? 150 - pageYOffset : 64,
+                }
+              : {
+                  top: 150 - pageYOffset > 64 ? 150 - pageYOffset : 64,
+                }
+          }
         >
           {simulator && (
             <div
@@ -157,10 +166,7 @@ const Docs = function Docs({
               </svg>
             </div>
           )}
-          <div
-            className="antm-doc-right-navs"
-            style={{ top: 150 - pageYOffset > 64 ? 150 - pageYOffset : 64 }}
-          >
+          <div className="antm-doc-right-navs">
             <div className="antm-doc-right-navs-title">本页目录</div>
             {rightNavs.map((item) => (
               <div

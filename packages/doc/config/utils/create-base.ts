@@ -11,18 +11,24 @@ import {
   CONFIG_PATH,
   ALL_CONFIG,
   MARKDOWN_MAIN,
+  CWD,
 } from './contanst'
 import { getConfig } from './get-config'
 
 const extraEntrys = {}
 let inited = false
 let _src: string[] = []
-let _level = 10
+let _level = 2
 let _config: any = {}
+let _exclude: string[] = [
+  join(CWD, './node_modules/**/*.md'),
+  join(CWD, './**/node_modules/**/*.md'),
+]
 
 export async function createBase(config: IDocsConfig) {
   const { src, route } = config
-  const { level = 10, exclude } = route || {}
+  const { level = 2, exclude } = route || {}
+  _exclude = _exclude.concat(exclude || [])
   _level = level
   _src = Array.isArray(src) && src ? src : [src]
   _config = config
@@ -34,7 +40,7 @@ export async function createBase(config: IDocsConfig) {
   }
 
   const mdPaths = await glob(MD_PATHS, {
-    ignore: exclude,
+    ignore: _exclude,
   })
 
   if (!existsSync(TEMP_DIR)) mkdirSync(TEMP_DIR)
@@ -54,7 +60,7 @@ export async function createBase(config: IDocsConfig) {
 
   if (process.env['NODE_ENV'] === 'development') {
     console.info('watch files success')
-    watchFiles([CONFIG_PATH, ...mdPaths])
+    watchFiles([CONFIG_PATH, ...mdPaths], _exclude)
   }
 
   if (!inited) inited = true
@@ -75,7 +81,7 @@ function unitWork(mp) {
 
   const config = {
     highlight: function (str, lang) {
-      return hljs.highlight(str, { language: lang }).value
+      return hljs.highlight(str, { language: lang || 'markdown' }).value
     },
     html: true,
   }
@@ -169,7 +175,7 @@ async function injectGlobalStyles(globalStyles?: string[]) {
  * @returns markdown文件转换后的路径名称
  */
 function getRoutePath(ps: string): string {
-  const paths = basename(ps, '.md')
+  const paths = ps.replace('.md', '')
   const arr = paths
     .split('/')
     .reverse()
@@ -181,6 +187,14 @@ function getRoutePath(ps: string): string {
       res.push(it)
     }
   }
+
+  console.info(
+    paths,
+    '>>>>>>>>>>',
+    arr,
+    '**********************',
+    res.reverse().join('__'),
+  )
 
   return res.reverse().join('__')
 }
@@ -197,11 +211,11 @@ function getTitleFromMd(md: string) {
  * 监听各个文件的变化
  * @param files 监听的文件
  */
-function watchFiles(files: string[]) {
+function watchFiles(files: string[], exclude: string[]) {
   let readyOk = false
   const watcher = watch(files, {
     persistent: true,
-    ignored: _config.exclude,
+    ignored: exclude,
   })
   watcher.on('ready', function () {
     readyOk = true

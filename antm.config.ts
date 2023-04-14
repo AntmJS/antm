@@ -19,7 +19,7 @@ export default defineConfig({
     title: 'antmjs',
     src: join(CWD, './packages'),
     route: {
-      exclude: [join(CWD, './packages/doc/*'), join(CWD, './packages/types/*')],
+      exclude: [join(CWD, './packages/doc/**/*.md')],
     },
     menu: getMenus(),
   },

@@ -1,3 +1,4 @@
+#!/usr/bin/env ts-node
 import Webpack from 'webpack'
 import { WebpackConfiguration } from 'webpack-dev-server'
 import getPro from '../config/base'

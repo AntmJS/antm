@@ -11,7 +11,7 @@
 
 ### 安装
 
-```
+```bash
 yarn add @antmjs/api
 ```
 
@@ -39,11 +39,11 @@ yarn add @antmjs/api
 
 接口文档和项目一起打包到测试环境`yarn build`, 建议打包的目录结构如下，通过设置配置项`buildPath`为`./build/api`
 
-```
+```markdown
 - build
   - index.html
-  ......
-  - api (antm-api打包的结果，可以通过配置文件配置打包路径)
+    ......
+  - api (antm-api 打包的结果，可以通过配置文件配置打包路径)
 ```
 
 ##### 后端 swagger 定义接口

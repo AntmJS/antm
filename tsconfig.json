@@ -17,5 +17,6 @@
     "packages/**/types",
     "packages/**/sample",
     "packages/**/__test__"
-  ]
+  ],
+  "exclude": ["packages/**/doc/src/.temp/**"]
 }

@@ -4,7 +4,7 @@ const { resolve } = require('path')
 module.exports = {
   presets: [
     [
-      resolve('../babel-preset'),
+      resolve(__dirname, './packages/babel-preset'),
       {
         presets: {
           env: {

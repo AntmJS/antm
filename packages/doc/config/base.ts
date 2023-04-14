@@ -33,7 +33,7 @@ export default async function base() {
         {
           test: /\.js|.ts|.tsx$/,
           loader: 'babel-loader',
-          exclude: /node_modules\/(?!@antmjs\/doc)/,
+          exclude: /node_modules/,
           options: {
             presets: [
               [
@@ -111,7 +111,7 @@ export default async function base() {
 
       new htmlWebpackPlugin({
         title: base.title || '--',
-        template: path.join(CWD, './src/index.html'),
+        template: path.join(__dirname, '../src/index.html'),
         filename: 'index.html',
         favicon_: base.logo,
       }),

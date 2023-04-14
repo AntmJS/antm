@@ -1,12 +1,12 @@
 {
   "name": "@antmjs/doc",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "description": "PC端在线文档构建工具",
   "main": "index.js",
   "types": "./types/index.d.ts",
   "bin": {
-    "antm-doc-build": "npx ts-node ./scripts/build",
-    "antm-doc-start": "npx ts-node ./scripts/run"
+    "antm-doc-build": "./scripts/build.ts",
+    "antm-doc-start": "./scripts/run.ts"
   },
   "scripts": {
     "start": "npx ts-node ./scripts/run",
