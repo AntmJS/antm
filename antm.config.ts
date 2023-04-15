@@ -3,7 +3,7 @@ import { defineConfig, IDocMenuNavs } from '@antmjs/types'
 
 const CWD = process.cwd()
 
-// 在根目录创建".webhooks.js", 设置 webhooks.token :  { token: xxx }
+// 在根目录创建".webhooks.js", 向Git管理者获取webhooks的token, 设置 module.exports = 'xxxxxxxxxxxxxxxxxxx'
 
 export default defineConfig({
   warning: {
