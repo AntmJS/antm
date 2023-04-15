@@ -6,11 +6,14 @@ import React, {
   useLayoutEffect,
   useContext,
 } from 'react'
+import classNames from 'classnames'
 import MarkdownBox from '../components/markdown/index'
 import { routerEvent } from '../utils/history'
 import { UrlConext } from '../context'
-import './index.less'
+import { useEffectTimeout, usePersistFn } from '../hooks'
 import { scrollToTargetParent } from '../utils/common'
+
+import './index.less'
 
 let historyMd = ''
 
@@ -75,7 +78,7 @@ const Docs = function Docs({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const getAllMdRects = () => {
+  const getAllMdRects = usePersistFn(() => {
     const cards = document.querySelectorAll('.antm-docs-markdown .card')
     const h3s = document.querySelectorAll('.antm-docs-markdown .card>h3')
     if (cards && cards.length) {
@@ -94,7 +97,7 @@ const Docs = function Docs({
     }
 
     setMdRects([...mdRects])
-  }
+  })
 
   const mdChange = (markdownMain) => {
     let pathName =
@@ -118,14 +121,11 @@ const Docs = function Docs({
     }
   }
 
-  useEffect(() => {
-    if (rightNavs.length) {
-      setTimeout(() => {
-        getAllMdRects()
-      }, 33.33)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [rightNavs])
+  useEffectTimeout(
+    rightNavs.length ? getAllMdRects : () => {},
+    [rightNavs],
+    33.33,
+  )
 
   const targetChange = (t) => {
     routerEvent.switch(`${currentUrl}?target=${t}`)
@@ -133,33 +133,25 @@ const Docs = function Docs({
   }
 
   return (
-    <div
-      className={`antm-docs-page ${
-        simulator
-          ? 'antm-docs-page-with-simulator'
-          : 'antm-docs-page-no-simulator'
-      }`}
-    >
-      <MarkdownBox>{md}</MarkdownBox>
+    <>
+      <div className="antm-docs-body">
+        <MarkdownBox>{md}</MarkdownBox>
+      </div>
       {rightNavs.length > 1 && (
         <div
-          className={`antm-doc-right-navs-wrapper ${
-            simulator ? 'antm-doc-right-navs-stretch' : ''
-          }`}
-          style={
-            simulator
-              ? {
-                  right: !navShow ? -148 : 0,
-                  top: 130 - pageYOffset > 64 ? 130 - pageYOffset : 64,
-                }
-              : {
-                  top: 130 - pageYOffset > 64 ? 130 - pageYOffset : 64,
-                }
-          }
+          className={classNames(
+            'antm-doc-right-navs-wrapper',
+            simulator && 'antm-doc-right-navs-stretch',
+            simulator &&
+              `antm-doc-right-navs-stretch-navs-${navShow ? 'show' : 'hide'}`,
+          )}
         >
           {simulator && (
             <div
-              className={`nav-button ${navShow ? 'nav-button-close' : ''}`}
+              className={classNames(
+                'nav-button',
+                navShow && 'nav-button-close',
+              )}
               onClick={() => setNavShow(!navShow)}
             >
               <svg viewBox="0 0 1024 1024" width="22" height="22">
@@ -170,13 +162,21 @@ const Docs = function Docs({
               </svg>
             </div>
           )}
-          <div className="antm-doc-right-navs">
+          <div
+            className={classNames(
+              'antm-doc-right-navs',
+              `antm-doc-right-navs-${navShow ? 'show' : 'hide'}`,
+            )}
+          >
             <div className="antm-doc-right-navs-title">本页目录</div>
             {rightNavs.map((item) => (
               <div
-                className={`antm-doc-right-nav antm-doc-right-nav-${
-                  item === findNearest(mdRects, pageYOffset) ? 'active' : 'no'
-                }`}
+                className={classNames(
+                  'antm-doc-right-nav',
+                  `antm-doc-right-nav-${
+                    item === findNearest(mdRects, pageYOffset) ? 'active' : 'no'
+                  }`,
+                )}
                 key={`doc-right-navs${item}`}
                 onClick={() => targetChange(item)}
               >
@@ -186,7 +186,7 @@ const Docs = function Docs({
           </div>
         </div>
       )}
-    </div>
+    </>
   )
 }
 
