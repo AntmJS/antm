@@ -3,12 +3,14 @@
 /* stylelint-disable font-weight-notation */
 /* stylelint-disable selector-max-type */
 :root {
-  --primary-color: #4fc08d;
-  --primary-back-color: #ebfff0;
-  --header-back-color: #02203b;
   --public-font-family: open sans, -apple-system, blinkmacsystemfont,
     helvetica neue, helvetica, segoe ui, arial, roboto, pingfang sc, miui,
     hiragino sans gb, microsoft yahei, sans-serif;
+  --primary-color: #4fc08d;
+  --primary-back-color: #ebfff0;
+  --header-back-color: #02203b;
+  --simulator-zindex: 99;
+  --right-navs-zindex: 100;
 }
 .antm-docs-markdown {
   width: 100%;
@@ -268,27 +270,72 @@
   pointer-events: auto;
 }
 
+/* stylelint-disable selector-max-type */
+/* stylelint-disable no-descending-specificity */
 :root {
-  --primary-color: #4fc08d;
-  --primary-back-color: #ebfff0;
-  --header-back-color: #02203b;
   --public-font-family: open sans, -apple-system, blinkmacsystemfont,
     helvetica neue, helvetica, segoe ui, arial, roboto, pingfang sc, miui,
     hiragino sans gb, microsoft yahei, sans-serif;
+  --primary-color: #4fc08d;
+  --primary-back-color: #ebfff0;
+  --header-back-color: #02203b;
+  --simulator-zindex: 99;
+  --right-navs-zindex: 100;
 }
 .antm-docs-page {
   display: flex;
   width: 100%;
 }
-.antm-docs-page .antm-doc-right-navs {
+.antm-docs-page .antm-doc-right-navs-stretch .antm-doc-right-navs {
+  background-color: var(--primary-back-color) !important;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  padding: 20px;
+}
+.antm-docs-page .antm-doc-right-navs-stretch .nav-button {
+  position: absolute;
+  top: 20%;
+  left: -33px;
+  background-color: var(--primary-back-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  cursor: pointer;
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+.antm-docs-page .antm-doc-right-navs-stretch .nav-button-close {
+  transform: rotateZ(180deg);
+}
+.antm-docs-page .antm-doc-right-navs-stretch .nav-button svg > path {
+  fill: var(--primary-color);
+}
+.antm-docs-page .antm-doc-right-navs-wrapper {
   position: fixed;
   top: 150px;
   right: 14px;
+  z-index: var(--right-navs-zindex);
+  transition: all 0.4s;
+}
+.antm-docs-page .antm-doc-right-navs {
+  cursor: pointer;
 }
 .antm-docs-page .antm-doc-right-navs-title {
   color: #000000;
   font-weight: 500;
   font-size: 14px;
+  letter-spacing: 4px;
+}
+.antm-docs-page .antm-doc-right-navs-list {
+  width: 0;
+  background-color: #ffffff;
+  transition: width 0.3s ease-out;
+  overflow: hidden;
+}
+.antm-docs-page .antm-doc-right-navs-list-show {
+  width: 108px;
+  transition: all 0.3s;
 }
 .antm-docs-page .antm-doc-right-navs .antm-doc-right-nav {
   width: 108px;
@@ -313,12 +360,14 @@
 
 /* stylelint-disable selector-max-type */
 :root {
-  --primary-color: #4fc08d;
-  --primary-back-color: #ebfff0;
-  --header-back-color: #02203b;
   --public-font-family: open sans, -apple-system, blinkmacsystemfont,
     helvetica neue, helvetica, segoe ui, arial, roboto, pingfang sc, miui,
     hiragino sans gb, microsoft yahei, sans-serif;
+  --primary-color: #4fc08d;
+  --primary-back-color: #ebfff0;
+  --header-back-color: #02203b;
+  --simulator-zindex: 99;
+  --right-navs-zindex: 100;
 }
 .antm-docs-header {
   width: 100%;
@@ -430,12 +479,14 @@
 }
 
 :root {
-  --primary-color: #4fc08d;
-  --primary-back-color: #ebfff0;
-  --header-back-color: #02203b;
   --public-font-family: open sans, -apple-system, blinkmacsystemfont,
     helvetica neue, helvetica, segoe ui, arial, roboto, pingfang sc, miui,
     hiragino sans gb, microsoft yahei, sans-serif;
+  --primary-color: #4fc08d;
+  --primary-back-color: #ebfff0;
+  --header-back-color: #02203b;
+  --simulator-zindex: 99;
+  --right-navs-zindex: 100;
 }
 .antm-docs-menu {
   position: sticky;
@@ -476,6 +527,16 @@
   border-radius: 999px;
 }
 
+:root {
+  --public-font-family: open sans, -apple-system, blinkmacsystemfont,
+    helvetica neue, helvetica, segoe ui, arial, roboto, pingfang sc, miui,
+    hiragino sans gb, microsoft yahei, sans-serif;
+  --primary-color: #4fc08d;
+  --primary-back-color: #ebfff0;
+  --header-back-color: #02203b;
+  --simulator-zindex: 99;
+  --right-navs-zindex: 100;
+}
 .antm-docs-main {
   display: flex;
   background-color: #f7f8fa;
@@ -490,8 +551,8 @@
 .antm-docs-body-example {
   position: fixed;
   top: 84px;
-  right: 14px;
-  z-index: 999;
+  right: 24px;
+  z-index: var(--simulator-zindex);
   box-sizing: border-box;
   width: 360px;
   height: calc(100% - 84px);
