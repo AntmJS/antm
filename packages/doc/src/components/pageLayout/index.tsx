@@ -16,7 +16,6 @@ export default function PageLayout() {
   const [docsConfig, setDocsConfig] = useState<IDocsConfig>()
   const [markdownMain, setMarkdownMain] = useState<any>()
   const [currentUrl, setCurrentUrl] = useState('')
-  const [iframeTop, setIframeTop] = useState(84)
   const [loading, setLoading] = useState([true, true])
 
   useEffect(() => {
@@ -54,20 +53,6 @@ export default function PageLayout() {
   )
 
   useEffect(() => {
-    window.addEventListener('scroll', function () {
-      requestIdleCallback(() => {
-        if (this.scrollY < 74 && this.scrollY > 30) {
-          setIframeTop(84 - this.scrollY)
-        } else if (this.scrollY >= 74) {
-          setIframeTop(10)
-        } else {
-          setIframeTop(84)
-        }
-      })
-    })
-  }, [])
-
-  useEffect(() => {
     if (markdownMain) {
       const targetStr = location.href.split('?')[1]
       if (targetStr) {
@@ -96,21 +81,15 @@ export default function PageLayout() {
               menu={docsConfig?.menu || []}
               routeType={docsConfig?.route?.type}
             />
-            <div className={`${preCls}-body`}>
-              <Page
-                markdownMain={markdownMain}
-                routerType={docsConfig?.route?.type}
-                simulator={!!docsConfig?.simulator}
-                firstPage={docsConfig?.menu[0]?.items[0]?.path}
-              />
-              {docsConfig?.simulator && (
-                <iframe
-                  className={`${preCls}-body-example`}
-                  src={mobileUrl}
-                  style={{ top: iframeTop }}
-                />
-              )}
-            </div>
+            <Page
+              markdownMain={markdownMain}
+              routerType={docsConfig?.route?.type}
+              simulator={!!docsConfig?.simulator}
+              firstPage={docsConfig?.menu?.[0]?.items?.[0]?.path}
+            />
+            {docsConfig?.simulator && (
+              <iframe className={`${preCls}-example`} src={mobileUrl} />
+            )}
           </div>
         </div>
       </UrlConext.Provider>

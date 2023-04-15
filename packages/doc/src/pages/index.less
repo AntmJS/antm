@@ -2,93 +2,105 @@
 /* stylelint-disable no-descending-specificity */
 @import url('../var.less');
 
-.antm-docs-page {
+.antm-docs-body {
   display: flex;
+  box-sizing: border-box;
   width: 100%;
+  margin-left: 20px;
+  overflow: hidden;
+}
 
-  .antm-doc-right-navs-stretch {
-    .antm-doc-right-navs {
-      background-color: @primary-back-color !important;
-      border-top-left-radius: 8px;
-      border-bottom-left-radius: 8px;
-      padding: 20px;
-    }
+.antm-doc-right-navs-wrapper {
+  position: sticky;
+  top: 40px;
+  flex-shrink: 0;
+  margin: 110px 0 0;
+  max-height: calc(100vh - 84px);
+  z-index: @right-navs-zindex;
+  transition: all 0.4s;
+}
 
-    .nav-button {
-      position: absolute;
-      top: 20%;
-      left: -33px;
-      background-color: @primary-back-color;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 5px;
-      cursor: pointer;
-      border-top-left-radius: 2px;
-      border-bottom-left-radius: 2px;
-
-      &-close {
-        transform: rotateZ(180deg);
-      }
-
-      svg > path {
-        fill: @primary-color;
-      }
-    }
+.antm-doc-right-navs-stretch {
+  &-navs-show {
+    margin: 110px 24px 0 0;
+    transition: all 0.4s;
   }
 
-  .antm-doc-right-navs-wrapper {
-    position: fixed;
-    top: 140px;
-    right: 14px;
-    z-index: @right-navs-zindex;
-    transition: right 0.4s;
+  &-navs-hide {
+    margin: 110px 0 0 24px;
+    transition: all 0.4s;
   }
 
   .antm-doc-right-navs {
-    cursor: pointer;
+    border-radius: 8px;
+    border-top-left-radius: 0;
+    width: 0;
+    background-color: @primary-back-color !important;
+    overflow: hidden;
 
-    &-title {
-      color: #000000;
-      font-weight: 500;
-      font-size: 14px;
-      letter-spacing: 4px;
+    &-show {
+      width: 148px;
+      transition: all 0.4s;
     }
 
-    &-list {
+    &-hide {
       width: 0;
-      background-color: #ffffff;
-      transition: width 0.3s ease-out;
-      overflow: hidden;
+      transition: all 0.4s;
+    }
+  }
 
-      &-show {
-        width: 108px;
-        transition: all 0.3s;
-      }
+  .nav-button {
+    position: absolute;
+    left: -32px;
+    background-color: @primary-back-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    cursor: pointer;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px;
+
+    &-close {
+      transform: rotateZ(180deg);
     }
 
-    .antm-doc-right-nav {
-      width: 108px;
-      overflow: hidden;
-      color: #455a64;
-      font-size: 13px;
-      line-height: 28px;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      transition: all 0.3s;
-
-      &-active {
-        color: @primary-color;
-        font-weight: 600;
-      }
+    svg > path {
+      fill: @primary-color;
     }
   }
 }
 
-.antm-docs-page-with-simulator {
-  padding-right: 400px;
-}
+.antm-doc-right-navs {
+  cursor: pointer;
 
-.antm-docs-page-no-simulator {
-  padding-right: 140px;
+  &-title {
+    margin: 20px 20px 0;
+    width: 108px;
+    color: #000000;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 4px;
+  }
+
+  .antm-doc-right-nav {
+    margin: 0 20px;
+    width: 108px;
+    overflow: hidden;
+    color: #455a64;
+    font-size: 13px;
+    line-height: 28px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: all 0.3s;
+
+    &:last-child {
+      margin-bottom: 20px;
+    }
+
+    &-active {
+      color: @primary-color;
+      font-weight: 600;
+    }
+  }
 }

@@ -5,26 +5,19 @@
   background-color: #f7f8fa;
 }
 
-.antm-docs-body {
-  display: flex;
+.antm-docs-example {
+  position: sticky;
+  top: 20px;
+  flex-shrink: 0;
+  margin: 90px 24px 0 0;
+  z-index: @simulator-zindex;
   box-sizing: border-box;
-  width: 100%;
-  margin-left: 20px;
-  overflow: hidden;
-
-  &-example {
-    position: fixed;
-    top: 84px;
-    right: 24px;
-    z-index: @simulator-zindex;
-    box-sizing: border-box;
-    width: 360px;
-    height: calc(100% - 84px);
-    max-height: 640px;
-    background: #fafafa;
-    border: 1px solid #eeeeee;
-    border-radius: 20px;
-    outline: none;
-    box-shadow: 0 8px 12px #ebedf0;
-  }
+  width: 360px;
+  height: calc(100vh - 84px);
+  max-height: 640px;
+  background: #fafafa;
+  border: 1px solid #eeeeee;
+  border-radius: 20px;
+  outline: none;
+  box-shadow: 0 8px 12px #ebedf0;
 }
