@@ -71,7 +71,7 @@
       display: block;
       padding: 0 12px;
       color: #001938;
-      font-size: 14px;
+      font-size: 12px;
       line-height: 30px;
       text-align: center;
       background: #f7f8fa;
@@ -93,10 +93,10 @@
 
       .nav-options {
         position: absolute;
+        z-index: @header-select-zindex;
         top: 34px;
-        left: 0;
-        z-index: 9999;
-        width: 65px;
+        right: 0;
+        width: max-content;
         overflow: hidden;
         color: #333333;
         line-height: 36px;
@@ -107,10 +107,14 @@
         transform-origin: top;
         transition: 0.2s cubic-bezier(0.215, 0.61, 0.355, 1);
         user-select: none;
+        font-size: 12px;
 
         .nav-opt {
+          min-width: 100%;
+          width: max-content;
           padding-left: 12px;
           transition: 0.2s;
+          padding-right: 12px;
         }
 
         .nav-opt:hover {

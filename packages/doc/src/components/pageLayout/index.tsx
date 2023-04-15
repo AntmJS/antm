@@ -18,20 +18,30 @@ export default function PageLayout() {
   const [currentUrl, setCurrentUrl] = useState('')
   const [iframeTop, setIframeTop] = useState(84)
   const [pageYOffset, setpageYOffset] = useState(0)
+  const [loading, setLoading] = useState([true, true])
 
   useEffect(() => {
     // @ts-ignore
     import('../../.temp/antm-doc/all-config.js').then((res) => {
       setDocsConfig(res.default.config as IDocsConfig)
+      loading[0] = false
+      setLoading([...loading])
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
     // @ts-ignore
     import('../../.temp/antm-doc/markdown-main.js').then((res) => {
       setMarkdownMain(res.default)
-      console.info('DOC_ROUTERS', res.default)
+      loading[1] = false
+      setLoading([...loading])
+      console.info(
+        'DOC_ROUTERS',
+        Object.keys(res.default).map((item) => item.replace('__', '/')),
+      )
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const mobileUrl = useMemo(
@@ -74,37 +84,39 @@ export default function PageLayout() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return (
-    <UrlConext.Provider value={[currentUrl, setCurrentUrl]}>
-      <div className={`${preCls}-container`}>
-        <Header
-          links={docsConfig?.headerLinks || []}
-          title={docsConfig?.title || ''}
-          logo={docsConfig?.logo}
-        />
-        <div className={`${preCls}-main`}>
-          <Menu
-            menu={docsConfig?.menu || []}
-            routeType={docsConfig?.route?.type}
+  if (!loading[0] && !loading[1]) {
+    return (
+      <UrlConext.Provider value={[currentUrl, setCurrentUrl]}>
+        <div className={`${preCls}-container`}>
+          <Header
+            links={docsConfig?.headerLinks || []}
+            title={docsConfig?.title || ''}
+            logo={docsConfig?.logo}
           />
-          <div className={`${preCls}-body`}>
-            <Page
-              pageYOffset={pageYOffset}
-              markdownMain={markdownMain}
-              routerType={docsConfig?.route?.type}
-              simulator={!!docsConfig?.simulator}
-              firstPage={docsConfig?.menu[0]?.items[0]?.path}
+          <div className={`${preCls}-main`}>
+            <Menu
+              menu={docsConfig?.menu || []}
+              routeType={docsConfig?.route?.type}
             />
-            {docsConfig?.simulator && (
-              <iframe
-                className={`${preCls}-body-example`}
-                src={mobileUrl}
-                style={{ top: iframeTop }}
+            <div className={`${preCls}-body`}>
+              <Page
+                pageYOffset={pageYOffset}
+                markdownMain={markdownMain}
+                routerType={docsConfig?.route?.type}
+                simulator={!!docsConfig?.simulator}
+                firstPage={docsConfig?.menu[0]?.items[0]?.path}
               />
-            )}
+              {docsConfig?.simulator && (
+                <iframe
+                  className={`${preCls}-body-example`}
+                  src={mobileUrl}
+                  style={{ top: iframeTop }}
+                />
+              )}
+            </div>
           </div>
         </div>
-      </div>
-    </UrlConext.Provider>
-  )
+      </UrlConext.Provider>
+    )
+  } else return <></>
 }

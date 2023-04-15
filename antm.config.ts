@@ -18,6 +18,7 @@ export default defineConfig({
   docs: {
     title: 'antmjs',
     src: join(CWD, './packages'),
+    globalStyles: [join(process.cwd(), './doc.less')],
     logo: 'https://fastly.jsdelivr.net/npm/@vant/assets/logo.png',
     route: {
       level: 2,
@@ -28,6 +29,20 @@ export default defineConfig({
         title: 'https://b.yzcdn.cn/vant/logo/github.svg',
         url: 'https://github.com/AntmJS/antm/',
         type: 'img',
+      },
+      {
+        title: '更多',
+        type: 'select',
+        options: [
+          {
+            title: 'antmjs Doc',
+            url: 'https://antmjs.github.io/antm/antm-doc/',
+          },
+          {
+            title: 'antmjs Vantui',
+            url: 'https://antmjs.github.io/vantui',
+          },
+        ],
       },
     ],
     menu: getMenus(),

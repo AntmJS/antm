@@ -28,7 +28,7 @@ yarn add @antmjs/babel-preset --dev
 </head>
 ```
 
-- src/index.js (入口文件)
+### src/index.js (入口文件)
 
 ```js
 import { defineCustomElements, applyPolyfills } from '@tarojs/components/loader'
@@ -37,7 +37,7 @@ applyPolyfills().then(function () {
 })
 ```
 
-- src/index.less
+### src/index.less
 
 ```less
 @import '@antmjs/vantui/dist/style/index.less';
@@ -48,7 +48,7 @@ body {
 }
 ```
 
-- webpack.config.js
+### webpack.config.js
 
 ```js
 {

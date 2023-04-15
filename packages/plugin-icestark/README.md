@@ -2,17 +2,17 @@
 
 > TaroH5 支持飞冰的微前端框架
 
-## 为什么需要
+### 为什么需要
 
 为了保证开发使用的框架保持一致，我们主要以 Taro 为核心，包括 PC 系统的构建也依赖 Taro。PC 应用比较庞大，也就实践出了这个临时方案
 
-## 安装
+### 安装
 
 ```bash
 yarn add @antmjs/plugin-icestark --dev
 ```
 
-## 使用
+### 使用
 
 文档参考[icestark](https://micro-frontends.ice.work/docs/guide)
 

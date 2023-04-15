@@ -108,7 +108,7 @@ export default function Header(props: Iprops) {
                             selectTrigger(null, item)
                           }}
                         >
-                          {item.title}
+                          {it.title}
                         </div>
                       ))}
                     </div>

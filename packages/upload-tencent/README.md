@@ -1,6 +1,10 @@
 # @antmjs/upload-tencent
 
+### 安装
+
+```bash
 npm install @antmjs/upload-tencent -g
+```
 
 ### 配置
 

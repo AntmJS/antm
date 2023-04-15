@@ -5,7 +5,7 @@
 - 实现通过微信、钉钉、飞书等聊天群机器人的 webhooks，通知群内成员对比的结果
 - 实现邮件发送，邮件通知到目标邮件对比结果
 
-## 为什么需要
+### 为什么需要
 
 团队成员对项目关键的配置项或代码修改了，需要通知开发组成员修改内容，避免影响开发的规范性和统一性
 
@@ -59,7 +59,7 @@ npx antm-warning email
 
 antm-warning webhook 的相关参数
 
-```sh
+```bash
 antm-warning webhooks:
   -u, --url, <url>                            set webhooks api of dingding | wechart | Lark | others, separated by commas
   -mf, --monitor-files, <monitorFiles>        set monitor files
@@ -67,7 +67,7 @@ antm-warning webhooks:
 
 antm-warning email 的相关参数
 
-```sh
+```bash
 antm-warning email:
   -mf, --monitor-files, <monitorFiles>         set monitor files
   -sender, --sender, <sender>                  set the email sender

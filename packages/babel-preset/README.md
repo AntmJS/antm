@@ -2,17 +2,17 @@
 
 > ES6+转译到 ES5 工具库
 
-## 为什么需要
+### 为什么需要
 
 这个库包含了编译成 ES5 所需的最小可用 Presets，也就是说大部分情况下这个库能满足大部分的转译需求了。
 
-## 安装
+### 安装
 
 ```bash
 yarn add @antmjs/babel-preset --dev
 ```
 
-## 使用
+### 使用
 
 babel.config.js
 

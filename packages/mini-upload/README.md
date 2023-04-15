@@ -8,7 +8,7 @@ yarn add @antmjs/mini-upload --save-dev
 
 ### 使用
 
-```
+```bash
 上传
 antm-mini-upload deploy --type [type] --appid [appid]
 预览

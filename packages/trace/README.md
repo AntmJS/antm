@@ -2,17 +2,17 @@
 
 > 统一的埋点及异常收集工具
 
-## 为什么需要
+### 为什么需要
 
 支持 H5-history、原生小程序、以及 Taro 生成的小程序的埋点和异常反馈
 
-## 安装
+### 安装
 
 ```bash
 yarn add @antmjs/trace
 ```
 
-## 使用
+### 配置
 
 纯 H5 应用需要添加 resolve.mainFields(Taro 框架构建工具已内置):
 
@@ -24,7 +24,7 @@ yarn add @antmjs/trace
 }
 ```
 
-使用要求：
+### 使用
 
 小程序环境最好添加[@antmjs/plugin-mini-fix](https://www.npmjs.com/package/@antmjs/plugin-mini-fix)，解决各端返回的 query decode 情况不一致的问题
 
@@ -81,7 +81,7 @@ const { exposure, log, monitor } = Trace(
 )
 ```
 
-## Description
+### Description
 
 ```js
 /**

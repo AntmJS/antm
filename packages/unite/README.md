@@ -2,22 +2,22 @@
 
 > 统一的开发模式
 
-## 为什么需要
+### 为什么需要
 
 团队人数比较多但又没有足够的精力走 CR 的情况下，如何让大家开发的模式尽量保持一致是这个库的价值
 
-## 安装
+### 安装
 
 ```bash
 yarn add @antmjs/unite
 ```
 
-## 注意
+### 注意
 
 2.2.0 版本开始 Unite 里面默认移除了 H5 路由参数的 decode 处理，也就是 this.location 取到的是未 decode 过的参数，如需自动处理请添加
 @antmjs/plugin-h5-fix 插件
 
-## 使用
+### 使用
 
 > 非 Taro 的 H5 环境使用可添加 resolve.mainFields: ["unite:h5"]
 

@@ -32,7 +32,9 @@ const Docs = function Docs({
   const [md, setMd] = useState(historyMd)
   const [currentUrl, setCurrentUrl] = useContext(UrlConext)
   const [rightNavs, setRightNavs] = useState([])
-  const [mdRects, setMdRects] = useState<{ id: string; top: number }[]>([])
+  const [mdRects, setMdRects] = useState<
+    { id: string; top: number; height: number }[]
+  >([])
   const [navShow, setNavShow] = useState(false)
 
   useLayoutEffect(() => {
@@ -71,7 +73,7 @@ const Docs = function Docs({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [markdownMain])
+  }, [])
 
   const getAllMdRects = () => {
     const cards = document.querySelectorAll('.antm-docs-markdown .card')
@@ -81,9 +83,11 @@ const Docs = function Docs({
         const d = cards[i]
 
         if (d) {
+          const rect = d.getBoundingClientRect()
           mdRects.push({
             id: h3s[i]?.id ? decodeURIComponent(h3s[i]?.id || '') : '',
-            top: d['offsetTop'] || 0,
+            top: d?.['offsetTop'] || 0,
+            height: rect.height,
           })
         }
       }
@@ -146,10 +150,10 @@ const Docs = function Docs({
             simulator
               ? {
                   right: !navShow ? -148 : 0,
-                  top: 150 - pageYOffset > 64 ? 150 - pageYOffset : 64,
+                  top: 130 - pageYOffset > 64 ? 130 - pageYOffset : 64,
                 }
               : {
-                  top: 150 - pageYOffset > 64 ? 150 - pageYOffset : 64,
+                  top: 130 - pageYOffset > 64 ? 130 - pageYOffset : 64,
                 }
           }
         >

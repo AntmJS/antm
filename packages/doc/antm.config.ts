@@ -19,6 +19,20 @@ export default defineConfig({
         type: 'img',
       },
       {
+        title: '更多',
+        type: 'select',
+        options: [
+          {
+            title: 'antmjs',
+            url: 'https://antmjs.github.io/antm/main/',
+          },
+          {
+            title: 'antmjs Vantui',
+            url: 'https://antmjs.github.io/vantui',
+          },
+        ],
+      },
+      {
         title: `v${pkg.version}`,
         url: '',
         type: 'text',
