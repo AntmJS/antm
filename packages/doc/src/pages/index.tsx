@@ -132,7 +132,12 @@ const Docs = function Docs({
 
   return (
     <>
-      <div className="antm-docs-body">
+      <div
+        className={classNames(
+          'antm-docs-body',
+          rightNavs.length === 1 && 'antm-docs-body-no-right-navs',
+        )}
+      >
         <MarkdownBox>{md}</MarkdownBox>
       </div>
       {rightNavs.length > 1 && (
