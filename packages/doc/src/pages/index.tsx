@@ -10,7 +10,7 @@ import classNames from 'classnames'
 import MarkdownBox from '../components/markdown/index'
 import { routerEvent } from '../utils/history'
 import { UrlConext } from '../context'
-import { useEffectTimeout, usePersistFn } from '../hooks'
+import { useDepsTimeout, usePersistFn } from '../hooks'
 import { scrollToTargetParent } from '../utils/common'
 
 import './index.less'
@@ -68,9 +68,13 @@ const Docs = function Docs({
           20,
         )
 
-        setTimeout(() => {
+        const toParentTimer = setTimeout(() => {
           scrollToTargetParent(encodeURIComponent(target))
         }, 166)
+
+        return () => {
+          clearTimeout(toParentTimer)
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -119,7 +123,7 @@ const Docs = function Docs({
     }
   }
 
-  useEffectTimeout(
+  useDepsTimeout(
     rightNavs.length ? getAllMdRects : () => {},
     [rightNavs],
     33.33,

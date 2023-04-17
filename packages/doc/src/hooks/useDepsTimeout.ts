@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { usePersistFn } from './usePersistFn'
 
-export const useEffectTimeout = (
+export const useDepsTimeout = (
   fn: () => void,
   deps: React.DependencyList,
   delay?: number,
