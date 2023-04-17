@@ -19,7 +19,6 @@ type Iprops = {
   routerType?: 'hash' | 'history'
   simulator: boolean
   firstPage?: string
-  pageYOffset: number
 }
 
 const Docs = function Docs({
@@ -27,7 +26,6 @@ const Docs = function Docs({
   routerType = 'hash',
   simulator,
   firstPage,
-  pageYOffset,
 }: Iprops) {
   const [md, setMd] = useState(historyMd)
   const [currentUrl, setCurrentUrl] = useContext(UrlConext)
@@ -174,9 +172,7 @@ const Docs = function Docs({
             <div className="antm-doc-right-navs-title">本页目录</div>
             {rightNavs.map((item) => (
               <div
-                className={`antm-doc-right-nav antm-doc-right-nav-${
-                  item === findNearest(mdRects, pageYOffset) ? 'active' : 'no'
-                }`}
+                className={`antm-doc-right-nav `}
                 key={`doc-right-navs${item}`}
                 onClick={() => targetChange(item)}
               >
@@ -188,18 +184,6 @@ const Docs = function Docs({
       )}
     </div>
   )
-}
-
-function findNearest(arr, scrollY) {
-  let cur = 0
-  for (let i = 0; i < arr.length; i++) {
-    const item = arr[i]
-    if (item.top < scrollY + 30) {
-      cur = i
-    }
-  }
-
-  return arr[cur]?.id
 }
 
 export default memo(Docs)

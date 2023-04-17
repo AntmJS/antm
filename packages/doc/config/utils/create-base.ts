@@ -97,12 +97,18 @@ function unitWork(mp) {
   const res = markdownCardWrapper(Markdown.render(mdstr))
   const docs =
     '`' + `${res.html.replace(/\`/g, '::::').replace(/\$\{/g, '::_::')}` + '`'
+  const h3Ids = '`' + res.h3Ids.join(':::') + '`'
+  let title = '`' + getTitleFromMd(mdstr) + '`'
+  // 不是标准大标题时
+  if (title.includes('<')) {
+    title = '`' + _config.title + '`'
+  }
   writeFileSync(
     moduleFilePath,
     `export default {
-      tile: "${getTitleFromMd(mdstr)}",
+      tile: ${title},
       docs: ${docs},
-      h3Ids: "${res.h3Ids.join(':::')}"
+      h3Ids: ${h3Ids}
     }`,
   )
 
@@ -183,6 +189,11 @@ function getRoutePath(ps: string): string {
     const it = arr[i]
     if (it && it !== 'README') {
       res.push(it)
+    } else if (i === 0 && it === 'README') {
+      const next = arr[i + 1]
+      if (next) {
+        res.push(next)
+      }
     }
   }
 

@@ -17,7 +17,6 @@ export default function PageLayout() {
   const [markdownMain, setMarkdownMain] = useState<any>()
   const [currentUrl, setCurrentUrl] = useState('')
   const [iframeTop, setIframeTop] = useState(84)
-  const [pageYOffset, setpageYOffset] = useState(0)
   const [loading, setLoading] = useState([true, true])
 
   useEffect(() => {
@@ -57,7 +56,6 @@ export default function PageLayout() {
   useEffect(() => {
     window.addEventListener('scroll', function () {
       requestIdleCallback(() => {
-        setpageYOffset(this.scrollY)
         if (this.scrollY < 74 && this.scrollY > 30) {
           setIframeTop(84 - this.scrollY)
         } else if (this.scrollY >= 74) {
@@ -100,7 +98,6 @@ export default function PageLayout() {
             />
             <div className={`${preCls}-body`}>
               <Page
-                pageYOffset={pageYOffset}
                 markdownMain={markdownMain}
                 routerType={docsConfig?.route?.type}
                 simulator={!!docsConfig?.simulator}

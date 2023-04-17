@@ -17,7 +17,11 @@ export default function Menu({ menu, routeType = 'hash' }: Iprops) {
   const jumpPage = (url) => {
     setCurrentUrl(url)
     routerEvent.switch(`/${url}`, routeType)
-    window.scrollTo(0, 0)
+    if (window.scrollY >= 60) {
+      window.scrollTo(0, 64)
+    } else {
+      window.scrollTo(0, 0)
+    }
   }
 
   const onScroll = function (e) {

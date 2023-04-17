@@ -25,9 +25,10 @@ const devServer = {
   })
 
   const compiler = webpack(devConfig as any)
-  const app = new Server(devServer, compiler)
 
   setTimeout(async () => {
+    const app = new Server(devServer, compiler)
+
     await app.start()
-  }, 333)
+  }, 2000)
 })()
