@@ -1,3 +1,4 @@
+/* eslint-disable import/no-unresolved */
 import type { IDocsConfig } from '../../../types/index'
 // @ts-ignore
 import React, { useState, useEffect } from 'react'
@@ -19,7 +20,9 @@ export default function PageLayout() {
 
   const initLoadDoc = usePersistFn(async () => {
     const [_docsConfig, _markdownMain] = await Promise.all([
+      // @ts-ignore
       import('../../.temp/antm-doc/all-config.js'),
+      // @ts-ignore
       import('../../.temp/antm-doc/markdown-main.js'),
     ])
     setDocsConfig(JSONparse(_docsConfig.default.config) as IDocsConfig)
