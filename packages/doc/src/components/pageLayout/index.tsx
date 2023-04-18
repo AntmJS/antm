@@ -1,4 +1,5 @@
 import type { IDocsConfig } from '../../../types/index'
+// @ts-ignore
 import React, { useState, useEffect } from 'react'
 // @ts-ignore
 import Page from '../../pages/index'

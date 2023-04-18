@@ -77,6 +77,8 @@ const Docs = function Docs({
         }
       }
     }
+
+    return () => {}
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
