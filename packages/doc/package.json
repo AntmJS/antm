@@ -13,6 +13,10 @@
     "build": "npx ts-node ./scripts/build",
     "release": "npx gh-pages -d ./doc_build -e ./antm-doc"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
   "keywords": [
     "document",
     "doc",
