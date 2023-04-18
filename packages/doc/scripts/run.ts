@@ -4,20 +4,20 @@ import path from 'path'
 import webpack from 'webpack'
 import Server from 'webpack-dev-server'
 import getBase from '../config/base'
-
-const devServer = {
-  port: 7777,
-  historyApiFallback: true,
-  open: true,
-  hot: true,
-  static: {
-    directory: path.join(__dirname, './dist'),
-  },
-}
-
 ;(async function run() {
   process.env['NODE_ENV'] = 'development'
   const baseConfig = await getBase()
+
+  const devServer = {
+    port: baseConfig.devServer.port || 7777,
+    historyApiFallback: true,
+    open: true,
+    hot: true,
+    static: {
+      directory: path.join(__dirname, './dist'),
+    },
+  }
+
   const devConfig = Object.assign(baseConfig, {
     mode: 'development',
     devtool: 'eval',

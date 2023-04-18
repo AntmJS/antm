@@ -22,6 +22,10 @@ export default async function base() {
       filename: '[name]_[hash].js',
     },
 
+    devServer: {
+      port: base.buildPort,
+    },
+
     stats: 'normal',
 
     resolve: {

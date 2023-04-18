@@ -47,6 +47,7 @@ export type IDocsConfig = {
   logo?: string
   src: string | string[]
   output?: string
+  buildPort?: number
   menu: IDocMenuNavs
   route?: IDocRouter
   simulator?: IDocSimulator

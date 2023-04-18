@@ -1,5 +1,5 @@
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs'
-import { basename, join, relative } from 'path'
+import { basename, join, relative, sep } from 'path'
 import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 import { watch } from 'chokidar'
@@ -36,7 +36,8 @@ export async function createBase(config: IDocsConfig) {
   let MD_PATHS: string[] = []
 
   for (let i = 0; i < _src.length; i++) {
-    MD_PATHS = MD_PATHS.concat([`${_src[i]}/**/*.md`, `${_src[i]}/*.md`])
+    const filepath = resolveWindowsPath(_src[i] || '')
+    MD_PATHS = MD_PATHS.concat([`${filepath}/**/*.md`, `${filepath}/*.md`])
   }
 
   const mdPaths = await glob(MD_PATHS, {
@@ -182,7 +183,7 @@ async function injectGlobalStyles(globalStyles?: string[]) {
  * @returns markdown文件转换后的路径名称
  */
 function getRoutePath(ps: string): string {
-  const paths = ps.replace('.md', '')
+  const paths = resolveWindowsPath(ps.replace('.md', ''))
   const arr = paths.split('/').reverse()
   const res: string[] = []
   for (let i = 0; i < _level; i++) {
@@ -276,4 +277,15 @@ function markdownCardWrapper(htmlCode) {
     html: newHtml,
     h3Ids: h3Ids,
   }
+}
+
+const resolveWindowsPath = (path: string) => {
+  if (typeof path !== 'string') {
+    return path
+  }
+  if (sep === '\\') {
+    // 如果当前操作系统为Windows，则将双反斜杠转换为单反斜杠
+    return path.replace(/\\/g, '/')
+  }
+  return path
 }
