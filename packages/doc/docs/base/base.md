@@ -122,15 +122,23 @@ export default defineConfig({
   docs: {
     simulator: {
       url: {
-        development: 'localhost:6666',
-        production: '/vantui',
+        development: 'http://10.254.9.214:10086',
+        production: '/vantui/main/mobile.html',
       },
+      transform: (url) => `#/pages/${url}/index`,
       noMate: {
-        redirect: '/#/pages/dashboard/index',
-        urls: ['introduce', 'quick'],
-      },
-      transform: (url) => {
-        return '/#/pages/' + url + '/index'
+        urls: [
+          'quickstart',
+          'custom-style',
+          'home',
+          'theme',
+          'use-in-react',
+          'contributing',
+          'v2-to-v3',
+          'comments',
+          'premium',
+        ],
+        redirect: '#/pages/dashboard/index',
       },
     },
   },

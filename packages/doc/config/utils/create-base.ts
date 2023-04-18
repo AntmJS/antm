@@ -130,7 +130,12 @@ async function createBaseConfig(config?) {
   writeFileSync(
     ALL_CONFIG,
     `export default {
-      config: ${JSON.stringify(config)}
+      config: ${JSON.stringify(config, function (_, val) {
+        if (typeof val === 'function') {
+          return val.toString()
+        }
+        return val
+      })}
     }`,
   )
 }
