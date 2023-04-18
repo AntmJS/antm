@@ -21,7 +21,7 @@ export default defineConfig({
     globalStyles: [join(process.cwd(), './doc.less')],
     logo: 'https://fastly.jsdelivr.net/npm/@vant/assets/logo.png',
     route: {
-      level: 2,
+      level: 1,
       exclude: [join(CWD, './packages/doc/**/*.md')],
     },
     headerLinks: [
