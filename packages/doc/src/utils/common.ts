@@ -37,16 +37,53 @@ export function getSimulatorUrl(simulator: IDocSimulator, currentUrl: string) {
   const domain =
     process.env['NODE_ENV'] === 'production'
       ? simulator?.url?.production
-      : simulator?.url?.development + '/'
+      : simulator?.url?.development
 
   let path = currentUrl
   if (simulator.noMate?.urls.includes(currentUrl)) {
     path = simulator.noMate.redirect
+
+    return `${domain}${path}`
   }
 
   if (simulator.transform) {
-    path = simulator.transform(path)
+    path = simulator.transform(currentUrl)
   }
 
+  console.info(`${domain}${path}`)
+
   return `${domain}${path}`
+}
+
+function sandBox(value) {
+  const withStr = `with(obj) { return ${value} }`
+  //创建监听对象
+  const proxy = new Proxy(Object.create(null), {
+    has(target, key) {
+      // @ts-ignore
+      if (['console', 'Math', 'Date'].includes(key)) {
+        return target[key]
+      }
+      return true
+    },
+    get(target, key) {
+      if (key === Symbol.unscopables) return undefined
+      return target[key]
+    },
+  })
+  return new Function('obj', withStr)(proxy) //将监听的对象作为obj参数传入
+}
+
+export function JSONparse(target) {
+  console.info(target, 'target')
+  return JSON.parse(JSON.stringify(target), function (_, val) {
+    if (
+      /^function\s*\(.*\)\s*{/.test(val) ||
+      /^\(.*\)\s*=>/.test(val) ||
+      /^.*\s*\(.*\)\s*{/.test(val)
+    ) {
+      return sandBox(val)
+    }
+    return val
+  })
 }

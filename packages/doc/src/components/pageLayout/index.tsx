@@ -4,7 +4,7 @@ import type { IDocsConfig } from '../../../types/index'
 import React, { useState, useEffect } from 'react'
 // @ts-ignore
 import Page from '../../pages/index'
-import { preCls, scrollToTargetParent } from '../../utils/common'
+import { preCls, scrollToTargetParent, JSONparse } from '../../utils/common'
 import { UrlConext } from '../../context'
 import './index.less'
 import { usePersistFn } from '../../hooks'
@@ -25,7 +25,7 @@ export default function PageLayout() {
       // @ts-ignore
       import('../../.temp/antm-doc/markdown-main.js'),
     ])
-    setDocsConfig(_docsConfig.default.config as IDocsConfig)
+    setDocsConfig(JSONparse(_docsConfig.default.config) as IDocsConfig)
     setMarkdownMain(_markdownMain.default)
     console.info(
       'DOC_ROUTERS',

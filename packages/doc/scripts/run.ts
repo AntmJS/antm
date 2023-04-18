@@ -13,6 +13,7 @@ import getBase from '../config/base'
     historyApiFallback: true,
     open: true,
     hot: true,
+    host: '0.0.0.0',
     static: {
       directory: path.join(__dirname, './dist'),
     },
