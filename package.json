@@ -100,7 +100,8 @@
     "prepare": "husky install",
     "docs:start": "npx ts-node ./packages/doc/scripts/start",
     "docs:build": "npx ts-node ./packages/doc/scripts/build",
-    "release": "npx gh-pages -d doc_build -e ./main"
+    "release:doc": "yarn docs:build && npx gh-pages -d doc_build -e ./main",
+    "release": "npm-run-all build release:lerna && npm run changelog && node ./pullRequest.js"
   },
   "workspaces": [
     "packages/*"
