@@ -15,7 +15,7 @@ let CONFIG_PATH = join(CWD, './antm.config.ts')
 
 const CONFIG_PATH_JS = join(CWD, './antm.config.js')
 
-if (existsSync(CONFIG_PATH_JS)) {
+if (!existsSync(CONFIG_PATH)) {
   CONFIG_PATH = CONFIG_PATH_JS
 }
 
