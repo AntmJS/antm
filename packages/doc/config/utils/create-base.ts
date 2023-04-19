@@ -104,6 +104,8 @@ function unitWork(mp) {
   if (title.includes('<')) {
     title = '`' + _config.title + '`'
   }
+  console.info(`生成临时文件： ${moduleFilePath}`)
+
   writeFileSync(
     moduleFilePath,
     `export default {
