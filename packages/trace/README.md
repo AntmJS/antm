@@ -26,10 +26,6 @@ yarn add @antmjs/trace
 
 ### 使用
 
-小程序环境最好添加[@antmjs/plugin-mini-fix](https://www.npmjs.com/package/@antmjs/plugin-mini-fix)，解决各端返回的 query decode 情况不一致的问题
-
-如果使用的是原生小程序或者不想加这个插件，你可以使用 0.10.0 版本，这个版本有处理 query 各端 decode 不一致的情况
-
 ```js
 import Trace, {
   utf8ToBytes,
