@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env ts-node --transpileOnly
 import path from 'path'
 // eslint-disable-next-line import/no-named-as-default
 import webpack from 'webpack'

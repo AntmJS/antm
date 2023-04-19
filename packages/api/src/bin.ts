@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node --transpileOnly
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Command } from 'commander'
 import watch from './watch.js'
