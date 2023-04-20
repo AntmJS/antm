@@ -1,11 +1,9 @@
 {
-  "extends": "../../tsconfig.base.json",
+  "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "target": "ES5",
-    "module": "commonjs",
     "baseUrl": "./",
     "noEmit": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "resolveJsonModule": true
   },
   "include": ["./src/*.ts"]

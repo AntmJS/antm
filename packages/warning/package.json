@@ -27,8 +27,8 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "watch": "rm -rf dist && npx tsc -p tsconfig.cjs.json --watch --sourceMap",
-    "build": "rm -rf dist && npx tsc -p tsconfig.cjs.json",
+    "watch": "",
+    "build": "",
     "test:watch": "",
     "test": ""
   },
