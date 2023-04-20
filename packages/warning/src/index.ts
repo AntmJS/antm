@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node --transpileOnly
 import { Command } from 'commander'
 import pkg from '../package.json'
 import run from './run'

@@ -5,7 +5,7 @@
   "main": "./ui/lib.js",
   "typings": "./global.d.ts",
   "bin": {
-    "antm-api": "./dist/bin.js"
+    "antm-api": "./src/bin.ts"
   },
   "publishConfig": {
     "access": "public",

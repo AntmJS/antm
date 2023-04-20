@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node
+#!/usr/bin/env ts-node --transpileOnly --transpiler ts-node/transpilers/swc
 import Webpack from 'webpack'
 import { WebpackConfiguration } from 'webpack-dev-server'
 import getPro from '../config/base'
