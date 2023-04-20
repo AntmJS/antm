@@ -1,4 +1,4 @@
-#!/usr/bin/env ts-node --transpileOnly
+#!/usr/bin/env ts-node --transpileOnly --transpiler ts-node/transpilers/swc
 import { Command } from 'commander'
 import pkg from '../package.json'
 import run from './run'

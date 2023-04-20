@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import Webpack, { Stats } from 'webpack'
 import * as ora from 'ora'
-import getPro from './webpack.pro.config.js'
+import getPro from './webpack.pro.config'
 
 const spinner = ora.default()
 

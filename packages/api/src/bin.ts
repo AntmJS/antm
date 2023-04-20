@@ -1,10 +1,10 @@
-#!/usr/bin/env ts-node --transpileOnly
+#!/usr/bin/env ts-node --transpileOnly --transpiler ts-node/transpilers/swc
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { Command } from 'commander'
-import watch from './watch.js'
-import build from './build.js'
-import file from './file.js'
-import swagger from './swagger/index.js'
+import watch from './watch'
+import build from './build'
+import file from './file'
+import swagger from './swagger/index'
 
 const program = new Command()
 

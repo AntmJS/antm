@@ -2,7 +2,7 @@ import path from 'path'
 import htmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import autoprefixer from 'autoprefixer'
-import getConfig from './getConfig.js'
+import getConfig from './getConfig'
 
 const { buildPath } = getConfig()
 const cwd = process.cwd()

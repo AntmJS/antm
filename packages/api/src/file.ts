@@ -5,11 +5,11 @@ import * as ora from 'ora'
 import glob from 'glob'
 import * as prettier from 'prettier'
 import { watch } from 'chokidar'
-import parser from './parser.js'
-import log from './log.js'
-import getConfig from './config/getConfig.js'
-import { createDefaultModel } from './create-action/create.js'
-import { getPrettierConfig } from './config/getPrettierConfig.js'
+import parser from './parser'
+import log from './log'
+import getConfig from './config/getConfig'
+import { createDefaultModel } from './create-action/create'
+import { getPrettierConfig } from './config/getPrettierConfig'
 
 const spinner = ora.default()
 const CWD = process.cwd()

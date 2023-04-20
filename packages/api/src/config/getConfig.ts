@@ -1,7 +1,7 @@
 import { join } from 'path'
 import fs from 'fs'
 import { IApiConfig } from '@antmjs/types'
-import log from '../log.js'
+import log from '../log'
 
 let ifWarned = false
 

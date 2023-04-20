@@ -1,5 +1,5 @@
 import { join } from 'path'
-import getConfig from './getConfig.js'
+import getConfig from './getConfig'
 
 const apiConfig = getConfig()
 const { port } = apiConfig?.['mock'] || {}

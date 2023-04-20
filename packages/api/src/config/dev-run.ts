@@ -2,8 +2,8 @@ import path from 'path'
 // eslint-disable-next-line import/no-named-as-default
 import webpack from 'webpack'
 import Server from 'webpack-dev-server'
-import getBase from './webpack.base.config.js'
-import getConfig from './getConfig.js'
+import getBase from './webpack.base.config'
+import getConfig from './getConfig'
 
 const { buildPort } = getConfig()
 

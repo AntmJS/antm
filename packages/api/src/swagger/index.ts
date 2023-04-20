@@ -1,8 +1,8 @@
-import getConfig from '../config/getConfig.js'
-import log from '../log.js'
+import getConfig from '../config/getConfig'
+import log from '../log'
 import file from '../file'
-import { transform } from './transform.js'
-import { fetchData } from './fetch.js'
+import { transform } from './transform'
+import { fetchData } from './fetch'
 
 type Iprops = {
   url?: string

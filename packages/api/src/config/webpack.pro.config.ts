@@ -1,4 +1,4 @@
-import getBase from './webpack.base.config.js'
+import getBase from './webpack.base.config'
 
 export default async function getPro() {
   const baseConfig = await getBase()

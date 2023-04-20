@@ -2,10 +2,10 @@
 import path_ from 'path'
 import * as ora from 'ora'
 import nodemon from 'nodemon'
-import runDev from './config/dev-run.js'
-import log from './log.js'
-import file from './file.js'
-import getConfig from './config/getConfig.js'
+import runDev from './config/dev-run'
+import log from './log'
+import file from './file'
+import getConfig from './config/getConfig'
 
 type Iprops = {
   path?: string

@@ -5,8 +5,8 @@ import * as prettier from 'prettier'
 import { mock } from 'mockjs'
 import deepMerge from 'deepmerge'
 import * as ora from 'ora'
-import log from '../log.js'
-import getConfig from '../config/getConfig.js'
+import log from '../log'
+import getConfig from '../config/getConfig'
 
 const apiConfig = getConfig()
 const {

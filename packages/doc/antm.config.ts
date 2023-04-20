@@ -7,6 +7,7 @@ export default defineConfig({
   docs: {
     title: 'antm.js Doc',
     src: path.resolve(process.cwd(), './docs'),
+    buildPort: 7676,
     globalStyles: [path.resolve(process.cwd(), './theme.less')],
     logo: 'https://fastly.jsdelivr.net/npm/@vant/assets/logo.png',
     route: {

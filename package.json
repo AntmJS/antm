@@ -98,8 +98,8 @@
     "release:beta": "lerna publish --force-publish=* --exact --skip-temp-tag  --preid=beta --npm-tag=beta",
     "test": "npx lerna run test",
     "prepare": "husky install",
-    "docs:start": "npx ts-node ./packages/doc/scripts/start",
-    "docs:build": "npx ts-node ./packages/doc/scripts/build",
+    "docs:start": "npx ts-node ./packages/doc/scripts/run.ts --transpileOnly --transpiler ts-node/transpilers/swc",
+    "docs:build": "npx ts-node ./packages/doc/scripts/build.ts --transpileOnly --transpiler ts-node/transpilers/swc",
     "release:doc": "yarn docs:build && npx gh-pages -d doc_build -e ./main",
     "release": "npm-run-all build release:lerna && npm run changelog && node ./pullRequest.js"
   },

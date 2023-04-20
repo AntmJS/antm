@@ -3,10 +3,10 @@ import fs from 'fs'
 import prettier from 'prettier'
 import * as ora from 'ora'
 import { pinyin } from 'pinyin-pro'
-import log from '../log.js'
-import { getPrettierConfig } from '../config/getPrettierConfig.js'
-import { createTypeFileName } from './createTypeFileName.js'
-import versionCompatible from './versionCompatible.js'
+import log from '../log'
+import { getPrettierConfig } from '../config/getPrettierConfig'
+import { createTypeFileName } from './createTypeFileName'
+import versionCompatible from './versionCompatible'
 
 const typeNameCache: string[] = []
 let prettierConfig = {}

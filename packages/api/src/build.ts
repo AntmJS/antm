@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default */
-import build from './config/build.js'
-import file from './file.js'
-import getConfig from './config/getConfig.js'
+import build from './config/build'
+import file from './file'
+import getConfig from './config/getConfig'
 
 type Iprops = {
   path: string

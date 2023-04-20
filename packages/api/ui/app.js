@@ -1,7 +1,7 @@
 import React, { version } from 'react'
 import { createRoot } from 'react-dom/client'
 import { render } from 'react-dom'
-import { ApiUi } from './api-ui.js'
+import { ApiUi } from './api-ui'
 /** API_DATA_IMPORT */
 import './app.less'
 
