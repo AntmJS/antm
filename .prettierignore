@@ -16,6 +16,7 @@
 LICENSE
 
 node_modules
+**_build
 packages/**/coverage
 packages/**/dist
 packages/**/lib

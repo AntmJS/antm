@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unknown-property */
 // @ts-ignore
 import React, {
   useState,

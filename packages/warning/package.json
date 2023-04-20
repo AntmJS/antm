@@ -2,9 +2,9 @@
   "name": "@antmjs/warning",
   "version": "2.3.1",
   "description": "指定文件，在git commit提交的时候，将文件更改内容通知到微信、钉钉、飞书等聊天群或者发送到指定的邮箱",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "bin": {
-    "antm-warning": "npx ts-node ./src/index.ts"
+    "antm-warning": "dist/index.js"
   },
   "keywords": [
     "antmjs",
@@ -27,7 +27,10 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "test": "npx ts-node ./src/index.ts"
+    "watch": "rm -rf dist && npx tsc -p tsconfig.cjs.json --watch --sourceMap",
+    "build": "rm -rf dist && npx tsc -p tsconfig.cjs.json",
+    "test:watch": "",
+    "test": ""
   },
   "dependencies": {
     "chalk": "^4.1.2",
