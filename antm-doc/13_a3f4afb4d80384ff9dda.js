@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkantmjs_doc=self.webpackChunkantmjs_doc||[]).push([[13],{13:function(e,n,t){t.r(n),n.default={quick:t.e(814).then(t.bind(t,814)),introduce:t.e(480).then(t.bind(t,480)),style:t.e(233).then(t.bind(t,233)),route:t.e(47).then(t.bind(t,47)),base:t.e(586).then(t.bind(t,586)),"markdown-expand":t.e(547).then(t.bind(t,547))}}}]);
