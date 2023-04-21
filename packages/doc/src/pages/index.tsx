@@ -117,7 +117,7 @@ const Docs = function Docs({
       const rect = section.getBoundingClientRect()
       if (
         rect.top >= 0 &&
-        rect.bottom - rect.height <= window.innerHeight * 0.5
+        rect.bottom - rect.height <= window.innerHeight * 0.2
       ) {
         navActive = i
       }
