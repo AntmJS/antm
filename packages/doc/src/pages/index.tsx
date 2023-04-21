@@ -11,7 +11,6 @@ import classNames from 'classnames'
 import MarkdownBox from '../components/markdown/index'
 import { routerEvent } from '../utils/history'
 import { UrlConext } from '../context'
-import { useDepsTimeout, usePersistFn } from '../hooks'
 import { scrollToTargetParent } from '../utils/common'
 
 import './index.less'
@@ -34,10 +33,8 @@ const Docs = function Docs({
   const [md, setMd] = useState(historyMd)
   const [currentUrl, setCurrentUrl] = useContext(UrlConext)
   const [rightNavs, setRightNavs] = useState([])
-  const [mdRects, setMdRects] = useState<
-    { id: string; top: number; height: number }[]
-  >([])
   const [navShow, setNavShow] = useState(false)
+  const [navActive, setNavActive] = useState(0)
 
   useLayoutEffect(() => {
     if (markdownMain) {
@@ -83,27 +80,6 @@ const Docs = function Docs({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const getAllMdRects = usePersistFn(() => {
-    const cards = document.querySelectorAll('.antm-docs-markdown .card')
-    const h3s = document.querySelectorAll('.antm-docs-markdown .card>h3')
-    if (cards && cards.length) {
-      for (let i = 0; i < cards.length; i++) {
-        const d = cards[i]
-
-        if (d) {
-          const rect = d.getBoundingClientRect()
-          mdRects.push({
-            id: h3s[i]?.id ? decodeURIComponent(h3s[i]?.id || '') : '',
-            top: d?.['offsetTop'] || 0,
-            height: rect.height,
-          })
-        }
-      }
-    }
-
-    setMdRects([...mdRects])
-  })
-
   const mdChange = (markdownMain) => {
     let pathName =
       routerType === 'hash' ? location.hash.replace('#', '') : location.pathname
@@ -111,7 +87,6 @@ const Docs = function Docs({
     pathName =
       pathName.replace(/^\//, '').replace(/\//g, '__').split('?')[0] || ''
     const docs = markdownMain[pathName]
-    setMdRects([])
     setRightNavs([])
     if (docs) {
       docs.then((res) => {
@@ -126,16 +101,34 @@ const Docs = function Docs({
     }
   }
 
-  useDepsTimeout(
-    rightNavs.length ? getAllMdRects : () => {},
-    [rightNavs],
-    33.33,
-  )
-
   const targetChange = (t) => {
     routerEvent.switch(`${currentUrl}?target=${t}`)
     scrollToTargetParent(encodeURIComponent(t))
   }
+
+  const handleScroll = () => {
+    const contentSections = document.querySelectorAll(
+      '.antm-docs-markdown .card',
+    )
+
+    let navActive = NaN
+
+    contentSections.forEach((section, i) => {
+      const rect = section.getBoundingClientRect()
+      if (
+        rect.top >= 0 &&
+        rect.bottom - rect.height <= window.innerHeight * 0.5
+      ) {
+        navActive = i
+      }
+    })
+
+    if (!isNaN(navActive)) setNavActive(navActive)
+  }
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll)
+  }, [])
 
   return (
     <>
@@ -179,9 +172,11 @@ const Docs = function Docs({
             )}
           >
             <div className="antm-doc-right-navs-title">本页目录</div>
-            {rightNavs.map((item) => (
+            {rightNavs.map((item, i) => (
               <div
-                className={`antm-doc-right-nav `}
+                className={`antm-doc-right-nav ${
+                  navActive === i ? 'antm-doc-right-nav-active' : ''
+                }`}
                 key={`doc-right-navs${item}`}
                 onClick={() => targetChange(item)}
               >
