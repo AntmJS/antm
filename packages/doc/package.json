@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/doc",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "description": "PC端在线文档构建工具",
   "main": "index.js",
   "types": "./types/index.d.ts",
@@ -40,6 +40,8 @@
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.21.0",
     "@babel/preset-typescript": "^7.21.4",
+    "@swc/core": "^1.3.52",
+    "@swc/wasm": "^1.3.52",
     "@types/react-dom": "^18.0.11",
     "autoprefixer": "^10.4.14",
     "babel-loader": "^9.1.2",
@@ -58,9 +60,7 @@
     "react-dom": "^18.2.0",
     "react-hot-toast": "^2.4.0",
     "webpack": "^5.78.0",
-    "webpack-dev-server": "^4.13.2",
-    "@swc/core": "^1.3.52",
-    "@swc/wasm": "^1.3.52"
+    "webpack-dev-server": "^4.13.2"
   },
   "devDependencies": {
     "@types/classnames": "^2.3.1"
