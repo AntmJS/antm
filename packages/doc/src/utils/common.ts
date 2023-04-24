@@ -7,6 +7,10 @@ export function scrollToTargetParent(target) {
   window.scrollTo(0, parentTop ? parentTop - 20 : 0)
 }
 
+export function formatPkgName(name) {
+  return name.replace(/\@/g, '').replace(/\//g, '-')
+}
+
 export function copyToClipboard(str) {
   const el = document.createElement('textarea')
   el.value = str

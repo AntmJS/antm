@@ -3,14 +3,23 @@ import type { IDocsConfig } from '../../../types/index'
 // @ts-ignore
 import React, { useState, useEffect } from 'react'
 // @ts-ignore
+import pkg from 'CWD/package.json'
 import Page from '../../pages/index'
-import { preCls, scrollToTargetParent, JSONparse } from '../../utils/common'
+import {
+  preCls,
+  scrollToTargetParent,
+  JSONparse,
+  formatPkgName,
+} from '../../utils/common'
 import { UrlConext } from '../../context'
 import './index.less'
 import { usePersistFn } from '../../hooks'
 import Header from '../header'
 import Menu from '../menu'
 import { Example } from '../example'
+// @ts-ignore
+
+const pkgName = formatPkgName(pkg.name)
 
 export default function PageLayout() {
   const [docsConfig, setDocsConfig] = useState<IDocsConfig>()
@@ -21,9 +30,9 @@ export default function PageLayout() {
   const initLoadDoc = usePersistFn(async () => {
     const [_docsConfig, _markdownMain] = await Promise.all([
       // @ts-ignore
-      import('../../.temp/antm-doc/all-config.js'),
+      import(`../../.temp/${pkgName}/all-config.js`),
       // @ts-ignore
-      import('../../.temp/antm-doc/markdown-main.js'),
+      import(`../../.temp/${pkgName}/markdown-main.js`),
     ])
     setDocsConfig(JSONparse(_docsConfig.default.config) as IDocsConfig)
     setMarkdownMain(_markdownMain.default)

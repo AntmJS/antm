@@ -29,13 +29,16 @@ export default async function base() {
     stats: 'normal',
 
     resolve: {
+      alias: {
+        CWD: CWD,
+      },
       extensions: ['.js', '.json', '.tsx', '.ts'],
     },
 
     module: {
       rules: [
         {
-          test: /\.js|.ts|.tsx$/,
+          test: /.ts|.tsx$/,
           loader: 'babel-loader',
           exclude: /node_modules\/(?!@antmjs\/doc)/,
           options: {

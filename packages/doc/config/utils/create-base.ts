@@ -5,15 +5,14 @@ import hljs from 'highlight.js'
 import { watch } from 'chokidar'
 import { glob } from 'glob'
 import { IDocsConfig } from '../../types'
-import {
-  TEMP_DIR,
-  ANTM_TEMP_DIR,
-  CONFIG_PATH,
-  ALL_CONFIG,
-  MARKDOWN_MAIN,
-  CWD,
-} from './contanst'
+import { TEMP_DIR, CONFIG_PATH, CWD } from './contanst'
 import { getConfig } from './get-config'
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const currentPkgName = require(join(CWD, './package.json'))?.name
+let ANTM_TEMP_DIR = ''
+let MARKDOWN_MAIN = ''
+let ALL_CONFIG = ''
 
 const extraEntrys = {}
 let inited = false
@@ -32,6 +31,8 @@ export async function createBase(config: IDocsConfig) {
   _level = level
   _src = Array.isArray(src) && src ? src : [src]
   _config = config
+
+  getTempNames()
 
   let MD_PATHS: string[] = []
 
@@ -73,6 +74,20 @@ export async function createBase(config: IDocsConfig) {
     lessAdditionalData,
   }
 }
+
+/**
+ * 根据各个项目的package.name生成临时文件路径
+ */
+function getTempNames() {
+  const pkgName = currentPkgName.replace(/\@/g, '').replace(/\//g, '-')
+
+  ANTM_TEMP_DIR = join(TEMP_DIR, `${pkgName}`)
+
+  MARKDOWN_MAIN = join(ANTM_TEMP_DIR, './markdown-main.js')
+
+  ALL_CONFIG = join(ANTM_TEMP_DIR, `all-config.js`)
+}
+
 /**
  * 创建markdownjs文件
  * @param mp markdown文件的路径
@@ -132,6 +147,7 @@ async function createBaseConfig(config?) {
   writeFileSync(
     ALL_CONFIG,
     `export default {
+      
       config: ${JSON.stringify(config, function (_, val) {
         if (typeof val === 'function') {
           return val.toString()
