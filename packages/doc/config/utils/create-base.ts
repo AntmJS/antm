@@ -342,7 +342,6 @@ function createSearchJson(mdPaths) {
     const title = '`' + getTitleFromMd(mdstr) + '`'
     const ast = mdAst.parse(mdstr).children
     for (let j = 0; j < ast.length; j++) {
-      index++
       const aa = ast[j]
       const item: any = {
         routePath: `${routePath}@${index}`,
@@ -350,7 +349,10 @@ function createSearchJson(mdPaths) {
         doc: aa,
         belongMenu: findBelongMenu(routePath),
       }
-      const mdType = aa.type
+      let mdType = aa.type
+      if (mdType === 'Header') {
+        mdType = `H${aa.depth}`
+      }
       if (mdTypeMap[routePath][mdType] === undefined) {
         mdTypeMap[routePath][mdType] = 0
       } else {
@@ -360,6 +362,7 @@ function createSearchJson(mdPaths) {
       item.mdTypeIndex = mdTypeMap[routePath][mdType]
 
       result.push(item)
+      index++
     }
   }
 
@@ -372,7 +375,7 @@ function findBelongMenu(path) {
     const items = menu[i]?.items || []
     for (let j = 0; j < items.length; j++) {
       if (items[j]?.path === path) {
-        return menu[i]
+        return items[j]
       }
     }
   }

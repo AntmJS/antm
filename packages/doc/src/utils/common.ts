@@ -54,8 +54,6 @@ export function getSimulatorUrl(simulator: IDocSimulator, currentUrl: string) {
     path = simulator.transform(currentUrl)
   }
 
-  console.info(`${domain}${path}`)
-
   return `${domain}${path}`
 }
 
@@ -79,7 +77,6 @@ function sandBox(value) {
 }
 
 export function JSONparse(target) {
-  console.info(target, 'target')
   return JSON.parse(JSON.stringify(target), function (_, val) {
     if (
       /^function\s*\(.*\)\s*{/.test(val) ||
