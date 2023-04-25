@@ -12,10 +12,7 @@ import MarkdownBox from '../components/markdown/index'
 import { routerEvent } from '../utils/history'
 import { UrlConext } from '../context'
 import { scrollToTargetParent } from '../utils/common'
-
 import './index.less'
-
-let historyMd = ''
 
 type Iprops = {
   markdownMain: any
@@ -23,6 +20,10 @@ type Iprops = {
   simulator: boolean
   firstPage?: string
 }
+
+const MARKDOWN_QUORTA = '::::_QA'
+const MARKDOWN_AB = '::::_AB'
+let historyMd = ''
 
 const Docs = function Docs({
   markdownMain,
@@ -93,7 +94,11 @@ const Docs = function Docs({
         const result = res.default
         document.title = result.tile
         historyMd = result.docs
-        setMd(result.docs.replaceAll('::::', '`').replaceAll('::_::', '${'))
+        setMd(
+          result.docs
+            .replaceAll(MARKDOWN_QUORTA, '`')
+            .replaceAll(MARKDOWN_AB, '${'),
+        )
         setRightNavs(result.h3Ids.split(':::'))
       })
     } else if (firstPage) {

@@ -1,0 +1,124 @@
+/* stylelint-disable unit-no-unknown */
+/* stylelint-disable selector-max-type */
+@import url('../../var.less');
+
+.antm-doc-search {
+  &-btn-wrapper {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 18px;
+    cursor: pointer;
+
+    path {
+      fill: #ffffff;
+    }
+  }
+
+  &-mask {
+    width: 100vw;
+    height: 100vh;
+    /* stylelint-disable-next-line number-max-precision */
+    background-color: rgba(84, 84, 84, 0.7019607843);
+    z-index: @search-mask-zindex;
+    left: 0;
+    top: 0;
+    position: fixed;
+  }
+
+  &-modal {
+    position: fixed;
+    left: 50%;
+    top: 50px;
+    z-index: @search-zindex;
+    background-color: #f9f9f9;
+    padding: 20px;
+    width: 560px;
+    border-radius: 16px;
+    transform: translate(-50%);
+  }
+
+  &-input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 55px;
+    padding: 0 12px;
+    background-color: #ffffff;
+    border: 1px solid @primary-color;
+    border-radius: 12px;
+
+    input {
+      flex: 1 1;
+      padding-left: 8px;
+      height: 100%;
+      width: 80%;
+      background-color: #ffffff;
+      font-weight: 500;
+      font-size: 20px;
+      border: none;
+      outline: none;
+    }
+
+    path {
+      fill: #8e8e8e;
+    }
+  }
+
+  &-result {
+    max-height: 440px;
+    overflow-y: scroll;
+    margin-top: 20px;
+
+    .result-nav {
+      color: @primary-color;
+      font-size: 13px;
+      font-weight: 600;
+      padding-top: 6px;
+      padding-bottom: 6px;
+    }
+
+    &-rows {
+      margin-bottom: 12px;
+    }
+
+    .row {
+      box-sizing: border-box;
+      margin: 5px 2px;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 1px 3px 0#d4d9e1;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      max-height: 120px;
+      overflow: hidden;
+
+      .md-content {
+        padding: 6px 8px;
+        font-size: 14px;
+        line-height: 1.5;
+        width: 100%;
+      }
+
+      * {
+        font-size: 13px !important;
+      }
+
+      &:hover {
+        background-color: @primary-color;
+
+        svg path {
+          fill: #ffffff !important;
+        }
+
+        * {
+          color: #ffffff;
+        }
+      }
+    }
+  }
+}

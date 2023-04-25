@@ -17,7 +17,6 @@ import { usePersistFn } from '../../hooks'
 import Header from '../header'
 import Menu from '../menu'
 import { Example } from '../example'
-// @ts-ignore
 
 const pkgName = formatPkgName(pkg.name)
 

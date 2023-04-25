@@ -4,14 +4,22 @@ import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 import { watch } from 'chokidar'
 import { glob } from 'glob'
-import { IDocsConfig } from '../../types'
-import { TEMP_DIR, CONFIG_PATH, CWD } from './contanst'
+import mdAst from 'markdown-to-ast'
+import { IDocsConfig, IDocMenuNavs } from '../../types'
+import {
+  TEMP_DIR,
+  CONFIG_PATH,
+  CWD,
+  MARKDOWN_QUORTA,
+  MARKDOWN_AB,
+} from './contanst'
 import { getConfig } from './get-config'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const currentPkgName = require(join(CWD, './package.json'))?.name
 let ANTM_TEMP_DIR = ''
 let MARKDOWN_MAIN = ''
+let SEARCH_JSON = ''
 let ALL_CONFIG = ''
 
 const extraEntrys = {}
@@ -59,6 +67,7 @@ export async function createBase(config: IDocsConfig) {
   }
   createMarkdownMain(moduleFilePaths)
   createBaseConfig(_config)
+  createSearchJson(mdPaths)
 
   if (process.env['NODE_ENV'] === 'development') {
     console.info('watch files success')
@@ -86,6 +95,8 @@ function getTempNames() {
   MARKDOWN_MAIN = join(ANTM_TEMP_DIR, './markdown-main.js')
 
   ALL_CONFIG = join(ANTM_TEMP_DIR, `all-config.js`)
+
+  SEARCH_JSON = join(ANTM_TEMP_DIR, 'all-search.json')
 }
 
 /**
@@ -112,13 +123,13 @@ function unitWork(mp) {
   extraEntrys[routeName] = moduleFilePath
   const res = markdownCardWrapper(Markdown.render(mdstr))
   const docs =
-    '`' + `${res.html.replace(/\`/g, '::::').replace(/\$\{/g, '::_::')}` + '`'
+    '`' +
+    `${res.html
+      .replace(/\`/g, MARKDOWN_QUORTA)
+      .replace(/\$\{/g, MARKDOWN_AB)}` +
+    '`'
   const h3Ids = '`' + res.h3Ids.join(':::') + '`'
-  let title = '`' + getTitleFromMd(mdstr) + '`'
-  // 不是标准大标题时
-  if (title.includes('<')) {
-    title = '`' + _config.title + '`'
-  }
+  const title = '`' + getTitleFromMd(mdstr) + '`'
   console.info(`生成临时文件： ${moduleFilePath}`)
 
   writeFileSync(
@@ -126,7 +137,7 @@ function unitWork(mp) {
     `export default {
       tile: ${title},
       docs: ${docs},
-      h3Ids: ${h3Ids}
+      h3Ids: ${h3Ids},
     }`,
   )
 
@@ -229,7 +240,13 @@ function getRoutePath(ps: string): string {
  * @returns
  */
 function getTitleFromMd(md: string) {
-  const firstLine = md.split(`\n`)[0] || ''
+  let firstLine = md.split(`\n`)[0] || ''
+
+  // 不是标准大标题时
+  if (firstLine.includes('<')) {
+    firstLine = '`' + _config.title + '`'
+  }
+
   return firstLine.replace('# ', '')
 }
 /**
@@ -311,4 +328,54 @@ const resolveWindowsPath = (path: string) => {
     return path.replace(/\\/g, '/')
   }
   return path
+}
+
+function createSearchJson(mdPaths) {
+  const mdTypeMap = {}
+  const result: any[] = []
+  let index = 0
+  for (let i = 0; i < mdPaths.length; i++) {
+    const p = mdPaths[i]
+    const mdstr = readFileSync(p, 'utf-8')
+    const routePath = getRoutePath(p).replace('__', '/')
+    if (!mdTypeMap[routePath]) mdTypeMap[routePath] = {}
+    const title = '`' + getTitleFromMd(mdstr) + '`'
+    const ast = mdAst.parse(mdstr).children
+    for (let j = 0; j < ast.length; j++) {
+      index++
+      const aa = ast[j]
+      const item: any = {
+        routePath: `${routePath}@${index}`,
+        title,
+        doc: aa,
+        belongMenu: findBelongMenu(routePath),
+      }
+      const mdType = aa.type
+      if (mdTypeMap[routePath][mdType] === undefined) {
+        mdTypeMap[routePath][mdType] = 0
+      } else {
+        mdTypeMap[routePath][mdType] += 1
+      }
+
+      item.mdTypeIndex = mdTypeMap[routePath][mdType]
+
+      result.push(item)
+    }
+  }
+
+  writeFileSync(SEARCH_JSON, JSON.stringify(result))
+}
+
+function findBelongMenu(path) {
+  const menu = _config?.menu as IDocMenuNavs
+  for (let i = 0; i < menu.length; i++) {
+    const items = menu[i]?.items || []
+    for (let j = 0; j < items.length; j++) {
+      if (items[j]?.path === path) {
+        return menu[i]
+      }
+    }
+  }
+
+  return {}
 }

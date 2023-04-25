@@ -2,6 +2,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { preCls } from '../../utils/common'
 import { IDocheaderLinks } from '../../../types'
+import Search from '../search'
 import './index.less'
 
 type Iprops = {
@@ -51,6 +52,7 @@ export default function Header(props: Iprops) {
 
         <div className={`${pCls}-right`}>
           <div className={`${pCls}-navs-box`}>
+            <Search />
             {(links || []).map((item, index) => (
               <div className={`${pCls}-nav`} key={`${pCls}-nav${index}`}>
                 {item.type === 'img' && (
