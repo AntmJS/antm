@@ -10,7 +10,7 @@
   },
   "scripts": {
     "start": "npx ts-node --transpileOnly --transpiler ts-node/transpilers/swc  ./scripts/run",
-    "build": "npx ts-node --transpileOnly --transpiler ts-node/transpilers/swc ./scripts/build",
+    "build": "rm -rf doc_build && npx ts-node --transpileOnly --transpiler ts-node/transpilers/swc ./scripts/build",
     "release": "npx gh-pages -d ./doc_build -e ./antm-doc"
   },
   "publishConfig": {

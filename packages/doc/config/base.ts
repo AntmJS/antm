@@ -11,11 +11,15 @@ export default async function base() {
   const base = result.docs
   const { extraEntrys, lessAdditionalData } = await createBase(base)
 
+  console.info('额外入口文件', extraEntrys)
+
   const config = {
     entry: {
       ...extraEntrys,
       index: path.join(__dirname, '../src/index.tsx'),
     },
+
+    mode: process.env['NODE_ENV'],
 
     output: {
       path: path.join(CWD, base.output || 'doc_build'),
