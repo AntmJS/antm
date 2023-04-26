@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_antmjs_doc=self.webpackChunk_antmjs_doc||[]).push([[7128],{7128:function(e,n,t){t.r(n),n.default={quick:t.e(4284).then(t.bind(t,4284)),introduce:t.e(1208).then(t.bind(t,1208)),style:t.e(8907).then(t.bind(t,8907)),route:t.e(5904).then(t.bind(t,5904)),base:t.e(7732).then(t.bind(t,7732)),"markdown-expand":t.e(9072).then(t.bind(t,9072))}}}]);
