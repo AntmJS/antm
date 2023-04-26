@@ -20,6 +20,7 @@ const mdTypeToTag = {
   Table: 'table',
   Paragraph: 'p',
   CodeBlock: 'code',
+  BlockQuote: 'blockquote',
   H1: 'h1',
   H2: 'h2',
   H3: 'h3',
@@ -55,6 +56,7 @@ export default function Search(props: Iprops) {
     }
     const tagType = mdTypeToTag[mdType]
     console.info(docTarget)
+
     setTimeout(() => {
       if (tagType) {
         const tt = document.querySelectorAll(`.antm-docs-markdown ${tagType}`)[
@@ -101,10 +103,6 @@ export default function Search(props: Iprops) {
   }
 
   useEffect(() => {
-    if (!show) {
-      setWords('')
-      setSearchWords('')
-    }
     if (show) {
       inputRef.current?.focus()
     }
@@ -127,7 +125,13 @@ export default function Search(props: Iprops) {
                 value={words}
                 onChange={handleInput}
               />
-              <ClearIcon onClick={() => setWords('')} />
+              <ClearIcon
+                onClick={() => {
+                  setWords('')
+                  setResult({})
+                  setSearchWords('')
+                }}
+              />
             </div>
             {loading && (
               <div className="loading-wrapper">
@@ -138,8 +142,7 @@ export default function Search(props: Iprops) {
               <div className="empty-wrapper">
                 <EmptyIcon />
                 <div className="empty-tips">
-                  未找到关于<span> &ldquo;{searchWords} &ldquo;</span>{' '}
-                  的搜索结果
+                  未找到关于<span> &ldquo;{searchWords} &ldquo;</span>的搜索结果
                 </div>
               </div>
             )}
@@ -149,7 +152,9 @@ export default function Search(props: Iprops) {
                   const item = result[key]
                   return (
                     <div key={`seatch-result-rows${i}`}>
-                      <div className="result-nav">{key}</div>
+                      <div className="result-nav">
+                        {key === 'undefined' ? '--' : key}
+                      </div>
                       <div className="result-rows">
                         {item.map((it, index) => (
                           <div
@@ -159,15 +164,24 @@ export default function Search(props: Iprops) {
                           >
                             <PageIcon />
                             <div className="md-content-wrapper">
+                              {it.currentH3Title &&
+                                it.doc.type !== 'Header' &&
+                                it.doc.depth !== 3 && (
+                                  <h3 className="currentH3Title">
+                                    {it.currentH3Title}&nbsp;
+                                  </h3>
+                                )}
                               <div className="md-content">
                                 <div
                                   dangerouslySetInnerHTML={{
-                                    __html: Markdown.render(it.doc.raw),
+                                    __html: Markdown.render(
+                                      cutMarkdownRaw(it.doc, searchWords),
+                                    ),
                                   }}
                                 ></div>
                               </div>
                             </div>
-                            <LinkIcon />
+                            <LinkIcon className="link-icon" />
                           </div>
                         ))}
                       </div>
@@ -181,4 +195,39 @@ export default function Search(props: Iprops) {
       )}
     </>
   )
+}
+
+function cutMarkdownRaw(doc, query) {
+  const { raw, type } = doc
+  if (raw.includes('\n')) {
+    const arr = raw.split('\n')
+    if (type === 'CodeBlock') {
+      arr.splice(arr.length - 1, 1)
+      arr.splice(0, 1)
+    }
+    let matchIndex = 0
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i].includes(query)) {
+        matchIndex = i
+        arr[i] = arr[i].replace(
+          query,
+          `<span class='primary-color'>${query}</span>`,
+        )
+        break
+      }
+    }
+
+    return arr
+      .slice(matchIndex - 3 < 0 ? 0 : matchIndex - 3, matchIndex + 3)
+      .map((item) => {
+        return `<div>${item}</div>`
+      })
+      .join('')
+  } else {
+    const matchIndex = raw.indexOf(query)
+    const start = matchIndex - 40
+    return raw
+      .substring(start > 0 ? start : 0, matchIndex + 40)
+      .replace(query, `<span class='primary-color'>${query}</span>`)
+  }
 }

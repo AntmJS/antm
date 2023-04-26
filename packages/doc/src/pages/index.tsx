@@ -12,6 +12,7 @@ import MarkdownBox from '../components/markdown/index'
 import { routerEvent } from '../utils/history'
 import { UrlConext } from '../context'
 import { scrollToTargetParent } from '../utils/common'
+import { BackToTopIcon } from '../components/search/icons'
 import './index.less'
 
 type Iprops = {
@@ -36,6 +37,7 @@ const Docs = function Docs({
   const [rightNavs, setRightNavs] = useState([])
   const [navShow, setNavShow] = useState(false)
   const [navActive, setNavActive] = useState(0)
+  const [backTopBtnShow, setbackTopBtnShow] = useState(false)
 
   useLayoutEffect(() => {
     if (markdownMain) {
@@ -112,6 +114,11 @@ const Docs = function Docs({
   }
 
   const handleScroll = () => {
+    if (window.scrollY > 200) {
+      setbackTopBtnShow(true)
+    } else {
+      setbackTopBtnShow(false)
+    }
     const contentSections = document.querySelectorAll(
       '.antm-docs-markdown .card',
     )
@@ -120,7 +127,12 @@ const Docs = function Docs({
 
     contentSections.forEach((section, i) => {
       const rect = section.getBoundingClientRect()
-      if (rect.y >= 0 && isNaN(navActive)) {
+      if (
+        rect.y >= 0 &&
+        isNaN(navActive) &&
+        rect.bottom > 0 &&
+        rect.bottom < document.documentElement.offsetHeight * 30
+      ) {
         navActive = i
       }
     })
@@ -187,6 +199,12 @@ const Docs = function Docs({
             ))}
           </div>
         </div>
+      )}
+      {backTopBtnShow && (
+        <BackToTopIcon
+          className="backToTopIcon"
+          onClick={() => window.scrollTo(0, 0)}
+        ></BackToTopIcon>
       )}
     </>
   )

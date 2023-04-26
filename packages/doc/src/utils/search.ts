@@ -15,6 +15,7 @@ const documentIndex = new Document({
 })
 
 export async function init() {
+  // @ts-ignore
   searchData = (await import(`../.temp/${pkgName}/all-search.json`)).default
 
   searchData.map((item) => {

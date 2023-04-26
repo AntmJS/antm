@@ -129,7 +129,7 @@ function unitWork(mp) {
       .replace(/\$\{/g, MARKDOWN_AB)}` +
     '`'
   const h3Ids = '`' + res.h3Ids.join(':::') + '`'
-  const title = '`' + getTitleFromMd(mdstr) + '`'
+  const title = '`' + getTitleFromMd(mdstr, routeName.replace('__', '/')) + '`'
   console.info(`生成临时文件： ${moduleFilePath}`)
 
   writeFileSync(
@@ -239,15 +239,19 @@ function getRoutePath(ps: string): string {
  * @param md
  * @returns
  */
-function getTitleFromMd(md: string) {
+function getTitleFromMd(md: string, routePath) {
   let firstLine = md.split(`\n`)[0] || ''
 
   // 不是标准大标题时
   if (firstLine.includes('<')) {
     firstLine = '`' + _config.title + '`'
   }
+  // 没有h1标题的时候从菜单里面获取
+  if (!firstLine) {
+    firstLine = getTitleFromMenu(routePath)
+  }
 
-  return firstLine.replace('# ', '')
+  return firstLine.replace(/\#/g, '').replace(/\s/g, '').replace(/\`/g, '')
 }
 /**
  * 监听各个文件的变化
@@ -339,8 +343,9 @@ function createSearchJson(mdPaths) {
     const mdstr = readFileSync(p, 'utf-8')
     const routePath = getRoutePath(p).replace('__', '/')
     if (!mdTypeMap[routePath]) mdTypeMap[routePath] = {}
-    const title = '`' + getTitleFromMd(mdstr) + '`'
+    const title = '`' + getTitleFromMd(mdstr, routePath) + '`'
     const ast = mdAst.parse(mdstr).children
+    let currentH3Title = ''
     for (let j = 0; j < ast.length; j++) {
       const aa = ast[j]
       const item: any = {
@@ -351,6 +356,7 @@ function createSearchJson(mdPaths) {
       }
       let mdType = aa.type
       if (mdType === 'Header') {
+        if (aa.depth === 3) currentH3Title = aa.raw.replace('### ', '')
         mdType = `H${aa.depth}`
       }
       if (mdTypeMap[routePath][mdType] === undefined) {
@@ -360,6 +366,7 @@ function createSearchJson(mdPaths) {
       }
 
       item.mdTypeIndex = mdTypeMap[routePath][mdType]
+      item.currentH3Title = currentH3Title
 
       result.push(item)
       index++
@@ -381,4 +388,17 @@ function findBelongMenu(path) {
   }
 
   return {}
+}
+
+function getTitleFromMenu(t) {
+  let res = ''
+  _config.menu.map((item) => {
+    item.items.map((a) => {
+      if (a.path === t) {
+        res = a.title
+      }
+    })
+  })
+
+  return res
 }
