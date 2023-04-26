@@ -46,13 +46,6 @@ export default function Search(props: Iprops) {
   const [searchWords, setSearchWords] = useState('')
   const inputRef = useRef<any>()
 
-  useEffect(() => {
-    requestIdleCallback(async () => {
-      await search.init()
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   const handlePage = (path, docTarget) => {
     setShow(false)
     routerEvent.switch(path, props.routeType)
@@ -62,15 +55,16 @@ export default function Search(props: Iprops) {
     }
     const tagType = mdTypeToTag[mdType]
     console.info(docTarget)
+    setTimeout(() => {
+      if (tagType) {
+        const tt = document.querySelectorAll(`.antm-docs-markdown ${tagType}`)[
+          docTarget.mdTypeIndex
+        ]
 
-    if (tagType) {
-      const tt = document.querySelectorAll(`.antm-docs-markdown ${tagType}`)[
-        docTarget.mdTypeIndex
-      ]
-
-      const rect = tt?.getClientRects() || []
-      window.scrollTo(0, rect[0]?.y ? rect[0]?.y - 50 : 0)
-    }
+        const rect = tt?.getClientRects() || []
+        window.scrollTo(0, rect[0]?.y ? rect[0]?.y - 50 : 0)
+      }
+    })
   }
 
   const handleSearch = useDebounce(
@@ -78,6 +72,7 @@ export default function Search(props: Iprops) {
       setSearchWords(words)
       if (!words) return
       setLoading(true)
+      await search.init()
       const res = await search.run(words)
       const result = {}
 

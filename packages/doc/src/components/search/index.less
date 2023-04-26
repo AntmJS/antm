@@ -1,3 +1,5 @@
+/* stylelint-disable keyframes-name-pattern */
+/* stylelint-disable no-descending-specificity */
 /* stylelint-disable unit-no-unknown */
 /* stylelint-disable selector-max-type */
 @import url('../../var.less');
@@ -39,7 +41,7 @@
     border-radius: 16px;
     transform: translate(-50%);
 
-    .loading-wrapper{
+    .loading-wrapper {
       width: 100%;
       padding: 30px;
       display: flex;
@@ -49,7 +51,8 @@
       svg path {
         fill: @primary-color !important;
       }
-      svg { 
+
+      svg {
         animation: SEARCH_LOADING 1s infinite linear;
       }
     }
@@ -64,6 +67,7 @@
 
       .empty-tips {
         margin-top: 12px;
+
         span {
           font-weight: 500;
         }
@@ -75,6 +79,7 @@
     0% {
       transform: rotateZ(0);
     }
+
     100% {
       transform: rotateZ(360deg);
     }

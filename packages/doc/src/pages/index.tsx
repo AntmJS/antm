@@ -120,10 +120,7 @@ const Docs = function Docs({
 
     contentSections.forEach((section, i) => {
       const rect = section.getBoundingClientRect()
-      if (
-        rect.top >= 0 &&
-        rect.bottom - rect.height <= window.innerHeight * 0.2
-      ) {
+      if (rect.y >= 0 && isNaN(navActive)) {
         navActive = i
       }
     })
