@@ -1,20 +1,21 @@
 // @ts-ignore
 // eslint-disable-next-line import/no-unresolved
 import pkg from 'CWD/package.json'
-import Document from 'flexsearch/src/document'
 import { formatPkgName } from '../utils/common'
 
 let searchData: any[] = []
 const pkgName = formatPkgName(pkg.name)
-const documentIndex = new Document({
-  tokenize: 'full',
-  document: {
-    id: 'routePath',
-    index: ['doc[]:raw'],
-  },
-})
+let documentIndex: any = {}
 
 export async function init() {
+  const flexsearchDoc = (await import('flexsearch/src/document')).default
+  documentIndex = new flexsearchDoc({
+    tokenize: 'full',
+    document: {
+      id: 'routePath',
+      index: ['doc[]:raw'],
+    },
+  })
   // @ts-ignore
   searchData = (await import(`../.temp/${pkgName}/all-search.json`)).default
 
