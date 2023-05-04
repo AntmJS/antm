@@ -10,6 +10,7 @@
   },
   "scripts": {
     "start": "npx ts-node --transpileOnly --transpiler ts-node/transpilers/swc  ./scripts/run",
+    "anlyze": "npx ts-node --transpileOnly --transpiler ts-node/transpilers/swc  ./scripts/anlyze",
     "build": "rm -rf doc_build && npx ts-node --transpileOnly --transpiler ts-node/transpilers/swc ./scripts/build",
     "release": "npx gh-pages -d ./doc_build -e ./antm-doc"
   },
@@ -66,6 +67,7 @@
     "webpack-dev-server": "^4.13.2"
   },
   "devDependencies": {
-    "@types/classnames": "^2.3.1"
+    "@types/classnames": "^2.3.1",
+    "webpack-bundle-analyzer": "^4.8.0"
   }
 }

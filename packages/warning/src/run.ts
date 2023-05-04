@@ -21,7 +21,7 @@ async function getAllConfig() {
       antmConfigWarning = {
         webhooks: antmConfig.warning.webhooks,
         email: antmConfig.warning.email,
-        monitorFiles: getGlobUrls(antmConfig.warning.monitorFiles),
+        monitorFiles: await getGlobUrls(antmConfig.warning.monitorFiles),
         branchs: antmConfig.branchs,
       }
     } else {
@@ -57,6 +57,8 @@ export default async function run(type, fnConfig = {}) {
     email: emailWarning,
   }
 
+  console.info(antmConfigWarning)
+
   return (...args) => {
     if (type === 'webhooks') {
       args[0] = Object.assign(antmConfigWarning.webhooks || {}, args[0] || {})
@@ -74,3 +76,5 @@ export default async function run(type, fnConfig = {}) {
     triggers[type](...args)
   }
 }
+
+run('webhooks')

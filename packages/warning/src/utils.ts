@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import cp from 'child_process'
 import chalk from 'chalk'
-import * as glob from 'glob'
+import anymatch from 'anymatch'
+import sgf from 'staged-git-files'
 
 /** git用户名 */
 function getUserInfo() {
@@ -51,20 +52,28 @@ function checkEmial(email) {
   return /^\w+@[a-z0-9]+\.[a-z]{2,4}$/.test(email)
 }
 
-/** 处理glob的文件路径 */
-function getGlobUrls(monitorFiles) {
-  const hasGlob = monitorFiles.some((item) => item.includes('*'))
-  if (!hasGlob) return monitorFiles
-  let notGlobItems = monitorFiles.filter((item) => !item.includes('*'))
-  const globItems = monitorFiles.filter((item) => item.includes('*'))
-  for (let i = 0; i < globItems.length; i++) {
-    const res = glob.sync(globItems[i], {
-      cwd: process.cwd(),
+/** gitAdd中符合glob的文件路径 */
+async function getGlobUrls(monitorFiles) {
+  const res = await sgf()
+
+  return res
+    .filter((item) => {
+      return anymatch(monitorFiles, item.filename)
     })
-    if (res && res.length) notGlobItems = notGlobItems.concat(res)
+    .map((item) => item.filename)
+}
+
+/** 获取commit信息 */
+function getCommitMessage() {
+  const { stdout, error } = cp.spawnSync('git', ['log', "--pretty='%s%b'"])
+  if (error) {
+    console.error(error)
+    process.exit(1)
   }
 
-  return notGlobItems
+  return `${stdout}` && `${stdout}`.length
+    ? `${stdout}`.match(/@@[\w\W]*$/)?.[0]
+    : ''
 }
 
 /** 信息打印 */
@@ -87,5 +96,6 @@ export {
   checkWebHooks,
   checkEmial,
   getGlobUrls,
+  getCommitMessage,
   log,
 }
