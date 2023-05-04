@@ -7,7 +7,11 @@ const CWD = process.cwd()
 
 export default defineConfig({
   warning: {
-    monitorFiles: ['./packages/**/package.json', './package.json'],
+    monitorFiles: [
+      './packages/**/package.json',
+      './package.json',
+      './packages/warning/*.js',
+    ],
     webhooks: {
       url: `https://oapi.dingtalk.com/robot/send?access_token=${require('./.webhooks.js')}`,
     },
