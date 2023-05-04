@@ -26,12 +26,6 @@
   },
   "author": "",
   "license": "MIT",
-  "scripts": {
-    "watch": "",
-    "build": "",
-    "test:watch": "",
-    "test": ""
-  },
   "dependencies": {
     "@swc/core": "^1.3.52",
     "@swc/wasm": "^1.3.52",

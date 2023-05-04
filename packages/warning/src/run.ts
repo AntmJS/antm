@@ -74,5 +74,3 @@ export default async function run(type, fnConfig = {}) {
     triggers[type](...args)
   }
 }
-
-run('webhooks')
