@@ -71,9 +71,7 @@ function getCommitMessage() {
     process.exit(1)
   }
 
-  return `${stdout}` && `${stdout}`.length
-    ? `${stdout}`.match(/@@[\w\W]*$/)?.[0]
-    : ''
+  return `${stdout}` && `${stdout}`.length ? `${stdout}`.split('\n')?.[0] : ''
 }
 
 /** 信息打印 */
