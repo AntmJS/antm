@@ -10,7 +10,7 @@ export default defineConfig({
     monitorFiles: [
       './packages/**/package.json',
       './package.json',
-      // './packages/warning/*.js',
+      './packages/warning/*.js',
     ],
     webhooks: {
       url: `https://oapi.dingtalk.com/robot/send?access_token=${require('./.webhooks.js')}`,
