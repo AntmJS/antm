@@ -57,8 +57,6 @@ export default async function run(type, fnConfig = {}) {
     email: emailWarning,
   }
 
-  console.info(antmConfigWarning)
-
   return (...args) => {
     if (type === 'webhooks') {
       args[0] = Object.assign(antmConfigWarning.webhooks || {}, args[0] || {})
