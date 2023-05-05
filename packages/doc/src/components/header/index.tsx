@@ -1,21 +1,27 @@
 // @ts-ignore
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { preCls } from '../../utils/common'
-import { IDocheaderLinks } from '../../../types'
+import { IDocheaderLinks, Ii18n } from '../../../types'
+import { LangConext, UrlConext } from '../../context'
 import Search from '../search'
 import './index.less'
+import { routerEvent } from '../../utils/history'
 
 type Iprops = {
   logo?: string
   title: string
   links?: IDocheaderLinks
+  i18n?: Ii18n
+  routes?: string[]
 }
 
 const pCls = `${preCls}-header`
 
 export default function Header(props: Iprops) {
-  const { title, logo, links } = props
+  const { title, logo, links, i18n, routes } = props
   const [selectShow, setSelectShow] = useState<string[]>([])
+  const [lang, setLang] = useContext(LangConext)
+  const [url] = useContext(UrlConext)
 
   const selectTrigger = useCallback(
     (e, item) => {
@@ -33,10 +39,48 @@ export default function Header(props: Iprops) {
   )
 
   useEffect(() => {
+    if (i18n && i18n.langs[0]) {
+      setLang(i18n.langs[0])
+    }
     document.addEventListener('click', () => {
       setSelectShow([])
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  const i18Text = useCallback(
+    (item, key) => {
+      if (i18n && typeof item[key] === 'object') {
+        return item[key][lang] || ''
+      } else {
+        return item[key] || ''
+      }
+    },
+    [i18n, lang],
+  )
+
+  const switchLang = useCallback(
+    (e, it) => {
+      e.stopPropagation()
+      selectTrigger(e, { title: 'i18n' })
+      setLang(it)
+      const lastPathItem = url.split('/')[url.split('/').length - 1] || ''
+      let langPath = url
+      let originPath = url
+      if (!i18n?.langs.includes(lastPathItem)) {
+        langPath = `${langPath}/${it}`
+      } else {
+        originPath = `${url.replace(`/${lastPathItem}`, '')}`
+        langPath = `${originPath}/${it}`
+      }
+      if (routes?.includes(langPath)) {
+        routerEvent.switch(langPath)
+      } else {
+        routerEvent.switch(originPath)
+      }
+    },
+    [i18n?.langs, routes, selectTrigger, setLang, url],
+  )
 
   return (
     <header className={pCls}>
@@ -62,7 +106,7 @@ export default function Header(props: Iprops) {
                     className="nav-img"
                     rel="noreferrer"
                   >
-                    <img src={item.title} />
+                    <img src={i18Text(item, 'title')} />
                   </a>
                 )}
                 {item.type === 'text' && (
@@ -72,7 +116,7 @@ export default function Header(props: Iprops) {
                     className="nav-text"
                     rel="noreferrer"
                   >
-                    {item.title}
+                    {i18Text(item, 'title')}
                   </a>
                 )}
                 {item.type === 'select' && (
@@ -80,7 +124,7 @@ export default function Header(props: Iprops) {
                     className="nav-select"
                     onClick={(e) => selectTrigger(e, item)}
                   >
-                    <span>{item.title}</span>
+                    <span>{i18Text(item, 'title')}</span>
                     <svg
                       className="version-icon"
                       viewBox="0 0 1024 1024"
@@ -95,7 +139,7 @@ export default function Header(props: Iprops) {
                     <div
                       className="nav-options"
                       style={
-                        selectShow.includes(item.title)
+                        selectShow.includes(i18Text(item, 'title'))
                           ? {}
                           : { display: 'none' }
                       }
@@ -118,6 +162,35 @@ export default function Header(props: Iprops) {
                 )}
               </div>
             ))}
+
+            <div className={`${pCls}-nav`}>
+              {i18n && (
+                <div
+                  className="nav-select"
+                  onClick={(e) => selectTrigger(e, { title: 'i18n' })}
+                >
+                  <span>{lang}</span>
+                  <div
+                    className="nav-options"
+                    style={
+                      selectShow.includes('i18n') ? {} : { display: 'none' }
+                    }
+                  >
+                    {(i18n.langs || [])
+                      .filter((it) => it !== lang)
+                      .map((it) => (
+                        <div
+                          className="nav-opt"
+                          key={`nav-opt-lang${it}`}
+                          onClick={(e) => switchLang(e, it)}
+                        >
+                          {it}
+                        </div>
+                      ))}
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

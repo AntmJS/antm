@@ -58,22 +58,9 @@ export function getSimulatorUrl(simulator: IDocSimulator, currentUrl: string) {
 }
 
 function sandBox(value) {
-  const withStr = `with(obj) { return ${value} }`
-  //创建监听对象
-  const proxy = new Proxy(Object.create(null), {
-    has(target, key) {
-      // @ts-ignore
-      if (['console', 'Math', 'Date'].includes(key)) {
-        return target[key]
-      }
-      return true
-    },
-    get(target, key) {
-      if (key === Symbol.unscopables) return undefined
-      return target[key]
-    },
-  })
-  return new Function('obj', withStr)(proxy) //将监听的对象作为obj参数传入
+  const withStr = `with(window) { return ${value} }`
+
+  return new Function('window', withStr)(window) //将监听的对象作为obj参数传入
 }
 
 export function JSONparse(target) {

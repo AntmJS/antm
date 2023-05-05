@@ -1,7 +1,7 @@
 /* eslint-disable import/no-unresolved */
 import type { IDocsConfig } from '../../../types/index'
 // @ts-ignore
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 // @ts-ignore
 import pkg from 'CWD/package.json'
 import Page from '../../pages/index'
@@ -11,7 +11,7 @@ import {
   JSONparse,
   formatPkgName,
 } from '../../utils/common'
-import { UrlConext } from '../../context'
+import { UrlConext, LangConext } from '../../context'
 import './index.less'
 import { usePersistFn } from '../../hooks'
 import Header from '../header'
@@ -24,7 +24,9 @@ export default function PageLayout() {
   const [docsConfig, setDocsConfig] = useState<IDocsConfig>()
   const [markdownMain, setMarkdownMain] = useState<any>()
   const [currentUrl, setCurrentUrl] = useState('')
+  const [lang, setLang] = useState('')
   const [loading, setLoading] = useState(true)
+  const [routes, setRoutes] = useState<any[]>([])
 
   const initLoadDoc = usePersistFn(async () => {
     const [_docsConfig, _markdownMain] = await Promise.all([
@@ -35,10 +37,11 @@ export default function PageLayout() {
     ])
     setDocsConfig(JSONparse(_docsConfig.default.config) as IDocsConfig)
     setMarkdownMain(_markdownMain.default)
-    console.info(
-      'DOC_ROUTERS',
-      Object.keys(_markdownMain.default).map((item) => item.replace('__', '/')),
+    const allRoutes = Object.keys(_markdownMain.default).map((item) =>
+      item.replace('__', '/'),
     )
+    setRoutes(allRoutes)
+    console.info('DOC_ROUTERS', allRoutes)
     setLoading(false)
   })
 
@@ -62,34 +65,46 @@ export default function PageLayout() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const menu = useMemo(() => {
+    return Array.isArray(docsConfig?.menu)
+      ? docsConfig?.menu || []
+      : docsConfig?.menu?.[lang] || []
+  }, [docsConfig?.menu, lang])
+
   if (loading) {
     return null
   }
 
   return (
-    <UrlConext.Provider value={[currentUrl, setCurrentUrl]}>
-      <div className={`${preCls}-container`}>
-        <Header
-          links={docsConfig?.headerLinks || []}
-          title={docsConfig?.title || ''}
-          logo={docsConfig?.logo}
-        />
-        <div className={`${preCls}-main`}>
-          <Menu
-            menu={docsConfig?.menu || []}
-            routeType={docsConfig?.route?.type}
+    <LangConext.Provider value={[lang, setLang]}>
+      <UrlConext.Provider value={[currentUrl, setCurrentUrl]}>
+        <div className={`${preCls}-container`}>
+          <Header
+            links={docsConfig?.headerLinks || []}
+            title={docsConfig?.title || ''}
+            logo={docsConfig?.logo}
+            i18n={docsConfig?.i18n}
+            routes={routes}
           />
-          <Page
-            markdownMain={markdownMain}
-            routerType={docsConfig?.route?.type}
-            simulator={!!docsConfig?.simulator}
-            firstPage={docsConfig?.menu?.[0]?.items?.[0]?.path}
-          />
-          {docsConfig?.simulator && (
-            <Example simulator={docsConfig?.simulator} url={currentUrl} />
-          )}
+          <div className={`${preCls}-main`}>
+            <Menu
+              menu={menu}
+              routeType={docsConfig?.route?.type}
+              i18n={docsConfig?.i18n}
+              routes={routes}
+            />
+            <Page
+              markdownMain={markdownMain}
+              routerType={docsConfig?.route?.type}
+              simulator={!!docsConfig?.simulator}
+              firstPage={docsConfig?.menu?.[0]?.items?.[0]?.path}
+            />
+            {docsConfig?.simulator && (
+              <Example simulator={docsConfig?.simulator} url={currentUrl} />
+            )}
+          </div>
         </div>
-      </div>
-    </UrlConext.Provider>
+      </UrlConext.Provider>
+    </LangConext.Provider>
   )
 }

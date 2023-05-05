@@ -39,6 +39,9 @@ export default defineConfig({
         type: 'text',
       },
     ],
+    i18n: {
+      langs: ['EN', 'CN'],
+    },
     menu: createMenu(),
     // simulator: {
     //   url: {
@@ -52,40 +55,67 @@ export default defineConfig({
 function createMenu(): IDocMenuNavs {
   return [
     {
-      name: '使用指南',
+      name: {
+        CN: '使用指南',
+        EN: 'Guide',
+      },
       items: [
         {
-          title: '介绍',
+          title: {
+            CN: '介绍',
+            EN: 'introduce',
+          },
           path: 'introduce',
         },
         {
-          title: '快速开始',
+          title: {
+            CN: '快速开始',
+            EN: 'quick',
+          },
           path: 'quick',
         },
       ],
     },
     {
-      name: '基础功能',
+      name: {
+        CN: '基础功能',
+        EN: 'Base Feature',
+      },
       items: [
         {
-          title: '基本配置',
+          title: {
+            CN: '基本配置',
+            EN: 'base config ',
+          },
           path: 'base',
         },
         {
-          title: '约定式路由',
+          title: {
+            EN: 'convention route',
+            CN: '约定式路由',
+          },
           path: 'route',
         },
         {
-          title: '全局样式',
+          title: {
+            CN: '全局样式',
+            EN: 'globale style',
+          },
           path: 'style',
         },
       ],
     },
     {
-      name: '高级功能',
+      name: {
+        CN: '高级功能',
+        EN: 'Senior Feature',
+      },
       items: [
         {
-          title: 'markdown语法扩展',
+          title: {
+            CN: 'markdown语法扩展',
+            EN: 'markdown expand',
+          },
           path: 'markdown-expand',
         },
       ],

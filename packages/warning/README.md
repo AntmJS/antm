@@ -1,5 +1,7 @@
 # @antmjs/warning
 
+### 介绍
+
 在 git commit 的时候，获取工作区和暂存区指定的文件 与最后一次提交成功的对比的结果
 
 - 实现通过微信、钉钉、飞书等聊天群机器人的 webhooks，通知群内成员对比的结果
@@ -7,7 +9,7 @@
 
 ### 为什么需要
 
-团队成员对项目关键的配置项或代码修改了，需要通知开发组成员修改内容，避免影响开发的规范性和统一性
+团队成员对项目关键的配置项、公用组件、公共方法修改了，需要通知开发组成员修改内容，避免影响开发的规范性和统一性
 
 ### 安装
 
@@ -19,7 +21,7 @@ yarn add @antmjs/warning -D
 
 ### 配置
 
-- 根目录配置 antm.config.js
+- 根目录配置 antm.config.ts(js)
 - 钉钉机器人配置的时候，安全设置需要设置为关键词“文件修改”，[钉钉机器人的配置](https://developers.dingtalk.com/document/robots/customize-robot-security-settings)
   `emailReceivers`、`webhooks`的配置支持数组和逗号隔开的字符串
 
@@ -28,7 +30,7 @@ module.exports = {
   warning: {
     monitorFiles: [
       'package.json',
-      './packages/[!node_modules]**/package.json', // 支持glob语法
+      './packages/**/package.json', // 支持glob语法
     ],
     branchs: ['master'], // 监听的分支，不设置的话所有的分支都监听
     webhooks: {

@@ -1,16 +1,16 @@
 /** 菜单项 */
 export type IDocMenuItems = {
-  title: string
+  title?: string | Record<string, string>
   path: string
 }[]
 /** 菜单模块 */
 export type IDocMenuNavs = {
-  name: string
+  name?: string | Record<string, string>
   items: IDocMenuItems
 }[]
 /** 头部链接 */
 export type IDocheaderLinks = {
-  title: string
+  title?: string | Record<string, string>
   url?: string
   type: 'img' | 'select' | 'text'
   options?: {
@@ -37,6 +37,11 @@ export type IDocSimulator = {
   }
   transform?: (url: string) => string
 }
+
+export type Ii18n = {
+  langs: string[]
+}
+
 /** 全局样式注入 */
 type IDocGlobalStyles = string[]
 
@@ -49,9 +54,10 @@ export type IDocsConfig = {
   output?: string
   buildPort?: number
   menu: IDocMenuNavs
+  headerLinks?: IDocheaderLinks
   route?: IDocRouter
   simulator?: IDocSimulator
-  headerLinks?: IDocheaderLinks
   globalStyles?: IDocGlobalStyles
   markdownPlugins?: IDocMarkdownPlugins
+  i18n?: Ii18n
 }

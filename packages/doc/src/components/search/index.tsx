@@ -121,7 +121,7 @@ export default function Search(props: Iprops) {
               <SearchIcon className={`${clsPre}-btn`} />
               <input
                 ref={inputRef}
-                placeholder="搜索文档"
+                placeholder="search"
                 value={words}
                 onChange={handleInput}
               />
@@ -142,7 +142,7 @@ export default function Search(props: Iprops) {
               <div className="empty-wrapper">
                 <EmptyIcon />
                 <div className="empty-tips">
-                  未找到关于<span> &ldquo;{searchWords} &ldquo;</span>的搜索结果
+                  No results for <span> &ldquo;{searchWords} &ldquo;</span>
                 </div>
               </div>
             )}

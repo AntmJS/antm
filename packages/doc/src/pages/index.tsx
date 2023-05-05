@@ -185,7 +185,7 @@ const Docs = function Docs({
               `antm-doc-right-navs-${navShow ? 'show' : 'hide'}`,
             )}
           >
-            <div className="antm-doc-right-navs-title">本页目录</div>
+            <div className="antm-doc-right-navs-title">Current Page</div>
             {rightNavs.map((item, i) => (
               <div
                 className={`antm-doc-right-nav ${
