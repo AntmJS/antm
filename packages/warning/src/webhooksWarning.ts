@@ -55,7 +55,7 @@ export default async function chartWarning(props) {
   })
 
   const res = getDiffs(props.monitorFiles)
-  const hasFilesChange = Object.keys(res).some((item) => !!res[item])
+  const hasFilesChange = !!Object.keys(res).length
 
   const pkg = await import(join(CWD, './package.json'))
 
@@ -77,11 +77,9 @@ export default async function chartWarning(props) {
 
   if (hasFilesChange) {
     Object.keys(res).map((key) => {
-      if (res[key]) {
-        content.text.content += `
+      content.text.content += `
 >>>>>>>>>>>>>>>>>>【${key}】<<<<<<<<<<<<<<<<<<<
-${res[key]}`
-      }
+${res[key] || '当前文件被全部删除\n'}`
     })
 
     webhooksObjs.map((webhook) => {

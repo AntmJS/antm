@@ -55,14 +55,6 @@ function checkEmial(email) {
 /** gitAdd中符合glob的文件路径 */
 async function getGlobUrls(monitorFiles) {
   const res = await sgf()
-  console.info(
-    '_____________',
-    res
-      .filter((item) => {
-        return anymatch(monitorFiles, item.filename)
-      })
-      .map((item) => item.filename),
-  )
 
   return res
     .filter((item) => {

@@ -79,8 +79,8 @@ export default async function emailWarning(props) {
     <h1>文件修改通知</h1>
     <h3>项目${pkg.default.name}</h3>
     <h3>分支${getBranch()}</h3>
-    <h4>修改人${getUserInfo()}</h3>
-    <h4>修改人${getCommitMessage()}</h3>`
+    <h4>提交人${getUserInfo()}</h3>
+    <h4>提交信息${getCommitMessage()}</h3>`
   // @ts-ignore
   String.prototype.replaceAll = function (s1, s2) {
     return this.replace(new RegExp(s1, 'gm'), s2)
@@ -90,8 +90,8 @@ export default async function emailWarning(props) {
     Object.keys(res).map((key) => {
       if (res[key]) {
         let s = `
-<h5>【${key}修改】</h5>
-${res[key]}`
+<h5>【${key}】</h5>
+${res[key] || '文件被删除'}`
         s = s.replace(
           /((?<=\n)[+]\s*[\s\S]+?)(?=\n+?)/g,
           '<div style="background: green">$1</div>',
