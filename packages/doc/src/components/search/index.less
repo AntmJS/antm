@@ -125,10 +125,12 @@
 
     .result-nav {
       color: @primary-color;
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 14px;
+      font-weight: bold;
       padding-top: 6px;
       padding-bottom: 6px;
+      cursor: pointer;
+      text-decoration: underline;
     }
 
     &-rows {
@@ -158,6 +160,12 @@
 
         > h3 {
           margin-right: 28px;
+          max-width: 140px;
+          min-width: 90px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
         }
       }
 

@@ -85,6 +85,7 @@ export default function PageLayout() {
             logo={docsConfig?.logo}
             i18n={docsConfig?.i18n}
             routes={routes}
+            routeType={docsConfig?.route?.type}
           />
           <div className={`${preCls}-main`}>
             <Menu

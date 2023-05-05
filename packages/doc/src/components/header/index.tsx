@@ -13,12 +13,13 @@ type Iprops = {
   links?: IDocheaderLinks
   i18n?: Ii18n
   routes?: string[]
+  routeType?: 'hash' | 'history'
 }
 
 const pCls = `${preCls}-header`
 
 export default function Header(props: Iprops) {
-  const { title, logo, links, i18n, routes } = props
+  const { title, logo, links, i18n, routes, routeType } = props
   const [selectShow, setSelectShow] = useState<string[]>([])
   const [lang, setLang] = useContext(LangConext)
   const [url] = useContext(UrlConext)
@@ -26,27 +27,29 @@ export default function Header(props: Iprops) {
   const selectTrigger = useCallback(
     (e, item) => {
       e?.stopPropagation()
-      const index = selectShow.indexOf(item.title)
+      const title =
+        typeof item.title === 'object' ? item.title[lang] : item.title
+      const index = selectShow.indexOf(title)
       if (index >= 0) {
         selectShow.splice(index, 1)
       } else {
-        selectShow.push(item.title)
+        selectShow.push(title)
       }
 
       setSelectShow([...selectShow])
     },
-    [selectShow],
+    [lang, selectShow],
   )
 
   useEffect(() => {
-    if (i18n && i18n.langs[0]) {
-      setLang(i18n.langs[0])
+    if (i18n && i18n.langs[0] && url && !lang) {
+      switchLang(null, i18n.langs[0] || '')
     }
     document.addEventListener('click', () => {
       setSelectShow([])
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [url])
 
   const i18Text = useCallback(
     (item, key) => {
@@ -61,8 +64,8 @@ export default function Header(props: Iprops) {
 
   const switchLang = useCallback(
     (e, it) => {
-      e.stopPropagation()
-      selectTrigger(e, { title: 'i18n' })
+      e?.stopPropagation()
+      if (e) selectTrigger(e, { title: 'i18n' })
       setLang(it)
       const lastPathItem = url.split('/')[url.split('/').length - 1] || ''
       let langPath = url
@@ -96,7 +99,7 @@ export default function Header(props: Iprops) {
 
         <div className={`${pCls}-right`}>
           <div className={`${pCls}-navs-box`}>
-            <Search />
+            <Search i18n={i18n} routeType={routeType} />
             {(links || []).map((item, index) => (
               <div className={`${pCls}-nav`} key={`${pCls}-nav${index}`}>
                 {item.type === 'img' && (

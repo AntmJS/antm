@@ -40,6 +40,8 @@ export type IDocSimulator = {
 
 export type Ii18n = {
   langs: string[]
+  // 没有后缀的默认语言
+  noSuffixLang: string
 }
 
 /** 全局样式注入 */

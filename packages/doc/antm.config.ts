@@ -20,7 +20,10 @@ export default defineConfig({
         type: 'img',
       },
       {
-        title: '更多',
+        title: {
+          CN: '更多',
+          EN: 'more',
+        },
         type: 'select',
         options: [
           {
@@ -40,7 +43,8 @@ export default defineConfig({
       },
     ],
     i18n: {
-      langs: ['EN', 'CN'],
+      langs: ['CN', 'EN'],
+      noSuffixLang: 'CN',
     },
     menu: createMenu(),
     // simulator: {
@@ -95,6 +99,13 @@ function createMenu(): IDocMenuNavs {
             CN: '约定式路由',
           },
           path: 'route',
+        },
+        {
+          title: {
+            CN: '国际化',
+            EN: 'i18n',
+          },
+          path: 'i18n',
         },
         {
           title: {

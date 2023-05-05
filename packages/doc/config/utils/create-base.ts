@@ -54,7 +54,9 @@ export async function createBase(config: IDocsConfig) {
   })
 
   if (!existsSync(TEMP_DIR)) mkdirSync(TEMP_DIR)
-  if (!existsSync(ANTM_TEMP_DIR)) mkdirSync(ANTM_TEMP_DIR)
+  if (!existsSync(ANTM_TEMP_DIR)) {
+    mkdirSync(ANTM_TEMP_DIR)
+  }
 
   const moduleFilePaths: string[] = []
 
@@ -280,7 +282,7 @@ function watchFiles(files: string[], exclude: string[]) {
   watcher.on('add', function (path) {
     if (readyOk) {
       console.info('_______________ add', path)
-
+      createBaseConfig()
       unitWork(path)
     }
   })
@@ -334,6 +336,9 @@ const resolveWindowsPath = (path: string) => {
   return path
 }
 
+/**
+ * 获取markdown的ast里面的标题和段落、所在菜单、路由等信息
+ */
 function createSearchJson(mdPaths) {
   const mdTypeMap = {}
   const result: any[] = []
@@ -348,28 +353,30 @@ function createSearchJson(mdPaths) {
     let currentH3Title = ''
     for (let j = 0; j < ast.length; j++) {
       const aa = ast[j]
-      const item: any = {
-        routePath: `${routePath}@${index}`,
-        title,
-        doc: aa,
-        belongMenu: findBelongMenu(routePath),
-      }
-      let mdType = aa.type
-      if (mdType === 'Header') {
-        if (aa.depth === 3) currentH3Title = aa.raw.replace('### ', '')
-        mdType = `H${aa.depth}`
-      }
-      if (mdTypeMap[routePath][mdType] === undefined) {
-        mdTypeMap[routePath][mdType] = 0
-      } else {
-        mdTypeMap[routePath][mdType] += 1
-      }
+      if (aa.type === 'Header' || aa.type === 'Paragraph') {
+        const item: any = {
+          routePath: `${routePath}@${index}`,
+          title,
+          doc: aa,
+          belongMenu: findBelongMenu(routePath),
+        }
+        let mdType = aa.type
+        if (mdType === 'Header') {
+          if (aa.depth === 3) currentH3Title = aa.raw.replace('### ', '')
+          mdType = `H${aa.depth}`
+        }
+        if (mdTypeMap[routePath][mdType] === undefined) {
+          mdTypeMap[routePath][mdType] = 0
+        } else {
+          mdTypeMap[routePath][mdType] += 1
+        }
 
-      item.mdTypeIndex = mdTypeMap[routePath][mdType]
-      item.currentH3Title = currentH3Title
+        item.mdTypeIndex = mdTypeMap[routePath][mdType]
+        item.currentH3Title = currentH3Title
 
-      result.push(item)
-      index++
+        result.push(item)
+        index++
+      }
     }
   }
 
@@ -378,11 +385,25 @@ function createSearchJson(mdPaths) {
 
 function findBelongMenu(path) {
   const menu = _config?.menu as IDocMenuNavs
+  let lang = ''
+  if (_config?.i18n) {
+    const langs = _config?.i18n?.langs
+    const lastPathItem = path.split('/')[path.split('/').length - 1]
+    if (langs.includes(lastPathItem)) {
+      lang = lastPathItem
+      path = path.replace(`/${lastPathItem}`, '')
+    } else {
+      lang = _config?.i18n?.noSuffixLang
+    }
+  }
+
   for (let i = 0; i < menu.length; i++) {
     const items = menu[i]?.items || []
     for (let j = 0; j < items.length; j++) {
       if (items[j]?.path === path) {
-        return items[j]
+        return {
+          title: _config?.i18n ? items[j]?.title?.[lang] : items[j]?.title,
+        }
       }
     }
   }

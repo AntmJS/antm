@@ -1,10 +1,12 @@
 // @ts-ignore
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 import { routerEvent } from '../../utils/history'
 import * as search from '../../utils/search'
 import { useDebounce } from '../../hooks/index'
+import { LangConext } from '../../context'
+import { Ii18n } from '../../../types/index'
 import {
   SearchIcon,
   ClearIcon,
@@ -17,16 +19,12 @@ import './index.less'
 
 const clsPre = 'antm-doc-search'
 const mdTypeToTag = {
-  Table: 'table',
   Paragraph: 'p',
-  CodeBlock: 'code',
-  BlockQuote: 'blockquote',
   H1: 'h1',
   H2: 'h2',
   H3: 'h3',
   H4: 'h4',
   H5: 'h5',
-  List: 'ul',
 }
 const config = {
   highlight: function (str, lang) {
@@ -37,6 +35,7 @@ const config = {
 const Markdown = MarkdownIt(config)
 type Iprops = {
   routeType?: 'hash' | 'history'
+  i18n?: Ii18n
 }
 
 export default function Search(props: Iprops) {
@@ -45,17 +44,21 @@ export default function Search(props: Iprops) {
   const [words, setWords] = useState('')
   const [loading, setLoading] = useState(false)
   const [searchWords, setSearchWords] = useState('')
+  const [lang, setLang] = useContext(LangConext)
   const inputRef = useRef<any>()
 
   const handlePage = (path, docTarget) => {
     setShow(false)
     routerEvent.switch(path, props.routeType)
+    const lastPathItem = path.split('/')[path.split('/').length - 1]
+    if (props.i18n?.langs.includes(lastPathItem)) {
+      setLang(lastPathItem)
+    }
     let mdType = docTarget.doc.type
     if (mdType === 'Header') {
       mdType = `H${docTarget.doc.depth}`
     }
     const tagType = mdTypeToTag[mdType]
-    console.info(docTarget)
 
     setTimeout(() => {
       if (tagType) {
@@ -78,8 +81,18 @@ export default function Search(props: Iprops) {
       const res = await search.run(words)
       const result = {}
 
-      res.map((item) => {
+      console.info(res)
+
+      res.forEach((item) => {
         const menuName = item.belongMenu.title
+        if (props.i18n) {
+          const pathArr = item.routePath.split('/')
+          const lang__ = pathArr[pathArr.length - 1]
+          const curLang = props.i18n.langs.includes(lang__)
+            ? lang__
+            : props.i18n.noSuffixLang
+          if (curLang !== lang) return // 过滤非当前lang
+        }
         if (!result[menuName]) {
           result[menuName] = [item]
         } else {
@@ -152,7 +165,13 @@ export default function Search(props: Iprops) {
                   const item = result[key]
                   return (
                     <div key={`seatch-result-rows${i}`}>
-                      <div className="result-nav">
+                      <div
+                        className="result-nav"
+                        onClick={() => {
+                          routerEvent.switch(item[0].routePath, props.routeType)
+                          setShow(false)
+                        }}
+                      >
                         {key === 'undefined' ? '--' : key}
                       </div>
                       <div className="result-rows">
@@ -198,13 +217,9 @@ export default function Search(props: Iprops) {
 }
 
 function cutMarkdownRaw(doc, query) {
-  const { raw, type } = doc
+  const { raw } = doc
   if (raw.includes('\n')) {
     const arr = raw.split('\n')
-    if (type === 'CodeBlock') {
-      arr.splice(arr.length - 1, 1)
-      arr.splice(0, 1)
-    }
     let matchIndex = 0
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].includes(query)) {
@@ -228,6 +243,7 @@ function cutMarkdownRaw(doc, query) {
     const start = matchIndex - 40
     return raw
       .substring(start > 0 ? start : 0, matchIndex + 40)
+      .replace(/`/g, '')
       .replace(query, `<span class='primary-color'>${query}</span>`)
   }
 }
