@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/stylelint",
-  "version": "2.3.4",
+  "version": "2.3.5",
   "main": "index.js",
   "author": "三少 <hi_sanshao@outlook.com>",
   "description": "样式统一规范工具库",
