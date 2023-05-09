@@ -102,6 +102,13 @@ function createMenu(): IDocMenuNavs {
         },
         {
           title: {
+            CN: '组件库文档',
+            EN: 'components doc',
+          },
+          path: 'components',
+        },
+        {
+          title: {
             CN: '国际化',
             EN: 'i18n',
           },

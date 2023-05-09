@@ -38,16 +38,16 @@ const menu = [
     name: {
       CN: '指南',
       EN: 'Guide',
-      items: [
-        {
-          title: {
-            CN: '介绍',
-            EN: 'introduce',
-          },
-          path: 'introduce',
-        },
-      ],
     },
+    items: [
+      {
+        title: {
+          CN: '介绍',
+          EN: 'introduce',
+        },
+        path: 'introduce',
+      },
+    ],
   },
 ]
 ```

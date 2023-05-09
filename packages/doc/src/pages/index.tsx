@@ -8,11 +8,13 @@ import React, {
   useContext,
 } from 'react'
 import classNames from 'classnames'
+import { createRoot } from 'react-dom/client'
 import MarkdownBox from '../components/markdown/index'
 import { routerEvent } from '../utils/history'
 import { UrlConext } from '../context'
 import { scrollToTargetParent } from '../utils/common'
 import { BackToTopIcon } from '../components/search/icons'
+import { handleShowCode } from './utils'
 import './index.less'
 
 type Iprops = {
@@ -101,6 +103,29 @@ const Docs = function Docs({
             .replaceAll(MARKDOWN_QUORTA, '`')
             .replaceAll(MARKDOWN_AB, '${'),
         )
+        // demo-code代码的执行和渲染
+        if (result.codePath.length) {
+          result.codePath.forEach((item) => {
+            markdownMain[item].then((res) => {
+              requestIdleCallback(() => {
+                const DemoComponent = res.default
+                const dom = document.getElementById(item)
+                if (dom) {
+                  const root = createRoot(dom)
+                  root.render(<DemoComponent />)
+                }
+              })
+            })
+          })
+          setTimeout(() => {
+            const codeBtns =
+              document.getElementsByClassName('show-code-btn') || []
+            for (let i = 0; i < codeBtns.length; i++) {
+              const btn = codeBtns[i]
+              if (btn) btn['onclick'] = (e) => handleShowCode(e, btn)
+            }
+          }, 66)
+        }
         setRightNavs(result.h3Ids.split(':::'))
       })
     } else if (firstPage) {

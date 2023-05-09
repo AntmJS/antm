@@ -108,39 +108,3 @@ export default defineConfig({
   },
 })
 ```
-
-### 移动端展示
-
-主要配置如下
-
-- `url`: 分为开发环境和生产环境
-- `noMate`: 没有映射关系的 url 的时候，设置重定向
-- `transform`: 定义映射规则
-
-```ts
-export default defineConfig({
-  docs: {
-    simulator: {
-      url: {
-        development: 'http://10.254.9.214:10086',
-        production: '/vantui/main/mobile.html',
-      },
-      transform: (url) => `#/pages/${url}/index`,
-      noMate: {
-        urls: [
-          'quickstart',
-          'custom-style',
-          'home',
-          'theme',
-          'use-in-react',
-          'contributing',
-          'v2-to-v3',
-          'comments',
-          'premium',
-        ],
-        redirect: '#/pages/dashboard/index',
-      },
-    },
-  },
-})
-```

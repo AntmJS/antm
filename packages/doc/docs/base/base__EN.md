@@ -108,39 +108,3 @@ export default defineConfig({
   },
 })
 ```
-
-### Mobile Display
-
-The main configuration is as follows:
-
-- `url`: divided into development and production environments
-- `noMate`: set redirection when there is no mapping relationship for the URL
-- `transform`: define mapping rules
-
-```ts
-export default defineConfig({
-  docs: {
-    simulator: {
-      url: {
-        development: 'http://10.254.9.214:10086',
-        production: '/vantui/main/mobile.html',
-      },
-      transform: (url) => `#/pages/${url}/index`,
-      noMate: {
-        urls: [
-          'quickstart',
-          'custom-style',
-          'home',
-          'theme',
-          'use-in-react',
-          'contributing',
-          'v2-to-v3',
-          'comments',
-          'premium',
-        ],
-        redirect: '#/pages/dashboard/index',
-      },
-    },
-  },
-})
-```

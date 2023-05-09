@@ -9,13 +9,10 @@ import { CWD } from './utils/contanst'
 export default async function base() {
   const result = await getConfig()
   const base = result.docs
-  const { extraEntrys, lessAdditionalData } = await createBase(base)
-
-  console.info('额外入口文件', extraEntrys)
+  const { lessAdditionalData } = await createBase(base)
 
   const config = {
     entry: {
-      ...extraEntrys,
       index: path.join(__dirname, '../src/index.tsx'),
     },
 

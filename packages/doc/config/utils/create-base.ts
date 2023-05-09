@@ -6,6 +6,7 @@ import { watch } from 'chokidar'
 import { glob } from 'glob'
 import mdAst from 'markdown-to-ast'
 import { IDocsConfig, IDocMenuNavs } from '../../types'
+import { parseCode } from './markdown-code'
 import {
   TEMP_DIR,
   CONFIG_PATH,
@@ -22,7 +23,10 @@ let MARKDOWN_MAIN = ''
 let SEARCH_JSON = ''
 let ALL_CONFIG = ''
 
-const extraEntrys = {}
+let demoCodes = {}
+const demoCodesMap = {} // 案例代码路径对应的markdown路径
+const moduleFilePaths: string[] = [] // markdown的js模块文件路径
+
 let inited = false
 let _src: string[] = []
 let _level = 2
@@ -58,8 +62,6 @@ export async function createBase(config: IDocsConfig) {
     mkdirSync(ANTM_TEMP_DIR)
   }
 
-  const moduleFilePaths: string[] = []
-
   for (let i = 0; i < mdPaths.length; i++) {
     const mp = mdPaths[i]
     if (mp) {
@@ -73,7 +75,8 @@ export async function createBase(config: IDocsConfig) {
 
   if (process.env['NODE_ENV'] === 'development') {
     console.info('watch files success')
-    watchFiles([CONFIG_PATH, ...mdPaths], _exclude)
+    watchFiles([CONFIG_PATH, ...MD_PATHS], _exclude)
+    watchDemoFiles()
   }
 
   if (!inited) inited = true
@@ -81,7 +84,6 @@ export async function createBase(config: IDocsConfig) {
   const lessAdditionalData = await injectGlobalStyles(config.globalStyles)
 
   return {
-    extraEntrys,
     lessAdditionalData,
   }
 }
@@ -105,7 +107,7 @@ function getTempNames() {
  * 创建markdownjs文件
  * @param mp markdown文件的路径
  */
-function unitWork(mp) {
+function unitWork(mp: string) {
   const routeName = getRoutePath(mp)
 
   const config = {
@@ -120,9 +122,14 @@ function unitWork(mp) {
     Markdown.use(plugin)
   })
 
-  const mdstr = readFileSync(mp, 'utf-8')
+  let mdstr = readFileSync(mp, 'utf-8')
   const moduleFilePath = join(ANTM_TEMP_DIR, `${routeName}.js`)
-  extraEntrys[routeName] = moduleFilePath
+  const transformResult = parseCode({
+    mdStr: mdstr,
+    path: mp,
+    routeName,
+  })
+  mdstr = transformResult.mdStr
   const res = markdownCardWrapper(Markdown.render(mdstr))
   const docs =
     '`' +
@@ -134,12 +141,32 @@ function unitWork(mp) {
   const title = '`' + getTitleFromMd(mdstr, routeName.replace('__', '/')) + '`'
   console.info(`生成临时文件： ${moduleFilePath}`)
 
+  const curDemoCodeKeys: string[] = []
+
+  const demoCodesNew = {}
+  // 热更新清楚原来demo的js模块表
+  Object.keys(demoCodes).forEach((key) => {
+    if (!key.includes(`${routeName}__`)) {
+      demoCodesNew[key] = demoCodes[key]
+    }
+  })
+  demoCodes = demoCodesNew
+
+  transformResult.demoEntrys.forEach((e) => {
+    const last = e.split('/')[e.split('/').length - 1]
+    const entryKey = `${routeName}__${last?.split('.')[0]}`
+    demoCodes[entryKey] = e
+    demoCodesMap[e] = mp
+    curDemoCodeKeys.push(entryKey)
+  })
+
   writeFileSync(
     moduleFilePath,
     `export default {
       tile: ${title},
       docs: ${docs},
       h3Ids: ${h3Ids},
+      codePath: ${JSON.stringify(curDemoCodeKeys)}
     }`,
   )
 
@@ -150,8 +177,6 @@ function unitWork(mp) {
  * @param config 文档配置
  */
 async function createBaseConfig(config?) {
-  extraEntrys['all-config'] = ALL_CONFIG
-
   if (!config) {
     const c = await getConfig()
     if (c) config = c.docs
@@ -170,7 +195,10 @@ async function createBaseConfig(config?) {
     }`,
   )
 }
-
+/**
+ * 创建异步模块：markdown打包的js和异步引用的demo组件的js
+ * @param mdjss
+ */
 function createMarkdownMain(mdjss: string[]) {
   let mdMain = `{`
   for (let i = 0; i < mdjss.length; i++) {
@@ -184,6 +212,18 @@ function createMarkdownMain(mdjss: string[]) {
       mdMain += `"${name}": import("${filePath}"),\n`
     }
   }
+
+  for (const key in demoCodes) {
+    const item = demoCodes[key]
+    if (item) {
+      let filePath = item
+      if (process.platform === 'win32') {
+        filePath = filePath.replace(/\\/g, '\\\\')
+      }
+      mdMain += `"${key}": import("${filePath}"),\n`
+    }
+  }
+
   mdMain += `}`
 
   writeFileSync(MARKDOWN_MAIN, `export default ${mdMain}`)
@@ -276,6 +316,10 @@ function watchFiles(files: string[], exclude: string[]) {
         createBaseConfig()
       } else {
         unitWork(path)
+        createMarkdownMain(moduleFilePaths)
+        if (process.env['NODE_ENV'] === 'development') {
+          watchDemoFiles()
+        }
       }
     }
   })
@@ -283,16 +327,67 @@ function watchFiles(files: string[], exclude: string[]) {
     if (readyOk) {
       console.info('_______________ add', path)
       createBaseConfig()
-      unitWork(path)
+      const newModuleFilePath = unitWork(path)
+      moduleFilePaths.push(newModuleFilePath)
+      createMarkdownMain(moduleFilePaths)
+      if (process.env['NODE_ENV'] === 'development') {
+        watchDemoFiles()
+      }
     }
   })
 }
+
+let demoWatcher
+/**
+ * 监听组件库demo代码，有更新则强制重新生成新的markdown对应的js文件
+ */
+function watchDemoFiles() {
+  if (demoWatcher) demoWatcher.close()
+  const demoFiles = Object.keys(demoCodes).map((key) => {
+    return demoCodes[key]
+  })
+  let readyOk = false
+  demoWatcher = watch(demoFiles, {
+    persistent: true,
+  })
+  demoWatcher.on('ready', function () {
+    readyOk = true
+  })
+
+  demoWatcher.on('change', function (path) {
+    if (readyOk) {
+      const mdPath = demoCodesMap[path]
+      const newModuleFilePath = unitWork(mdPath)
+      moduleFilePaths.push(newModuleFilePath)
+      createMarkdownMain(moduleFilePaths)
+    }
+  })
+
+  demoWatcher.on('add', function (path) {
+    if (readyOk) {
+      const mdPath = demoCodesMap[path]
+      const newModuleFilePath = unitWork(mdPath)
+      moduleFilePaths.push(newModuleFilePath)
+      createMarkdownMain(moduleFilePaths)
+    }
+  })
+
+  demoWatcher.on('unlink', function (path) {
+    if (readyOk) {
+      const mdPath = demoCodesMap[path]
+      const newModuleFilePath = unitWork(mdPath)
+      moduleFilePaths.push(newModuleFilePath)
+      createMarkdownMain(moduleFilePaths)
+    }
+  })
+}
+
 /** 重置markdown的html字符串 */
 function markdownCardWrapper(htmlCode) {
   const group = htmlCode
-    .replace(/<h3/g, ':::<h3')
-    .replace(/<h2/g, ':::<h2')
-    .split(':::')
+    .replace(/<h3/g, ':::::<h3')
+    .replace(/<h2/g, ':::::<h2')
+    .split(':::::')
 
   const h3Ids: string[] = []
 

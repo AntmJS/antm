@@ -18,5 +18,5 @@
     "packages/**/sample",
     "packages/**/__test__"
   ],
-  "exclude": ["packages/**/doc/src/.temp/**"]
+  "exclude": ["packages/**/doc/src/.temp/**", "packages/**/doc/docs/**/*.tsx"]
 }

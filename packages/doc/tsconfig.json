@@ -7,5 +7,5 @@
     "resolveJsonModule": true
   },
   "include": ["*.ts", "./**/*.ts"],
-  "exclude": ["./src/.temp/**"]
+  "exclude": ["./src/.temp/**", "./docs/base/*.tsx"]
 }

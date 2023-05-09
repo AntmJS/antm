@@ -28,3 +28,4 @@ packages/**/coverage
 packages/**/dist
 packages/**/lib
 packages/api/ui/lib.js
+packages/**/doc/docs/**/*.tsx
