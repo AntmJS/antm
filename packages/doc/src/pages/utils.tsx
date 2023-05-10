@@ -1,3 +1,5 @@
+// @ts-ignore
+import React from 'react'
 import { createApp } from 'vue'
 import { createRoot } from 'react-dom/client'
 
@@ -39,7 +41,7 @@ export function renderDemoCode({ DemoComponent, id, markdownMain }) {
   setTimeout(() => {
     const dom = document.getElementById(id)
     const type =
-      DemoComponent?.__file && DemoComponent?.__file?.includes('.vue')
+      DemoComponent.render && toString.call(DemoComponent) === '[object Object]'
         ? 'vue'
         : 'react'
 
@@ -52,6 +54,7 @@ export function renderDemoCode({ DemoComponent, id, markdownMain }) {
           </ReactDemoContainer>,
         )
       } else {
+        console.info(DemoComponent)
         const app = createApp(DemoComponent)
         app.mount(`#${id}`)
       }
