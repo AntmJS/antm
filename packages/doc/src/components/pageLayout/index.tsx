@@ -1,8 +1,8 @@
-/* eslint-disable import/no-unresolved */
 import type { IDocsConfig } from '../../../types/index'
 // @ts-ignore
 import React, { useState, useEffect, useMemo } from 'react'
 // @ts-ignore
+// eslint-disable-next-line import/no-unresolved
 import pkg from 'CWD/package.json'
 import Page from '../../pages/index'
 import {
@@ -76,36 +76,52 @@ export default function PageLayout() {
   }
 
   return (
-    <LangConext.Provider value={[lang, setLang]}>
-      <UrlConext.Provider value={[currentUrl, setCurrentUrl]}>
-        <div className={`${preCls}-container`}>
-          <Header
-            links={docsConfig?.headerLinks || []}
-            title={docsConfig?.title || ''}
-            logo={docsConfig?.logo}
-            i18n={docsConfig?.i18n}
-            routes={routes}
-            routeType={docsConfig?.route?.type}
-          />
-          <div className={`${preCls}-main`}>
-            <Menu
-              menu={menu}
-              routeType={docsConfig?.route?.type}
+    <div>
+      {/** @ts-ignore */}
+      <LangConext.Provider
+        value={[
+          lang,
+          (v) => {
+            setLang(v)
+            window['__LANGE__'] = v
+          },
+        ]}
+      >
+        {/** @ts-ignore */}
+        <UrlConext.Provider value={[currentUrl, setCurrentUrl]}>
+          <div className={`${preCls}-container`}>
+            <Header
+              links={docsConfig?.headerLinks || []}
+              title={docsConfig?.title || ''}
+              logo={docsConfig?.logo}
               i18n={docsConfig?.i18n}
               routes={routes}
+              routeType={docsConfig?.route?.type}
             />
-            <Page
-              markdownMain={markdownMain}
-              routerType={docsConfig?.route?.type}
-              simulator={!!docsConfig?.simulator}
-              firstPage={docsConfig?.menu?.[0]?.items?.[0]?.path}
-            />
-            {docsConfig?.simulator && (
-              <Example simulator={docsConfig?.simulator} url={currentUrl} />
-            )}
+            <div className={`${preCls}-main`}>
+              <Menu
+                menu={menu}
+                routeType={docsConfig?.route?.type}
+                i18n={docsConfig?.i18n}
+                routes={routes}
+              />
+              {/** @ts-ignore */}
+              <Page
+                markdownMain={markdownMain}
+                routerType={docsConfig?.route?.type}
+                simulator={!!docsConfig?.simulator}
+                firstPage={docsConfig?.menu?.[0]?.items?.[0]?.path}
+              />
+              {docsConfig?.simulator && (
+                <>
+                  {/** @ts-ignore */}
+                  <Example simulator={docsConfig?.simulator} url={currentUrl} />
+                </>
+              )}
+            </div>
           </div>
-        </div>
-      </UrlConext.Provider>
-    </LangConext.Provider>
+        </UrlConext.Provider>
+      </LangConext.Provider>
+    </div>
   )
 }

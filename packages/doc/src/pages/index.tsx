@@ -8,13 +8,12 @@ import React, {
   useContext,
 } from 'react'
 import classNames from 'classnames'
-import { createRoot } from 'react-dom/client'
 import MarkdownBox from '../components/markdown/index'
 import { routerEvent } from '../utils/history'
-import { UrlConext } from '../context'
+import { UrlConext, LangConext } from '../context'
 import { scrollToTargetParent } from '../utils/common'
 import { BackToTopIcon } from '../components/search/icons'
-import { handleShowCode } from './utils'
+import { handleShowCode, renderDemoCode } from './utils'
 import './index.less'
 
 type Iprops = {
@@ -40,6 +39,7 @@ const Docs = function Docs({
   const [navShow, setNavShow] = useState(false)
   const [navActive, setNavActive] = useState(0)
   const [backTopBtnShow, setbackTopBtnShow] = useState(false)
+  const [lang] = useContext(LangConext)
 
   useLayoutEffect(() => {
     if (markdownMain) {
@@ -58,7 +58,7 @@ const Docs = function Docs({
       routerEvent.unregister()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [markdownMain])
+  }, [markdownMain, lang])
 
   useEffect(() => {
     if (markdownMain) {
@@ -88,6 +88,7 @@ const Docs = function Docs({
   const mdChange = (markdownMain) => {
     let pathName =
       routerType === 'hash' ? location.hash.replace('#', '') : location.pathname
+    console.info(pathName)
     setCurrentUrl(pathName.replace(/^\//, '').split('?')[0] || '')
     pathName =
       pathName.replace(/^\//, '').replace(/\//g, '__').split('?')[0] || ''
@@ -106,14 +107,12 @@ const Docs = function Docs({
         // demo-code代码的执行和渲染
         if (result.codePath.length) {
           result.codePath.forEach((item) => {
+            console.info(item, markdownMain)
             markdownMain[item].then((res) => {
-              requestIdleCallback(() => {
-                const DemoComponent = res.default
-                const dom = document.getElementById(item)
-                if (dom) {
-                  const root = createRoot(dom)
-                  root.render(<DemoComponent />)
-                }
+              renderDemoCode({
+                DemoComponent: res.default,
+                id: item,
+                markdownMain,
               })
             })
           })
@@ -177,6 +176,7 @@ const Docs = function Docs({
           rightNavs.length === 1 && 'antm-docs-body-no-right-navs',
         )}
       >
+        {/** @ts-ignore */}
         <MarkdownBox>{md}</MarkdownBox>
       </div>
       {rightNavs.length > 1 && (

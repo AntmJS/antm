@@ -2,6 +2,7 @@ import path from 'path'
 import htmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import autoprefixer from 'autoprefixer'
+import { VueLoaderPlugin } from 'vue-loader'
 import { getConfig } from './utils/get-config'
 import { createBase } from './utils/create-base'
 import { CWD } from './utils/contanst'
@@ -72,7 +73,7 @@ export default async function base() {
         },
         {
           test: /\.css$/,
-          use: [MiniCssExtractPlugin.loader, 'css-loader'],
+          use: ['style-loader', 'css-loader'],
         },
         {
           test: /\.less$/,
@@ -107,10 +108,15 @@ export default async function base() {
           test: /\.(jpe?g|png|gif)(\?.+)?$/,
           loader: 'file-loader',
         },
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+        },
       ],
     },
 
     plugins: [
+      new VueLoaderPlugin(),
       // 抽离出css
       new MiniCssExtractPlugin({
         filename: 'css/[name]_[contenthash].css',

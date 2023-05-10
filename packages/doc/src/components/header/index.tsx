@@ -42,8 +42,12 @@ export default function Header(props: Iprops) {
   )
 
   useEffect(() => {
-    if (i18n && i18n.langs[0] && url && !lang) {
-      switchLang(null, i18n.langs[0] || '')
+    if (i18n?.langs) {
+      const lastPathItem = url.split('/')[url.split('/').length - 1] || ''
+      const initLang = !i18n.langs.includes(lastPathItem)
+        ? i18n.noSuffixLang
+        : lastPathItem
+      setLang(initLang)
     }
     document.addEventListener('click', () => {
       setSelectShow([])
@@ -77,9 +81,9 @@ export default function Header(props: Iprops) {
         langPath = `${originPath}/${it}`
       }
       if (routes?.includes(langPath)) {
-        routerEvent.switch(langPath)
+        routerEvent.switch(`/${langPath}`)
       } else {
-        routerEvent.switch(originPath)
+        routerEvent.switch(`/${originPath}`)
       }
     },
     [i18n?.langs, routes, selectTrigger, setLang, url],

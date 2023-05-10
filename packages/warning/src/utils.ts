@@ -64,15 +64,15 @@ async function getGlobUrls(monitorFiles) {
 }
 
 /** 获取commit信息 */
-function getCommitMessage() {
-  const { stdout, error } = cp.spawnSync('git', ['log', "--pretty='%s%b'"])
-  if (error) {
-    console.error(error)
-    process.exit(1)
-  }
+// function getCommitMessage() {
+//   const { stdout, error } = cp.spawnSync('git', ['log', "--pretty='%s%b'"])
+//   if (error) {
+//     console.error(error)
+//     process.exit(1)
+//   }
 
-  return `${stdout}` && `${stdout}`.length ? `${stdout}`.split('\n')?.[0] : ''
-}
+//   return `${stdout}` && `${stdout}`.length ? `${stdout}`.split('\n')?.[0] : ''
+// }
 
 /** 信息打印 */
 const log = {
@@ -94,6 +94,6 @@ export {
   checkWebHooks,
   checkEmial,
   getGlobUrls,
-  getCommitMessage,
+  // getCommitMessage,
   log,
 }

@@ -30,9 +30,44 @@ antmjs Doc 可以支持移动端组件库和 PC 端组件库，两种方式的�
 
 > 需要注意的是，要先创建案例代码文件，再设置引入标识
 
-下面是一个简单的 `toast` 组件案例展示
+下面是一个简单 react 的 `toast` 组件案例展示
 
 ::: demo-button :::
+
+下面是一个简单 vue 的 `toast` 组件案例展示
+
+::: demo-buttona :::
+
+### 组件库的 i8n
+
+配置文件`antm.config下配置`配置`doc.demoCode.container.react`，即组件案例公共的容器组件
+下面是模拟 i18n 组件的简单实现，全局变量`__LANGE__`当前文档切换的语言
+
+```typescript
+import React from 'react'
+
+let langCache = ''
+
+export default function Index({ children }) {
+  if (window['__LANGE__'] && window['__LANGE__'] !== langCache) {
+    const I18nMap = {
+      CN: {
+        点击Toast: '点击Toast',
+        点击按钮: '点击按钮',
+        操作成功: '操作成功',
+      },
+      EN: {
+        点击Toast: 'click Toast',
+        点击按钮: 'click button',
+        操作成功: 'operate success',
+      },
+    }
+    window['$L'] = I18nMap[window['__LANGE__']]
+  }
+
+  return <div>{children}</div>
+}
+```
 
 ### 移动端组件库
 

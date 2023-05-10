@@ -109,6 +109,7 @@ function getTempNames() {
  */
 function unitWork(mp: string) {
   const routeName = getRoutePath(mp)
+  const routeNameNoLang = filterI18n(routeName)
 
   const config = {
     highlight: function (str, lang) {
@@ -127,7 +128,7 @@ function unitWork(mp: string) {
   const transformResult = parseCode({
     mdStr: mdstr,
     path: mp,
-    routeName,
+    routeName: routeNameNoLang,
   })
   mdstr = transformResult.mdStr
   const res = markdownCardWrapper(Markdown.render(mdstr))
@@ -139,14 +140,12 @@ function unitWork(mp: string) {
     '`'
   const h3Ids = '`' + res.h3Ids.join(':::') + '`'
   const title = '`' + getTitleFromMd(mdstr, routeName.replace('__', '/')) + '`'
-  console.info(`生成临时文件： ${moduleFilePath}`)
-
   const curDemoCodeKeys: string[] = []
 
   const demoCodesNew = {}
   // 热更新清楚原来demo的js模块表
   Object.keys(demoCodes).forEach((key) => {
-    if (!key.includes(`${routeName}__`)) {
+    if (!key.includes(`${routeNameNoLang}__`)) {
       demoCodesNew[key] = demoCodes[key]
     }
   })
@@ -154,11 +153,13 @@ function unitWork(mp: string) {
 
   transformResult.demoEntrys.forEach((e) => {
     const last = e.split('/')[e.split('/').length - 1]
-    const entryKey = `${routeName}__${last?.split('.')[0]}`
+    const entryKey = `${routeNameNoLang}__${last?.split('.')[0]}`
     demoCodes[entryKey] = e
     demoCodesMap[e] = mp
     curDemoCodeKeys.push(entryKey)
   })
+
+  console.info(`生成临时文件： ${moduleFilePath}`)
 
   writeFileSync(
     moduleFilePath,
@@ -212,7 +213,7 @@ function createMarkdownMain(mdjss: string[]) {
       mdMain += `"${name}": import("${filePath}"),\n`
     }
   }
-
+  // 异步引用的demo组件的js
   for (const key in demoCodes) {
     const item = demoCodes[key]
     if (item) {
@@ -222,6 +223,15 @@ function createMarkdownMain(mdjss: string[]) {
       }
       mdMain += `"${key}": import("${filePath}"),\n`
     }
+  }
+  // 异步引用的demo组件公用的外层容器组件
+  const demoReactContainer = _config?.demoCode?.container?.react
+  const demoVueContainer = _config?.demoCode?.container?.vue
+  if (demoReactContainer) {
+    mdMain += `DEMO_REACT_CONTAINER: import("${demoReactContainer}"),\n`
+  }
+  if (demoVueContainer) {
+    mdMain += `DEMO_VUE_CONTAINER: import("${demoVueContainer}"),\n`
   }
 
   mdMain += `}`
@@ -295,6 +305,18 @@ function getTitleFromMd(md: string, routePath) {
 
   return firstLine.replace(/\#/g, '').replace(/\s/g, '').replace(/\`/g, '')
 }
+// 过滤带i18n标识的模块名称
+function filterI18n(fname: string) {
+  const langs = _config?.i18n?.langs || []
+  langs.forEach((item) => {
+    if (fname.includes(`__${item}`)) {
+      fname = fname.replace(`__${item}`, '')
+    }
+  })
+
+  return fname
+}
+
 /**
  * 监听各个文件的变化
  * @param files 监听的文件
@@ -354,32 +376,42 @@ function watchDemoFiles() {
     readyOk = true
   })
 
-  demoWatcher.on('change', function (path) {
-    if (readyOk) {
-      const mdPath = demoCodesMap[path]
-      const newModuleFilePath = unitWork(mdPath)
-      moduleFilePaths.push(newModuleFilePath)
-      createMarkdownMain(moduleFilePaths)
-    }
-  })
+  const work = function (mdPath) {
+    const newModuleFilePath = unitWork(mdPath)
+    moduleFilePaths.push(newModuleFilePath)
+    createMarkdownMain(moduleFilePaths)
+  }
 
-  demoWatcher.on('add', function (path) {
+  const works = function (path) {
     if (readyOk) {
       const mdPath = demoCodesMap[path]
-      const newModuleFilePath = unitWork(mdPath)
-      moduleFilePaths.push(newModuleFilePath)
-      createMarkdownMain(moduleFilePaths)
-    }
-  })
+      work(mdPath)
+      if (_config?.i18n?.langs) {
+        let pathWidthNolang = mdPath
+        _config?.i18n?.langs.forEach((item) => {
+          const lanSuffix = `__${item}`
+          if (mdPath.includes(lanSuffix)) {
+            pathWidthNolang = mdPath.replace(lanSuffix, '')
+          }
+        })
 
-  demoWatcher.on('unlink', function (path) {
-    if (readyOk) {
-      const mdPath = demoCodesMap[path]
-      const newModuleFilePath = unitWork(mdPath)
-      moduleFilePaths.push(newModuleFilePath)
-      createMarkdownMain(moduleFilePaths)
+        // 暂时不支持xx.xx.tsx的书写
+        const pathNameWidthNolang = pathWidthNolang.split('.')[0]
+        const pathSuffixWidthNolang = pathWidthNolang.split('.')[1]
+
+        _config?.i18n?.langs.forEach((lan) => {
+          const curPath = `${pathNameWidthNolang}__${lan}.${pathSuffixWidthNolang}`
+          if (existsSync(curPath)) {
+            work(curPath)
+          }
+        })
+      }
     }
-  })
+  }
+
+  demoWatcher.on('change', works)
+  demoWatcher.on('add', works)
+  demoWatcher.on('unlink', works)
 }
 
 /** 重置markdown的html字符串 */

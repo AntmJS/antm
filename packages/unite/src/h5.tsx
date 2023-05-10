@@ -309,16 +309,19 @@ export function Unite(config: any, render: any, options: any = {}) {
 
     // 执行业务侧函数式组件
     return (
-      <UniteContext.Provider
-        value={{
-          uniteConfig: options,
-          error: renderData.error,
-          setError: renderData.events.setError,
-          onRefresh: onRefresh,
-        }}
-      >
-        <HackComponent data={renderData} render={render} prevProps={props} />
-      </UniteContext.Provider>
+      <>
+        {/** @ts-ignore */}
+        <UniteContext.Provider
+          value={{
+            uniteConfig: options,
+            error: renderData.error,
+            setError: renderData.events.setError,
+            onRefresh: onRefresh,
+          }}
+        >
+          <HackComponent data={renderData} render={render} prevProps={props} />
+        </UniteContext.Provider>
+      </>
     )
   }
 }

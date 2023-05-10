@@ -1,13 +1,7 @@
 import https from 'https'
 import { URL } from 'url'
 import { join } from 'path'
-import {
-  getBranch,
-  getUserInfo,
-  checkWebHooks,
-  log,
-  getCommitMessage,
-} from './utils'
+import { getBranch, getUserInfo, checkWebHooks, log } from './utils'
 import getDiffs from './getDiffs'
 
 const CWD = process.cwd()
@@ -67,7 +61,6 @@ export default async function chartWarning(props) {
 - 项目【${pkg.default.name}】
 - 分支【${getBranch()}】
 - 提交人【${getUserInfo()}】
-- 提交信息【${getCommitMessage()}】
 `,
     },
     at: {

@@ -46,13 +46,13 @@ export default defineConfig({
       langs: ['CN', 'EN'],
       noSuffixLang: 'CN',
     },
+    demoCode: {
+      container: {
+        react: path.join(process.cwd(), './docs/demo-i18n.tsx'),
+        vue: path.join(process.cwd(), './docs/demo-i18n.tsx'),
+      },
+    },
     menu: createMenu(),
-    // simulator: {
-    //   url: {
-    //     production: 'xx',
-    //     development: 'xxx',
-    //   },
-    // },
   },
 })
 

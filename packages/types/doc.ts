@@ -44,6 +44,14 @@ export type Ii18n = {
   noSuffixLang: string
 }
 
+export type IDemoCode = {
+  // 公共容器的绝对路径
+  container?: {
+    vue?: string
+    react?: string
+  }
+}
+
 /** 全局样式注入 */
 type IDocGlobalStyles = string[]
 
@@ -62,4 +70,5 @@ export type IDocsConfig = {
   globalStyles?: IDocGlobalStyles
   markdownPlugins?: IDocMarkdownPlugins
   i18n?: Ii18n
+  demoCode?: IDemoCode
 }

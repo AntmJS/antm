@@ -1,12 +1,6 @@
 import { join } from 'path'
 import nodemailer from 'nodemailer'
-import {
-  getBranch,
-  getUserInfo,
-  checkEmial,
-  log,
-  getCommitMessage,
-} from './utils'
+import { getBranch, getUserInfo, checkEmial, log } from './utils'
 import getDiffs from './getDiffs'
 
 const CWD = process.cwd()
@@ -79,8 +73,7 @@ export default async function emailWarning(props) {
     <h1>文件修改通知</h1>
     <h3>项目${pkg.default.name}</h3>
     <h3>分支${getBranch()}</h3>
-    <h4>提交人${getUserInfo()}</h3>
-    <h4>提交信息${getCommitMessage()}</h3>`
+    <h4>提交人${getUserInfo()}</h3>`
   // @ts-ignore
   String.prototype.replaceAll = function (s1, s2) {
     return this.replace(new RegExp(s1, 'gm'), s2)

@@ -1,13 +1,17 @@
 import React from 'react'
-import { toast } from 'react-hot-toast'
+import toast, { Toaster } from 'react-hot-toast'
 
 export default function Index() {
+  const L = window['$L']
+
   const onClick = () => {
-    toast.success('操作成功！')
+    toast.success(`${L['操作成功']}`)
   }
 
   return (
     <>
+      {/** @ts-ignore */}
+      <Toaster />
       <span
         onClick={onClick}
         style={{
@@ -18,7 +22,7 @@ export default function Index() {
           borderRadius: 16,
         }}
       >
-        点击Toast
+        {L['点击Toast']}
       </span>
     </>
   )

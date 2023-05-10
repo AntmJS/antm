@@ -11,7 +11,7 @@ interface ExampleProps {
 
 export const Example: React.FC<ExampleProps> = ({ simulator, url }) => {
   if (!simulator) {
-    return null
+    return <></>
   }
   const mobileUrl = getSimulatorUrl(simulator, url)
   return <iframe className={`${preCls}-example`} src={mobileUrl} />

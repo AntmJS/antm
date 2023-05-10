@@ -30,9 +30,44 @@ As used in the above components.md file, a blank line and line feed character mu
 
 > Note that you need to create the example code file first and then set the import identifier.
 
-Below is a simple example of a `toast` component display.
+Below is a simple react example of a `toast` component display.
 
 ::: demo-button :::
+
+Below is a simple vue example of a `button` component display
+
+::: demo-buttona :::
+
+### I18n of component library
+
+Configure 'doc. demoCode. container. read' under the configuration file 'antm. config', which is a container component that is common to component cases
+The following is a simple implementation of simulating i18n components, with global variables`__ LANGE__` Language for switching the current document
+
+```typescript
+import React from 'react'
+
+let langCache = ''
+
+export default function Index({ children }) {
+  if (window['__LANGE__'] && window['__LANGE__'] !== langCache) {
+    const I18nMap = {
+      CN: {
+        点击Toast: '点击Toast',
+        点击按钮: '点击按钮',
+        操作成功: '操作成功',
+      },
+      EN: {
+        点击Toast: 'click Toast',
+        点击按钮: 'click button',
+        操作成功: 'operate success',
+      },
+    }
+    window['$L'] = I18nMap[window['__LANGE__']]
+  }
+
+  return <div>{children}</div>
+}
+```
 
 ### Mobile Component Library
 

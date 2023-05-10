@@ -1,6 +1,6 @@
 import fs from 'fs'
 
-const allSuffix = ['.vue', '.jsx', '.tsx']
+const allSuffix = ['.tsx', '.jsx', '.vue']
 const demoCodeReg = /\n\n:::\sdemo[a-z\-]*\s:::/g
 
 type Iprops = {
@@ -35,9 +35,14 @@ export function parseCode(props: Iprops) {
     if (suffix) {
       const demoFileName = `${demoPath}${suffix}`
       demoEntrys.push(demoFileName)
+      const codeType =
+        suffix.replace('.', '') === 'vue'
+          ? 'typescript'
+          : suffix.replace('.', '')
+
       const codeItem =
         '```' +
-        suffix.replace('.', '') +
+        codeType +
         '\n' +
         fs.readFileSync(demoFileName, 'utf-8') +
         '\n```'

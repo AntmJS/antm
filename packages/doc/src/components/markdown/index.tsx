@@ -21,6 +21,7 @@ function MarkdownBox(props: Iprops) {
 
   return (
     <div className="antm-docs-markdown">
+      {/** @ts-ignore */}
       <Toaster />
       <div
         dangerouslySetInnerHTML={{
