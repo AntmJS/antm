@@ -27,13 +27,13 @@ let ReactDemoContainer
 
 export function renderDemoCode({ DemoComponent, id, markdownMain }) {
   if (!ReactDemoContainer) {
-    markdownMain['DEMO_REACT_CONTAINER'].then((res) => {
+    markdownMain['DEMO_REACT_CONTAINER']?.then((res) => {
       ReactDemoContainer = res.default
     })
   }
 
   if (!VueDemoContainer) {
-    markdownMain['DEMO_VUE_CONTAINER'].then((res) => {
+    markdownMain['DEMO_VUE_CONTAINER']?.then((res) => {
       VueDemoContainer = res.default
     })
   }
@@ -48,11 +48,15 @@ export function renderDemoCode({ DemoComponent, id, markdownMain }) {
     if (dom) {
       if (type === 'react') {
         const root = createRoot(dom)
-        root.render(
-          <ReactDemoContainer>
-            <DemoComponent />
-          </ReactDemoContainer>,
-        )
+        if (ReactDemoContainer) {
+          root.render(
+            <ReactDemoContainer>
+              <DemoComponent />
+            </ReactDemoContainer>,
+          )
+        } else {
+          root.render(<DemoComponent />)
+        }
       } else {
         console.info(DemoComponent)
         const app = createApp(DemoComponent)

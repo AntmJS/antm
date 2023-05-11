@@ -1,4 +1,5 @@
 #!/usr/bin/env ts-node --transpileOnly --transpiler ts-node/transpilers/swc
+
 import path from 'path'
 // eslint-disable-next-line import/no-named-as-default
 import webpack from 'webpack'
