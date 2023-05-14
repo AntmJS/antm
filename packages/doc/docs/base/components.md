@@ -43,6 +43,8 @@ export default {
 
 ```markdown
 ::: demo-buttona :::
+// 只引用代码展示，不渲染
+::: $demo-buttona :::
 ```
 
 > 需要注意的是，要先创建案例代码文件，再设置引入标识

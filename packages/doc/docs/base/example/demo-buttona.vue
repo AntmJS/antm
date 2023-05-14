@@ -14,7 +14,7 @@ export default {
   mounted() {
     setTimeout(() => {
       this.$L = window['$L']
-    }, 300)
+    }, 100)
   },
 }
 </script>

@@ -95,7 +95,11 @@ export function renderDemoCode({ DemoComponent, id, markdownMain }) {
             </ReactDemoContainer>,
           )
         } else {
-          root.render(<DemoComponent />)
+          root.render(
+            <VueDemoContainer>
+              <DemoComponent />
+            </VueDemoContainer>,
+          )
         }
       } else {
         const app = createApp(DemoComponent)

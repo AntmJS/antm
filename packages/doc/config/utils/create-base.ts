@@ -23,7 +23,7 @@ let MARKDOWN_MAIN = ''
 let SEARCH_JSON = ''
 let ALL_CONFIG = ''
 
-let demoCodes = {}
+const demoCodes = {}
 const demoCodesMap = {} // 案例代码路径对应的markdown路径
 const moduleFilePaths: string[] = [] // markdown的js模块文件路径
 
@@ -142,15 +142,6 @@ function unitWork(mp: string) {
   const h3Ids = '`' + res.h3Ids.join(':::') + '`'
   const title = '`' + getTitleFromMd(mdstr, routeName.replace('__', '/')) + '`'
   const curDemoCodeKeys: string[] = []
-
-  const demoCodesNew = {}
-  // 热更新清楚原来demo的js模块表
-  Object.keys(demoCodes).forEach((key) => {
-    if (!key.includes(`${routeNameNoLang}__`)) {
-      demoCodesNew[key] = demoCodes[key]
-    }
-  })
-  demoCodes = demoCodesNew
 
   transformResult.demoEntrys.forEach((e) => {
     const last = e.split('/')[e.split('/').length - 1]

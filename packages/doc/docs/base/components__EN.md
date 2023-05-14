@@ -1,44 +1,71 @@
-# Building Component Library Documentation
+# Build Component Library Document
 
 ### Introduction
 
-antmjs Doc can support both mobile and PC component libraries, and requires different operations for each.
+Antmjs Doc can support both mobile and PC component libraries, with different operations required for both methods
 
-### PC Component Library
+### PC component library
 
-#### Example Code Files
+#### Case code file
 
-- Path: Example code and document md files must be in the same layer of the file
-- Naming: The file must start with the prefix `demo`, followed by `[a-z-]`
-  Avoid naming conflicts within the same md document
-- Type: Supports `.tsx`, `.jsx` three file types, currently only supports `react`
-- Code: Example code must have a default exported component, i.e. `export default`
+-Path: The case code and document MD file need to be at the same level as the file
+-Naming: The file must start with 'demo' as the prefix, followed by '[a-z -]`
+Avoid naming conflicts within the same MD document
+-Type: Supports three file types: '. tsx' and '. jsx'. Currently, only 'react' is supported`
+-Code: The case code must have a default exported component, which is' export default '`
+The 'import' local file in the code will also be displayed, except for the file path containing 'index'
+The folder where the case code is located is configured under 'antm. config',
+
+```ts
+export default {
+  docs: {
+    demoCode: {
+      dir: 'example',
+    },
+  },
+}
+```
+
+> If not set, the case code and markup file are at the same level
+> Directory structure, for example:
 
 ```markdown
 ├── docs
+├── example/demo-button.tsx
 ├── components.md
-├── demo-button.tsx
 ```
 
-#### Referencing Example Code in md Files
+#### Referencing Case Codes in MD Files
 
-As used in the above components.md file, a blank line and line feed character must be included in actual use.
+Used in the above file components.md, empty lines and line breaks must be included in actual use
 
 ```markdown
-::: demo-button :::
+::: demo-buttona :::
+//Only reference code display, no rendering
+::: $demo-buttona :::
 ```
 
-> Note that you need to create the example code file first and then set the import identifier.
+> It should be noted that the case code file needs to be created first, and then the introduction identifier needs to be set
+> Below is a simple 'toast' component case study of React
+> ::: demo-button :::
+> The following is a simple Vue 'toast' component case display
+> ::: demo-buttona :::
 
-Below is a simple react example of a `toast` component display.
+### I8n of component library
 
-::: demo-button :::
-
-Below is a simple vue example of a `button` component display
-
-::: demo-buttona :::
-
-### I18n of component library
+```ts
+export default {
+  docs: {
+    // ......
+    demoCode: {
+      container: {
+        react: path.join(process.cwd(), './ docs/demo-i18n.tsx'),
+        vue: path.join(process.cwd(), './ docs/demo-i18n.tsx'),
+      },
+    },
+  },
+}
+```
 
 Configure 'doc. demoCode. container. read' under the configuration file 'antm. config', which is a container component that is common to component cases
 The following is a simple implementation of simulating i18n components, with global variables`__ LANGE__` Language for switching the current document
@@ -69,20 +96,19 @@ export default function Index({ children }) {
 }
 ```
 
-### Mobile Component Library
+### Mobile component library
 
-The main configuration is as follows:
-
-- `url`: Divided into development and production environments.
-- `noMate`: When there is no mapping relationship for the url, set the redirection.
-- `transform`: Define mapping rules.
+The main configurations are as follows
+-URL: divided into development environment and production environment
+-'noMate': Set redirection when there is no mapping relationship between urls
+-'transform ': Define mapping rules
 
 ```ts
 export default defineConfig({
   docs: {
     simulator: {
       url: {
-        development: 'http://10.254.9.214:10086',
+        development: ' http://10.254.9.214:10086 ',
         production: '/vantui/main/mobile.html',
       },
       transform: (url) => `#/pages/${url}/index`,

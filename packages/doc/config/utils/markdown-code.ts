@@ -2,7 +2,7 @@ import fs from 'fs'
 import { resolve } from 'path'
 
 const allSuffix = ['.tsx', '.jsx', '.vue']
-const demoCodeReg = /\n\n:::\sdemo[a-z\-]*\s:::/g
+const demoCodeReg = /\n\n:::\s\$?demo[a-z\-]*\s:::/g
 // https://regexr.com/47jlq
 const IMPORT_RE =
   /import\s+?(?:(?:(?:[\w*\s{},]*)\s+from(\s+)?)|)(?:(?:".*?")|(?:'.*?'))[\s]*?(?:;|$|)/g
@@ -29,10 +29,16 @@ export function parseCode(props: Iprops) {
     .slice(0, path.split('/').length - 1)
     .join('/')
   const demos = mdStr.match(demoCodeReg) as string[]
+  // $开头的字符不需要执行渲染demo代码
+  const noNeedRenders: string[] = []
 
   const demoNames =
     demos?.map((item) => {
-      return item.replace(/:|\s/g, '')
+      const nItem = item.replace(/\$|\:|\s/g, '')
+      if (item.includes('$')) {
+        noNeedRenders.push(nItem)
+      }
+      return nItem
     }) || []
 
   demoNames.forEach((item, index) => {
@@ -43,7 +49,9 @@ export function parseCode(props: Iprops) {
     const suffix = getExistSuffix(demoPath)
     if (suffix) {
       const demoFileName = `${demoPath}${suffix}`
-      demoEntrys.push(demoFileName)
+      if (!noNeedRenders.includes(item)) {
+        demoEntrys.push(demoFileName)
+      }
       const codeType =
         suffix.replace('.', '') === 'vue'
           ? 'typescript'
@@ -80,25 +88,42 @@ ${cItem.code}
       tabsStr += '</div>'
 
       if (demos[index]) {
-        mdStr = mdStr.replace(
-          demos[index] || '',
-          `
-<div class="demo-code-wrapper" id="${routeName}__${item}_wrapper">
-<div class="demo-code-box" id="${routeName}__${item}"></div>
-<div class="show-code-btn">
-<svg t="1683506698040" class="icon" viewBox="0 0 1024 1024"  width="20" height="20"><path d="M753.6 611.52a32 32 0 1 1 28.8 56.96l-256 128a32 32 0 0 1-28.8 0l-256-128a32 32 0 0 1 28.8-56.96L512 732.16z m0-288a32 32 0 1 1 28.8 56.96l-256 128a32 32 0 0 1-28.8 0l-256-128a32 32 0 1 1 28.8-56.96L512 444.16z" p-id="2292"></path></svg>
-</div>
-
-<div class="code-box">
-
-${tabsStr}
-
-${codeBoxStr}
-
-</div>
-</div>
-`,
-        )
+        if (!noNeedRenders.includes(item)) {
+          mdStr = mdStr.replace(
+            demos[index] || '',
+            `
+  <div class="demo-code-wrapper" id="${routeName}__${item}_wrapper">
+  <div class="demo-code-box" id="${routeName}__${item}"></div>
+  <div class="show-code-btn">
+  <svg t="1683506698040" class="icon" viewBox="0 0 1024 1024"  width="20" height="20"><path d="M753.6 611.52a32 32 0 1 1 28.8 56.96l-256 128a32 32 0 0 1-28.8 0l-256-128a32 32 0 0 1 28.8-56.96L512 732.16z m0-288a32 32 0 1 1 28.8 56.96l-256 128a32 32 0 0 1-28.8 0l-256-128a32 32 0 1 1 28.8-56.96L512 444.16z" p-id="2292"></path></svg>
+  </div>
+  
+  <div class="code-box">
+  
+  ${tabsStr}
+  
+  ${codeBoxStr}
+  
+  </div>
+  </div>
+  `,
+          )
+        } else {
+          mdStr = mdStr.replace(
+            demos[index] || '',
+            `
+  <div class="demo-code-show" id="${routeName}__${item}_wrapper">  
+  <div class="code-box">
+  
+  ${tabsStr}
+  
+  ${codeBoxStr}
+  
+  </div>
+  </div>
+  `,
+          )
+        }
       }
     }
   })
