@@ -31,17 +31,20 @@ export default function PageLayout() {
   const initLoadDoc = usePersistFn(async () => {
     const [_docsConfig, _markdownMain] = await Promise.all([
       // @ts-ignore
-      import(`../../.temp/${pkgName}/all-config.js`),
+      import(`CWD/.temp/${pkgName}/all-config.js`),
       // @ts-ignore
-      import(`../../.temp/${pkgName}/markdown-main.js`),
+      import(`CWD/.temp/${pkgName}/markdown-main.js`),
     ])
     setDocsConfig(JSONparse(_docsConfig.default.config) as IDocsConfig)
     setMarkdownMain(_markdownMain.default)
-    const allRoutes = Object.keys(_markdownMain.default).map((item) =>
-      item.replace('__', '/'),
-    )
+    const allRoutes = Object.keys(_markdownMain.default)
+      .map((item) => item.replace('__', '/'))
+      .filter((item) => {
+        // 过滤demo和demoContainer的异步容器的key
+        return !item.includes('/demo-') && !item.includes('DEMO_')
+      })
     setRoutes(allRoutes)
-    console.info('DOC_ROUTERS', allRoutes)
+    console.info(allRoutes, '______________________DOC_ROUTERS')
     setLoading(false)
   })
 

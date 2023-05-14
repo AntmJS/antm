@@ -120,7 +120,6 @@ export default async function base() {
       // 抽离出css
       new MiniCssExtractPlugin({
         filename: 'css/[name]_[contenthash].css',
-        chunkFilename: '[id]_[contenthash]',
       }),
 
       new htmlWebpackPlugin({

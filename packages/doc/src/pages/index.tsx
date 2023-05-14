@@ -13,7 +13,7 @@ import { routerEvent } from '../utils/history'
 import { UrlConext, LangConext } from '../context'
 import { scrollToTargetParent } from '../utils/common'
 import { BackToTopIcon } from '../components/search/icons'
-import { handleShowCode, renderDemoCode } from './utils'
+import { bindEvent, renderDemoCode } from './utils'
 import './index.less'
 
 type Iprops = {
@@ -88,7 +88,6 @@ const Docs = function Docs({
   const mdChange = (markdownMain) => {
     let pathName =
       routerType === 'hash' ? location.hash.replace('#', '') : location.pathname
-    console.info(pathName)
     setCurrentUrl(pathName.replace(/^\//, '').split('?')[0] || '')
     pathName =
       pathName.replace(/^\//, '').replace(/\//g, '__').split('?')[0] || ''
@@ -107,7 +106,6 @@ const Docs = function Docs({
         // demo-code代码的执行和渲染
         if (result.codePath.length) {
           result.codePath.forEach((item) => {
-            console.info(item, markdownMain)
             markdownMain[item].then((res) => {
               renderDemoCode({
                 DemoComponent: res.default,
@@ -116,15 +114,8 @@ const Docs = function Docs({
               })
             })
           })
-          setTimeout(() => {
-            const codeBtns =
-              document.getElementsByClassName('show-code-btn') || []
-            for (let i = 0; i < codeBtns.length; i++) {
-              const btn = codeBtns[i]
-              if (btn) btn['onclick'] = (e) => handleShowCode(e, btn)
-            }
-          }, 66)
         }
+        bindEvent()
         setRightNavs(result.h3Ids.split(':::'))
       })
     } else if (firstPage) {

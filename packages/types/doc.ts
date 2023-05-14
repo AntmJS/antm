@@ -50,6 +50,8 @@ export type IDemoCode = {
     vue?: string
     react?: string
   }
+  // 案例所在文件夹
+  dir?: string
 }
 
 /** 全局样式注入 */

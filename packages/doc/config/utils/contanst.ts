@@ -3,7 +3,7 @@ import { existsSync } from 'fs'
 
 export const CWD = process.cwd()
 // 临时文件目录
-export const TEMP_DIR = join(__dirname, '../../src/.temp')
+export const TEMP_DIR = join(CWD, './.temp')
 
 let CONFIG_PATH = join(CWD, './antm.config.ts')
 

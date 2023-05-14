@@ -17,7 +17,7 @@ export async function init() {
     },
   })
   // @ts-ignore
-  searchData = (await import(`../.temp/${pkgName}/all-search.json`)).default
+  searchData = (await import(`CWD/.temp/${pkgName}/all-search.json`)).default
 
   searchData.map((item) => {
     documentIndex.add(item)

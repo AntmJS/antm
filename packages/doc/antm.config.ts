@@ -51,6 +51,7 @@ export default defineConfig({
         react: path.join(process.cwd(), './docs/demo-i18n.tsx'),
         vue: path.join(process.cwd(), './docs/demo-i18n.tsx'),
       },
+      dir: 'example',
     },
     menu: createMenu(),
   },

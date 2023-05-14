@@ -129,6 +129,7 @@ function unitWork(mp: string) {
     mdStr: mdstr,
     path: mp,
     routeName: routeNameNoLang,
+    demoDir: _config.demoCode.dir,
   })
   mdstr = transformResult.mdStr
   const res = markdownCardWrapper(Markdown.render(mdstr))
@@ -385,6 +386,7 @@ function watchDemoFiles() {
   const works = function (path) {
     if (readyOk) {
       const mdPath = demoCodesMap[path]
+      console.info(mdPath, 'watchDemoFiles')
       work(mdPath)
       if (_config?.i18n?.langs) {
         let pathWidthNolang = mdPath
