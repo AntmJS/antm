@@ -119,7 +119,7 @@ export default async function base() {
       new VueLoaderPlugin(),
       // 抽离出css
       new MiniCssExtractPlugin({
-        filename: 'css/[name]_[contenthash].css',
+        filename: 'css/[name].css',
       }),
 
       new htmlWebpackPlugin({
