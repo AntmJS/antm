@@ -57,6 +57,8 @@ export default {
 
 ::: demo-buttona :::
 
+案例[antd-max](https://antmjs.github.io/antd-max)
+
 ### 组件库的 i8n
 
 ```ts
@@ -137,3 +139,5 @@ export default defineConfig({
   },
 })
 ```
+
+移动端案例[vantui](https://antmjs.github.io/vantui/main/)

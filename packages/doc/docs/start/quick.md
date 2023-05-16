@@ -3,7 +3,7 @@
 ### 安装
 
 ```bash
-npm i @antmjs/doc
+npm i antmjs-doc #最新测试包
 ```
 
 在 package.json 下新增脚本
@@ -11,8 +11,8 @@ npm i @antmjs/doc
 ```json
 {
   "scripts": {
-    "start": "antm-doc dev",
-    "build": "antm-doc build"
+    "start": "antm-doc-start",
+    "build": "antm-doc-build"
   }
 }
 ```
