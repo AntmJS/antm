@@ -11,8 +11,8 @@ Add the following scripts to your `package.json` file:
 ```json
 {
   "scripts": {
-    "start": "antm-doc dev",
-    "build": "antm-doc build"
+    "start": "antm-doc-start",
+    "build": "antm-doc-build"
   }
 }
 ```

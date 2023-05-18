@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { resolve } from 'path'
 
-const allSuffix = ['.tsx', '.jsx', '.vue', 'd.ts', 'ts']
+const allSuffix = ['.tsx', '.jsx', '.vue', '.d.ts', '.ts']
 const demoCodeReg = /\n\n:::\s\$?demo[a-z\-]*\s:::/g
 // https://regexr.com/47jlq
 const IMPORT_RE =
@@ -67,7 +67,7 @@ export function parseCode(props: Iprops) {
       const importCodes = getImportCodes(codes, path, demoDir)
       allCodes = allCodes.concat(importCodes)
 
-      let tabsStr = `<div class="demo-code-tabs">`
+      let tabsStr = `\n <div class="demo-code-tabs">`
       let codeBoxStr = ''
       for (let i = 0; i < allCodes.length; i++) {
         const cItem = allCodes[i]
@@ -92,6 +92,7 @@ ${cItem.code}
           mdStr = mdStr.replace(
             demos[index] || '',
             `
+
   <div class="demo-code-wrapper" id="${routeName}__${item}_wrapper">
   <div class="demo-code-box" id="${routeName}__${item}"></div>
   <div class="show-code-btn">
@@ -99,7 +100,7 @@ ${cItem.code}
   </div>
   
   <div class="code-box">
-  
+  \n
   ${tabsStr}
   
   ${codeBoxStr}
@@ -153,7 +154,7 @@ function getImportType(p) {
   if (p.includes('.')) {
     res = p.split('.')[1] || ''
   } else {
-    const ss = ['.ts', '.tsx', '.js', '.vue']
+    const ss = ['.ts', '.tsx', '.js', '.vue', '.d.ts']
     for (let i = 0; i < ss.length; i++) {
       const suffix = ss[i] || ''
       if (fs.existsSync(`${p}${suffix}`)) {
@@ -168,6 +169,19 @@ function getImportType(p) {
     codeType: res,
     newPath: np,
   }
+}
+
+function getCodeLange(suffix) {
+  let lang = suffix.replace('.', '')
+  if (!['jsx', 'vue', 'tsx', 'ts', ''].includes(lang)) {
+    if (lang === 'd.ts') {
+      lang = 'ts'
+    } else {
+      lang = 'text'
+    }
+  }
+
+  return lang
 }
 
 function getImportCodes(codes: string, path: string, demoDir?: string) {
@@ -189,8 +203,7 @@ function getImportCodes(codes: string, path: string, demoDir?: string) {
           const codes = fs.readFileSync(newPath, 'utf-8')
           importCodes.push({
             path: newPath,
-            code:
-              '\n``` ' + codeType.replace('.', '') + '\n' + codes + '\n```\n',
+            code: '\n``` ' + getCodeLange(codeType) + '\n' + codes + '\n```\n',
           })
         }
       } else {

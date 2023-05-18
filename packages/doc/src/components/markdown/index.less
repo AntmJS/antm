@@ -154,7 +154,6 @@
   }
 
   pre {
-    position: relative;
     display: block;
     margin-top: 20px;
     margin-bottom: 20px;
@@ -167,25 +166,26 @@
     line-height: 26px;
     white-space: pre-wrap;
     word-wrap: break-word;
-    background-color: #fafafa !important;
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
+    background-color: @code-box-background !important;
+    border-radius: 16px;
     -webkit-font-smoothing: auto;
+    max-height: @code-box-max-height;
+    overflow: scroll;
+    position: static;
 
     code {
-      position: relative;
       display: block;
+      position: relative;
       padding: 6px 8px !important;
       overflow-x: auto;
-      color: #58727e;
+      color: #cfccccee;
       font-weight: 400;
-      font-size: 14px;
+      font-size: 12px;
       font-family: 'Source Code Pro', Monaco, Inconsolata, monospace;
-      line-height: 26px;
+      line-height: 24px;
       white-space: pre-wrap;
       word-wrap: break-word;
-      background-color: #f8f8f8;
-      border-radius: 20px;
+      background-color: @code-box-background !important;
       -webkit-font-smoothing: auto;
     }
 
@@ -282,7 +282,7 @@
     pointer-events: none;
   }
 
-  pre:hover {
+  pre {
     code::before {
       position: absolute;
       top: 11px;
