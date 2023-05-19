@@ -78,8 +78,6 @@ export default function PageLayout() {
     return null
   }
 
-  console.info(menu)
-
   return (
     <div>
       {/** @ts-ignore */}
