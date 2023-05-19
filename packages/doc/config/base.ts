@@ -41,34 +41,23 @@ export default async function base() {
       rules: [
         {
           test: /.ts|.tsx$/,
-          loader: 'babel-loader',
+          loader: 'swc-loader',
           exclude: /node_modules\/(?!@antmjs\/doc)/,
           options: {
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  targets: {
-                    esmodules: false,
-                  },
-                },
-              ],
-              [
-                '@babel/preset-typescript',
-                {
-                  isTSX: true,
-                  jsxPragma: 'React',
-                  allExtensions: true,
-                  allowNamespaces: true,
-                },
-              ],
-              [
-                '@babel/preset-react',
-                {
+            jsc: {
+              parser: {
+                syntax: 'typescript',
+              },
+              target: 'es2022',
+              transform: {
+                react: {
                   runtime: 'automatic',
                 },
-              ],
-            ],
+              },
+            },
+            module: {
+              type: 'es6',
+            },
           },
         },
         {

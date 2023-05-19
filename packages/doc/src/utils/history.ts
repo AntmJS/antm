@@ -1,44 +1,30 @@
-class RouterEvent {
-  RouterEvent: (() => void)[]
-  register: (call: any) => void
-  unregister: () => void
-  trigger: () => void
-  // @ts-ignore
-  switch: (url: string, type?: 'hash' | 'history' | undefined) => void
-  constructor() {
+const routerEvent = {
+  RouterEvent: [] as any,
+  register: function (call) {
+    this?.['RouterEvent'].push(call)
+  },
+  unregister: function () {
     this.RouterEvent = []
-
-    this.register = (call) => {
-      this.RouterEvent.push(call)
+  },
+  trigger: function () {
+    if (this.RouterEvent) {
+      this.RouterEvent.forEach((item: any) => {
+        item()
+      })
     }
-
-    this.unregister = () => {
-      this.RouterEvent = []
+  },
+  switch: function (
+    url: string,
+    type?: 'hash' | 'history',
+    data?: Record<string, any>,
+  ) {
+    if (type === 'history') {
+      history.pushState(data || {}, '', url)
+    } else {
+      window.location.hash = url
     }
-
-    this.trigger = () => {
-      if (this.RouterEvent) {
-        this.RouterEvent.forEach((item) => {
-          item()
-        })
-      }
-    }
-  }
+    this.trigger()
+  },
 }
-
-RouterEvent.prototype.switch = function (
-  url: string,
-  type?: 'hash' | 'history',
-  data?: Record<string, any>,
-) {
-  if (type === 'history') {
-    history.pushState(data || {}, '', url)
-  } else {
-    window.location.hash = url
-  }
-  this.trigger()
-}
-
-const routerEvent = new RouterEvent()
 
 export { routerEvent }
