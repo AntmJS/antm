@@ -3,21 +3,24 @@ import React, { useEffect, memo } from 'react'
 // eslint-disable-next-line import/no-named-as-default
 import toast, { Toaster } from 'react-hot-toast'
 import { copyToClipboard, scrollToTargetParent } from '../../utils/common'
+import { routerEvent } from '../../utils/history'
 import './index.less'
 
 type Iprops = {
   children: string
+  curUrl: string
+  routerType: 'hash' | 'history'
 }
 
 function MarkdownBox(props: Iprops) {
   useEffect(() => {
     if (props.children) {
       setTimeout(() => {
-        scrollTargetInit()
+        scrollTargetInit(props.curUrl, props.routerType)
         copyAction()
       }, 66)
     }
-  }, [props.children])
+  }, [props.children, props.curUrl, props.routerType])
 
   return (
     <div className="antm-docs-markdown">
@@ -32,7 +35,7 @@ function MarkdownBox(props: Iprops) {
   )
 }
 
-function scrollTargetInit() {
+function scrollTargetInit(curUrl, routerType) {
   const h3Title = document.querySelectorAll('.antm-docs-markdown .card h3')
   if (!h3Title || !h3Title.length) {
     return
@@ -42,9 +45,9 @@ function scrollTargetInit() {
     item.onclick = () => {
       scrollToTargetParent(item?.id)
 
-      const cur = location.href.split('?')[0]
+      const curl = curUrl.split('?')[0]
 
-      window.location.href = `${cur}?target=${item.id}`
+      routerEvent.switch(`${curl}?target=${item.id}`, routerType)
     }
   }
 }

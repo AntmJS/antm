@@ -20,6 +20,7 @@ export default defineConfig({
     route: {
       level: 1,
       exclude: [join(CWD, './packages/doc/**/*.md')],
+      type: 'history',
     },
     headerLinks: [
       {

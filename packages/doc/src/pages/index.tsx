@@ -124,7 +124,8 @@ const Docs = function Docs({
   }
 
   const targetChange = (t) => {
-    routerEvent.switch(`${currentUrl}?target=${t}`)
+    const curl = currentUrl.split('?')[0]
+    routerEvent.switch(`${curl}?target=${t}`, routerType)
     scrollToTargetParent(encodeURIComponent(t))
   }
 
@@ -168,7 +169,9 @@ const Docs = function Docs({
         )}
       >
         {/** @ts-ignore */}
-        <MarkdownBox>{md}</MarkdownBox>
+        <MarkdownBox curUrl={currentUrl} routerType={routerType}>
+          {md}
+        </MarkdownBox>
       </div>
       {rightNavs.length > 1 && (
         <div
