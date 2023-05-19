@@ -92,7 +92,12 @@ export default function PageLayout() {
       >
         {/** @ts-ignore */}
         <UrlConext.Provider value={[currentUrl, setCurrentUrl]}>
-          <div className={`${preCls}-container`}>
+          <div
+            className={`${preCls}-container ${preCls}-container-${currentUrl.replace(
+              /\//g,
+              '-',
+            )}`}
+          >
             <Header
               links={docsConfig?.headerLinks || []}
               title={docsConfig?.title || ''}
