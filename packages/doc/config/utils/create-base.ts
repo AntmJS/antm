@@ -125,11 +125,12 @@ function unitWork(mp: string) {
 
   let mdstr = readFileSync(mp, 'utf-8')
   const moduleFilePath = join(ANTM_TEMP_DIR, `${routeName}.js`)
+  // 是否以`::: demo-xx :::` 引入外部代码， 并且给定pre元素容器
   const transformResult = parseCode({
     mdStr: mdstr,
     path: mp,
     routeName: routeNameNoLang,
-    demoDir: _config.demoCode.dir,
+    demoDir: _config?.demoCode?.dir || 'example',
   })
   mdstr = transformResult.mdStr
   const res = markdownCardWrapper(Markdown.render(mdstr))

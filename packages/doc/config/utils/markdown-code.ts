@@ -32,6 +32,8 @@ export function parseCode(props: Iprops) {
   // $开头的字符不需要执行渲染demo代码
   const noNeedRenders: string[] = []
 
+  mdStr = createPreContainer(mdStr)
+
   const demoNames =
     demos?.map((item) => {
       const nItem = item.replace(/\$|\:|\s/g, '')
@@ -222,4 +224,15 @@ function getImportCodes(codes: string, path: string, demoDir?: string) {
   }
 
   return importCodes
+}
+
+function createPreContainer(str) {
+  str = str.replace(
+    /(```[\w-]*\n[\s\S]*?\n```)/gm,
+    '\n<div class="code-box-max">\n\n$1\n\n</div>\n',
+  )
+
+  console.info(str, '()())(())()()()()()(')
+
+  return str
 }
