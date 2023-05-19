@@ -14,7 +14,7 @@ import {
   MARKDOWN_QUORTA,
   MARKDOWN_AB,
 } from './contanst'
-import { getConfig } from './get-config'
+import { getConfig, configAboutCache } from './get-config'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const currentPkgName = require(join(CWD, './package.json'))?.name
@@ -70,12 +70,12 @@ export async function createBase(config: IDocsConfig) {
     }
   }
   createMarkdownMain(moduleFilePaths)
-  createBaseConfig(_config)
+  createBaseConfig()
   createSearchJson(mdPaths)
 
   if (process.env['NODE_ENV'] === 'development') {
     console.info('watch files success')
-    watchFiles([CONFIG_PATH, ...MD_PATHS], _exclude)
+    watchFiles([CONFIG_PATH, ...MD_PATHS, ...configAboutCache], _exclude)
     watchDemoFiles()
   }
 
@@ -170,11 +170,10 @@ function unitWork(mp: string) {
  * 存储所有文档配置到js文件
  * @param config 文档配置
  */
-async function createBaseConfig(config?) {
-  if (!config) {
-    const c = await getConfig()
-    if (c) config = c.docs
-  }
+async function createBaseConfig() {
+  let config = {}
+  const c = await getConfig()
+  if (c) config = c.docs
 
   writeFileSync(
     ALL_CONFIG,
@@ -327,7 +326,7 @@ function watchFiles(files: string[], exclude: string[]) {
     if (readyOk) {
       console.info('_______________ change', path)
 
-      if (path === CONFIG_PATH) {
+      if (path === CONFIG_PATH || configAboutCache.includes(path)) {
         createBaseConfig()
       } else {
         unitWork(path)
