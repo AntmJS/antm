@@ -232,7 +232,5 @@ function createPreContainer(str) {
     '\n<div class="code-box-max">\n\n$1\n\n</div>\n',
   )
 
-  console.info(str, '()())(())()()()()()(')
-
   return str
 }

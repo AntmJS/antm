@@ -42,7 +42,7 @@ export default async function base() {
         {
           test: /.ts|.tsx$/,
           loader: 'babel-loader',
-          exclude: /node_modules\/(?!@antmjs\/doc)/,
+          exclude: /node_modules\/(?!antmjs\-doc)/,
           options: {
             presets: [
               [
