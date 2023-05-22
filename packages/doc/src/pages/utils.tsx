@@ -85,21 +85,19 @@ export function renderDemoCode({ DemoComponent, id, markdownMain }) {
         ? 'vue'
         : 'react'
 
+    const insertProps = { _rootid: id }
+
     if (dom) {
       if (type === 'react') {
         const root = createRoot(dom)
         if (ReactDemoContainer) {
           root.render(
             <ReactDemoContainer>
-              <DemoComponent />
+              <DemoComponent {...insertProps} />
             </ReactDemoContainer>,
           )
         } else {
-          root.render(
-            <VueDemoContainer>
-              <DemoComponent />
-            </VueDemoContainer>,
-          )
+          root.render(<DemoComponent {...insertProps} />)
         }
       } else {
         const app = createApp(DemoComponent)

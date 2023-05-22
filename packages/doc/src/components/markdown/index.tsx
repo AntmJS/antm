@@ -53,7 +53,7 @@ function scrollTargetInit(curUrl, routerType) {
 }
 
 function copyAction() {
-  const codeBoxes = document.querySelectorAll('.antm-docs-markdown pre code')
+  const codeBoxes = document.querySelectorAll('.copy-code-btn')
   if (!codeBoxes || !codeBoxes.length) {
     return
   }

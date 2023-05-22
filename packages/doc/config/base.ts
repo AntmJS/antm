@@ -42,7 +42,7 @@ export default async function base() {
         {
           test: /.ts|.tsx$/,
           loader: 'swc-loader',
-          exclude: /node_modules\/(?!@antmjs\/doc)/,
+          exclude: /node_modules\/(?!antmjs\-doc)/,
           options: {
             jsc: {
               parser: {

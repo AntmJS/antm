@@ -106,6 +106,8 @@ export default function Index({ children }) {
 
 ### 移动端组件库
 
+一种方式是通过`simulator`配置，以 iframe 的方式展示
+
 主要配置如下
 
 - `url`: 分为开发环境和生产环境
@@ -140,4 +142,35 @@ export default defineConfig({
 })
 ```
 
-移动端案例[vantui](https://antmjs.github.io/vantui/main/)
+移动端 iframe 案例[vantui](https://antmjs.github.io/vantui/main/)
+
+还一种方式是通过 css 改变 PC 端组件展示的样式
+
+```less
+.demo-code-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  .code-box {
+    height: auto;
+    margin-top: 0;
+    flex: 1;
+
+    .code-item pre {
+      max-height: 624px;
+      height: 624px;
+    }
+  }
+
+  .demo-code-box {
+    width: 375px;
+    height: 667px;
+    overflow: scroll;
+    border: 2px solid #758479;
+    margin-left: 4px;
+  }
+
+  .show-code-btn {
+    display: none;
+  }
+}
+```

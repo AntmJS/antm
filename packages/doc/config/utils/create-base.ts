@@ -1,5 +1,5 @@
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs'
-import { basename, join, relative, sep } from 'path'
+import { basename, join, relative, sep, extname } from 'path'
 import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 import { watch } from 'chokidar'
@@ -49,8 +49,13 @@ export async function createBase(config: IDocsConfig) {
   let MD_PATHS: string[] = []
 
   for (let i = 0; i < _src.length; i++) {
-    const filepath = resolveWindowsPath(_src[i] || '')
-    MD_PATHS = MD_PATHS.concat([`${filepath}/**/*.md`, `${filepath}/*.md`])
+    const _srcItem = _src[i] || ''
+    if (!extname(_srcItem)) {
+      const filepath = resolveWindowsPath(_srcItem || '')
+      MD_PATHS = MD_PATHS.concat([`${filepath}/**/*.md`, `${filepath}/*.md`])
+    } else {
+      MD_PATHS.push(_srcItem)
+    }
   }
 
   const mdPaths = await glob(MD_PATHS, {

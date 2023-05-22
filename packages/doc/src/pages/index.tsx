@@ -160,6 +160,8 @@ const Docs = function Docs({
     window.addEventListener('scroll', handleScroll)
   }, [])
 
+  console.info(md)
+
   return (
     <>
       <div

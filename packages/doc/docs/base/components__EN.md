@@ -1,33 +1,144 @@
-# Build Component Library Document
+# Building Component Library Documentation
 
 ### Introduction
 
-Antmjs Doc can support both mobile and PC component libraries, with different operations required for both methods
+antmjs Doc supports both mobile and PC component libraries, which require different operations.
 
-### PC component library
+### PC Component Library
 
-#### Case code file
+#### Example Code Files
 
--Path: The case code and document MD file need to be at the same level as the file
--Naming: The file must start with 'demo' as the prefix, followed by '[a-z -]`
-Avoid naming conflicts within the same MD document
--Type: Supports three file types: '. tsx' and '. jsx'. Currently, only 'react' is supported`
--Code: The case code must have a default exported component, which is' export default '`
-The 'import' local file in the code will also be displayed, except for the file path containing 'index'
-The folder where the case code is located is configured under 'antm. config',
+- Path: The example code and documentation MD files should be in the same directory.
+- Naming: The file must start with the prefix "demo" followed by lowercase letters and hyphens (`[a-z\-]`).
+  Avoid naming conflicts within the same MD file.
+- Type: Supports `.tsx` and `.jsx` file types. Currently, only supports React.
+- Code: The example code must have a default exported component (`export default`).
+
+```markdown
+├── docs
+├── components.md
+├── demo-button.tsx
+```
+
+#### Referencing Example Code in MD Files
+
+To use the code in the file `components.md`, make sure to include empty lines and line breaks.
+
+```markdown
+::: demo-button :::
+```
+
+Here is a simple example of a "toast" component:
+
+::: demo-button :::
+
+### Mobile Component Library
+
+The main configuration is as follows:
+
+- `url`: Divided into development and production environments.
+- `noMate`: Redirects when there is no mapping relationship for the URL.
+- `transform`: Defines the mapping rules.
+
+```ts
+export default defineConfig({
+  docs: {
+    simulator: {
+      url: {
+        development: 'http://10.254.9.214:10086',
+        production: '/vantui/main/mobile.html',
+      },
+      transform: (url) => `#/pages/${url}/index`,
+      noMate: {
+        urls: [
+          'quickstart',
+          'custom-style',
+          'home',
+          'theme',
+          'use-in-react',
+          'contributing',
+          'v2-to-v3',
+          'comments',
+          'premium',
+        ],
+        redirect: '#/pages/dashboard/index',
+      },
+    },
+  },
+})
+```
+
+Mobile iframe example: [vantui](https://antmjs.github.io/vantui/main/)
+
+Another approach is to change the PC component display style using CSS.
+
+```less
+.demo-code-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  .code-box {
+    height: auto;
+    margin-top: 0;
+    flex: 1;
+
+    .code-item pre {
+      max-height: 624px;
+      height: 624px;
+    }
+  }
+
+  .demo-code-box {
+    width: 375px;
+    height: 667px;
+    overflow: scroll;
+    border: 2px solid #758479;
+    margin-left: 4px;
+  }
+
+  .show-code-btn {
+    display: none;
+  }
+}
+```
+
+### Translation of Markdown Document
+
+Here is the translation of the provided Markdown document:
+
+# Building Component Library Documentation
+
+### Introduction
+
+antmjs Doc supports both mobile and PC component libraries, which require different operations.
+
+### PC Component Library
+
+#### Example Code Files
+
+- Path: The example code and documentation MD files should be in the same directory.
+- Naming: The file must start with the prefix "demo" followed by lowercase letters and hyphens (`[a-z\-]`).
+  Avoid naming conflicts within the same MD file.
+- Type: Supports `.tsx` and `.jsx` file types. Currently, only supports React.
+- Code: The example code must have a default exported component (`export default`).
+  The code can also include local file imports, except for files with "index" in their path.
+
+The folder containing the example code is configured in `antm.config` as follows:
 
 ```ts
 export default {
   docs: {
     demoCode: {
-      dir: 'example',
+      dir: 'example
+
+',
     },
   },
 }
 ```
 
-> If not set, the case code and markup file are at the same level
-> Directory structure, for example:
+> If not set, the example code and markdown files should be in the same directory.
+
+Directory structure example:
 
 ```markdown
 ├── docs
@@ -35,23 +146,29 @@ export default {
 ├── components.md
 ```
 
-#### Referencing Case Codes in MD Files
+#### Referencing Example Code in MD Files
 
-Used in the above file components.md, empty lines and line breaks must be included in actual use
+To use the code in the `components.md` file, make sure to include empty lines and line breaks.
 
 ```markdown
 ::: demo-buttona :::
-//Only reference code display, no rendering
+// Only display the code, without rendering
 ::: $demo-buttona :::
 ```
 
-> It should be noted that the case code file needs to be created first, and then the introduction identifier needs to be set
-> Below is a simple 'toast' component case study of React
-> ::: demo-button :::
-> The following is a simple Vue 'toast' component case display
-> ::: demo-buttona :::
+> Note: Create the example code file before setting the import tag.
 
-### I8n of component library
+Here is a simple example of a "toast" component in React:
+
+::: demo-button :::
+
+And here is a simple example of a "toast" component in Vue:
+
+::: demo-buttona :::
+
+Example: [antd-max](https://antmjs.github.io/antd-max)
+
+### Component Library Internationalization (i18n)
 
 ```ts
 export default {
@@ -59,16 +176,16 @@ export default {
     // ......
     demoCode: {
       container: {
-        react: path.join(process.cwd(), './ docs/demo-i18n.tsx'),
-        vue: path.join(process.cwd(), './ docs/demo-i18n.tsx'),
+        react: path.join(process.cwd(), './docs/demo-i18n.tsx'),
+        vue: path.join(process.cwd(), './docs/demo-i18n.tsx'),
       },
     },
   },
 }
 ```
 
-Configure 'doc. demoCode. container. read' under the configuration file 'antm. config', which is a container component that is common to component cases
-The following is a simple implementation of simulating i18n components, with global variables`__ LANGE__` Language for switching the current document
+In the `antm.config` file, configure `doc.demoCode.container.react` for the shared container component of the component examples.
+Here is a simple implementation of a mock i18n component that uses the global variable `__LANGE__` to determine the current language:
 
 ```typescript
 import React from 'react'
@@ -96,19 +213,22 @@ export default function Index({ children }) {
 }
 ```
 
-### Mobile component library
+### Mobile Component Library
 
-The main configurations are as follows
--URL: divided into development environment and production environment
--'noMate': Set redirection when there is no mapping relationship between urls
--'transform ': Define mapping rules
+One way to display mobile components is through the `simulator` configuration using an iframe.
+
+The main configuration is as follows:
+
+- `url`: Divided into development and production environments.
+- `noMate`: Redirects when there is no mapping relationship for the URL.
+- `transform`: Defines the mapping rules.
 
 ```ts
 export default defineConfig({
   docs: {
     simulator: {
       url: {
-        development: ' http://10.254.9.214:10086 ',
+        development: 'http://10.254.9.214:10086',
         production: '/vantui/main/mobile.html',
       },
       transform: (url) => `#/pages/${url}/index`,
@@ -129,4 +249,37 @@ export default defineConfig({
     },
   },
 })
+```
+
+Mobile iframe example: [vantui](https://antmjs.github.io/vantui/main/)
+
+Another approach is to change the display style of PC components using CSS.
+
+```less
+.demo-code-wrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  .code-box {
+    height: auto;
+    margin-top: 0;
+    flex: 1;
+
+    .code-item pre {
+      max-height: 624px;
+      height: 624px;
+    }
+  }
+
+  .demo-code-box {
+    width: 375px;
+    height: 667px;
+    overflow: scroll;
+    border: 2px solid #758479;
+    margin-left: 4px;
+  }
+
+  .show-code-btn {
+    display: none;
+  }
+}
 ```

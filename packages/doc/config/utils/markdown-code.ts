@@ -87,7 +87,7 @@ ${cItem.code}
           `
         }
       }
-      tabsStr += '</div>'
+      tabsStr += '\n<div class="copy-code-btn"></div></div>'
 
       if (demos[index]) {
         if (!noNeedRenders.includes(item)) {
@@ -210,7 +210,7 @@ function getImportCodes(codes: string, path: string, demoDir?: string) {
         }
       } else {
         // 样式文件的引入获取
-        const name = importItem.split(' ')[1]?.replace(/\'|\"/g, '') || ''
+        const name = importItem.split(' ')[1]?.replace(/\'|\"|\;/g, '') || ''
         const np = resolve(dir, demoDir || '', name)
         const cc = fs.readFileSync(np, 'utf-8')
         if (name) {
@@ -229,7 +229,7 @@ function getImportCodes(codes: string, path: string, demoDir?: string) {
 function createPreContainer(str) {
   str = str.replace(
     /(```[\w-]*\n[\s\S]*?\n```)/gm,
-    '\n<div class="code-box-max">\n\n$1\n\n</div>\n',
+    '\n<div class="code-box-max">\n<div class="copy-code-btn"></div>\n\n$1\n\n</div>\n',
   )
 
   return str
