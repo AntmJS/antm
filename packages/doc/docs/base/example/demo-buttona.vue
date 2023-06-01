@@ -1,5 +1,5 @@
 <template>
-  <span class="antm-demo-btn">{{ $L['点击按钮'] }}</span>
+  <span class="antm-demo-btn">{{ $L?.['点击按钮'] }}</span>
 </template>
 
 <script>

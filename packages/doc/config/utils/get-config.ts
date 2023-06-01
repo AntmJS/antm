@@ -25,7 +25,8 @@ function getconfigAboutCache() {
   for (let i = 0; i < allImports.length; i++) {
     const importItem = allImports[i] || ''
     if (importItem?.includes('./')) {
-      const name = importItem.split('from')[1]?.replace(/\'|\"|\s/g, '') || ''
+      const name =
+        importItem.split('from')[1]?.replace(/\'|\"|\s|\;/g, '') || ''
       let filePath = resolve(CONFIG_PATH, '../', name)
       if (!filePath.includes('.')) {
         filePath = `${filePath}.${getExistSuffix(filePath)}`

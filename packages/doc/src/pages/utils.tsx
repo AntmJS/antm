@@ -1,7 +1,7 @@
 // @ts-ignore
-import React from 'react'
+import React, { version } from 'react'
 import { createApp } from 'vue'
-import { createRoot } from 'react-dom/client'
+import ReactDom from 'react-dom'
 
 export function handleShowCode(e, btn) {
   e.stopPropagation()
@@ -89,20 +89,47 @@ export function renderDemoCode({ DemoComponent, id, markdownMain }) {
 
     if (dom) {
       if (type === 'react') {
-        const root = createRoot(dom)
         if (ReactDemoContainer) {
-          root.render(
-            <ReactDemoContainer>
-              <DemoComponent {...insertProps} />
-            </ReactDemoContainer>,
-          )
+          rcRender({
+            dom,
+            app: (
+              <ReactDemoContainer>
+                <DemoComponent {...insertProps} />
+              </ReactDemoContainer>
+            ),
+          })
         } else {
-          root.render(<DemoComponent {...insertProps} />)
+          rcRender({
+            dom,
+            app: <DemoComponent {...insertProps} />,
+          })
         }
       } else {
         const app = createApp(DemoComponent)
         app.mount(`#${id}`)
       }
     }
-  }, 33)
+  }, 133)
+}
+
+const rootMap = new Map()
+
+export async function rcRender({ dom, app }) {
+  const vm = Number(version.split('.')[0])
+  if (vm >= 18) {
+    let root
+    // @ts-ignore
+    const rcDom = await import('react-dom/client')
+    if (rootMap.has(dom)) {
+      root = rootMap.get(dom)
+    } else {
+      root = rcDom.default.createRoot(dom)
+      rootMap.set(dom, root)
+    }
+    root.render(app)
+  } else {
+    // @ts-ignore
+    // eslint-disable-next-line import/no-named-as-default-member
+    ReactDom.render(app, dom)
+  }
 }

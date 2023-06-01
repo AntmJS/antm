@@ -17,6 +17,7 @@ docs
 ├── foo
 │ └── bar.md
 └── foo.md
+└── README.md
 ```
 
 得到的映射规则如下：
@@ -26,6 +27,9 @@ docs
 | `docs/foo.md`        | ` /foo`     |
 | `docs/foo/bar.md`    | ` /foo/bar` |
 | `docs/abc/README.md` | ` /abc`     |
+| `docs/README.md`     | ` /docs`    |
+
+> 项目`docs`下的 README.md 映射的路由为`/docs`，直接对应了项目名称
 
 ### 自定义规则
 

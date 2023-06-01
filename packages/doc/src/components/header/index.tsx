@@ -185,10 +185,10 @@ export default function Header(props: Iprops) {
                   >
                     {(i18n.langs || [])
                       .filter((it) => it !== lang)
-                      .map((it) => (
+                      .map((it, index) => (
                         <div
                           className="nav-opt"
-                          key={`nav-opt-lang${it}`}
+                          key={`nav-opt-lang${it}_${index}`}
                           onClick={(e) => switchLang(e, it)}
                         >
                           {it}

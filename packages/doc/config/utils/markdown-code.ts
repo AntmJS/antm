@@ -197,7 +197,7 @@ function getImportCodes(codes: string, path: string, demoDir?: string) {
     const importItem = allImports[i] || ''
     if (importItem.includes('./')) {
       if (importItem.includes('from')) {
-        const name = importItem.split('from')[1]?.replace(/\'|\"|\s/g, '')
+        const name = importItem.split('from')[1]?.replace(/\'|\"|\s|\;/g, '')
         // 忽略引用组件的源文件的展示
         if (name && !name.includes('index')) {
           const npath = resolve(dir, demoDir || '', name)
@@ -210,7 +210,7 @@ function getImportCodes(codes: string, path: string, demoDir?: string) {
         }
       } else {
         // 样式文件的引入获取
-        const name = importItem.split(' ')[1]?.replace(/\'|\"|\;/g, '') || ''
+        const name = importItem.split(' ')[1]?.replace(/\'|\"|\s|\;/g, '') || ''
         const np = resolve(dir, demoDir || '', name)
         const cc = fs.readFileSync(np, 'utf-8')
         if (name) {

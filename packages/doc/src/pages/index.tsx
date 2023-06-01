@@ -160,8 +160,6 @@ const Docs = function Docs({
     window.addEventListener('scroll', handleScroll)
   }, [])
 
-  console.info(md)
-
   return (
     <>
       <div
@@ -212,7 +210,7 @@ const Docs = function Docs({
                 className={`antm-doc-right-nav ${
                   navActive === i ? 'antm-doc-right-nav-active' : ''
                 }`}
-                key={`doc-right-navs${item}`}
+                key={`doc-right-navs${item}_${i}`}
                 onClick={() => targetChange(item)}
               >
                 {item}

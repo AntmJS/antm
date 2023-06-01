@@ -6,8 +6,11 @@ import { menu } from './menu'
 export default defineConfig({
   docs: {
     title: 'antm.js Doc',
-    src: path.resolve(process.cwd(), './docs'),
-    buildPort: 7677,
+    src: [
+      path.resolve(process.cwd(), './docs'),
+      path.resolve(process.cwd(), 'README.md'),
+    ],
+    buildPort: 7171,
     globalStyles: [path.resolve(process.cwd(), './theme.less')],
     logo: 'https://fastly.jsdelivr.net/npm/@vant/assets/logo.png',
     route: {

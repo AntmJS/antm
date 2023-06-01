@@ -1,5 +1,5 @@
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'fs'
-import { basename, join, relative, sep, extname } from 'path'
+import { basename, join, sep, extname } from 'path'
 import MarkdownIt from 'markdown-it'
 import hljs from 'highlight.js'
 import { watch } from 'chokidar'
@@ -86,10 +86,8 @@ export async function createBase(config: IDocsConfig) {
 
   if (!inited) inited = true
 
-  const lessAdditionalData = await injectGlobalStyles(config.globalStyles)
-
   return {
-    lessAdditionalData,
+    globalStyles: config.globalStyles,
   }
 }
 
@@ -236,30 +234,6 @@ function createMarkdownMain(mdjss: string[]) {
   writeFileSync(MARKDOWN_MAIN, `export default ${mdMain}`)
 }
 
-/** 注入外部全局样式 */
-async function injectGlobalStyles(globalStyles?: string[]) {
-  if (globalStyles && globalStyles.length) {
-    let coverStyles = ''
-    for (let i = 0; i < globalStyles.length; i++) {
-      if (globalStyles[i])
-        // @ts-ignore
-        coverStyles += `@import "${globalStyles[i]}";
-        `
-    }
-
-    return function additionalData(content, loaderContext) {
-      const { resourcePath, rootContext } = loaderContext
-      const relativePath = relative(rootContext, resourcePath)
-
-      if (relativePath.includes('style.less')) {
-        return coverStyles + content
-      }
-
-      return content
-    }
-  } else return null
-}
-
 /**
  * 生成新的js文件名称
  * @param ps markdown文件
@@ -280,6 +254,8 @@ function getRoutePath(ps: string): string {
       }
     }
   }
+
+  console.info(res.reverse().join('__'), '>>>>>>>>>>>>>>>>>>>>>>')
 
   return res.reverse().join('__')
 }
@@ -325,7 +301,9 @@ function watchFiles(files: string[], exclude: string[]) {
     ignored: exclude,
   })
   watcher.on('ready', function () {
-    readyOk = true
+    setTimeout(() => {
+      readyOk = true
+    }, 1000)
   })
   watcher.on('change', function (path) {
     if (readyOk) {
@@ -370,7 +348,9 @@ function watchDemoFiles() {
     persistent: true,
   })
   demoWatcher.on('ready', function () {
-    readyOk = true
+    setTimeout(() => {
+      readyOk = true
+    }, 1000)
   })
 
   const work = function (mdPath) {
@@ -381,8 +361,10 @@ function watchDemoFiles() {
 
   const works = function (path) {
     if (readyOk) {
-      const mdPath = demoCodesMap[path]
-      console.info(mdPath, 'watchDemoFiles')
+      const mdPath = demoCodesMap[path].replace(
+        `__${_config?.i18n?.noSuffixLang}`,
+        '',
+      )
       work(mdPath)
       if (_config?.i18n?.langs) {
         let pathWidthNolang = mdPath

@@ -1,7 +1,6 @@
 import path from 'path'
 import htmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import autoprefixer from 'autoprefixer'
 import { VueLoaderPlugin } from 'vue-loader'
 import { getConfig } from './utils/get-config'
 import { createBase } from './utils/create-base'
@@ -10,7 +9,7 @@ import { CWD } from './utils/contanst'
 export default async function base() {
   const result = await getConfig()
   const base = result.docs
-  const { lessAdditionalData } = await createBase(base)
+  const { globalStyles } = await createBase(base)
 
   const config = {
     entry: {
@@ -71,24 +70,17 @@ export default async function base() {
             'css-loader',
             {
               loader: 'less-loader',
-              options: lessAdditionalData
-                ? {
-                    additionalData: lessAdditionalData,
-                  }
-                : {},
+              options: {
+                lessOptions: {
+                  javascriptEnabled: true,
+                },
+              },
             },
             {
-              loader: 'postcss-loader',
+              loader: 'style-resources-loader',
               options: {
-                postcssOptions: {
-                  plugins: () => {
-                    autoprefixer({
-                      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                      // @ts-ignore
-                      browsers: ['last 2 version', '>1%'],
-                    })
-                  },
-                },
+                patterns: globalStyles,
+                injector: 'append',
               },
             },
           ],
@@ -109,6 +101,7 @@ export default async function base() {
       // 抽离出css
       new MiniCssExtractPlugin({
         filename: 'css/[name].css',
+        ignoreOrder: true,
       }),
 
       new htmlWebpackPlugin({

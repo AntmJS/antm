@@ -15,7 +15,7 @@ export default defineConfig({
 
 ### 文档源文件和输出
 
-文档源文件路径`src`, 默认为`./docs`, 相对命令执行的根目录
+文档源文件路径`src`, 默认为`./docs`, 可以是文件夹或文件，支持数组
 
 ```ts
 export default defineConfig({
@@ -85,7 +85,7 @@ export default defineConfig({
 
 ### 菜单配置
 
-菜单暂时只支持二级菜单，由于`require缓存`, 菜单配置单独存放，会导致不支持热更新
+菜单暂时只支持二级菜单
 
 ```ts
 import type { IMenuNavs } from '@antmjs/types'
