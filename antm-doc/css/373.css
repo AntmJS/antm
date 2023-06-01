@@ -5,4 +5,9 @@
   cursor: pointer;
   border-radius: 16px;
 }
+:root {
+  --primary-color: #4e4ec8;
+  --primary-back-color: #e5e4f8;
+  --header-back-color: #4e4ec8;
+}
 
