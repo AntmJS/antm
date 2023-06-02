@@ -1,13 +1,17 @@
 /** 菜单项 */
-export type IDocMenuItems = {
+export type IDocMenuItem = {
   title?: string | Record<string, string>
   path: string
-}[]
+} & Record<string, any>
+
+export type IDocMenuItems = IDocMenuItem[]
+
 /** 菜单模块 */
 export type IDocMenuNavs = {
   name?: string | Record<string, string>
   items: IDocMenuItems
 }[]
+
 /** 头部链接 */
 export type IDocheaderLinks = {
   title?: string | Record<string, string>
@@ -18,6 +22,7 @@ export type IDocheaderLinks = {
     url: string
   }[]
 }[]
+
 /** 路由配置 */
 export type IDocRouter = {
   exclude?: string[]
@@ -25,6 +30,7 @@ export type IDocRouter = {
   type?: 'history' | 'hash'
   redirect?: string
 }
+
 /** 移动端插入 */
 export type IDocSimulator = {
   url?: {

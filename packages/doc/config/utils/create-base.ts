@@ -255,8 +255,6 @@ function getRoutePath(ps: string): string {
     }
   }
 
-  console.info(res.reverse().join('__'), '>>>>>>>>>>>>>>>>>>>>>>')
-
   return res.reverse().join('__')
 }
 /**
