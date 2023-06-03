@@ -61,7 +61,6 @@
     "style-loader": "^3.3.2",
     "style-resources-loader": "^1.5.0",
     "swc-loader": "^0.2.3",
-    "vue": "^3.2.47",
     "vue-loader": "^17.1.0",
     "webpack": "^5.78.0",
     "webpack-dev-server": "^4.13.2"
@@ -73,6 +72,7 @@
   "peerDependencies": {
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.0.4",
+    "vue": "^3.2.47"
   }
 }
