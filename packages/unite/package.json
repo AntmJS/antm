@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/unite",
-  "version": "2.3.12",
+  "version": "2.3.13",
   "main": "dist/index.js",
   "unite:h5": "dist/h5.js",
   "module": "dist/index.js",
@@ -37,7 +37,7 @@
     "react": ">=17"
   },
   "dependencies": {
-    "@antmjs/utils": "2.3.12"
+    "@antmjs/utils": "2.3.13"
   },
   "devDependencies": {
     "@tarojs/taro": "^3.5.3",
