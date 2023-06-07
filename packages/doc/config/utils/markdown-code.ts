@@ -198,14 +198,20 @@ function getImportCodes(codes: string, path: string, demoDir?: string) {
     if (importItem.includes('./')) {
       if (importItem.includes('from')) {
         const name = importItem.split('from')[1]?.replace(/\'|\"|\s|\;/g, '')
+
         // 忽略引用组件的源文件的展示
         if (name && !name.includes('index')) {
           const npath = resolve(dir, demoDir || '', name)
           const { codeType, newPath } = getImportType(npath)
-          const codes = fs.readFileSync(newPath, 'utf-8')
-          importCodes.push({
-            path: newPath,
-            code: '\n``` ' + getCodeLange(codeType) + '\n' + codes + '\n```\n',
+          existFileType(newPath).then((pathType) => {
+            if (pathType === 'file') {
+              const codes = fs.readFileSync(newPath, 'utf-8')
+              importCodes.push({
+                path: newPath,
+                code:
+                  '\n``` ' + getCodeLange(codeType) + '\n' + codes + '\n```\n',
+              })
+            }
           })
         }
       } else {
@@ -233,4 +239,23 @@ function createPreContainer(str) {
   )
 
   return str
+}
+
+function existFileType(str) {
+  return new Promise((resolve, reject) => {
+    if (fs.existsSync(str)) {
+      fs.stat(str, (err, stats) => {
+        if (err) return reject(err)
+        if (stats.isFile()) {
+          resolve('file')
+        } else if (stats.isDirectory()) {
+          resolve('dir')
+        } else {
+          resolve('')
+        }
+      })
+    } else {
+      resolve('')
+    }
+  })
 }

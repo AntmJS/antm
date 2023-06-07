@@ -3,7 +3,7 @@
 ### 安装
 
 ```bash
-npm i antmjs-doc #最新测试包
+npm i @antmjs/doc
 ```
 
 在 package.json 下新增脚本

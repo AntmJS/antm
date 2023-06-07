@@ -1,6 +1,7 @@
 import React from 'react'
 import { haha } from './haha'
 import toast, { Toaster } from 'react-hot-toast'
+import btn from '../button'
 import './demo.less'
 
 export default function Index() {
