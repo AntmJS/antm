@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/plugin-global-fix",
-  "version": "2.3.12",
+  "version": "2.3.13",
   "main": "index.js",
   "author": "三少 <hi_sanshao@outlook.com>",
   "description": "解决Taro使用polyfill的时候支付宝等小程序报错的问题",
