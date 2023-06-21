@@ -21,6 +21,13 @@ export const menu: IDocMenuNavs = [
         },
         path: 'quick',
       },
+      {
+        title: {
+          CN: '常见问题',
+          EN: 'question',
+        },
+        path: 'question',
+      },
     ],
   },
   {
