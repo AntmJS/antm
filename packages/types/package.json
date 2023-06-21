@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/types",
-  "version": "2.3.14",
+  "version": "2.3.15",
   "description": "antmjs types",
   "main": "index.ts",
   "scripts": {
