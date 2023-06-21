@@ -2,7 +2,7 @@ import fs from 'fs'
 import { resolve } from 'path'
 
 const allSuffix = ['.tsx', '.jsx', '.vue', '.d.ts', '.ts']
-const demoCodeReg = /\n\n:::\s\$?demo[a-z\-]*\s:::/g
+const demoCodeReg = /\n\n:::\s\$?demo[\w\d\-]*\s:::/g
 // https://regexr.com/47jlq
 const IMPORT_RE =
   /import\s+?(?:(?:(?:[\w*\s{},]*)\s+from(\s+)?)|)(?:(?:".*?")|(?:'.*?'))[\s]*?(?:;|$|)/g
