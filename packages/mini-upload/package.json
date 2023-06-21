@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/mini-upload",
-  "version": "2.3.15",
+  "version": "2.3.16",
   "description": "小程序预览及上传工具",
   "main": "dist/index.js",
   "bin": {
