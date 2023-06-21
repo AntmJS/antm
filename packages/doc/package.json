@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/doc",
-  "version": "2.3.14",
+  "version": "2.3.15",
   "description": "PC端在线文档构建工具",
   "main": "index.js",
   "types": "./types/index.d.ts",
