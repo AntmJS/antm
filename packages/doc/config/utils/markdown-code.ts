@@ -2,7 +2,7 @@ import fs from 'fs'
 import { resolve } from 'path'
 
 const allSuffix = ['.tsx', '.jsx', '.vue', '.d.ts', '.ts']
-const demoCodeReg = /\n\n:::\s\$?demo[\w\d\-]*\s:::/g
+const demoCodeReg = /\n\n:::\s\$?demo[\d\w\-]*\s:::/g
 // https://regexr.com/47jlq
 const IMPORT_RE =
   /import\s+?(?:(?:(?:[\w*\s{},]*)\s+from(\s+)?)|)(?:(?:".*?")|(?:'.*?'))[\s]*?(?:;|$|)/g
@@ -203,16 +203,14 @@ function getImportCodes(codes: string, path: string, demoDir?: string) {
         if (name && !name.includes('index')) {
           const npath = resolve(dir, demoDir || '', name)
           const { codeType, newPath } = getImportType(npath)
-          existFileType(newPath).then((pathType) => {
-            if (pathType === 'file') {
-              const codes = fs.readFileSync(newPath, 'utf-8')
-              importCodes.push({
-                path: newPath,
-                code:
-                  '\n``` ' + getCodeLange(codeType) + '\n' + codes + '\n```\n',
-              })
-            }
-          })
+          if (newPath.includes('.')) {
+            const codes = fs.readFileSync(newPath, 'utf-8')
+            importCodes.push({
+              path: newPath,
+              code:
+                '\n``` ' + getCodeLange(codeType) + '\n' + codes + '\n```\n',
+            })
+          }
         }
       } else {
         // 样式文件的引入获取
@@ -239,23 +237,4 @@ function createPreContainer(str) {
   )
 
   return str
-}
-
-function existFileType(str) {
-  return new Promise((resolve, reject) => {
-    if (fs.existsSync(str)) {
-      fs.stat(str, (err, stats) => {
-        if (err) return reject(err)
-        if (stats.isFile()) {
-          resolve('file')
-        } else if (stats.isDirectory()) {
-          resolve('dir')
-        } else {
-          resolve('')
-        }
-      })
-    } else {
-      resolve('')
-    }
-  })
 }
