@@ -79,7 +79,7 @@ export default async function base() {
             {
               loader: 'style-resources-loader',
               options: {
-                patterns: globalStyles,
+                patterns: globalStyles || [],
                 injector: 'append',
               },
             },

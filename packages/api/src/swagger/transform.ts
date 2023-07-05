@@ -86,7 +86,7 @@ export async function transform(
         }`
       }
 
-      if (!reqCodes) reqCodes = 'Record<string, any> \n'
+      if (!reqCodes) reqCodes = 'undefined \n'
 
       let resCodes = ``
       const responseItem = versionCompatible({
