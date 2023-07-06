@@ -11,8 +11,8 @@ npm i @antmjs/doc
 ```json
 {
   "scripts": {
-    "start": "antm-doc-start",
-    "build": "antm-doc-build"
+    "start": "npx antm-doc-start",
+    "build": "npx antm-doc-build"
   }
 }
 ```
@@ -45,11 +45,11 @@ export default defineConfig({
 
 执行本地脚本命令
 
+支持文档文件和配置文件编辑的热更新
+
 ```bash
 yarn start
 ```
-
-支持文档文件和配置文件编辑的热更新
 
 ### 生产环境构建
 
