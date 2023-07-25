@@ -100,13 +100,13 @@ ${cItem.code}
   <div class="show-code-btn">
   <svg t="1683506698040" class="icon" viewBox="0 0 1024 1024"  width="20" height="20"><path d="M753.6 611.52a32 32 0 1 1 28.8 56.96l-256 128a32 32 0 0 1-28.8 0l-256-128a32 32 0 0 1 28.8-56.96L512 732.16z m0-288a32 32 0 1 1 28.8 56.96l-256 128a32 32 0 0 1-28.8 0l-256-128a32 32 0 1 1 28.8-56.96L512 444.16z" p-id="2292"></path></svg>
   </div>
-  
+
   <div class="code-box">
   \n
   ${tabsStr}
-  
+
   ${codeBoxStr}
-  
+
   </div>
   </div>
   `,
@@ -115,13 +115,13 @@ ${cItem.code}
           mdStr = mdStr.replace(
             demos[index] || '',
             `
-  <div class="demo-code-show" id="${routeName}__${item}_wrapper">  
+  <div class="demo-code-show" id="${routeName}__${item}_wrapper">
   <div class="code-box">
-  
+
   ${tabsStr}
-  
+
   ${codeBoxStr}
-  
+
   </div>
   </div>
   `,
@@ -231,10 +231,12 @@ function getImportCodes(codes: string, path: string, demoDir?: string) {
 }
 
 function createPreContainer(str) {
-  str = str.replace(
-    /(```[\s\w\d\-]*\n[\s\S]*?\n```)/gm,
-    '\n<div class="code-box-max">\n<div class="copy-code-btn"></div>\n\n$1\n\n</div>\n',
-  )
+  str.match(/```[\s\w\d\-]*\n[\s\S]*?(?:```[\s\w\d\-]*\n|```$)/gm).map((s) => {
+    str = str.replace(
+      s,
+      `\n\n<div class="code-box-max">\n<div class="copy-code-btn"></div>\n\n${s}\n\n</div>\n\n\n`,
+    )
+  })
 
   return str
 }
