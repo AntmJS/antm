@@ -231,7 +231,7 @@ function getImportCodes(codes: string, path: string, demoDir?: string) {
 }
 
 function createPreContainer(str) {
-  str.match(/```[\s\w\d\-]*\n[\s\S]*?(?:```[\s\w\d\-]*\n|```$)/gm).map((s) => {
+  str.match(/```[\s\w\d\-]*\n[\s\S]*?(?:```[\s\w\d\-]*\n|```$)/gm)?.map((s) => {
     str = str.replace(
       s,
       `\n\n<div class="code-box-max">\n<div class="copy-code-btn"></div>\n\n${s}\n\n</div>\n\n\n`,
