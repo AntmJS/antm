@@ -62,8 +62,9 @@ function copyAction() {
     const timer = null
     item.onclick = () => {
       if (timer) return
-      const content = item.innerText
-      copyToClipboard(content)
+      const parent = item.parentNode
+      const code = parent.querySelectorAll('pre code')[0]
+      copyToClipboard(code)
       toast.success('复制成功！', {
         style: { position: 'relative', top: 250 },
       })
