@@ -64,7 +64,7 @@ function copyAction() {
       if (timer) return
       const parent = item.parentNode
       const code = parent.querySelectorAll('pre code')[0]
-      copyToClipboard(code)
+      copyToClipboard(code.innerText)
       toast.success('复制成功！', {
         style: { position: 'relative', top: 250 },
       })
