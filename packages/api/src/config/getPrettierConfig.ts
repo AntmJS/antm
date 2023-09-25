@@ -3,7 +3,7 @@ import fs from 'fs'
 import log from '../log'
 
 // ts-ignore
-const evalTemp = {
+let evalTemp = {
   semi: false,
   singleQuote: true,
   trailingComma: 'all',
