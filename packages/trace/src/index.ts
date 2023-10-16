@@ -197,7 +197,7 @@ function getCommonTrackData(): Trace.ISystemLog &
     os_net: net, // 网络
     os_br: sysInfo?.brand?.toLowerCase() ?? '', // 手机品牌 iphone
     os_pm: sysInfo?.model?.toLowerCase() ?? '', // 手机型号 iphone 12
-    os_pr: sysInfo?.pixelRatio?.toString() ?? '', // number设备像素比
+    os_pr: sysInfo?.pixelRatio?.toString() ?? '0', // number设备像素比
     os_cb: battery, // number电池电量
     os_ua: navigator?.userAgent ?? '',
   }
