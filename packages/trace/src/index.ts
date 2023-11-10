@@ -469,7 +469,7 @@ const filterFunctions = (obj: any, isApp = false) => {
         })
     }
   } catch (e) {
-    console.info('trace filterFunctions error', e)
+    console.info('trace filterFunctions error:', e)
   }
 }
 
