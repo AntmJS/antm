@@ -20,7 +20,7 @@ export default function <
     key: T,
   ): Partial<Cache.StateOpt<Cache.ICacheOptAll<TRam, TLocal>>>[T] {
     if (tempKeys.includes(key as keyof TRam)) {
-      return store[key] || init.ram[key as keyof TRam]
+      return store[key] ?? init.ram[key as keyof TRam]
     } else if (localKeys.includes(key as keyof TLocal)) {
       let value = store[key]
       if (isUndefined(value) || isNull(value)) {
@@ -48,7 +48,7 @@ export default function <
   }): Promise<Partial<Cache.StateOpt<Cache.ICacheOptAll<TRam, TLocal>>>[T]> {
     return new Promise(function (resolve) {
       if (tempKeys.includes(option.key as keyof TRam)) {
-        resolve(store[option.key] || init.ram[option.key as keyof TRam])
+        resolve(store[option.key] ?? init.ram[option.key as keyof TRam])
       } else if (localKeys.includes(option.key as keyof TLocal)) {
         let value = store[option.key]
         if (isUndefined(value) || isNull(value)) {
