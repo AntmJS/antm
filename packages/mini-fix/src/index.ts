@@ -103,11 +103,13 @@ function smoothOutParams() {
 
   const filterFunctions = (obj: any, isApp = false) => {
     try {
-      Object.keys(obj)
-        .filter((prop) => typeof obj[prop] === 'function')
-        .forEach((methodName) => {
-          wrapMethod(obj, methodName, isApp)
-        })
+      if (obj) {
+        Object.keys(obj)
+          .filter((prop) => typeof obj[prop] === 'function')
+          .forEach((methodName) => {
+            wrapMethod(obj, methodName, isApp)
+          })
+      }
     } catch (e) {
       console.info('antmjs filterFunctions error', e)
     }
