@@ -121,7 +121,7 @@ function smoothOutParams() {
   }
 
   Component = (component: any) => {
-    component.methods && filterFunctions(component.methods)
+    filterFunctions(component.methods)
     oriComponent(component)
   }
 
