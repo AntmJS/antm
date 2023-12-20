@@ -160,6 +160,10 @@ export function isNumber(args: any): boolean {
   return toString.call(args) === '[object Number]'
 }
 
+export function isDecimal(args: any) {
+  return Number.isFinite(args) && !Number.isInteger(args)
+}
+
 export function isObject(args: any): boolean {
   return toString.call(args) === '[object Object]'
 }
@@ -187,7 +191,7 @@ export function isSymbol(args: any): boolean {
 }
 
 export function isMobile(args: string) {
-  return /^1[3|4|5|7|8]\d{9}$/.test(args)
+  return /^1[3|4|5|6|7|8|9]\d{9}$/.test(args)
 }
 
 export function isIDCard(args: string) {
