@@ -269,17 +269,23 @@ function useContainer(config: any, props: any, options: any) {
   // 一般不需要用到，因为页面级的错误通常是传递给render函数去渲染错误页面即可
   insRef.current.error = error
 
-  useEffect(function () {
-    const flag = flagRef
-    const onUnload = insRef.current?.onUnload
-    insRef.current?.onLoad?.()
+  useEffect(
+    function () {
+      const flag = flagRef
+      const onUnload = insRef.current?.onUnload
+      insRef.current?.onLoad?.()
+      if (!options.page) {
+        insRef.current?.onShow?.()
+      }
 
-    return function (): void {
-      setError(undefined)
-      flag.current.__mounted = false
-      onUnload?.()
-    }
-  }, [])
+      return function (): void {
+        setError(undefined)
+        flag.current.__mounted = false
+        onUnload?.()
+      }
+    },
+    [options.page],
+  )
 
   useReady(function () {
     insRef.current?.onReady?.()
