@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/mini-fix",
-  "version": "2.3.26",
+  "version": "2.3.27",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "types/index.d.ts",
@@ -33,6 +33,6 @@
     "test": ""
   },
   "dependencies": {
-    "@antmjs/utils": "2.3.26"
+    "@antmjs/utils": "2.3.27"
   }
 }
