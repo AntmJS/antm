@@ -197,7 +197,7 @@ function getCommonTrackData(): Trace.ISystemLog &
     os_net: net, // 网络
     os_br: sysInfo?.brand?.toLowerCase() ?? '', // 手机品牌 iphone
     os_pm: sysInfo?.model?.toLowerCase() ?? '', // 手机型号 iphone 12
-    os_pr: sysInfo?.pixelRatio?.toString() ?? '', // number设备像素比
+    os_pr: sysInfo?.pixelRatio?.toString() ?? '0', // number设备像素比
     os_cb: battery, // number电池电量
     os_ua: navigator?.userAgent ?? '',
   }
@@ -461,13 +461,15 @@ const wrapMethod = function (target: any, methodName: string, isApp = false) {
  */
 const filterFunctions = (obj: any, isApp = false) => {
   try {
-    Object.keys(obj)
-      .filter((prop) => typeof obj[prop] === 'function')
-      .forEach((methodName) => {
-        wrapMethod(obj, methodName, isApp)
-      })
+    if (obj) {
+      Object.keys(obj)
+        .filter((prop) => typeof obj[prop] === 'function')
+        .forEach((methodName) => {
+          wrapMethod(obj, methodName, isApp)
+        })
+    }
   } catch (e) {
-    console.info('trace filterFunctions error', e)
+    console.info('trace filterFunctions error:', e)
   }
 }
 

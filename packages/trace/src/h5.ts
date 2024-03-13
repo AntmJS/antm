@@ -441,7 +441,7 @@ document.addEventListener(
       ) {
         // 显示
         appShow()
-        pageShow
+        pageShow()
       }
 
       if (
