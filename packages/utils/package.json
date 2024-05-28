@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/utils",
-  "version": "2.3.27",
+  "version": "2.3.28",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "types/index.d.ts",
