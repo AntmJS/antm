@@ -25,19 +25,21 @@ npm i @antmjs/doc
 import { defineConfig } from '@antmjs/types'
 
 export default defineConfig({
-  title: 'antm.js Doc',
-  src: join(process.cwd(), './docs'),
-  menu: [
-    {
-      name: '开始',
-      items: [
-        {
-          title: '介绍',
-          url: 'introduce',
-        },
-      ],
-    },
-  ],
+  doc: {
+    title: 'antm.js Doc',
+    src: join(process.cwd(), './docs'),
+    menu: [
+      {
+        name: '开始',
+        items: [
+          {
+            title: '介绍',
+            url: 'introduce',
+          },
+        ],
+      },
+    ],
+  },
 })
 ```
 

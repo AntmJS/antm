@@ -25,19 +25,21 @@ Initialize a configuration file named `antm.config.js`:
 import { defineConfig } from '@antmjs/types'
 
 export default defineConfig({
-  title: 'antm.js Doc',
-  src: join(process.cwd(), './docs'),
-  menu: [
-    {
-      name: 'Getting Started',
-      items: [
-        {
-          title: 'Introduction',
-          url: 'introduce',
-        },
-      ],
-    },
-  ],
+  doc: {
+    title: 'antm.js Doc',
+    src: join(process.cwd(), './docs'),
+    menu: [
+      {
+        name: 'Getting Started',
+        items: [
+          {
+            title: 'Introduction',
+            url: 'introduce',
+          },
+        ],
+      },
+    ],
+  },
 })
 ```
 
