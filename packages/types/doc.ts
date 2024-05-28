@@ -59,6 +59,15 @@ export type IDemoCode = {
   // 案例所在文件夹
   dir?: string
 }
+/** 广告插入功能项 */
+export type IAdvertisement = {
+  title?: string
+  img?: string
+  imgStyle?: React.CSSProperties
+  content?: string
+  style?: React.CSSProperties
+  termType?: 'week' | 'day' | 'month'
+}
 
 /** 全局样式注入 */
 type IDocGlobalStyles = string[]
@@ -79,4 +88,5 @@ export type IDocsConfig = {
   markdownPlugins?: IDocMarkdownPlugins
   i18n?: Ii18n
   demoCode?: IDemoCode
+  advertisement?: IAdvertisement
 }

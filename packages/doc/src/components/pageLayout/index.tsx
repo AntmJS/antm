@@ -17,6 +17,7 @@ import { usePersistFn } from '../../hooks'
 import Header from '../header'
 import Menu from '../menu'
 import { Example } from '../example'
+import Advertisement from '../advertisement'
 
 const pkgName = formatPkgName(pkg.name)
 
@@ -126,6 +127,9 @@ export default function PageLayout() {
                   <Example simulator={docsConfig?.simulator} url={currentUrl} />
                 </>
               )}
+              <Advertisement
+                advertisement={docsConfig?.advertisement}
+              ></Advertisement>
             </div>
           </div>
         </UrlConext.Provider>

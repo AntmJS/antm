@@ -1,0 +1,94 @@
+@import url('../../var.less');
+
+.antm-docs-advertisement-wrapper {
+  @keyframes advertisement-show {
+    0% {
+      transform: translateY(calc(100% - 20px));
+    }
+
+    100% {
+      transform: translateY(0%);
+    }
+  }
+
+  @keyframes advertisement-hidden {
+    0% {
+      transform: translateY(0%);
+    }
+
+    100% {
+      transform: translateY(calc(100% - 20px));
+    }
+  }
+
+  .ad-box {
+    position: fixed;
+    right: 6px;
+    bottom: 2px;
+    width: 260px;
+    min-height: 150px;
+    background-color: @primary-color;
+    box-shadow: 0 8px 12px #dfe3ea;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    overflow: hidden;
+    z-index: 99999;
+    transform: translateY(calc(100% - 20px));
+
+    .icon {
+      cursor: pointer;
+    }
+
+    .ad-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 14px;
+      font-weight: 500;
+      font-size: 13px;
+      color: #ffffff;
+    }
+
+    .ad-img-box {
+      width: 100%;
+      padding: 4px 14px 0;
+    }
+
+    .ad-img {
+      display: block;
+      width: 100%;
+    }
+
+    .ad-content {
+      padding: 14px;
+      color: #ffffff;
+      font-size: 12px;
+    }
+  }
+
+  .ad-box-show {
+    animation-name: advertisement-show;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+  }
+
+  .ad-box-hidden {
+    animation-name: advertisement-hidden;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    width: 30px;
+
+    .ad-title {
+      padding: 2px 8px;
+    }
+  }
+
+  .ad-box-none {
+    overflow: hidden;
+    width: 30px;
+
+    .ad-title {
+      padding: 2px 8px;
+    }
+  }
+}

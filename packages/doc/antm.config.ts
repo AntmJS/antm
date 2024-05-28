@@ -57,5 +57,11 @@ export default defineConfig({
       dir: 'example',
     },
     menu: menu,
+    advertisement: {
+      title: '募捐',
+      content: '感谢大家支持～',
+      img: 'https://raw.githubusercontent.com/AntmJS/vantui/main/resource/abcd.png',
+      termType: 'week',
+    },
   },
 })

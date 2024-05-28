@@ -81,6 +81,13 @@ export const menu: IDocMenuNavs = [
     items: [
       {
         title: {
+          CN: '广告投放',
+          EN: 'Advertising placement',
+        },
+        path: 'advertisement',
+      },
+      {
+        title: {
           CN: 'markdown语法扩展',
           EN: 'markdown expand',
         },
