@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/trace",
-  "version": "2.3.27",
+  "version": "2.3.28",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "main:h5": "dist/h5.js",
@@ -38,7 +38,7 @@
     "test": ""
   },
   "dependencies": {
-    "@antmjs/utils": "2.3.27",
+    "@antmjs/utils": "2.3.28",
     "history": "^5.0.0",
     "mobile-detect": "^1.4.5"
   }
