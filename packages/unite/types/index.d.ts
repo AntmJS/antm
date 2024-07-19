@@ -158,7 +158,11 @@ declare function Unite<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
 >(
   config: Unite.Option<TState, TAll, TProps>,
-  render: (data: Unite.Response<TState, TAll>, props: TProps) => JSX.Element,
+  render: (
+    data: Unite.Response<TState, TAll>,
+    props: TProps,
+    ref: React.ForwardedRef<any>,
+  ) => JSX.Element,
   options?: {
     page?: boolean
     cancelInterception?: Partial<{

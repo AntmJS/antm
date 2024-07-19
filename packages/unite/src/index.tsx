@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { forwardRef, useEffect, useRef, useState } from 'react'
 import { useDidHide, useDidShow, useReady, useRouter } from '@tarojs/taro'
 import { UniteContext } from './context'
 
@@ -309,13 +309,13 @@ function useContainer(config: any, props: any, options: any) {
 }
 
 function HackComponent(props: any) {
-  return props.render(props.data, props.prevProps)
+  return props.render(props.data, props.prevProps, props.prevRef)
 }
 
 // 使用此框架后不支持React Refresh，useRef useState的初始值都是外边传递进去的，useState({}) => 生效 | const st = {} useState(st) => 不生效
 export function Unite(config: any, render: any, options: any = {}) {
   // 返回函数式组件
-  return function Index(props: any) {
+  return forwardRef(function Index(props: any, ref: any) {
     const { renderData, onRefresh } = useContainer(config, props, options)
 
     // 执行业务侧函数式组件
@@ -330,11 +330,16 @@ export function Unite(config: any, render: any, options: any = {}) {
             onRefresh: onRefresh,
           }}
         >
-          <HackComponent data={renderData} render={render} prevProps={props} />
+          <HackComponent
+            data={renderData}
+            render={render}
+            prevProps={props}
+            prevRef={ref}
+          />
         </UniteContext.Provider>
       </>
     )
-  }
+  })
 }
 
 function registerCatch(
