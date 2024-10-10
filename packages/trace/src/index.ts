@@ -57,6 +57,7 @@ minins?.onError?.((res: any) => {
   if (process.env.NODE_ENV === 'development') {
     console.error(res)
   }
+  globalConfig.onGlobalError?.(res)
   pushMonitorData(EMlf.js, {
     d1:
       toString.call(res) === '[object Error]'
@@ -68,6 +69,7 @@ minins?.onUnhandledRejection?.((res: any) => {
   if (process.env.NODE_ENV === 'development') {
     console.error(res)
   }
+  globalConfig.onGlobalError?.(res)
   pushMonitorData(EMlf.promise, {
     d1:
       toString.call(res) === '[object Error]'

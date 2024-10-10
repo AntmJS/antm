@@ -159,6 +159,13 @@ declare namespace Trace {
     monitor: TMonitor | TMonitor[]
   }
 
+  type IErrorInfo = {
+    message: string | Event
+    source: string | undefined
+    lineno: number | undefined
+    colno: number | undefined
+  }
+
   interface InitOption {
     appId: string
     appType: EAppType
@@ -172,6 +179,7 @@ declare namespace Trace {
     getUserId: () => Promise<string>
     getGenderId: () => Promise<TGender>
     getLocation: () => Promise<ILocation>
+    onGlobalError?: (err?: Error | ErrorEvent, errorInfo?: IErrorInfo) => void
   }
   interface IOptions {
     interval: number

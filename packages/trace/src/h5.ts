@@ -39,6 +39,12 @@ window.onerror = function (
       error /** 错误对象 */,
     )
   }
+  globalConfig.onGlobalError?.(error, {
+    message,
+    source,
+    lineno,
+    colno,
+  })
   pushMonitorData(EMlf.js, {
     d1:
       toString.call(error) === '[object Error]'
@@ -56,6 +62,7 @@ window.addEventListener(
     if (process.env.NODE_ENV === 'development') {
       console.error(res)
     }
+    globalConfig.onGlobalError?.(res)
     pushMonitorData(EMlf.js, {
       d1:
         toString.call(res.error) === '[object Error]'
