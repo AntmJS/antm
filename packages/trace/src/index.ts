@@ -54,6 +54,7 @@ const minins =
     : undefined
 
 minins?.onError?.((res: any) => {
+  if (res?.reason) res = res.reason
   if (process.env.NODE_ENV === 'development') {
     console.error(res)
   }
@@ -66,6 +67,7 @@ minins?.onError?.((res: any) => {
   })
 })
 minins?.onUnhandledRejection?.((res: any) => {
+  if (res?.reason) res = res.reason
   if (process.env.NODE_ENV === 'development') {
     console.error(res)
   }
