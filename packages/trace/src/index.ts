@@ -67,7 +67,7 @@ minins?.onError?.((res: any) => {
   })
 })
 minins?.onUnhandledRejection?.((res: any) => {
-  if (res?.reason) res = res.reason
+  if (res?.reason) res = res.reason?.stack || res.reason
   if (process.env.NODE_ENV === 'development') {
     console.error(res)
   }
