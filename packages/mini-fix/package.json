@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/mini-fix",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "typings": "types/index.d.ts",
