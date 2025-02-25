@@ -1,6 +1,6 @@
 {
   "name": "@antmjs/warning",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "指定文件，在git commit提交的时候，将文件更改内容通知到微信、钉钉、飞书等聊天群或者发送到指定的邮箱",
   "main": "src/index.js",
   "bin": {

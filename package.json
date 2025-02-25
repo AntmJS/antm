@@ -114,7 +114,6 @@
     "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^12.1.4",
     "all-contributors-cli": "^6.20.0",
-    "antmjs-doc": "^0.0.1",
     "commitizen": "^4.2.4",
     "concurrently": "^7.3.0",
     "conventional-changelog-cli": "^2.1.1",
