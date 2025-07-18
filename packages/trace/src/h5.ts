@@ -308,6 +308,7 @@ function pushMonitorData(life: EMlf, query: Partial<Trace.IMonitorLog>) {
     d3: '',
     d4: '',
     d5: '',
+    extra: JSON.stringify(globalOptions.insertExtraData?.() || {}),
   }
   const data = Object.assign({}, trackData, monitor, query)
   cache.monitorQueueList.push(data)

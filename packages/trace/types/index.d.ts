@@ -144,6 +144,7 @@ declare namespace Trace {
     d3: string
     d4: string
     d5: string
+    extra?: string // 自定义额外携带的信息
   }
 
   type TLog = ISystemLog &
@@ -183,6 +184,7 @@ declare namespace Trace {
   }
   interface IOptions {
     interval: number
+    insertExtraData?: () => TAnyObject
   }
 
   interface IMethods {
