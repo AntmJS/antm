@@ -2,8 +2,9 @@ import path from 'path'
 import fs from 'fs'
 import log from '../log'
 
+// 如果设置为 const 与下面的 eval 赋值会报错
 // ts-ignore
-const evalTemp = {
+let evalTemp = {
   semi: false,
   singleQuote: true,
   trailingComma: 'all',

@@ -150,7 +150,9 @@ export async function transform(
 
     const baseKey = formatBaseTypeKey(key)
 
-    baseTypes += `${comments}export type ${baseKey} = ${parseResult.codes}`
+    // 如何遇到特殊情况，没有comments 信息 或没有分割符时， 
+    // 会将语句连接在一起，导致 xxxxexprt type 的语句情况
+    baseTypes += `${comments}\r\nexport type ${baseKey} = ${parseResult.codes}`
   }
   await fs.writeFileSync(BaseTypesUrl, formatTs(baseTypes))
 
